@@ -1,0 +1,52 @@
+.navbars{
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.navbar-logos{
+    justify-content: start;
+    margin-left: 20px;
+    width: 200px;
+    cursor: pointer;
+}
+
+.nav-menus{
+    display: flex;
+    list-style: none;
+    text-align: center;
+    width: 70vw;
+    justify-content: center;
+    margin-right: 2rem;
+}
+
+.nav-linkss{
+    color: #202020;
+    text-decoration: none;
+    padding: .5rem 1rem;
+}
+.nav-linkss:hover{
+    background-color: #D5F0DB;
+    border-radius: 4px;
+    transition: all .2s ease-out;
+}
+
+.nav-icons{
+    display: flex;
+    list-style: none;
+    text-align: center;
+    width: 30vw;
+    justify-content:center;
+    margin-right: 2rem;
+}
+
+.nav-user{
+    display: flex;
+    list-style: none;
+    text-align: center;
+    width: 20vw;
+    justify-content:end;
+    margin-right: 2rem;
+}
