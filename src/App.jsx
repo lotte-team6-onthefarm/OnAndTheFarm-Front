@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import MainPage from './pages/main/MainPage';
 import Test from './pages/main/Test';
-import Main from './components/main/Main';
 import SellerLoginPage from './pages/seller/account/login/sellerLoginPage';
 import IndexPage from './pages/seller/indexPage';
 import SellerMainPage from './pages/seller/main/sellerMainPage';
@@ -12,7 +11,6 @@ function App() {
       <Routes>
         <Route exact path="/" element={<MainPage />} />
         <Route exact path="/test" element={<Test />} />
-        <Route path="/" element={<Main />} />
         <Route exact path="/seller" element={<IndexPage />} />
         <Route
           exact
