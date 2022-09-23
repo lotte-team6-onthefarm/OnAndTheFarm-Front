@@ -47,6 +47,6 @@
     list-style: none;
     text-align: center;
     width: 20vw;
-    justify-content:end;
+    justify-content:flex-end;
     margin-right: 2rem;
 }

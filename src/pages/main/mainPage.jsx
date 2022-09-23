@@ -19,7 +19,7 @@ export default function MainPage() {
       {MenuItems.map((item, index)=>{
           return (
                   <li key={index}>
-                      <a className={item.cName} hre={item.url}>
+                      <a className={item.cName} href={item.url}>
                           {item.title}
                       </a>
                   </li>
