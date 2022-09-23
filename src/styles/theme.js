@@ -12,8 +12,19 @@ const flex = {
   laptopM: `(max-width: ${size.laptopM})`,
   desktop: `(min-width: ${size.desktop})`,
 };
+
+const colors = {
+  green: '#40AA54',
+  lightGreen: '#D5F0DB',
+  gray: '#F2F2F2',
+  blue: '#3288E5',
+  red: '#FF0000',
+  white: '#FFFFFF',
+};
+
 const theme = {
   ...flex,
+  colors,
 };
 
 export default theme;
