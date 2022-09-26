@@ -7,10 +7,10 @@ import {
 } from '../../../components/seller/common/Box.style';
 import SellerNavbar from '../../../components/seller/common/Navbar/SellerNavbar';
 import { SellerTitle } from '../../../components/seller/common/Title.style';
-import ProductsDailyViews from '../../../components/seller/products/dailyViews/ProductsDailyViews';
-import ProductsActive from '../../../components/seller/products/productsActive/ProductsActive';
+// import ProductsDailyViews from '../../../components/seller/products/dailyViews/ProductsDailyViews';
+// import ProductsActive from '../../../components/seller/products/productsActive/ProductsActive';
 import ProductsStatistics from '../../../components/seller/products/productsStatistics/ProductsStatistics';
-import ProductsSalesStatistics from '../../../components/seller/products/salesStatistics/ProductsSalesStatistics';
+// import ProductsSalesStatistics from '../../../components/seller/products/salesStatistics/ProductsSalesStatistics';
 
 export default function SellerProductsPage() {
   return (
@@ -18,7 +18,7 @@ export default function SellerProductsPage() {
       <SellerNavbar />
       <RightWrapper>
         <SellerTitle>Products</SellerTitle>
-        <PageRow>
+        {/* <PageRow>
           <PageCol width="100%">
             <ProductsSalesStatistics />
           </PageCol>
@@ -30,7 +30,7 @@ export default function SellerProductsPage() {
           <PageCol width="400px">
             <ProductsDailyViews />
           </PageCol>
-        </PageRow>
+        </PageRow> */}
         <PageRow>
           <PageCol width="100%">
             <ProductsStatistics />

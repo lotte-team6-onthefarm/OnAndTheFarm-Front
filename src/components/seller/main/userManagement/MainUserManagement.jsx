@@ -6,6 +6,7 @@ import { BiUser } from 'react-icons/bi';
 import { VscGraphLine } from 'react-icons/vsc';
 import { IconBox, IconTitleBox, IconWrapper } from '../../common/Icon.style';
 import { UpDownBox } from '../../common/sellerCommon.style';
+import { toLocaleString } from '../../../../utils/commonFunction';
 
 export default function MainUserManagement() {
   const data = {
@@ -40,7 +41,7 @@ export default function MainUserManagement() {
             </IconWrapper>
             <UpDownBox>↑ {data.earnPercent}%</UpDownBox>
           </div>
-          <GrayInnerWrapper>{data.earn}원</GrayInnerWrapper>
+          <GrayInnerWrapper>{toLocaleString(data.earn)}원</GrayInnerWrapper>
         </WhiteWrapper>
       </GrayWrapper>
     </WhiteWrapper>

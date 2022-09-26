@@ -1,4 +1,5 @@
 import React from 'react';
+import { toLocaleString } from '../../../../utils/commonFunction';
 import { WhiteWrapper } from '../../common/Box.style';
 import SubTitle from '../../common/SubTitle';
 
@@ -48,7 +49,7 @@ export default function MainPopularProducts() {
                   />
                   {product.title}
                 </td>
-                <td>{product.sales}</td>
+                <td>{toLocaleString(product.sales)}</td>
               </tr>
             );
           })}
