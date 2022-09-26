@@ -9,6 +9,7 @@ import {
   SellerStatistics,
   SellerUsers,
 } from './pages/seller';
+import MainIndexLayout from './pages/main/mainIndexLayout';
 import SellerLoginPage from './pages/seller/account/login/sellerLoginPage';
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
           path="/seller/promotion"
           element={<SellerPromotion />}
         ></Route>
+        <Route exact path="/*" element={<MainIndexLayout />} />
+        <Route exact path="/seller" element={<IndexPage />} />
         <Route
           exact
           path="/seller/delivery"
