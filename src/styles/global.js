@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a{
-    text-decoration-line: none;
+    text-decoration: none;
   }
 `;
 

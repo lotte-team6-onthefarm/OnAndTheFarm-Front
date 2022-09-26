@@ -1,9 +1,10 @@
 import React from 'react';
 import { MenuItems } from './MenuItems';
 import { MenuIcons } from './MenuIcons';
-import './Test.css';
+import './MainNavbar.css';
+import { Link } from 'react-router-dom';
 
-export default function Test() {
+export default function MainNavbar(props) {
 //   const [clicked, setClicked] = useState(false);
   //false = bars, true = times
 //   const handleClick = () => {
@@ -19,11 +20,13 @@ export default function Test() {
       <ul className={'nav-menus'}>
         {MenuItems.map((item, index) => {
           return (
-            <li key={index}>
-              <a className={item.cName} href={item.url}>
+            <Link key={index} to={item.url}>
+            <li>
+              <p className={item.cName}>
                 {item.title}
-              </a>
+              </p>
             </li>
+            </Link>
           );
         })}
       </ul>
@@ -31,14 +34,14 @@ export default function Test() {
         {MenuIcons.map((item, index) => {
           return (
             <li key={index}>
-              <a className={item.cName} href={item.url}>
+              <p className={item.cName}>
                 {item.title}
-              </a>
+              </p>
             </li>
           );
         })}
       </ul>
-      <div className='nav-user'><a>안녕하세요 진영님</a></div>
+      <div className='nav-user'><p>안녕하세요 진영님</p></div>
     </nav>
   );
 }

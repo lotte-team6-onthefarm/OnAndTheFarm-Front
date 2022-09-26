@@ -6,7 +6,7 @@ export const MenuItems = [
     },
     {
         title: '과일',
-        url: '#',
+        url: '/login',
         cName: 'nav-linkss'
     },
     {
