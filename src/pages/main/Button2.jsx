@@ -1,5 +1,5 @@
 import React from 'react';
-import './Button.css'
+import './Button2.css'
 
 const STYLES = [
     'btn--primary',
@@ -11,7 +11,7 @@ const SIZES = [
     'btn--large'
 ]
 
-const Button = ({
+const Button2 = ({
     children,
     type,
     onClick,
@@ -29,4 +29,4 @@ const Button = ({
     )
 
 }
-export default Button
+export default Button2
