@@ -22,9 +22,17 @@ const colors = {
   white: '#FFFFFF',
 };
 
+const subTitleColors = {
+  orange: '#FFBC99',
+  blue: '#B1E5FC',
+  purple: '#CABDFF',
+  green: '#B5E4CA',
+};
+
 const theme = {
   ...flex,
   colors,
+  subTitleColors,
 };
 
 export default theme;

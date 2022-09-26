@@ -9,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     box-sizing: border-box;
   }
+
+  a{
+    text-decoration-line: none;
+  }
 `;
 
 export default GlobalStyle;
