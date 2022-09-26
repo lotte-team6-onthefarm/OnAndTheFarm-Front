@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import NotFound from '../../components/common/\bPageNotFound';
+import NotFound from '../../components/common/PageNotFound';
 import MainNavbar from '../../components/main/MainNavbar';
 import MainSignupPage from './account/mainSignupPage';
 import MainLoginPage from './mainLoginPage';
