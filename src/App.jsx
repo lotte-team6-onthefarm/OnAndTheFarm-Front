@@ -1,14 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import {
-  SellerDelivery,
-  SellerMain,
-  SellerProducts,
-  SellerPromotion,
-  SellerStatistics,
-  SellerUsers,
-} from './pages/seller';
 import MainIndexLayout from './pages/main/mainIndexLayout';
-import SellerLoginPage from './pages/seller/account/login/sellerLoginPage';
+import SellerIndexLayout from './pages/seller/sellerIndexLayout';
 
 function App() {
   return (
@@ -28,17 +20,8 @@ function App() {
           element={<SellerPromotion />}
         ></Route>
         <Route exact path="/*" element={<MainIndexLayout />} />
-        <Route
-          exact
-          path="/seller/delivery"
-          element={<SellerDelivery />}
-        ></Route>
-        <Route
-          exact
-          path="/seller/statistics"
-          element={<SellerStatistics />}
-        ></Route>
-        <Route exact path="/seller/users" element={<SellerUsers />}></Route>
+        {/* seller Router */}
+        <Route exact path="/seller/*" element={<SellerIndexLayout />} />
       </Routes>
     </div>
   );

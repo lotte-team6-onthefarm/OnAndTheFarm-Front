@@ -1,11 +1,9 @@
 import React from 'react';
 import {
-  MainWrapper,
   PageCol,
   PageRow,
   RightWrapper,
 } from '../../../components/seller/common/Box.style';
-import SellerNavbar from '../../../components/seller/common/Navbar/SellerNavbar';
 import { SellerTitle } from '../../../components/seller/common/Title.style';
 // import ProductsDailyViews from '../../../components/seller/products/dailyViews/ProductsDailyViews';
 // import ProductsActive from '../../../components/seller/products/productsActive/ProductsActive';
@@ -14,11 +12,9 @@ import ProductsStatistics from '../../../components/seller/products/productsStat
 
 export default function SellerProductsPage() {
   return (
-    <MainWrapper>
-      <SellerNavbar />
-      <RightWrapper>
-        <SellerTitle>Products</SellerTitle>
-        {/* <PageRow>
+    <RightWrapper>
+      <SellerTitle>Products</SellerTitle>
+      {/* <PageRow>
           <PageCol width="100%">
             <ProductsSalesStatistics />
           </PageCol>
@@ -31,12 +27,11 @@ export default function SellerProductsPage() {
             <ProductsDailyViews />
           </PageCol>
         </PageRow> */}
-        <PageRow>
-          <PageCol width="100%">
-            <ProductsStatistics />
-          </PageCol>
-        </PageRow>
-      </RightWrapper>
-    </MainWrapper>
+      <PageRow>
+        <PageCol width="100%">
+          <ProductsStatistics />
+        </PageCol>
+      </PageRow>
+    </RightWrapper>
   );
 }
