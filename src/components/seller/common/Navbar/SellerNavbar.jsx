@@ -26,7 +26,7 @@ export default function SellerNavbar() {
       title: '프로모션',
       url: '/seller/promotion',
     },
-    { icons: <BiUserPin />, title: '내 정보 관리', url: '/seller/mypage' },
+    { icons: <BiUserPin />, title: '내 정보 관리', url: '/sellermypage' },
   ];
   const [selectMenu, setSelectMenu] = useRecoilState(sellerNavState);
   const handleMenu = num => {
