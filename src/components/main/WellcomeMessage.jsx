@@ -1,15 +1,12 @@
 import React from 'react';
-import './WellcomeMessage.css';
+import onandthefarmlogo from '../../assets/logo.png';
+import { WellcomeBox, LogoImg } from './WellcomeMessage.style';
 
 export default function WellcomeMessage(props) {
   return (
-    <div className='wellcome-box'>
-      <img
-        className="wellcome-logo"
-        src="images/onandthefarmlogo.png"
-        alt="onandthefarmlogo"
-      />
+    <WellcomeBox>
+      <LogoImg src={onandthefarmlogo} alt="onandthefarmlogo"></LogoImg>
       <p>{props.message}</p>
-    </div>
+    </WellcomeBox>
   );
 }
