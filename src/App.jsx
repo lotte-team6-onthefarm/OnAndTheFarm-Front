@@ -14,7 +14,6 @@ function App() {
   return (
     <div className="App">
       <Routes>
-
         {/* 셀러 Router */}
         <Route exact path="/seller" element={<SellerMain />}></Route>
         <Route exact path="/seller/login" element={<SellerLoginPage />}></Route>

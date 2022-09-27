@@ -1,22 +1,18 @@
 export const MenuItems = [
     {
         title: '메인페이지',
-        url: '/',
-        cName: 'nav-linkss'
+        url: '/'
     },
     {
-        title: '과일',
-        url: '/login',
-        cName: 'nav-linkss'
+        title: '상품전제보기',
+        url: '/products'
     },
     {
         title: '농장일기',
-        url: '#',
-        cName: 'nav-linkss'
+        url: '/posts'
     },
     {
-        title: '오늘의딜',
-        url: '#',
-        cName: 'nav-linkss'
+        title: '공동구매',
+        url: '/groupbuy'
     }
 ]

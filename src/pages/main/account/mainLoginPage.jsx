@@ -1,8 +1,8 @@
 import { React, useState } from 'react';
-import WellcomeMessage from '../../components/main/WellcomeMessage';
-import Input from '../../components/common/Input';
+import WellcomeMessage from '../../../components/main/WellcomeMessage';
+import Input from '../../../components/common/Input';
 import { StyledBoxDiv, StyledRowDiv, StyledFind } from './mainLoginPage.style';
-import { Button } from '../../components/common/Button';
+import { Button } from '../../../components/common/Button';
 
 export default function MainLoginPage() {
   const [useremail, setUseremail] = useState('');
@@ -28,7 +28,7 @@ export default function MainLoginPage() {
         type="password"
       />
       <StyledRowDiv position="end">
-        <StyledFind>아이디 찾기</StyledFind>
+        <StyledFind href="#">아이디찾기</StyledFind>
         <StyledFind href="#">비밀번호 찾기</StyledFind>
       </StyledRowDiv>
       <StyledRowDiv position="center" style={{display:"flex"}}>

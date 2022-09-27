@@ -15,6 +15,9 @@ const StyledRowDiv = styled.div`
 
 const StyledFind = styled.a`
   margin-right: 15px;
+  :visited {
+    text-decoration: none;
+  }
 `;
 
 export { StyledBoxDiv, StyledRowDiv, StyledFind };

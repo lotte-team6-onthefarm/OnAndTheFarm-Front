@@ -1,12 +1,12 @@
 export const MenuIcons = [
     {
         title: '찜목록',
-        url: '/',
+        url: '/like',
         cName: 'nav-linkss'
     },
     {
         title: '장바구니',
-        url: '#',
+        url: '/cart',
         cName: 'nav-linkss'
     }
 ]
