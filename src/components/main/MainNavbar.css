@@ -1,5 +1,6 @@
 .navbars{
-    width: 100%;
+    width: 85%;
+    margin: auto;
     height: 80px;
     display: flex;
     justify-content: center;
