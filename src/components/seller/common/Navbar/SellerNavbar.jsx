@@ -3,23 +3,26 @@ import { Head, Image, List } from './SellerNavbar.style';
 import {
   AiOutlineHome,
   AiOutlineShop,
-  AiOutlineUser,
   AiOutlinePercentage,
 } from 'react-icons/ai';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { BsGraphUp } from 'react-icons/bs';
 import { BiUserPin } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import onandthefarmlogo from '../../../../assets/logo.png';
 import { useRecoilState } from 'recoil';
 import { sellerNavState } from '../../../../recoil';
+import { useEffect } from 'react';
 
 export default function SellerNavbar() {
   const menus = [
     { icons: <AiOutlineHome />, title: '메인 페이지', url: '/seller' },
     { icons: <AiOutlineShop />, title: '상품 관리', url: '/seller/products' },
-    { icons: <AiOutlineUser />, title: '고객 관리', url: '/seller/users' },
-    { icons: <TbTruckDelivery />, title: '배송 관리', url: '/seller/delivery' },
+    {
+      icons: <TbTruckDelivery />,
+      title: '주문/배송 관리',
+      url: '/seller/delivery',
+    },
     { icons: <BsGraphUp />, title: '통계 수치', url: '/seller/statistics' },
     {
       icons: <AiOutlinePercentage />,
@@ -32,7 +35,12 @@ export default function SellerNavbar() {
   const handleMenu = num => {
     setSelectMenu(num);
   };
-  console.log(selectMenu);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // 종료 후 다시 들어왔을 때 저장된 menu 보여주기
+    navigate(menus[selectMenu].url);
+  }, []);
   return (
     <Head>
       <Link to="/seller">

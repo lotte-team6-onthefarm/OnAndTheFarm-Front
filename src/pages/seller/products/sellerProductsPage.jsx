@@ -5,28 +5,12 @@ import {
   RightWrapper,
 } from '../../../components/seller/common/Box.style';
 import { SellerTitle } from '../../../components/seller/common/Title.style';
-// import ProductsDailyViews from '../../../components/seller/products/dailyViews/ProductsDailyViews';
-// import ProductsActive from '../../../components/seller/products/productsActive/ProductsActive';
 import ProductsStatistics from '../../../components/seller/products/productsStatistics/ProductsStatistics';
-// import ProductsSalesStatistics from '../../../components/seller/products/salesStatistics/ProductsSalesStatistics';
 
 export default function SellerProductsPage() {
   return (
     <RightWrapper>
-      <SellerTitle>Products</SellerTitle>
-      {/* <PageRow>
-          <PageCol width="100%">
-            <ProductsSalesStatistics />
-          </PageCol>
-        </PageRow>
-        <PageRow>
-          <PageCol width="calc(100% - 400px)" paddingRight="8px">
-            <ProductsActive />
-          </PageCol>
-          <PageCol width="400px">
-            <ProductsDailyViews />
-          </PageCol>
-        </PageRow> */}
+      <SellerTitle>상품 관리</SellerTitle>
       <PageRow>
         <PageCol width="100%">
           <ProductsStatistics />
