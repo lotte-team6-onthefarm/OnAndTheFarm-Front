@@ -13,7 +13,7 @@ import MainUserManagement from '../../../components/seller/main/userManagement/M
 export default function SellerMainPage() {
   return (
     <RightWrapper>
-      <SellerTitle>Dashboard</SellerTitle>
+      <SellerTitle>메인 페이지</SellerTitle>
       <PageRow>
         <PageCol width="calc(100% - 400px)" paddingRight="8px">
           <MainUserManagement />

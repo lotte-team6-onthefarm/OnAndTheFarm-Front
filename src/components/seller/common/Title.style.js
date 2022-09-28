@@ -19,7 +19,7 @@ const SubTitleBox = styled.div`
   background-color: ${props => props.color};
 `;
 const SubTitleText = styled.div`
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   padding-left: 10px;
 `;

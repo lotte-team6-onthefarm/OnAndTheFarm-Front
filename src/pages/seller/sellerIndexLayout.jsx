@@ -6,7 +6,7 @@ import {
   SellerProducts,
   SellerPromotion,
   SellerStatistics,
-  SellerUsers,
+  SellerDeliveryDetailPage,
 } from '.';
 import { MainWrapper } from '../../components/seller/common/Box.style';
 import SellerNavbar from '../../components/seller/common/Navbar/SellerNavbar';
@@ -22,8 +22,8 @@ export default function SellerIndexLayout() {
         <Route path="/products" element={<SellerProducts />} />
         <Route path="/promotion" element={<SellerPromotion />} />
         <Route path="/delivery" element={<SellerDelivery />} />
+        <Route path="/delivery/:id" element={<SellerDeliveryDetailPage />} />
         <Route path="/statistics" element={<SellerStatistics />} />
-        <Route path="/users" element={<SellerUsers />} />
       </Routes>
     </MainWrapper>
   );
