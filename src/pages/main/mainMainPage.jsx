@@ -1,12 +1,14 @@
 import React from 'react';
-import { MainBannerDiv, MainContentDiv } from './mainMainPage.style';
-import { StyledInput } from '../../components/common/Input.style';
+import MainBanner from '../../components/main/main/MainBanner';
+import MainCarousel from '../../components/main/main/MainCarousel';
+import MainProductsPopular from '../../components/main/products/MainProductsPopular';
+import { MainContentDiv } from './mainMainPage.style';
 
 export default function MainMainPage() {
+  
   return <MainContentDiv>
-    <MainBannerDiv>
-      <p>sakdjta;dks;l</p>
-      <StyledInput id="{props.id}" value="" placeholder="원하시는 상품을 검색해주세요"></StyledInput>
-    </MainBannerDiv>
+    <MainBanner />
+    <MainCarousel />
+    <MainProductsPopular />
   </MainContentDiv>;
 }
