@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import MainIndexLayout from './pages/main/mainIndexLayout';
+import { SellerMain, SellerProducts, SellerPromotion } from './pages/seller';
+import SellerLoginPage from './pages/seller/account/login/sellerLoginPage';
 import SellerIndexLayout from './pages/seller/sellerIndexLayout';
 
 function App() {
