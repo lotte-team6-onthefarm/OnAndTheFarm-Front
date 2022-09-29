@@ -10,9 +10,9 @@ import MainMainPage from './mainMainPage';
 import MainProductList from './products/mainProductList';
 import MainPost from './posts/mainPost';
 import MainGroupBuy from './groupbuy/mainGroupBuy';
-import MainLike from './likes/mainLike';
 import MainCart from './carts/mainCart';
 import MainMypage from './mypage/mainMypage';
+import MainLikes from './likes/mainLikes';
 
 export default function MainIndexLayout() {
   return (
@@ -26,7 +26,7 @@ export default function MainIndexLayout() {
           <Route exact path="/products" element={<MainProductList/>} />
           <Route exact path="/posts" element={<MainPost />} />
           <Route exact path="/groupbuy" element={<MainGroupBuy />} />
-          <Route exact path="/like" element={<MainLike />} />
+          <Route exact path="/like" element={<MainLikes />} />
           <Route exact path="/cart" element={<MainCart />} />
           <Route exact path="/mypage" element={<MainMypage />} />
           <Route path="*" element={<NotFound />}></Route>
