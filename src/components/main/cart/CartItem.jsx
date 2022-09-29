@@ -30,7 +30,7 @@ export default function CartItemComp(props) {
           <p>{props.name}</p>
         </CartItemDetail>
         <CartItemNumber>
-          <Counter/>
+          <Counter value={props.number}/>
         </CartItemNumber>
         <CartItemPrice>
           <p>{props.price}</p>

@@ -5,7 +5,7 @@ export default function Counter(props) {
   return (
     <CounterDiv>
       <CounterButton>-</CounterButton>
-      <CounterNumber value="4" />
+      <CounterNumber value={props.value} />
       <CounterButton>+</CounterButton>
     </CounterDiv>
   );
