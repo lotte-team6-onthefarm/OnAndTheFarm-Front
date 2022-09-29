@@ -1,0 +1,88 @@
+import styled from 'styled-components';
+
+const CartContentDiv = styled.div`
+  width: 1130px;
+  padding: 20px 30px;
+  margin: 100px auto;
+  display: flex;
+`;
+
+const CartListDiv = styled.div`
+  width: 800px;
+  padding: 30px;
+  border-radius: 5px;
+  .subject {
+    color: #000;
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 5px 10px;
+  }
+`;
+
+const CartListHeader = styled.div`
+  width: 100%;
+  height: 40px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CartItems = styled.div`
+  width: 100%;
+`;
+
+const ProductCategoryDiv = styled.div`
+  width: 200px;
+  height: 100%;
+  margin-left: 20px;
+  padding: 20px 5px;
+  border: solid 1px lightgray;
+  border-radius: 5px;
+`;
+
+const CartPriceHeader = styled.h2`
+  padding: 20px;
+`;
+
+const CartPriceRow = styled.div`
+  padding: 0 20px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CartPriceTotal = styled.h3`
+  text-align: right;
+  padding: 20px;
+  span {
+    color: red;
+  }
+`;
+
+const ProductListDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const SearchInputWithIcon = styled.input`
+width: calc(100% - 15px);
+height: 40px;
+margin-top: 5px;
+padding-left: 15px;
+background-color: #f7f7f7;
+border: none;
+border-radius: 20px;
+`;
+
+export {
+  CartContentDiv,
+  CartListDiv,
+  CartListHeader,
+  CartItems,
+  ProductCategoryDiv,
+  CartPriceHeader,
+  CartPriceRow,
+  CartPriceTotal,
+  ProductListDiv,
+  SearchInputWithIcon,
+};

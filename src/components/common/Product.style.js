@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ProductDiv = styled.div`
-  width: 200px;
+  width: ${props => props.width?props.width:'200px'};
   height: 300px;
   margin: 0 15px 40px;
 `
@@ -20,6 +20,7 @@ const ProductImgIcons = styled.div`
     border: 2px solid lightgrey;
     border-radius: 100px;
     background-color: lightgrey;
+    cursor: pointer;
   }
   path{
     color: white;
