@@ -16,7 +16,6 @@ p{
   margin: 0 0 5px 10px;
 }
 div{
-  width: 40%;
   margin-right: 30px;
 }
 `;

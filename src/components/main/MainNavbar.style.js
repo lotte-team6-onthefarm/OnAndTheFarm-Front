@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Navbar = styled.nav`
   width: 85%;
-  margin: auto;
+  margin: 20px auto;
   height: 80px;
   display: flex;
   border-bottom: solid;

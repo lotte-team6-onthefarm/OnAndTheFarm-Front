@@ -1,7 +1,7 @@
 import React from 'react';
 import { MenuItems } from './MenuItems';
 import { MenuIcons } from './MenuIcons';
-import onandthefarmlogo from '../../assets/logo.png';
+import onandthefarmlogo from '../../assets/Logo.svg';
 import { Link } from 'react-router-dom';
 import {
   BlackLogoImg,
