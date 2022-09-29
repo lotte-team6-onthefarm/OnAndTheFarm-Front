@@ -77,8 +77,7 @@ const ProductStatusWrapper = styled.div`
       border-radius: 8px;
       :hover {
         cursor: pointer;
-        border: solid 1px black;
-        /* background-color: ${props => props.theme.colors.green}; */
+        border: solid 2px black;
       }
     }
   }
