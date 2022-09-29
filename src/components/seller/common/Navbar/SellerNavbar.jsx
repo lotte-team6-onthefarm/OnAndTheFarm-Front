@@ -1,13 +1,13 @@
 import React from 'react';
-import { Head, Image, List } from './SellerNavbar.style';
+import { Head, Image, List, PlusIcon } from './SellerNavbar.style';
 import {
   AiOutlineHome,
   AiOutlineShop,
   AiOutlinePercentage,
+  AiOutlinePlus,
 } from 'react-icons/ai';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { BsGraphUp } from 'react-icons/bs';
-import { BiUserPin } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 import onandthefarmlogo from '../../../../assets/logo.png';
 import { useRecoilState } from 'recoil';
@@ -29,7 +29,7 @@ export default function SellerNavbar() {
       title: '프로모션',
       url: '/seller/promotion',
     },
-    { icons: <BiUserPin />, title: '내 정보 관리', url: '/sellermypage' },
+    // { icons: <BiUserPin />, title: '내 정보 관리', url: '/sellermypage' },
   ];
   const [selectMenu, setSelectMenu] = useRecoilState(sellerNavState);
   const handleMenu = num => {
@@ -37,10 +37,16 @@ export default function SellerNavbar() {
   };
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // 종료 후 다시 들어왔을 때 저장된 menu 보여주기
-    navigate(menus[selectMenu].url);
-  }, []);
+  //useEffect
+  // useEffect(() => {
+  //   // 종료 후 다시 들어왔을 때 저장된 menu 보여주기
+  //   navigate(menus[selectMenu].url);
+  // }, []);
+
+  //function
+  const productUrl = () => {
+    navigate('/seller/products/add');
+  };
   return (
     <Head>
       <Link to="/seller">
@@ -62,6 +68,14 @@ export default function SellerNavbar() {
           </Link>
         );
       })}
+      {/* 상품등록 이동 버튼 */}
+      <PlusIcon
+        onClick={() => {
+          handleMenu(1);
+        }}
+      >
+        <AiOutlinePlus onClick={productUrl} />
+      </PlusIcon>
     </Head>
   );
 }
