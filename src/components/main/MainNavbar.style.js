@@ -5,6 +5,7 @@ const Navbar = styled.nav`
   margin: auto;
   height: 80px;
   display: flex;
+  border-bottom: solid;
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
