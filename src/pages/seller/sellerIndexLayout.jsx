@@ -19,7 +19,7 @@ export default function SellerIndexLayout() {
       <Routes>
         <Route path="/" element={<SellerMain />} />
         <Route path="/login" element={<SellerLoginPage />} />
-        <Route path="/products" element={<SellerProducts />} />
+        <Route path="/products/*" element={<SellerProducts />} />
         <Route path="/promotion" element={<SellerPromotion />} />
         <Route path="/delivery" element={<SellerDelivery />} />
         <Route path="/delivery/:id" element={<SellerDeliveryDetailPage />} />
