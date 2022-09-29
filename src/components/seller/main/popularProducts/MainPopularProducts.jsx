@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toLocaleString } from '../../../../utils/commonFunction';
 import { WhiteWrapper } from '../../common/Box.style';
+import { BlackBorderButton } from '../../common/sellerCommon.style';
 import SubTitle from '../../common/SubTitle';
+import { MainPopularProductsTable } from './MainPopularProducts.style';
 
 export default function MainPopularProducts() {
   const products = [
@@ -26,17 +29,20 @@ export default function MainPopularProducts() {
       img: '../../../../assets/products/거봉.png',
     },
   ];
+
+  // hook
+  const navigate = useNavigate();
+
+  //function
+  const productUrl = id => {
+    navigate(`/seller/products`);
+  };
   return (
-    <WhiteWrapper
-      width="100%"
-      height="500px"
-      marginBottom="10px"
-      padding="24px"
-    >
+    <WhiteWrapper width="100%" marginBottom="10px" padding="24px">
       <SubTitle color="#B5E4CA" title="인기 상품" />
-      <table>
+      <MainPopularProductsTable>
         <thead>
-          <tr style={{ textAlign: 'left' }}>
+          <tr>
             <th>상품</th>
             <th>수익</th>
           </tr>
@@ -45,26 +51,21 @@ export default function MainPopularProducts() {
           {products.map((product, idx) => {
             return (
               <tr key={{ idx }}>
-                <td
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    cursor: 'pointer',
-                  }}
-                >
+                <td>
                   <img
                     src={require('../../../../assets/products/거봉.png')}
                     alt=""
                     style={{ marginRight: '10px' }}
                   />
-                  {product.title}
+                  <div className="title">{product.title}</div>
                 </td>
                 <td>{toLocaleString(product.sales)}</td>
               </tr>
             );
           })}
         </tbody>
-      </table>
+      </MainPopularProductsTable>
+      <BlackBorderButton onClick={productUrl}>전체 상품</BlackBorderButton>
     </WhiteWrapper>
   );
 }

@@ -12,6 +12,8 @@ const IconBox = styled.div`
 `;
 
 const IconTitleBox = styled.div`
+  display: flex;
+  align-items: center;
   font-size: ${props => props.width};
 `;
 
