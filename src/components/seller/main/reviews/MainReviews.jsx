@@ -1,6 +1,7 @@
 import React from 'react';
 import { WhiteWrapper } from '../../common/Box.style';
 import ReviewStar from '../../common/reviewStar/ReviewStar';
+import { BlackBorderButton } from '../../common/sellerCommon.style';
 import SubTitle from '../../common/SubTitle';
 
 export default function MainReviews() {
@@ -17,9 +18,21 @@ export default function MainReviews() {
       reviewRate: '3',
       img: '../../../../assets/products/거봉.png',
     },
+    {
+      title: '국내산 프리미엄 거봉포도 900g',
+      review: '빠른배송 너무 좋아요! 거봉 맨날 먹고 싶어요!',
+      reviewRate: '1',
+      img: '../../../../assets/products/거봉.png',
+    },
+    {
+      title: '국내산 프리미엄 거봉포도 900g',
+      review: '빠른배송 너무 좋아요! 거봉 맨날 먹고 싶어요!',
+      reviewRate: '4',
+      img: '../../../../assets/products/거봉.png',
+    },
   ];
   return (
-    <WhiteWrapper width="100%" height="340px">
+    <WhiteWrapper width="100%">
       <SubTitle color="#B1E5FC" title="실시간 리뷰" />
       {products.map((product, idx) => {
         return (
@@ -54,6 +67,7 @@ export default function MainReviews() {
           </div>
         );
       })}
+      <BlackBorderButton>리뷰 전체</BlackBorderButton>
     </WhiteWrapper>
   );
 }

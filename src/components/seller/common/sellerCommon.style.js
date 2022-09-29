@@ -10,4 +10,25 @@ const UpDownBox = styled.div`
     props.state === '0' ? '#FFE7E4' : '#EAFAE5'}; // - 일때 0 + 일때 1
 `;
 
-export { UpDownBox };
+const BlackBorderButton = styled.button`
+  margin-top: 10px;
+  background: white;
+  border: none;
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  :hover {
+    background: none;
+    cursor: pointer;
+    border-radius: 8px;
+    border: solid 2px black;
+  }
+`;
+
+const UserImgWrapper = styled.img`
+  width: ${props => props.width};
+  border-radius: 50%;
+`;
+
+export { UpDownBox, BlackBorderButton, UserImgWrapper };

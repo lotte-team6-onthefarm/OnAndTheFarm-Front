@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toLocaleString } from '../../../../utils/commonFunction';
 import { WhiteWrapper } from '../../common/Box.style';
 import SubTitle from '../../common/SubTitle';
 import { SellerTitle } from '../../common/Title.style';
-import {
-  ProductStatisticsButton,
-  ProductStatisticsTable,
-  StatusTd,
-} from './ProductsStatistics.style';
+import { BsPencil } from 'react-icons/bs';
+import { ProductStatisticsTable, StatusTd } from './ProductsStatistics.style';
+import { AiTwotoneHeart, AiTwotoneStar } from 'react-icons/ai';
+import { IconBox, IconWrapper } from '../../common/Icon.style';
 
 export default function ProductsStatistics() {
   const datas = [
@@ -68,7 +67,7 @@ export default function ProductsStatistics() {
     },
     {
       title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
+      status: 2,
       price: '38500',
       star: '2.5',
       like: 633,
@@ -163,10 +162,9 @@ export default function ProductsStatistics() {
       <WhiteWrapper width="100%" marginBottom="10px">
         <SubTitle color="#FFBC99" title={title} />
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}></div>
           <ProductStatisticsTable>
             <thead>
-              <tr style={{ textAlign: 'left', fontSize: '20px' }}>
+              <tr style={{ fontSize: '13px' }}>
                 <th width="5%">NO.</th>
                 <th width="30%">상품명</th>
                 <th width="10%">상태</th>
@@ -174,27 +172,48 @@ export default function ProductsStatistics() {
                 <th width="10%">별점</th>
                 <th width="10%">좋아요수</th>
                 <th width="12.5%">조회수</th>
-                <th>수정</th>
               </tr>
             </thead>
             {datas.map((data, idx) => {
               return (
                 <tbody key={idx}>
-                  <tr style={{ textAlign: 'left' }}>
+                  <tr>
                     <td>{idx + 1}</td>
-                    <td style={{ cursor: 'pointer' }}>{data.title}</td>
-                    <StatusTd status={data.status}>
-                      {data.status === 1 ? '판매중' : '판매중지'}
-                    </StatusTd>
-                    <td>{toLocaleString(data.price)}원</td>
-                    <td>{data.star}</td>
-                    <td>{data.like}</td>
-                    <td>{data.view}회</td>
-                    <td>
-                      <ProductStatisticsButton onClick={() => updateUrl(idx)}>
-                        수정
-                      </ProductStatisticsButton>
+                    <td className="title">
+                      <img
+                        src={require('../../../../assets/products/복숭아.png')}
+                        alt=""
+                      />
+                      <div>{data.title}</div>
                     </td>
+                    <td>
+                      <StatusTd status={data.status}>
+                        {data.status === 1 ? '판매중' : '판매중지'}
+                      </StatusTd>
+                      <div className="updateBtn">
+                        <div onClick={() => updateUrl(idx)}>
+                          <BsPencil />
+                        </div>
+                      </div>
+                    </td>
+                    <td>{toLocaleString(data.price)}원</td>
+                    <td className="grayBack">
+                      <IconWrapper>
+                        <IconBox>
+                          <AiTwotoneStar style={{ color: '#eff21b' }} />
+                        </IconBox>
+                        {data.star}
+                      </IconWrapper>
+                    </td>
+                    <td>
+                      <IconWrapper>
+                        <IconBox>
+                          <AiTwotoneHeart style={{ color: '#f73f2a' }} />
+                        </IconBox>
+                        {data.like}
+                      </IconWrapper>
+                    </td>
+                    <td>{data.view}회</td>
                   </tr>
                 </tbody>
               );
