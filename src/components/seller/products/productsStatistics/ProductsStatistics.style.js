@@ -18,7 +18,7 @@ const ProductStatisticsButton = styled.button`
   padding: 5px;
   border-radius: 3px;
   color: ${props => props.theme.colors.white};
-  background-color: ${props => props.theme.colors.green};
+  background-color: ${props => props.theme.colors.thickGray};
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -26,7 +26,7 @@ const ProductStatisticsButton = styled.button`
 
 const StatusTd = styled.td`
   color: ${props => (props.status === 1 ? 'green' : 'red')};
-  font-weight: ${props => (props.status === 1 ? '550' : '100')};
+  font-weight: 550;
 `;
 
 export { ProductStatisticsTable, StatusTd, ProductStatisticsButton };

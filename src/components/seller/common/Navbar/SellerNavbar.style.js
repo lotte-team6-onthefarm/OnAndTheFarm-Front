@@ -44,4 +44,23 @@ const List = styled.div`
   }
 `;
 
-export { Image, Head, List };
+const PlusIcon = styled.div`
+  position: absolute;
+  top: 225px;
+  left: 242px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid #efefef;
+  border-radius: 50%;
+  color: #383838;
+  font-size: 20px;
+  :hover {
+    border: 2px solid #383838;
+  }
+`;
+
+export { Image, Head, List, PlusIcon };

@@ -20,9 +20,19 @@ export default function MainPopularProducts() {
       sales: '385500',
       img: '../../../../assets/products/거봉.png',
     },
+    {
+      title: '국내산 프리미엄 거봉포도 900g',
+      sales: '3855003',
+      img: '../../../../assets/products/거봉.png',
+    },
   ];
   return (
-    <WhiteWrapper width="100%" marginBottom="10px" padding="24px">
+    <WhiteWrapper
+      width="100%"
+      height="500px"
+      marginBottom="10px"
+      padding="24px"
+    >
       <SubTitle color="#B5E4CA" title="인기 상품" />
       <table>
         <thead>

@@ -19,7 +19,7 @@ export default function MainReviews() {
     },
   ];
   return (
-    <WhiteWrapper width="100%">
+    <WhiteWrapper width="100%" height="340px">
       <SubTitle color="#B1E5FC" title="실시간 리뷰" />
       {products.map((product, idx) => {
         return (

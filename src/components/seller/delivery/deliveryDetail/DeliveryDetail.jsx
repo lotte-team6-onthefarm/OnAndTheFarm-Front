@@ -34,18 +34,19 @@ export default function DeliveryDetail() {
   };
   return (
     <>
-      <WhiteWrapper width="1400px">
+      <WhiteWrapper width="100%">
         <SubTitle color="#FFBC99" title="주문 상세 보기" />
         <div
           style={{
             textAlign: 'right',
             marginRight: '50px',
             fontSize: '18px',
+            fontWeight: 'bold',
           }}
         >
-          {data.orderState === 'os1' && '배송처리'}
-          {data.orderState === 'os4' && '배송중'}
-          {data.orderState === 'os5' && '배송완료'}
+          {data.orderState === 'os1' && '배송 준비중'}
+          {data.orderState === 'os4' && '배송 중'}
+          {data.orderState === 'os5' && '배송 완료'}
         </div>
         <div
           style={{
@@ -98,7 +99,6 @@ export default function DeliveryDetail() {
           {/* 고객 정보 */}
           <div
             style={{
-              marginBottom: '20px',
               paddingLeft: '200px',
             }}
           >
