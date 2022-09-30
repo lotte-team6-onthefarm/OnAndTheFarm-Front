@@ -18,7 +18,11 @@ const Head = styled.div`
   background-color: white;
 `;
 
-const List = styled.div`
+const SubListWrapper = styled.div`
+  display: ${props => (props.productSub === false ? 'none' : 'block')};
+`;
+
+const ListWrapper = styled.div`
   font-size: 15px;
   cursor: pointer;
   display: flex;
@@ -26,7 +30,7 @@ const List = styled.div`
   padding-left: 10px;
   border-radius: 5px;
   align-items: center;
-  width: 250px;
+  width: 270px;
   height: 45px;
   font-weight: 550;
   color: ${props => (props.check === '1' ? 'black' : 'gray')};
@@ -42,12 +46,24 @@ const List = styled.div`
     align-items: center;
     margin-right: 20px;
   }
+  .right {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .icons {
+      font-size: 25px;
+      transition: all ease 0.2s;
+      transform: ${props =>
+        props.productSub === false ? '' : 'rotate(180deg)'};
+    }
+  }
 `;
 
 const PlusIcon = styled.div`
   position: absolute;
-  top: 225px;
-  left: 242px;
+  top: 224px;
+  left: 230px;
   width: 22px;
   height: 22px;
   display: flex;
@@ -57,10 +73,10 @@ const PlusIcon = styled.div`
   border: 2px solid #efefef;
   border-radius: 50%;
   color: #383838;
-  font-size: 20px;
+  font-size: 16px;
   :hover {
     border: 2px solid #383838;
   }
 `;
 
-export { Image, Head, List, PlusIcon };
+export { Image, Head, ListWrapper, SubListWrapper, PlusIcon };
