@@ -5,8 +5,6 @@ import { ProductContentWrapper } from '../ProductManagement.style';
 import ProductInput from '../ProductInput';
 
 export default function TitleDescription(props) {
-  const id = props.id;
-  console.log(id);
   return (
     <WhiteWrapper width="1380px" marginBottom="10px">
       <SubTitle color="#FFBC99" title="이름 및 설명" />

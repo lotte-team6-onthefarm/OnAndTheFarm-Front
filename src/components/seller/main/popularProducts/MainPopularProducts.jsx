@@ -1,7 +1,8 @@
 import React from 'react';
+import { AiTwotoneHeart } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { toLocaleString } from '../../../../utils/commonFunction';
 import { WhiteWrapper } from '../../common/Box.style';
+import { IconBox, IconWrapper } from '../../common/Icon.style';
 import { BlackBorderButton } from '../../common/sellerCommon.style';
 import SubTitle from '../../common/SubTitle';
 import { MainPopularProductsTable } from './MainPopularProducts.style';
@@ -10,22 +11,22 @@ export default function MainPopularProducts() {
   const products = [
     {
       title: '달콤 샤인 머스캣',
-      sales: '1249000',
+      sales: '1231',
       img: '../../../../assets/products/머스캣.png',
     },
     {
       title: '경북 청도 천도복숭아 2kg/1box',
-      sales: '480500',
+      sales: '321',
       img: '../../../../assets/products/복숭아.png',
     },
     {
       title: '국내산 프리미엄 거봉포도 900g',
-      sales: '385500',
+      sales: '212',
       img: '../../../../assets/products/거봉.png',
     },
     {
       title: '국내산 프리미엄 거봉포도 900g',
-      sales: '3855003',
+      sales: '24',
       img: '../../../../assets/products/거봉.png',
     },
   ];
@@ -34,8 +35,8 @@ export default function MainPopularProducts() {
   const navigate = useNavigate();
 
   //function
-  const productUrl = id => {
-    navigate(`/seller/products`);
+  const productUrl = () => {
+    navigate('/seller/products');
   };
   return (
     <WhiteWrapper width="100%" marginBottom="10px" padding="24px">
@@ -43,8 +44,8 @@ export default function MainPopularProducts() {
       <MainPopularProductsTable>
         <thead>
           <tr>
-            <th>상품</th>
-            <th>수익</th>
+            <th width="80%">상품</th>
+            <th width="20%">좋아요수</th>
           </tr>
         </thead>
         <tbody>
@@ -55,11 +56,17 @@ export default function MainPopularProducts() {
                   <img
                     src={require('../../../../assets/products/거봉.png')}
                     alt=""
-                    style={{ marginRight: '10px' }}
                   />
                   <div className="title">{product.title}</div>
                 </td>
-                <td>{toLocaleString(product.sales)}</td>
+                <td>
+                  <IconWrapper>
+                    <IconBox>
+                      <AiTwotoneHeart style={{ color: '#f73f2a' }} />
+                    </IconBox>
+                    {product.sales}
+                  </IconWrapper>
+                </td>
               </tr>
             );
           })}
