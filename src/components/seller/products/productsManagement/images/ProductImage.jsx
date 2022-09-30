@@ -9,9 +9,7 @@ export default function ProductImage(props) {
     fileInput.current.click();
   };
 
-  const handleChange = e => {
-    console.log(e.target.files[0]);
-  };
+  const handleChange = e => {};
   return (
     <ProductImageWrapper>
       <div className="title">{props.title}</div>

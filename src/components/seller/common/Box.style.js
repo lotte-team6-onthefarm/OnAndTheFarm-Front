@@ -11,11 +11,13 @@ const MainWrapper = styled.div`
 `;
 
 const RightWrapper = styled.div`
-  padding: 100px;
+  padding: 50px 100px;
   width: 100%;
 `;
 
 const PageRow = styled.div`
+  /* border: solid 1px red; */
+  max-width: 1200px;
   display: flex;
 `;
 

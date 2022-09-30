@@ -18,8 +18,6 @@ export default function CaetgoryList() {
   const categoryDataHandler = data => {
     setCategoryData(data);
   };
-  console.log(categoryList);
-  console.log(categoryData);
   return (
     <CategoryListWrapper>
       <LeftListBlock>

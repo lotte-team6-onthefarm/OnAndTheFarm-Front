@@ -1,4 +1,5 @@
 import React from 'react';
+import { uploadPost } from '../../../../../apis/seller/product';
 import { PageCol, PageRow } from '../../../common/Box.style';
 import { SellerTitle } from '../../../common/Title.style';
 import CategoryEtc from '../category&etc/CategoryEtc';
@@ -28,6 +29,13 @@ export default function AddProduct() {
           </PageRow>
         );
       })}
+      <button
+        onClick={() => {
+          uploadPost();
+        }}
+      >
+        상품등록
+      </button>
     </>
   );
 }

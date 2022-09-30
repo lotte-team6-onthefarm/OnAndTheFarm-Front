@@ -25,7 +25,6 @@ export default function MainUserManagement() {
   const menuHandler = select => {
     setMenu(select);
   };
-  console.log(menu);
   return (
     <WhiteWrapper width="100%" marginBottom="10px">
       <SubTitle color="#FFBC99" title="회원 관리" />

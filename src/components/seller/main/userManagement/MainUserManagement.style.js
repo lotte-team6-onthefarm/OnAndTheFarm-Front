@@ -18,8 +18,6 @@ const MainUserWhiteWrapper = styled.div`
 const MainUserWhiteBlock = styled.div`
   border-radius: 8px;
   padding: 24px;
-  width: '100%';
-  height: '100%';
 `;
 const GrayWrapper = styled.div`
   padding: 10px;
