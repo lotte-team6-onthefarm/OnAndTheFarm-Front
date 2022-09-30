@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'KoddiRegular';
+  src: url(./assets/font/KoddiUDOnGothic-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url(./assets/font/PretendardVariable.ttf);
+}
