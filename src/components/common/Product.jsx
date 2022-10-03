@@ -11,6 +11,7 @@ import {
   AiOutlineHeart,
   AiOutlineShoppingCart,
 } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 export default function Product(props) {
   const addCart = () => {
@@ -19,6 +20,15 @@ export default function Product(props) {
   const addLike = () => {
     alert('찜목록에 추가')
   };
+
+  // hook
+  const navigate = useNavigate();
+
+  //function
+  const updateUrl = id => {
+    navigate(`/products/detail/${id}`);
+  };
+
   return (
     <ProductDiv width={props.width}>
       <ProductImgDiv>
@@ -32,7 +42,7 @@ export default function Product(props) {
         </ProductImgIcons>
       </ProductImgDiv>
 
-      <ProductInfoDiv>
+      <ProductInfoDiv  onClick={() => updateUrl(props.id)}>
         <p>[햇살가득] 경북 가정용 햇 사과 3.5kg (20~24과)</p>
         <p>
           <span>34,900</span> 원
