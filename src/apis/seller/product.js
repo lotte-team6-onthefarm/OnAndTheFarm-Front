@@ -1,24 +1,16 @@
-import JWTapiFileSeller from '../index.js';
+import { JWTapiSeller } from '..';
 
-// 상품정보 수정
-const uploadPost = async () => {
-  console.log('helo');
-  const response = await JWTapiFileSeller.post('seller/product/new', {
-    productName: 'sibal',
-    productPrice: 1300000,
-    productCategory: 1,
-    productTotalStock: 100,
-    productMainImgSrc: '',
-    productDetail: ' sibal',
-    productOriginPlcae: 'sibal',
-    productDeliverCompany: 'HanJIn',
-    productStatus: 'soldout',
-    productDetailShort: 'sibaaaal',
-    productRegisterDate: '202202202',
-    productWishCount: '1242034',
-    sellerId: 1,
-  });
+// 상품등록
+const postSellerProduct = async data => {
+  const response = await JWTapiSeller.post('product/new', data);
   console.log(response);
   return response.data;
 };
-export { uploadPost };
+
+// 상품 수정
+const putSellerProduct = async data => {
+  const response = await JWTapiSeller.put('product/update', data);
+  return response.data;
+};
+
+export { postSellerProduct, putSellerProduct };
