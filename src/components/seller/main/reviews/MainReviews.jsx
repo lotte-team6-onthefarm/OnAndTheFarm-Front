@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { WhiteWrapper } from '../../common/Box.style';
 import ReviewStar from '../../common/reviewStar/ReviewStar';
 import { BlackBorderButton } from '../../common/sellerCommon.style';
@@ -31,6 +32,14 @@ export default function MainReviews() {
       img: '../../../../assets/products/거봉.png',
     },
   ];
+
+  // hook
+  const navigate = useNavigate();
+
+  //function
+  const reviewUrl = () => {
+    navigate('/seller/products/reviews');
+  };
   return (
     <WhiteWrapper width="100%">
       <SubTitle color="#B1E5FC" title="실시간 리뷰" />
@@ -67,7 +76,7 @@ export default function MainReviews() {
           </div>
         );
       })}
-      <BlackBorderButton>리뷰 전체</BlackBorderButton>
+      <BlackBorderButton onClick={reviewUrl}>리뷰 전체</BlackBorderButton>
     </WhiteWrapper>
   );
 }

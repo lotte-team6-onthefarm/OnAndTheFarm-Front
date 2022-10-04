@@ -9,7 +9,7 @@ import {
   SellerDeliveryDetailPage,
 } from '.';
 import { MainWrapper } from '../../components/seller/common/Box.style';
-import SellerNavbar from '../../components/seller/common/Navbar/SellerNavbar';
+import SellerNavbar from '../../components/seller/common/navbar/SellerNavbar';
 import SellerLoginPage from './account/login/sellerLoginPage';
 
 export default function SellerIndexLayout() {
