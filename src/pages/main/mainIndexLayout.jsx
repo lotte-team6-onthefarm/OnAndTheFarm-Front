@@ -28,7 +28,7 @@ export default function MainIndexLayout() {
           <Route exact path="/groupbuy" element={<MainGroupBuy />} />
           <Route exact path="/like" element={<MainLikes />} />
           <Route exact path="/cart" element={<MainCart />} />
-          <Route exact path="/mypage" element={<MainMypage />} />
+          <Route exact path="/mypage/*" element={<MainMypage />} />
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </StyledMainDiv>
