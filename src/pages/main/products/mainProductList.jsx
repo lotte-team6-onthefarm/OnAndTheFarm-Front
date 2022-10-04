@@ -18,8 +18,6 @@ import InputSearch from '../../../components/common/SearchInput';
 export default function MainProductList() {
   const [searchWord, setSearchWord] = useState('');
 
-
-
   const items = [
     {
       id: 1,
@@ -113,7 +111,7 @@ export default function MainProductList() {
     <CartContentDiv>
       <ProductCategoryDiv>
         <CartPriceHeader>
-          카테고리
+          <h2>카테고리</h2>
           <hr />
           <h5>과일</h5>
         </CartPriceHeader>
@@ -122,12 +120,14 @@ export default function MainProductList() {
         })}
       </ProductCategoryDiv>
       <CartListDiv>
-        <InputSearch id="search"
+        <InputSearch
+          id="search"
           value={searchWord}
           width="400px"
           onChange={e => setSearchWord(e.target.value)}
           placeholder="원하시는 상품을 검색해주세요"
-          type="text"></InputSearch>
+          type="text"
+        ></InputSearch>
         <p className="subject">과일</p>
         <CartListHeader>
           <div style={{ display: 'flex' }}></div>
@@ -146,7 +146,7 @@ export default function MainProductList() {
         <hr />
         <ProductListDiv>
           {items.map((item, index) => {
-            return <Product key={index} width="170px"></Product>;
+            return <Product key={index} id={item.id} width="170px"></Product>;
           })}
         </ProductListDiv>
       </CartListDiv>

@@ -40,7 +40,7 @@ const ProductCategoryDiv = styled.div`
   border-radius: 5px;
 `;
 
-const CartPriceHeader = styled.h2`
+const CartPriceHeader = styled.div`
   padding: 20px;
 `;
 
