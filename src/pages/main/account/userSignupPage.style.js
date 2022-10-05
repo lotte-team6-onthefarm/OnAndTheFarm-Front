@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const StyledBoxDiv = styled.div`
   width: 400px;
   margin: 10px auto;
+  padding: 50px 0;
   justify-content: center;
   text-align: center;
 `;

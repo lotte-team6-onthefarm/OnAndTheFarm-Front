@@ -6,32 +6,37 @@ import Input from '../../../components/common/Input';
 import { StyledBoxDiv, StyledRowDiv, StyledFind } from './userSignupPage.style';
 import { Button } from '../../../components/common/Button';
 import { useLocation } from 'react-router-dom';
+import ButtonGroup from '../../../components/common/ButtonGroup';
+import { nullCheck } from '../../../utils/validation';
 
 export default function UserSignupPage() {
-  const [userEmail, setUserEmail] = useState('');
+  const { state } = useLocation();
+
+  const [userEmail, setUserEmail] = useState(state);
   const [userName, setUserName] = useState('');
   const [userPhone, setUserPhone] = useState('');
   const [userPostCode, setUserPostCode] = useState('');
   const [userAddress, setUserAddress] = useState('');
   const [userDetailAddress, setUserDetailAddress] = useState('');
-  const [userGender, setUserGender] = useState('');
+  const [userGender, setUserGender] = useState(0);
   const [userBirthday, setUserBirthday] = useState('');
 
-  const { state } = useLocation();
   const test = () => {
+    
     let data = {
-      "userName":userName,
-      "userPhone":userPhone,
-      "userZipcode":userPostCode,
-      "userAddress":userAddress,
-      "userAddressDetail":userDetailAddress,
-      "userSex":0,
-      "userBirthday":userBirthday
-  };
-    console.log(data)
-    console.log(state);
-    console.log('Tesa');
-    signupUser(data);
+      userName: userName,
+      userPhone: userPhone,
+      userZipcode: userPostCode,
+      userAddress: userAddress,
+      userAddressDetail: userDetailAddress,
+      userSex: userGender,
+      userBirthday: userBirthday,
+    };
+    if(nullCheck(data)){
+      signupUser(data);
+    } else {
+      alert('빈 값이 있습니다.')
+    }
   };
 
   const { mutate: signupUser, isLoading: issignupUser } = useMutation(
@@ -45,6 +50,9 @@ export default function UserSignupPage() {
       },
     },
   );
+  const printButtonLabel = event => {
+    setUserGender(event);
+  };
   return (
     <StyledBoxDiv>
       <WellcomeMessage message="OnAndTheFarm 회원가입 페이지" />
@@ -56,6 +64,7 @@ export default function UserSignupPage() {
           placeholder="test@email.com"
           id="email"
           type="email"
+          disabled={true}
         />
       </StyledRowDiv>
       <Input
@@ -114,13 +123,9 @@ export default function UserSignupPage() {
         id="detailaddress"
         type="text"
       />
-      <Input
-        value={userGender}
-        onChange={e => setUserGender(e.target.value)}
-        label="성별"
-        placeholder="남/여"
-        id="gender"
-        type="text"
+      <ButtonGroup
+        buttons={['남자', '여자']}
+        doSomethingAfterClick={printButtonLabel}
       />
       <Input
         value={userBirthday}
@@ -128,7 +133,7 @@ export default function UserSignupPage() {
         label="생일"
         placeholder="2000-01-01"
         id="birthday"
-        type="text"
+        type="date"
       />
       <Button
         text="회원가입"

@@ -3,7 +3,7 @@ import axios from 'axios';
 const USER_BASE_URL = process.env.REACT_APP_USER_BASE_URL;
 
 const ACCESS_TOKEN =
-  'fqaU9SQpQ495n-tAuhj0QJAJcJniCqlHlc4ArkWqxtccwV0unmoG41vDh7Rl1ARGtuJmbAo9dNoAAAGDpplv5w';
+"eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjMsImlhdCI6MTY2NDk1MDUwMiwiZXhwIjoxNjY1MDM2OTAyfQ.IVnJxdou_wrJvW9eGv1wszmOBXyIY2KFWTWSnDyXdH0iYXmh6CvptazH_VmkrYxomcO8SNzTWn1582g9pB9IkA";
 const JWTapiUser = axios.create({
   baseURL: USER_BASE_URL,
   headers: {
