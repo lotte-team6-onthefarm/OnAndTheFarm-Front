@@ -5,7 +5,7 @@ import ProductInput from '../ProductInput';
 import ProductStatus from './ProductStatus';
 export default function PriceAmount() {
   return (
-    <WhiteWrapper width="1380px" marginBottom="10px">
+    <WhiteWrapper width="100%" marginBottom="10px">
       <SubTitle color="#B1E5FC" title="가격 및 수량" />
       <ProductInput
         title="상품 가격"

@@ -53,7 +53,9 @@ const getSellerEmailConfirm = async data => {
 
 // 셀러 메인페이지
 const getSellerMypage = async data => {
-  const response = await JWTapiSeller.get('/mypage', data);
+  const response = await JWTapiSeller.get(
+    `mypage?startDate=${data.startDate}&endDate=${data.endDate}`,
+  );
   console.log(response);
   return response.data;
 };

@@ -21,7 +21,7 @@ export default function MainUserManagement() {
     earn: '25000000',
     earnPercent: '25.5',
   };
-  const [menu, setMenu] = useState('0');
+  const [menu, setMenu] = useState('1');
   const menuHandler = select => {
     setMenu(select);
   };

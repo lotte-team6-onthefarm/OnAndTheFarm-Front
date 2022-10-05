@@ -45,6 +45,7 @@ export default function AddProduct() {
       },
     },
   );
+
   return (
     <>
       <SellerTitle>상품 등록</SellerTitle>

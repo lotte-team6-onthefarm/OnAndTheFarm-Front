@@ -4,13 +4,15 @@ import {
   SellerDelivery,
   SellerMain,
   SellerProducts,
+  SellerOrder,
   SellerPromotion,
   SellerStatistics,
-  SellerDeliveryDetailPage,
+  SellerDeliveryDetail,
 } from '.';
 import { MainWrapper } from '../../components/seller/common/Box.style';
 import SellerNavbar from '../../components/seller/common/navbar/SellerNavbar';
 import SellerLoginPage from './account/login/sellerLoginPage';
+import Test from './test';
 
 export default function SellerIndexLayout() {
   return (
@@ -21,9 +23,11 @@ export default function SellerIndexLayout() {
         <Route path="/login" element={<SellerLoginPage />} />
         <Route path="/products/*" element={<SellerProducts />} />
         <Route path="/promotion" element={<SellerPromotion />} />
+        <Route path="/order" element={<SellerOrder />} />
         <Route path="/delivery" element={<SellerDelivery />} />
-        <Route path="/delivery/:id" element={<SellerDeliveryDetailPage />} />
+        <Route path="/delivery/:id" element={<SellerDeliveryDetail />} />
         <Route path="/statistics" element={<SellerStatistics />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </MainWrapper>
   );

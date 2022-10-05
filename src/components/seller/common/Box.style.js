@@ -11,13 +11,14 @@ const MainWrapper = styled.div`
 `;
 
 const RightWrapper = styled.div`
-  padding: 50px 100px;
-  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px 0;
+  width: 1200px;
+  margin: 0 auto;
 `;
 
 const PageRow = styled.div`
-  /* border: solid 1px red; */
-  max-width: 1200px;
   display: flex;
 `;
 

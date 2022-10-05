@@ -19,7 +19,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import onandthefarmlogo from '../../../../assets/logo.png';
 import { useRecoilState } from 'recoil';
 import { sellerNavState } from '../../../../recoil';
-import { RiArrowDownSLine } from 'react-icons/ri';
+import { RiArrowDownSLine, RiBillLine } from 'react-icons/ri';
 import { useState } from 'react';
 
 export default function SellerNavbar() {
@@ -37,11 +37,8 @@ export default function SellerNavbar() {
       title: 'QnA 관리',
       url: '/seller/products/qnas',
     },
-    {
-      icons: <TbTruckDelivery />,
-      title: '주문/배송 관리',
-      url: '/seller/delivery',
-    },
+    { icons: <TbTruckDelivery />, title: '주문 관리', url: '/seller/delivery' },
+    { icons: <RiBillLine />, title: '취소/반품 관리', url: '/seller/order' },
     { icons: <BsGraphUp />, title: '통계 수치', url: '/seller/statistics' },
     {
       icons: <AiOutlinePercentage />,
