@@ -6,7 +6,7 @@ import ProductInput from '../ProductInput';
 import CaetgoryList from './CaetgoryList';
 export default function CategoryEtc() {
   return (
-    <WhiteWrapper width="1380px">
+    <WhiteWrapper width="100%">
       <SubTitle color="#B5E4CA" title="카테고리 및 기타" />
       <ProductCategoryWrapper>
         <div className="title">카테고리</div>

@@ -6,7 +6,7 @@ import ProductInput from '../ProductInput';
 
 export default function TitleDescription(props) {
   return (
-    <WhiteWrapper width="1380px" marginBottom="10px">
+    <WhiteWrapper width="100%" marginBottom="10px">
       <SubTitle color="#FFBC99" title="이름 및 설명" />
       <ProductInput
         title="상품 이름"

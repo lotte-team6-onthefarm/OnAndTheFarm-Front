@@ -25,9 +25,10 @@ export default function MainPopularProducts() {
       img: '../../../../assets/products/거봉.png',
     },
     {
-      title: '국내산 프리미엄 거봉포도 900g',
+      title: '국내산 프리미엄 거봉포도 900g2',
       sales: '24',
-      img: '../../../../assets/products/거봉.png',
+      img: '../../../../assets/products/거봉2.png',
+
     },
   ];
 
@@ -51,7 +52,7 @@ export default function MainPopularProducts() {
         <tbody>
           {products.map((product, idx) => {
             return (
-              <tr key={{ idx }}>
+              <tr key={idx}>
                 <td>
                   <img
                     src={require('../../../../assets/products/거봉.png')}

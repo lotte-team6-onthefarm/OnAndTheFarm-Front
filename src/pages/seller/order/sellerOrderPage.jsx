@@ -5,15 +5,15 @@ import {
   RightWrapper,
 } from '../../../components/seller/common/Box.style';
 import { SellerTitle } from '../../../components/seller/common/Title.style';
-import DeliveryList from '../../../components/seller/delivery/DeliveryList';
+import OrderList from '../../../components/seller/order/OrderList';
 
-export default function SellerDeliveryPage() {
+export default function SellerOrderPage() {
   return (
     <RightWrapper>
-      <SellerTitle>주문 관리</SellerTitle>
+      <SellerTitle>취소/반품 관리</SellerTitle>
       <PageRow>
         <PageCol width="100%">
-          <DeliveryList />
+          <OrderList />
         </PageCol>
       </PageRow>
     </RightWrapper>

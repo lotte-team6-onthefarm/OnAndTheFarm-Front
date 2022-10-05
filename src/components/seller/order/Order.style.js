@@ -1,27 +1,24 @@
 import styled from 'styled-components';
 
-const DeliveryWrapper = styled.div``;
-const DeliveryButtonWrapper = styled.div`
+const OrderButtonWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  margin: 20px;
+  justify-content: flex-end;
+  margin-bottom: 20px;
   color: #cccccc;
   div {
     font-size: 18px;
     cursor: pointer;
-    margin: auto;
     :nth-child(1) {
-      color: ${props => props.state === '0' && 'black'};
+      margin-right: 20px;
+      color: ${props => props.state === 'os1' && 'black'};
     }
     :nth-child(2) {
-      color: ${props => props.state === '1' && 'black'};
-    }
-    :nth-child(3) {
-      color: ${props => props.state === '2' && 'black'};
+      margin-right: 20px;
+      color: ${props => props.state === 'os2' && 'black'};
     }
   }
 `;
-const DeliveryDateWrapper = styled.div`
+const OrderDateWrapper = styled.div`
   display: flex;
   margin-bottom: 20px;
   width: 350px;
@@ -31,7 +28,19 @@ const DeliveryDateWrapper = styled.div`
     margin-right: 20px;
   }
 `;
-const DeliveryTableWrapper = styled.table`
+
+const OrderStatusTd = styled.div`
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  color: black;
+  background-color: ${props =>
+    props.status === 'os1' ? '#d098f5' : '#59de92'};
+  font-size: 15px;
+  font-weight: 550;
+`;
+
+const OrderTableWrapper = styled.table`
   width: 100%;
   cursor: pointer;
   font-size: 14px;
@@ -71,26 +80,9 @@ const DeliveryTableWrapper = styled.table`
   }
 `;
 
-const WaybillWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100px;
-  select {
-    padding: 5px 10px;
-    border-radius: 8px;
-  }
-  input {
-    text-align: center;
-    border: none;
-    outline: none;
-  }
-`;
 export {
-  DeliveryWrapper,
-  DeliveryButtonWrapper,
-  DeliveryDateWrapper,
-  DeliveryTableWrapper,
-  WaybillWrapper,
+  OrderButtonWrapper,
+  OrderStatusTd,
+  OrderDateWrapper,
+  OrderTableWrapper,
 };
