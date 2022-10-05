@@ -9,7 +9,7 @@ const postUserlogin = async data => {
 
 // 유저 회원가입
 const postUserSignup = async data => {
-  const response = await JWTapiUser.post('signup', data);
+  const response = await JWTapiUser.post('register', data);
   console.log(response);
   return response.data;
 };

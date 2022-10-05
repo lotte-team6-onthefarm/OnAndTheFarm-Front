@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { postUserlogin } from '../../../apis/user/account';
+import { isLoginState } from '../../../recoil';
 
 export default function MainKakaoLogin() {
+  const [isLogin, setisLogin] = useRecoilState(isLoginState);
   // useeffect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     let code = params.get('code');
-    console.log("params.get('code') >>> ", code);
     let data = {
       code: code,
       provider: 'kakao',
@@ -23,11 +25,12 @@ export default function MainKakaoLogin() {
     postUserlogin,
     {
       onSuccess: res => {
-        console.log(res, '성공');
+        localStorage.setItem('token',res.data.token.token )
         if (res.data.needRegister) {
+          setisLogin(true)
           navigate(`/signup`, { state: res.data.email });
         } else {
-          navigate(`/`);
+          document.location.href= '/';
         }
       },
       onError: () => {

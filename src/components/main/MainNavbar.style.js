@@ -30,6 +30,7 @@ const NavbarMenuPtag = styled.p`
   text-decoration: none;
   padding: 0.5rem;
   font-size: 0.9rem;
+  cursor: pointer;
   :hover {
     background-color: #d5f0db;
     border-radius: 4px;
