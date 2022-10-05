@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const WellcomeBox = styled.div`
-  padding-top: 100px;
   display: grid;
   justify-content: center;
   text-align: center;
