@@ -3,18 +3,17 @@ import styled from 'styled-components';
 const DeliveryWrapper = styled.div``;
 const DeliveryButtonWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
+  justify-content: center;
+  margin: 20px;
   color: #cccccc;
   div {
     font-size: 18px;
     cursor: pointer;
+    margin: auto;
     :nth-child(1) {
-      margin-right: 20px;
       color: ${props => props.state === '0' && 'black'};
     }
     :nth-child(2) {
-      margin-right: 20px;
       color: ${props => props.state === '1' && 'black'};
     }
     :nth-child(3) {

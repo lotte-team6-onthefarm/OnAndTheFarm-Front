@@ -28,6 +28,7 @@ export default function MainPopularProducts() {
       title: '국내산 프리미엄 거봉포도 900g2',
       sales: '24',
       img: '../../../../assets/products/거봉2.png',
+
     },
   ];
 
