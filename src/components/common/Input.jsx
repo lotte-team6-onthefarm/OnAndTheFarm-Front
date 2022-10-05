@@ -11,6 +11,7 @@ export default function Input(props) {
         onChange={props.onChange}
         placeholder={props.placeholder}
         type={props.type}
+        disabled={props.disabled}
       ></StyledInput>
     </StyledInputDiv>
   );
