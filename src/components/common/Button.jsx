@@ -3,7 +3,7 @@ import { StyledButton } from './Button.style';
 
 function Button(props) {
   return (
-    <StyledButton width={props.width} height={props.height} color={props.color} margin={props.margin}>{props.text}</StyledButton>
+    <StyledButton width={props.width} height={props.height} color={props.color} margin={props.margin} onClick={props.onClick}>{props.text}</StyledButton>
   );
 }
 
