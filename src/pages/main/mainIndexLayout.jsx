@@ -13,6 +13,7 @@ import MainCart from './carts/mainCart';
 import MainMypage from './mypage/mainMypage';
 import MainLikes from './likes/mainLikes';
 import MainProductPage from './products/mainProductPage';
+import UserLoginPage from './account/userLoginPage';
 
 export default function MainIndexLayout() {
   return (
@@ -21,7 +22,7 @@ export default function MainIndexLayout() {
       <StyledMainDiv>
         <Routes>
           <Route exact path="/" element={<MainMainPage />} />
-          <Route exact path="/login" element={<MainLoginPage />} />
+          <Route exact path="/login" element={<UserLoginPage />} />
           <Route exact path="/signup" element={<MainSignupPage />} />
           <Route exact path="/products/*" element={<MainProductPage/>} />
           <Route exact path="/posts" element={<MainPost />} />

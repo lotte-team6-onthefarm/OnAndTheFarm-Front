@@ -1,20 +1,18 @@
 import styled from 'styled-components';
 
 const Navbar = styled.nav`
-  width: 85%;
+  width: 1200px;
   margin: 20px auto;
   height: 80px;
   display: flex;
   border-bottom: solid;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-size: 1.2rem;
 `;
 
-const BlackLogoImg = styled.img`
-  margin: 20px auto;
+const LogoImg = styled.img`
   display: flex;
-  justify-content: center;
   width: 200px;
 `;
 
@@ -22,9 +20,9 @@ const NavbarMenu = styled.ul`
   display: flex;
   list-style: none;
   text-align: center;
-  width: 70vw;
-  justify-content: center;
-  margin-right: 2rem;
+  width: 400px;
+  margin: 0 20px;
+  justify-content: space-between;
 `;
 
 const NavbarMenuPtag = styled.p`
@@ -39,13 +37,46 @@ const NavbarMenuPtag = styled.p`
   }
 `;
 
-const NavbarUser = styled.div`
+const NavbarIcons = styled.ul`
   display: flex;
   list-style: none;
   text-align: center;
-  width: 20vw;
+  width: 200px;
   justify-content: flex-end;
   margin-right: 2rem;
+  
+`;
+const NavbarIcon = styled.li`
+  svg {
+    margin: 0 20px;
+    font-size: xx-large;
+    border-radius: 100px;
+    cursor: pointer;
+    border: 2px solid ${props => props.color};
+    background-color: ${props => props.color};
+  }
+  path {
+    color: white;
+  }
+`; 
+
+const NavbarUser = styled.div`
+position: relative;
+  width: 200px;
+  list-style: none;
+  text-align: center;
+  width: fit-content;
+  margin: 0 20px;
 `;
 
-export { Navbar, BlackLogoImg, NavbarMenu, NavbarMenuPtag, NavbarUser };
+const NavbarSeller = styled.p`
+width: 120px;
+color: #202020;
+position: absolute;
+text-decoration: none;
+font-size: small;
+top: -25px;
+right: -25px;
+`;
+
+export { Navbar, LogoImg, NavbarMenu, NavbarMenuPtag, NavbarIcons, NavbarIcon, NavbarUser, NavbarSeller };
