@@ -12,6 +12,7 @@ import {
 
 export default function CartItemComp(props) {
   const [bChecked, setChecked] = useState(false);
+  const [quantity, setQuantity] = useState(props.number);
 
   const checkHandler = ({ target }) => {
     setChecked(!bChecked);
@@ -30,7 +31,7 @@ export default function CartItemComp(props) {
           <p>{props.name}</p>
         </CartItemDetail>
         <CartItemNumber>
-          <Counter value={props.number}/>
+          <Counter value={props.number} setQuantity={setQuantity}/>
         </CartItemNumber>
         <CartItemPrice>
           <p>{props.price}</p>

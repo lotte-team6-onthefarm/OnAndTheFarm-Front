@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-const CartContentDiv = styled.div`
+const LikeContentDiv = styled.div`
   width: 1130px;
   padding: 20px 30px;
   margin: 100px auto;
   display: flex;
 `;
 
-const CartListDiv = styled.div`
+const LikeListDiv = styled.div`
   width: 800px;
   padding: 30px;
   border: solid 1px lightgray;
@@ -20,7 +20,7 @@ const CartListDiv = styled.div`
   }
 `;
 
-const CartListHeader = styled.div`
+const LikeListHeader = styled.div`
   width: 100%;
   height: 40px;
   margin: 10px;
@@ -28,11 +28,11 @@ const CartListHeader = styled.div`
   justify-content: space-between;
 `;
 
-const CartItems = styled.div`
+const LikeItems = styled.div`
   width: 100%;
 `;
 
-const CartPriceDiv = styled.div`
+const LikePriceDiv = styled.div`
   width: 330px;
   height: 100%;
   margin-left: 20px;
@@ -41,18 +41,18 @@ const CartPriceDiv = styled.div`
   border-radius: 5px;
 `;
 
-const CartPriceHeader = styled.h2`
+const LikePriceHeader = styled.h2`
   padding: 20px;
 `;
 
-const CartPriceRow = styled.div`
+const LikePriceRow = styled.div`
   padding: 0 20px;
   margin: 10px;
   display: flex;
   justify-content: space-between;
 `;
 
-const CartPriceTotal = styled.h3`
+const LikePriceTotal = styled.h3`
   text-align: right;
   padding: 20px;
   span {
@@ -61,12 +61,12 @@ const CartPriceTotal = styled.h3`
 `;
 
 export {
-  CartContentDiv,
-  CartListDiv,
-  CartListHeader,
-  CartItems,
-  CartPriceDiv,
-  CartPriceHeader,
-  CartPriceRow,
-  CartPriceTotal,
+  LikeContentDiv,
+  LikeListDiv,
+  LikeListHeader,
+  LikeItems,
+  LikePriceDiv,
+  LikePriceHeader,
+  LikePriceRow,
+  LikePriceTotal,
 };
