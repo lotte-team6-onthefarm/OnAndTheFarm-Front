@@ -13,7 +13,7 @@ export default function MainProductsPopular(props) {
   const [productList, setProductList] = useState([]);
   useEffect(() => {
     let url = {
-      path: 'all/newest/',
+      path: 'orderby/soldcount/',
       page: 0,
     };
     getProduct(url);
@@ -23,7 +23,6 @@ export default function MainProductsPopular(props) {
     getProducts,
     {
       onSuccess: res => {
-        console.log(res.data);
         setProductList(res.data);
       },
       onError: () => {
