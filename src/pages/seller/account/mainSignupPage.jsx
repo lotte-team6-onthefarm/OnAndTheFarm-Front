@@ -1,11 +1,10 @@
 import { React, useState } from 'react';
-import { Button } from '../../../components/common/Button';
-import Input from '../../../components/common/Input';
 import WellcomeMessage from '../../../components/main/WellcomeMessage';
-import { StyledRowDiv } from './mainSignupPage.style';
-import { StyledBoxDiv } from './userLoginPage.style';
+import Input from '../../../components/common/Input';
+import { StyledBoxDiv, StyledRowDiv, StyledFind } from './mainSignupPage.style';
+import { Button } from '../../../components/common/Button';
 
-export default function MainSignup() {
+export default function MainSignupPage() {
   const [userEmail, setUserEmail] = useState('');
   const [userCode, setUserCode] = useState('');
   const [userPassword, setUserPassword] = useState('');

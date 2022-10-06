@@ -5,7 +5,6 @@ import MainFooter from '../../components/main/MainFooter';
 import MainNavbar from '../../components/main/MainNavbar';
 import MainSignupPage from './account/mainSignupPage';
 import { StyledMainDiv } from './mainIndexLayout.style';
-import MainLoginPage from './account/mainLoginPage';
 import MainMainPage from './mainMainPage';
 import MainPost from './posts/mainPost';
 import MainGroupBuy from './groupbuy/mainGroupBuy';
@@ -24,7 +23,7 @@ export default function MainIndexLayout() {
           <Route exact path="/" element={<MainMainPage />} />
           <Route exact path="/login" element={<UserLoginPage />} />
           <Route exact path="/signup" element={<MainSignupPage />} />
-          <Route exact path="/products/*" element={<MainProductPage/>} />
+          <Route exact path="/products/*" element={<MainProductPage />} />
           <Route exact path="/posts" element={<MainPost />} />
           <Route exact path="/groupbuy" element={<MainGroupBuy />} />
           <Route exact path="/like" element={<MainLikes />} />
