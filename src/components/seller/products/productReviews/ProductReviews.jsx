@@ -56,6 +56,7 @@ export default function ProductReviews() {
                           <div>{data.name}</div>
                           <div className="review">{data.review}</div>
                         </div>
+                        <div className="time">8h</div>
                       </ReviewBlock>
                     </td>
                     <td className="title">

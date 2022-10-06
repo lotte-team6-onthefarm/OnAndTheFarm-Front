@@ -20,24 +20,17 @@ export default function Test() {
     isLoading: sellerLoading,
     refetch: sellerRefetch,
     data: sellerProduct,
-  } = useQuery('datasss', () => getSellerProduct({ sellerId: 1, pageNo: 1 }), {
-    onSuccess: res => {
-      console.log(res);
+  } = useQuery(
+    'sellerProduct',
+    () => getSellerProduct({ sellerId: 1, pageNo: 0 }),
+    {
+      onSuccess: res => {
+        console.log(res, 'sss');
+      },
+      onError: {},
     },
-    onError: {},
-  });
+  );
 
-  //   // 셀러별 상품조회
-  //   const {
-  //     isLoading: sellerMypageLoading,
-  //     refetch: sellerMypageRefetch,
-  //     data: sellerMypage,
-  //   } = useQuery('sellerMypage', () => getSellerMypage(), {
-  //     onSuccess: res => {
-  //       console.log(res);
-  //     },
-  //     onError: {},
-  //   });
   return (
     <div>
       <button
@@ -50,14 +43,8 @@ export default function Test() {
       >
         셀러 로그인
       </button>
-      <button
-        onClick={() => {
-          sellerRefetch();
-        }}
-      >
-        셀러별 상품조회
-      </button>
-      <button>로그인</button>
+      <button onClick={sellerRefetch}>셀러별 상품조회</button>
+      <button>셀러 메인페이지</button>
     </div>
   );
 }

@@ -12,11 +12,32 @@ const ProductReviewsTable = styled.table`
   td {
     padding: 16px 12px;
     font-weight: 600;
-    border-collapse: collapse;
-    border-bottom: solid 1px ${props => props.theme.colors.gray};
     vertical-align: top;
   }
+  tr {
+    border-collapse: collapse;
+    border-bottom: solid 1px ${props => props.theme.colors.gray};
+  }
+  .selectedTbody {
+    :hover {
+      background-color: white;
+    }
+  }
   tbody {
+    .answer {
+      display: none;
+    }
+    :hover {
+      .answer {
+        display: block;
+      }
+    }
+    .selected {
+      display: block;
+    }
+    tr {
+      height: 130px;
+    }
     :hover {
       background-color: ${props => props.theme.colors.gray};
     }
@@ -38,6 +59,7 @@ const ProductReviewsTable = styled.table`
 const ReviewBlock = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   div {
     height: 60px;
     display: flex;
@@ -51,6 +73,11 @@ const ReviewBlock = styled.div`
     .review {
       font-weight: 500;
     }
+  }
+  .time {
+    color: gray;
+    font-weight: 100;
+    margin-left: auto;
   }
 `;
 
