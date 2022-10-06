@@ -12,11 +12,11 @@ import {
 export default function MainProductsPopular(props) {
   const [productList, setProductList] = useState([]);
   useEffect(() => {
-    let url = {
-      path: 'orderby/soldcount/',
+    let data = {
+      url: 'orderby/soldcount/',
       page: 0,
     };
-    getProduct(url);
+    getProduct(data);
   }, []);
 
   const { mutate: getProduct, isLoading: isGetProduct } = useMutation(

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useMutation } from 'react-query';
 import {
   ProductDiv,
   ProductImgDiv,
@@ -12,6 +13,7 @@ import {
   AiOutlineShoppingCart,
 } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { postAddWish } from '../../apis/user/product';
 
 export default function Product(props) {
   const product = props.product
@@ -19,7 +21,13 @@ export default function Product(props) {
     alert('카트에 추가')
   };
   const addLike = () => {
-    alert('찜목록에 추가')
+    console.log(product.productId)
+    const data = {
+      body: {
+        "productId" : product.productId
+    }
+    }
+    postAddWish(data)
   };
 
   // hook
@@ -29,6 +37,18 @@ export default function Product(props) {
   const updateUrl = id => {
     navigate(`/products/detail/${id}`);
   };
+
+  const { mutate: addWish, isLoading: isAddWish } = useMutation(
+    postAddWish,
+    {
+      onSuccess: res => {
+        console.log('추가성공')
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
 
   return (
     <ProductDiv width={props.width}>

@@ -1,21 +1,20 @@
 import { JWTapiUser, ApiUser } from '.';
 
 // 상품 불러오기
-const getProducts = async (url) => {
-  console.log(url)
-  const response = await JWTapiUser.get(`product/list/${url.path}${url.page}`);
+const getProducts = async (data) => {
+  const response = await JWTapiUser.get(`product/list/${data.url}${data.page}`);
   return response.data;
 };
 
-// 유저 회원가입
-// const postUserSignup = async data => {
-//   const response = await JWTapiUser.post('register', data);
-//   console.log(response);
-//   return response.data;
-// };
+// 위시리스트 추가
+const postAddWish = async (data) => {
+  const response = await JWTapiUser.post('product/wish/add', data.body);
+  return response.data;
+};
 
 
 
 export {
   getProducts,
+  postAddWish,
 };

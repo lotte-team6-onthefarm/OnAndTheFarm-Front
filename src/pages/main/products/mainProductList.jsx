@@ -23,41 +23,41 @@ export default function MainProductList() {
   const [searchWord, setSearchWord] = useState('');
   const [productList, setProductList] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('최신순');
-  let url = {
-    path: 'all/newest/',
+  let data = {
+    url: 'all/newest/',
     page: 0,
   };
 
   useEffect(() => {
-    getProduct(url);
+    getProduct(data);
   }, []);
 
   const test = e => {
     setSelectedFilter(e.target.value);
     if (e.target.value === '최신순') {
-      url = {
-        path: 'all/newest/',
+      data = {
+        url: 'all/newest/',
         page: 0,
       };
-      getProduct(url);
+      getProduct(data);
     } else if (e.target.value === '낮은가격순') {
-      url = {
-        path: 'orderby/lowprice/',
+      data = {
+        url: 'orderby/lowprice/',
         page: 0,
       };
-      getProduct(url);
+      getProduct(data);
     } else if (e.target.value === '높은가격순') {
-      url = {
-        path: 'orderby/highprice/',
+      data = {
+        url: 'orderby/highprice/',
         page: 0,
       };
-      getProduct(url);
+      getProduct(data);
     } else if (e.target.value === '높은판매순') {
-      url = {
-        path: 'orderby/soldcount/',
+      data = {
+        url: 'orderby/soldcount/',
         page: 0,
       };
-      getProduct(url);
+      getProduct(data);
     }
   };
 
