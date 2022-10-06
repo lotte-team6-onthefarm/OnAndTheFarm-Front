@@ -6,6 +6,12 @@ const getProducts = async (data) => {
   return response.data;
 };
 
+// 상품 단건조회
+const getProduct = async (data) => {
+  const response = await JWTapiUser.get(`product/${data.productId}`);
+  return response.data;
+};
+
 // 위시리스트 추가
 const postAddWish = async (data) => {
   const response = await JWTapiUser.post('product/wish/add', data.body);
@@ -17,4 +23,5 @@ const postAddWish = async (data) => {
 export {
   getProducts,
   postAddWish,
+  getProduct,
 };

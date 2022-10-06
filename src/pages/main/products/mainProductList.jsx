@@ -29,7 +29,7 @@ export default function MainProductList() {
   };
 
   useEffect(() => {
-    getProduct(data);
+    getProductList(data);
   }, []);
 
   const test = e => {
@@ -39,29 +39,29 @@ export default function MainProductList() {
         url: 'all/newest/',
         page: 0,
       };
-      getProduct(data);
+      getProductList(data);
     } else if (e.target.value === '낮은가격순') {
       data = {
         url: 'orderby/lowprice/',
         page: 0,
       };
-      getProduct(data);
+      getProductList(data);
     } else if (e.target.value === '높은가격순') {
       data = {
         url: 'orderby/highprice/',
         page: 0,
       };
-      getProduct(data);
+      getProductList(data);
     } else if (e.target.value === '높은판매순') {
       data = {
         url: 'orderby/soldcount/',
         page: 0,
       };
-      getProduct(data);
+      getProductList(data);
     }
   };
 
-  const { mutate: getProduct, isLoading: isGetProduct } = useMutation(
+  const { mutate: getProductList, isLoading: isGetProductList } = useMutation(
     getProducts,
     {
       onSuccess: res => {
