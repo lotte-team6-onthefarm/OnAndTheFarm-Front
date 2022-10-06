@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import Modal from '../../common/Modal';
 import { WhiteWrapper } from '../common/Box.style';
 import { UserImgWrapper } from '../common/sellerCommon.style';
 import SubTitle from '../common/SubTitle';
-import { ReviewBlock } from '../products/productReviews/ProductReviews.style';
 import { Orderdatas } from './dummy';
 import {
   OrderButtonWrapper,
   OrderDateWrapper,
-  OrderStatusTd,
+  OrderStatus,
   OrderTableWrapper,
 } from './Order.style';
+import OrderState from './orderState/OrderState';
 export default function OrderList() {
-  // usenavigator
-  const navigator = useNavigate();
   // usestate
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [modal, setModal] = useState(false);
+  const [selectData, setSelectData] = useState({});
 
   // useeffect
   useEffect(() => {
@@ -73,9 +73,15 @@ export default function OrderList() {
           </thead>
           {Orderdatas.map((data, idx) => {
             return (
-              <tbody key={idx}>
+              <tbody
+                key={idx}
+                onClick={() => {
+                  setSelectData(data);
+                  setModal(!modal);
+                }}
+              >
                 <tr>
-                  <td className="title" onClick={() => {}}>
+                  <td className="title">
                     <img
                       src={require('../../../assets/products/복숭아.png')}
                       alt=""
@@ -84,9 +90,9 @@ export default function OrderList() {
                     {data.product}/{data.optios}
                   </td>
                   <td className="content">
-                    <OrderStatusTd status={data.orderState}>
+                    <OrderStatus status={data.orderState}>
                       {data.orderState === 'os1' ? '취소요청' : '반품요청'}
-                    </OrderStatusTd>
+                    </OrderStatus>
                   </td>
                   <td className="content">{data.orderDate}</td>
                   <td>
@@ -107,6 +113,12 @@ export default function OrderList() {
           })}
         </OrderTableWrapper>
       </div>
+      {/* modal */}
+      {modal && (
+        <Modal closeModal={() => setModal(!modal)}>
+          <OrderState data={selectData} closeModal={() => setModal(!modal)} />
+        </Modal>
+      )}
     </WhiteWrapper>
   );
 }
