@@ -38,6 +38,15 @@ const WhiteWrapper = styled.div`
   padding: 24px;
   box-sizing: border-box;
 `;
+const GrayWrapper = styled.div`
+  width: ${props => props.width};
+  height: ${props => props.height};
+  background-color: ${props => props.theme.colors.gray};
+  border-radius: 8px;
+  margin-bottom: ${props => props.marginBottom};
+  padding: 24px;
+  box-sizing: border-box;
+`;
 export {
   Background,
   MainWrapper,
@@ -45,4 +54,5 @@ export {
   PageRow,
   PageCol,
   WhiteWrapper,
+  GrayWrapper,
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { WhiteWrapper } from '../../common/Box.style';
 import { UserImgWrapper } from '../../common/sellerCommon.style';
 import SubTitle from '../../common/SubTitle';
@@ -7,8 +7,17 @@ import {
   ProductReviewsTable,
   ReviewBlock,
 } from '../productReviews/ProductReviews.style';
+import AnswerBox from './AnswerBox';
 
 export default function ProductQnAs() {
+  const [selected, setSelected] = useState([]);
+  const selectedAddHandler = idx => {
+    setSelected([idx, ...selected]);
+  };
+  const selectedDelHandler = idx => {
+    const newSelected = selected.filter(select => select !== idx);
+    setSelected(newSelected);
+  };
   const datas = [
     {
       name: '손은성',
@@ -43,7 +52,10 @@ export default function ProductQnAs() {
             </thead>
             {datas.map((data, idx) => {
               return (
-                <tbody key={idx}>
+                <tbody
+                  key={idx}
+                  className={selected.includes(idx) ? 'selectedTbody' : ''}
+                >
                   <tr>
                     <td>{idx + 1}</td>
                     <td>
@@ -57,7 +69,19 @@ export default function ProductQnAs() {
                           <div>{data.name}</div>
                           <div className="review">{data.review}</div>
                         </div>
+                        <div className="time">8h</div>
                       </ReviewBlock>
+                      <div
+                        className={
+                          selected.includes(idx) ? 'selected' : 'answer'
+                        }
+                      >
+                        <AnswerBox
+                          idx={idx}
+                          selectedAddHandler={selectedAddHandler}
+                          selectedDelHandler={selectedDelHandler}
+                        />
+                      </div>
                     </td>
                     <td className="title">
                       <img

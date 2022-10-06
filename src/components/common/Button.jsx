@@ -8,15 +8,15 @@ function Button(props) {
 }
 
 function GreenButton(props) {
-  return (
-    <GreenButton width="100px">ㅁㅇㄹㅁㄴㄹㅁ</GreenButton>
-  );
+  return <GreenButton width="100px">ㅁㅇㄹㅁㄴㄹㅁ</GreenButton>;
 }
 
 function BlueButton(props) {
-  return (
-    <BlueButton width="100px">{props.text}</BlueButton>
-  );
+  return <BlueButton width="100px">{props.text}</BlueButton>;
 }
 
-export { Button, GreenButton, BlueButton };
+function WhiteButton(props) {
+  return <WhiteButton width="100px">{props.text}</WhiteButton>;
+}
+
+export { Button, GreenButton, BlueButton, WhiteButton };

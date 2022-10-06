@@ -1,25 +1,12 @@
 import React from 'react';
-import { UserImgWrapper } from '../../../common/sellerCommon.style';
-import {
-  UserBottomGraphBlock,
-  UserBottomGraphWrapper,
-} from './MainBottomGraph.style';
+import LineChart from '../../../../charts/LineChart';
+import { UserBottomGraphWrapper } from './MainBottomGraph.style';
 
 export default function UserBottomGraph() {
-  const datas = ['손은성', '홍길동', '최민식'];
+  const data = [24, 22, 43, 23, 35, 14, 33, 37];
   return (
     <UserBottomGraphWrapper>
-      {datas.map((data, idx) => {
-        return (
-          <UserBottomGraphBlock key={idx}>
-            <UserImgWrapper
-              width="60px"
-              src={require('../../../../../assets/products/복숭아.png')}
-            />
-            {data}
-          </UserBottomGraphBlock>
-        );
-      })}
+      <LineChart data={data}></LineChart>
     </UserBottomGraphWrapper>
   );
 }

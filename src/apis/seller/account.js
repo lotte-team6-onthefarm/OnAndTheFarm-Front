@@ -55,7 +55,7 @@ const getSellerEmailConfirm = async data => {
 const getSellerMypage = async data => {
   const response = await JWTapiSeller.get(
     `mypage?startDate=${data.startDate}&endDate=${data.endDate}`,
-  );  console.log(response);
+  );
   return response.data;
 };
 

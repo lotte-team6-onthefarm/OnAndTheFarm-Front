@@ -66,18 +66,26 @@ const ProductContentWrapper = styled.div`
 const ProductStatusWrapper = styled.div`
   .statusBtn {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    border: solid 1px black;
     div {
+      color: gray;
       font-size: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 100px;
-      border-radius: 8px;
+      height: 50px;
+      :nth-child(1) {
+        border-right: solid 1px gray;
+      }
+      :nth-child(2) {
+        border-right: solid 1px gray;
+      }
       :hover {
         cursor: pointer;
-        border: solid 2px black;
+        color: black;
+        background-color: #b1e5fc;
       }
     }
   }

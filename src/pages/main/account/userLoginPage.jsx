@@ -27,7 +27,6 @@ export default function UserLoginPage() {
       <SocialLoginButton color="#fee500" width="100%" onClick={loginKakao}><RiKakaoTalkFill /> <span>&nbsp; &nbsp; 카카오로 로그인</span></SocialLoginButton>
       <SocialLoginButton color="#21c603" width="100%" onClick={loginNaver}><SiNaver /> <span>&nbsp; &nbsp; 네이버로 로그인</span></SocialLoginButton>
       <SocialLoginButton color="#3c5a9a" width="100%"><AiFillGoogleCircle /> <span>&nbsp; &nbsp; 구글로 로그인</span></SocialLoginButton>
-      
     </StyledBoxDiv>
   );
 }

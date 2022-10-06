@@ -29,13 +29,12 @@ const OrderDateWrapper = styled.div`
   }
 `;
 
-const OrderStatusTd = styled.div`
+const OrderStatus = styled.div`
   display: inline-block;
   padding: 2px 8px;
   border-radius: 6px;
-  color: black;
   background-color: ${props =>
-    props.status === 'os1' ? '#d098f5' : '#59de92'};
+    props.status === 'os1' ? '#B5E4CA' : '#CABDFF'};
   font-size: 15px;
   font-weight: 550;
 `;
@@ -80,9 +79,4 @@ const OrderTableWrapper = styled.table`
   }
 `;
 
-export {
-  OrderButtonWrapper,
-  OrderStatusTd,
-  OrderDateWrapper,
-  OrderTableWrapper,
-};
+export { OrderButtonWrapper, OrderStatus, OrderDateWrapper, OrderTableWrapper };

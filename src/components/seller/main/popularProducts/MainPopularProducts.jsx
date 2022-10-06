@@ -7,30 +7,9 @@ import { BlackBorderButton } from '../../common/sellerCommon.style';
 import SubTitle from '../../common/SubTitle';
 import { MainPopularProductsTable } from './MainPopularProducts.style';
 
-export default function MainPopularProducts() {
-  const products = [
-    {
-      title: '달콤 샤인 머스캣',
-      sales: '1231',
-      img: '../../../../assets/products/머스캣.png',
-    },
-    {
-      title: '경북 청도 천도복숭아 2kg/1box',
-      sales: '321',
-      img: '../../../../assets/products/복숭아.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      sales: '212',
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g2',
-      sales: '24',
-      img: '../../../../assets/products/거봉2.png',
-
-    },
-  ];
+export default function MainPopularProducts(props) {
+  const products = props.products;
+  console.log(props);
 
   // hook
   const navigate = useNavigate();
@@ -45,8 +24,8 @@ export default function MainPopularProducts() {
       <MainPopularProductsTable>
         <thead>
           <tr>
-            <th width="80%">상품</th>
-            <th width="20%">좋아요수</th>
+            <th width="85%">상품</th>
+            <th width="15%">좋아요수</th>
           </tr>
         </thead>
         <tbody>
@@ -58,14 +37,14 @@ export default function MainPopularProducts() {
                     src={require('../../../../assets/products/거봉.png')}
                     alt=""
                   />
-                  <div className="title">{product.title}</div>
+                  <div className="title">{product.productName}</div>
                 </td>
                 <td>
                   <IconWrapper>
                     <IconBox>
                       <AiTwotoneHeart style={{ color: '#f73f2a' }} />
                     </IconBox>
-                    {product.sales}
+                    {product.productWishCount}
                   </IconWrapper>
                 </td>
               </tr>
