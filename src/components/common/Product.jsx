@@ -14,6 +14,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 export default function Product(props) {
+  const product = props.product
   const addCart = () => {
     alert('카트에 추가')
   };
@@ -33,7 +34,7 @@ export default function Product(props) {
     <ProductDiv width={props.width}>
       <ProductImgDiv>
         <ProductImg
-          src="https://contents.lotteon.com/itemimage/_v142043/LI/12/06/01/16/35/_1/LI1206011635_1_1.jpg/dims/optimize/dims/resizemc/360x360"
+          src={product.productMainImgSrc}
           alt="onandthefarmlogo"
         ></ProductImg>
         <ProductImgIcons>
@@ -42,10 +43,11 @@ export default function Product(props) {
         </ProductImgIcons>
       </ProductImgDiv>
 
-      <ProductInfoDiv  onClick={() => updateUrl(props.id)}>
-        <p>[햇살가득] 경북 가정용 햇 사과 3.5kg (20~24과)</p>
+      <ProductInfoDiv  onClick={() => updateUrl(product.productId)}>
+        <p>{product.productName}</p>
+        <p>{product.productDetailShort}</p>
         <p>
-          <span>34,900</span> 원
+          <span>{product.productPrice}</span> 원
         </p>
         <p>
           <AiFillStar color="darkorange" /> 4.8(433)
