@@ -16,7 +16,7 @@ import MainBottomGraph from './mainBottom/MainBottomGraph';
 
 export default function MainUserManagement() {
   const data = {
-    customerCount: '1024',
+    customerCount: '24',
     customerPercent: '17.5',
     earn: '25000000',
     earnPercent: '25.5',
@@ -41,11 +41,11 @@ export default function MainUserManagement() {
                 <IconBox width="20px">
                   <BiUser />
                 </IconBox>
-                <IconTitleBox width="18px">구매 고객 수</IconTitleBox>
+                <IconTitleBox width="18px">신규 주문 수</IconTitleBox>
               </IconWrapper>
               <UpDownBox state="0">↓ {data.customerPercent}%</UpDownBox>
             </div>
-            <GrayInnerWrapper>{data.customerCount}명</GrayInnerWrapper>
+            <GrayInnerWrapper>{data.customerCount}건</GrayInnerWrapper>
           </MainUserWhiteBlock>
         </MainUserWhiteWrapper>
         <MainUserWhiteWrapper

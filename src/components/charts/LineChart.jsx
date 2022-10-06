@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-export default function LineChart() {
-  const data = [40000, 80000, 50000, 150000, 70000, 100000, 120000, 60000];
+export default function LineChart(props) {
+  const data = props.data;
   const series2 = data;
   const options = {
     title: { text: '' },
