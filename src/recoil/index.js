@@ -9,3 +9,7 @@ export const sellerNavState = atom({
   default: 0,
   // effects_UNSTABLE: [persistAtom],
 });
+export const isLoginState = atom({
+  key: 'isLogin',
+  default: false,
+});
