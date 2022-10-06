@@ -14,6 +14,14 @@ const putSellerProduct = async data => {
 };
 
 // 셀러별 상품 최신순 조회
+const getSellerNewestProduct = async data => {
+  const response = await JWTapiSeller.get(
+    `product/list/all/newest/${data.pageNo}`,
+  );
+  return response.data.data;
+};
+
+// 셀러별 상품 조회
 const getSellerProduct = async data => {
   const response = await JWTapiSeller.get(
     `product/list/orderby/seller/${data.sellerId}/${data.pageNo}`,
@@ -21,4 +29,9 @@ const getSellerProduct = async data => {
   return response.data.data;
 };
 
-export { postSellerProduct, putSellerProduct, getSellerProduct };
+export {
+  postSellerProduct,
+  putSellerProduct,
+  getSellerNewestProduct,
+  getSellerProduct,
+};

@@ -1,4 +1,8 @@
 export { default as SellerMain } from './main/sellerMainPage';
+export { default as SellerLogin } from './account/login/sellerLoginPage';
+export { default as SellerSignup } from './account/signup/sellerSignupPage';
+export { default as SellerSearchId } from './account/searchId/sellerSearchIdPage';
+export { default as SellerSearchPw } from './account/searchPw/sellerSearchPwPage';
 export { default as SellerOrder } from './order/sellerOrderPage';
 export { default as SellerDelivery } from './delivery/sellerDeliveryPage';
 export { default as SellerProducts } from './products/sellerProductsPage';

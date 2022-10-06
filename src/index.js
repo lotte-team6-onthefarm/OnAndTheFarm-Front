@@ -10,6 +10,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+import { ReactQueryDevtools } from 'react-query/devtools';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,6 +31,7 @@ root.render(
         </BrowserRouter>
       </RecoilRoot>
     </ThemeProvider>
+    <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
   </QueryClientProvider>,
   // </React.StrictMode>,
 );
