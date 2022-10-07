@@ -8,29 +8,119 @@ import {
   StyledBoxWrapper,
   StyledRowDiv,
 } from './sellerSignupPage.style';
+import {
+  getSellerEmailConfirm,
+  postSellerEmail,
+  postSellerSignup,
+} from '../../../../apis/seller/account';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 export default function SellerSignupPage() {
-  const [userEmail, setUserEmail] = useState('');
-  const [userCode, setUserCode] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [userPasswordConfirm, setUserPasswordconfirm] = useState('');
-  const [userName, setUserName] = useState('');
-  const [userPhone, setUserPhone] = useState('');
-  const [userPostCode, setUserPostCode] = useState('');
-  const [userAddress, setUserAddress] = useState('');
-  const [userDetailAddress, setUserDetailAddress] = useState('');
-  const [userGender, setUserGender] = useState('');
-  const [userBirthday, setUserBirthday] = useState('');
+  const [Email, setEmail] = useState('');
+  const [Code, setCode] = useState('');
+  const [EmailCode, setEmailCode] = useState(true);
+  const [Password, setPassword] = useState('');
+  const [PasswordConfirm, setPasswordconfirm] = useState('');
+  const [Name, setName] = useState('');
+  const [Phone, setPhone] = useState('');
+  const [PostCode, setPostCode] = useState('');
+  const [Address, setAddress] = useState('');
+  const [DetailAddress, setDetailAddress] = useState('');
+  const [ShopName, setShopName] = useState('');
+  const [BusinessNumber, setBusinessNumber] = useState('');
+
+  // hook
+  const navigate = useNavigate();
+
+  const signUpBtn = () => {
+    if (Email === '') {
+      alert('이메일을 입력하세요');
+    } else if (!EmailCode) {
+      alert('인증번호를 확인해주세요');
+    } else if (Password === '') {
+      alert('패스워드를 입력하세요');
+    } else if (PostCode === '') {
+      alert('우편번호를 입력하세요');
+    } else if (Address === '') {
+      alert('주소를 입력하세요');
+    } else if (DetailAddress === '') {
+      alert('상세주소를 입력하세요');
+    } else if (Phone === '') {
+      alert('전화번호를 입력하세요');
+    } else if (Name === '') {
+      alert('이름을 입력하세요');
+    } else if (BusinessNumber === '') {
+      alert('사업자 번호를 입력하세요');
+    } else if (ShopName === '') {
+      alert('쇼핑몰 이름을 입력하세요');
+    } else {
+      sellerSignup({
+        email: Email,
+        password: Password,
+        zipcode: PostCode,
+        address: Address,
+        addressDetail: DetailAddress,
+        phone: Phone,
+        name: Name,
+        businessNumber: BusinessNumber,
+        shopName: ShopName,
+      });
+    }
+  };
+
+  // 이메일 인증 요청
+  const sendEmail = () => {
+    if (EmailCode) {
+      alert('이미 인증이 완료되었습니다');
+    } else {
+      sellerEmail({ email: Email });
+    }
+  };
+
+  // 이메일 인증 확인
+  const emailConfirm = (email, key) => {
+    sellerEmailConfirm({ email, key });
+  };
+  const { mutate: sellerSignup } = useMutation(postSellerSignup, {
+    onSuccess: () => {
+      alert('회원가입에 성공하였습니다');
+      navigate('/seller/login');
+    },
+    onError: () => {
+      alert('입력하신 데이터가 유효하지 않습니다.');
+    },
+  });
+
+  // 이메일 인증 요청
+  const { mutate: sellerEmail } = useMutation(postSellerEmail, {
+    onSuccess: () => {
+      alert('인증 번호를 전송하였습니다. 이메일을 확인해주세요');
+    },
+    onError: () => {
+      alert('입력하신 데이터가 유효하지 않습니다.');
+    },
+  });
+
+  // 이메일 번호 인증
+  const { mutate: sellerEmailConfirm } = useMutation(getSellerEmailConfirm, {
+    onSuccess: () => {
+      alert('인증 번호가 일치합니다');
+      setEmailCode(true);
+    },
+    onError: () => {
+      alert('인증 번호가 일치하지 않습니다');
+    },
+  });
 
   return (
     <StyledBoxWrapper>
       <StyledBoxDiv>
         <StoreLogoImg src={storeLogo} alt="onandthefarmlogo"></StoreLogoImg>
-        {/* <h2>회원가입</h2> */}
         <StyledRowDiv position="start">
           <Input
-            value={userEmail}
-            onChange={e => setUserEmail(e.target.value)}
+            value={Email}
+            onChange={e => setEmail(e.target.value)}
             label="이메일"
             placeholder="test@email.com"
             id="email"
@@ -41,12 +131,13 @@ export default function SellerSignupPage() {
             color="#3288E5"
             margin="auto auto 20px"
             width="150px"
+            onClick={sendEmail}
           ></Button>
         </StyledRowDiv>
         <StyledRowDiv position="start">
           <Input
-            value={userCode}
-            onChange={e => setUserCode(e.target.value)}
+            value={Code}
+            onChange={e => setCode(e.target.value)}
             label="인증번호"
             placeholder=""
             id="code"
@@ -57,27 +148,30 @@ export default function SellerSignupPage() {
             color="#3288E5"
             margin="auto auto 20px"
             width="150px"
+            onClick={() => {
+              emailConfirm(Email, Code);
+            }}
           ></Button>
         </StyledRowDiv>
         <Input
-          value={userPassword}
-          onChange={e => setUserPassword(e.target.value)}
+          value={Password}
+          onChange={e => setPassword(e.target.value)}
           label="비밀번호"
           placeholder="******"
           id="password"
           type="password"
         />
         <Input
-          value={userPasswordConfirm}
-          onChange={e => setUserPasswordconfirm(e.target.value)}
+          value={PasswordConfirm}
+          onChange={e => setPasswordconfirm(e.target.value)}
           label="비밀번호확인"
           placeholder="******"
           id="passwordconfirm"
           type="password"
         />
         <Input
-          value={userName}
-          onChange={e => setUserName(e.target.value)}
+          value={Name}
+          onChange={e => setName(e.target.value)}
           label="이름"
           placeholder="홍길동"
           id="name"
@@ -85,24 +179,18 @@ export default function SellerSignupPage() {
         />
         <StyledRowDiv position="start">
           <Input
-            value={userPhone}
-            onChange={e => setUserPhone(e.target.value)}
+            value={Phone}
+            onChange={e => setPhone(e.target.value)}
             label="전화번호"
             placeholder="010-1234-5678"
             id="phoe"
             type="text"
           />
-          <Button
-            text="중복확인"
-            color="#3288E5"
-            margin="auto auto 20px"
-            width="150px"
-          ></Button>
         </StyledRowDiv>
         <StyledRowDiv position="start">
           <Input
-            value={userPostCode}
-            onChange={e => setUserPostCode(e.target.value)}
+            value={PostCode}
+            onChange={e => setPostCode(e.target.value)}
             label="우편번호"
             placeholder="012345"
             id="postcode"
@@ -116,38 +204,43 @@ export default function SellerSignupPage() {
           ></Button>
         </StyledRowDiv>
         <Input
-          value={userAddress}
-          onChange={e => setUserAddress(e.target.value)}
+          value={Address}
+          onChange={e => setAddress(e.target.value)}
           label="주소"
           placeholder="서울시 서초구 서초대로 74길"
           id="address"
           type="text"
         />
         <Input
-          value={userDetailAddress}
-          onChange={e => setUserDetailAddress(e.target.value)}
+          value={DetailAddress}
+          onChange={e => setDetailAddress(e.target.value)}
           label="상세주소"
           placeholder="3층"
           id="detailaddress"
           type="text"
         />
         <Input
-          value={userGender}
-          onChange={e => setUserGender(e.target.value)}
-          label="성별"
-          placeholder="남/여"
-          id="gender"
+          value={BusinessNumber}
+          onChange={e => setBusinessNumber(e.target.value)}
+          label="사업자번호"
+          placeholder="000-000000-000"
+          id="businessnumber"
           type="text"
         />
         <Input
-          value={userBirthday}
-          onChange={e => setUserBirthday(e.target.value)}
-          label="생일"
-          placeholder="2000-01-01"
-          id="birthday"
+          value={ShopName}
+          onChange={e => setShopName(e.target.value)}
+          label="쇼핑몰 이름"
+          placeholder="온앤더 팜"
+          id="shopname"
           type="text"
         />
-        <Button text="회원가입" color="#3288E5" width="150px"></Button>
+        <Button
+          text="회원가입"
+          color="#3288E5"
+          width="150px"
+          onClick={signUpBtn}
+        ></Button>
       </StyledBoxDiv>
     </StyledBoxWrapper>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Head,
   Image,
@@ -59,6 +59,22 @@ export default function SellerNavbar() {
   //function
   const productUrl = () => {
     navigate('/seller/products/add');
+  };
+
+  // 토큰 확인
+  useEffect(() => {
+    const token = localStorage.getItem('sellerToken');
+    if (token === null) {
+      console.log('asdasdasdad');
+      navigate('/seller/login');
+    } else {
+      console.log(token);
+    }
+  }, [navigate]);
+
+  const logoutBtn = () => {
+    localStorage.removeItem('sellerToken');
+    document.location.href = '/seller';
   };
   return (
     <Head>
@@ -134,6 +150,7 @@ export default function SellerNavbar() {
       >
         <AiOutlinePlus onClick={productUrl} />
       </PlusIcon>
+      <div onClick={logoutBtn}>로그아웃</div>
     </Head>
   );
 }
