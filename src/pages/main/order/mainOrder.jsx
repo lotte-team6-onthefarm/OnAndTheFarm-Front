@@ -12,11 +12,10 @@ import {
   CartPriceHeader,
   CartPriceRow,
   CartPriceTotal,
-} from './mainCart.style';
+} from './mainOrder.style';
 import { deleteCartList, getCartList } from '../../../apis/user/cart';
-import { useNavigate } from 'react-router-dom';
 
-export default function MainCart() {
+export default function MainOrder() {
   // const [cartList, setCartList] = useState([]);
   const [checkedItems, setCheckedItems] = useState(new Set());
   const [isAllChecked, setIsAllChecked] = useState(false);
@@ -111,11 +110,9 @@ export default function MainCart() {
     setChangeChecked(!changeChecked)
     allCheckedHandler(target.checked);
   };
-// hook
-const navigate = useNavigate();
 
   const test = () => {
-    navigate(`/order`);
+    console.log('주문서 생성')
   }
 
   useEffect(() => {
@@ -129,7 +126,7 @@ const navigate = useNavigate();
   return (
     <CartContentDiv>
       <CartListDiv>
-        <p className="subject">장바구니</p>
+        <p className="subject">주문서</p>
         <CartListHeader>
           <div style={{ display: 'flex' }}>
             <input

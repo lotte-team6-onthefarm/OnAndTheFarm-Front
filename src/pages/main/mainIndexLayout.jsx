@@ -14,6 +14,7 @@ import MainProductPage from './products/mainProductPage';
 import UserLoginPage from './account/userLoginPage';
 import MainKakaoLogin from './account/mainKakaoLogin';
 import UserSignupPage from './account/userSignupPage';
+import MainOrder from './order/mainOrder';
 
 export default function MainIndexLayout() {
   return (
@@ -29,6 +30,7 @@ export default function MainIndexLayout() {
           <Route exact path="/groupbuy" element={<MainGroupBuy />} />
           <Route exact path="/like" element={<MainLikes />} />
           <Route exact path="/cart" element={<MainCart />} />
+          <Route exact path="/order" element={<MainOrder />} />
           <Route exact path="/mypage/*" element={<MainMypage />} />
           <Route exact path="/login/success/kakao" element={<MainKakaoLogin />} />
           <Route path="*" element={<NotFound />}></Route>

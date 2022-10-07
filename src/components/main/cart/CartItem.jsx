@@ -16,25 +16,41 @@ export default function CartItemComp(props) {
 
   const checkHandler = ({ target }) => {
     setChecked(!bChecked);
-    props.checkedItemHandler(target.id, target.checked);
+    props.checkedItemHandler(target.id, target.checked, quantity);
   };
 
-  const allCheckHandler = () => setChecked(props.isAllChecked);
+  const allCheckHandler = () => {
+    if (props.likeListSize === props.checkedItems.size) {
+      setChecked(props.isAllChecked);
+    } else if (props.checkedItems.size === 0) {
+      setChecked(props.isAllChecked);
+    }
+  };
 
-  useEffect(() => allCheckHandler(), [props.isAllChecked]);
+  useEffect(() => allCheckHandler(), [props.checkedItems.size]);
+  useEffect(() => props.changeCount(props.id, quantity), [quantity]);
+
   return (
     <CartItem>
-      <input id={props.id} type="checkbox" checked={bChecked} onChange={(e) => checkHandler(e)} />
+      <input
+        id={props.id}
+        type="checkbox"
+        checked={bChecked}
+        onChange={e => checkHandler(e)}
+      />
       <CartItemImg width="70px" height="70px" src={props.url} alt="" />
       <CartItemContent>
         <CartItemDetail>
           <p>{props.name}</p>
         </CartItemDetail>
         <CartItemNumber>
-          <Counter value={props.number} setQuantity={setQuantity}/>
+          <Counter value={quantity} setQuantity={setQuantity} />
         </CartItemNumber>
         <CartItemPrice>
           <p>{props.price}</p>
+        </CartItemPrice>
+        <CartItemPrice>
+          <p>{Number(props.price)*Number(quantity)}</p>
         </CartItemPrice>
       </CartItemContent>
     </CartItem>

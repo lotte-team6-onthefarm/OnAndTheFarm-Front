@@ -24,7 +24,7 @@ export default function MainLikes() {
     isLoading: isGetLikeList,
     // refetch: getLikeListRefetch,
     data: likeList,
-  } = useQuery('getLikeList', () => getLikeList({ sellerId: 1, pageNo: 1 }), {
+  } = useQuery('getLikeList', () => getLikeList(), {
     refetchOnWindowFocus: true,
     onSuccess: res => {
       // setLikeList(res.data);
@@ -99,25 +99,31 @@ export default function MainLikes() {
     deleteWish({ wishId: wishId });
   };
 
-  const { mutate: addCart, isLoading: isAddCartLoading } = useMutation(postAddCart, {
-    onSuccess: res => {
-      alert('장바구니에 추가되었습니다');
-      window.location.reload();
+  const { mutate: addCart, isLoading: isAddCartLoading } = useMutation(
+    postAddCart,
+    {
+      onSuccess: res => {
+        alert('장바구니에 추가되었습니다');
+        window.location.reload();
+      },
+      onError: () => {
+        console.log('에러');
+      },
     },
-    onError: () => {
-      console.log('에러');
-    },
-  });
+  );
 
-  const { mutate: deleteWish, isLoading: isDeleteWishLoading } = useMutation(deleteWishList, {
-    onSuccess: res => {
-      alert('삭제되었습니다');
-      window.location.reload();
+  const { mutate: deleteWish, isLoading: isDeleteWishLoading } = useMutation(
+    deleteWishList,
+    {
+      onSuccess: res => {
+        alert('삭제되었습니다');
+        window.location.reload();
+      },
+      onError: () => {
+        console.log('에러');
+      },
     },
-    onError: () => {
-      console.log('에러');
-    },
-  });
+  );
   return (
     <LikeContentDiv>
       <LikeListDiv>

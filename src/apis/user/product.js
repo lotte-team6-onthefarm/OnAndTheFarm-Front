@@ -20,7 +20,6 @@ const postAddWish = async (data) => {
 
 // 위시리스트 삭제
 const deleteWishList = async (data) => {
-  console.log(data)
   const response = await JWTapiUser.put(`product/wish/delete`, data);
   return response.data;
 };
