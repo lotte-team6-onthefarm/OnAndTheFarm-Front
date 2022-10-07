@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useMutation } from 'react-query';
 import { useState } from 'react';
 import CartItemComp from '../../../components/main/cart/CartItem';
 import { Button } from '../../../components/common/Button';
@@ -14,98 +15,63 @@ import {
 import { CATEGORY } from '../../../assets/category/category';
 import Product from '../../../components/common/Product';
 import InputSearch from '../../../components/common/SearchInput';
+import { getProducts } from '../../../apis/user/product';
 
 export default function MainProductList() {
+  const filterList = ['최신순', '낮은가격순', '높은가격순', '높은판매순'];
+
   const [searchWord, setSearchWord] = useState('');
+  const [productList, setProductList] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState('최신순');
+  let data = {
+    url: 'all/newest/',
+    page: 0,
+  };
 
-  const items = [
-    {
-      id: 1,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277665/P512007DE92C4154D55ADF24400888FF8E97013E948F47C574A0F9C99D9E24DF9/file/dims/optimize',
-    },
-    {
-      id: 2,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277236/P7C67A0F32EC59C38BBC7C73B004388F250AED8CD63AA23D3B80AD2335EA5AE60/file/dims/optimize',
-    },
-    {
-      id: 3,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/276873/P75260B86794950F9B3895FCA46D6F5D7ABF08A546585DF0082E2F542351E5B0C/file/dims/optimize',
-    },
-    {
-      id: 4,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277222/PFFB4AEF95EF2C68DD7CBA7F847E5C9443123A4929F8CB291AE79280B5D67F84E/file/dims/optimize',
-    },
-    {
-      id: 5,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277665/P512007DE92C4154D55ADF24400888FF8E97013E948F47C574A0F9C99D9E24DF9/file/dims/optimize',
-    },
-    {
-      id: 6,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277236/P7C67A0F32EC59C38BBC7C73B004388F250AED8CD63AA23D3B80AD2335EA5AE60/file/dims/optimize',
-    },
-    {
-      id: 7,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/276873/P75260B86794950F9B3895FCA46D6F5D7ABF08A546585DF0082E2F542351E5B0C/file/dims/optimize',
-    },
-    {
-      id: 8,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277222/PFFB4AEF95EF2C68DD7CBA7F847E5C9443123A4929F8CB291AE79280B5D67F84E/file/dims/optimize',
-    },
-    {
-      id: 9,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277665/P512007DE92C4154D55ADF24400888FF8E97013E948F47C574A0F9C99D9E24DF9/file/dims/optimize',
-    },
-    {
-      id: 10,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277236/P7C67A0F32EC59C38BBC7C73B004388F250AED8CD63AA23D3B80AD2335EA5AE60/file/dims/optimize',
-    },
-    {
-      id: 11,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/276873/P75260B86794950F9B3895FCA46D6F5D7ABF08A546585DF0082E2F542351E5B0C/file/dims/optimize',
-    },
-    {
-      id: 12,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277222/PFFB4AEF95EF2C68DD7CBA7F847E5C9443123A4929F8CB291AE79280B5D67F84E/file/dims/optimize',
-    },
-  ];
+  useEffect(() => {
+    getProductList(data);
+  }, []);
 
-  const filters = ['최신순', '가격순', '리뷰순'];
+  const test = e => {
+    setSelectedFilter(e.target.value);
+    if (e.target.value === '최신순') {
+      data = {
+        url: 'all/newest/',
+        page: 0,
+      };
+      getProductList(data);
+    } else if (e.target.value === '낮은가격순') {
+      data = {
+        url: 'orderby/lowprice/',
+        page: 0,
+      };
+      getProductList(data);
+    } else if (e.target.value === '높은가격순') {
+      data = {
+        url: 'orderby/highprice/',
+        page: 0,
+      };
+      getProductList(data);
+    } else if (e.target.value === '높은판매순') {
+      data = {
+        url: 'orderby/soldcount/',
+        page: 0,
+      };
+      getProductList(data);
+    }
+  };
+
+  const { mutate: getProductList, isLoading: isGetProductList } = useMutation(
+    getProducts,
+    {
+      onSuccess: res => {
+        setProductList(res.data);
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
 
   return (
     <CartContentDiv>
@@ -132,8 +98,8 @@ export default function MainProductList() {
         <CartListHeader>
           <div style={{ display: 'flex' }}></div>
           <div>
-            <select>
-              {filters.map((filter, idx) => {
+            <select onChange={test} value={selectedFilter}>
+              {filterList.map((filter, idx) => {
                 return (
                   <option value={filter} key={idx}>
                     {filter}
@@ -145,8 +111,10 @@ export default function MainProductList() {
         </CartListHeader>
         <hr />
         <ProductListDiv>
-          {items.map((item, index) => {
-            return <Product key={index} id={item.id} width="170px"></Product>;
+          {productList.map((product, index) => {
+            return (
+              <Product key={index} product={product} width="170px"></Product>
+            );
           })}
         </ProductListDiv>
       </CartListDiv>
