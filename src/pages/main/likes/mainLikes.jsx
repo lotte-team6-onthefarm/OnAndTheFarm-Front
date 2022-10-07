@@ -1,20 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import { useState } from 'react';
-import CartItemComp from '../../../components/main/cart/CartItem';
 import { Button } from '../../../components/common/Button';
 import {
-  CartContentDiv,
-  CartListDiv,
-  CartListHeader,
-  CartItems,
+  LikeContentDiv,
+  LikeListDiv,
+  LikeListHeader,
+  LikeItems,
 } from './mainLikes.style';
+import { getLikeList } from '../../../apis/user/users';
+import LikeItemComp from '../../../components/main/like/LikeItem';
 
 export default function MainLikes() {
+  const [likeList, setLikeList] = useState([]);
   const [checkedItems, setCheckedItems] = useState(new Set());
   const [isAllChecked, setIsAllChecked] = useState(false);
-  const [allChecked, setChecked] = useState(false);
+  const [allChecked, setAllChecked] = useState(false);
+  const [selectedItems, setSelectedItems] = useState({});
 
-  const checkedItemHandler = (id, isChecked) => {
+  const { isLoading: isGetLikeList, refetch: getLikeListRefetch } = useQuery(
+    'getLikeList',
+    () => getLikeList({ sellerId: 1, pageNo: 1 }),
+    {
+      onSuccess: res => {
+        setLikeList(res.data);
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+  // useEffect(() => {
+  //   getLikeList()
+  // }, []);
+
+  const changeCount = (id, quantity) => {
+    selectedItems[id] = quantity
+  }
+
+  const checkedItemHandler = (id, isChecked, quantity) => {
     if (isChecked) {
       checkedItems.add(id);
       setCheckedItems(checkedItems);
@@ -22,70 +46,44 @@ export default function MainLikes() {
       checkedItems.delete(id);
       setCheckedItems(checkedItems);
     }
-    if (items.length === checkedItems.size) {
-      setChecked(true);
+
+    selectedItems[id] = quantity
+
+    if (likeList.length === checkedItems.size) {
+      setAllChecked(true);
+      setIsAllChecked(true);
     } else {
-      setChecked(false);
+      setAllChecked(false);
+      setIsAllChecked(false);
     }
   };
 
   const allCheckedHandler = isChecked => {
     if (isChecked) {
-      setCheckedItems(new Set(items.map(({ id }) => String(id))));
+      setCheckedItems(new Set(likeList.map((like, idx) => String(idx))));
       setIsAllChecked(true);
     } else {
       checkedItems.clear();
-      setCheckedItems(setCheckedItems);
+      setCheckedItems(new Set());
       setIsAllChecked(false);
     }
   };
 
-  const checkHandler = ({ target }) => {
-    setChecked(!allChecked);
+  const checkAllHandler = ({ target }) => {
+    setAllChecked(!allChecked);
     allCheckedHandler(target.checked);
   };
 
-  const items = [
-    {
-      id: 1,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277665/P512007DE92C4154D55ADF24400888FF8E97013E948F47C574A0F9C99D9E24DF9/file/dims/optimize',
-    },
-    {
-      id: 2,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277236/P7C67A0F32EC59C38BBC7C73B004388F250AED8CD63AA23D3B80AD2335EA5AE60/file/dims/optimize',
-    },
-    {
-      id: 3,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/276873/P75260B86794950F9B3895FCA46D6F5D7ABF08A546585DF0082E2F542351E5B0C/file/dims/optimize',
-    },
-    {
-      id: 4,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277222/PFFB4AEF95EF2C68DD7CBA7F847E5C9443123A4929F8CB291AE79280B5D67F84E/file/dims/optimize',
-    },
-  ];
-
   return (
-    <CartContentDiv>
-      <CartListDiv>
+    <LikeContentDiv>
+      <LikeListDiv>
         <p className="subject">찜목록</p>
-        <CartListHeader>
+        <LikeListHeader>
           <div style={{ display: 'flex' }}>
             <input
               type="checkbox"
               checked={allChecked}
-              onChange={e => checkHandler(e)}
+              onChange={e => checkAllHandler(e)}
               style={{ margin: 'auto' }}
             />
             <p style={{ margin: 'auto 20px' }}>전체선택</p>
@@ -99,25 +97,29 @@ export default function MainLikes() {
               margin="auto auto auto 20px"
             ></Button>
           </div>
-        </CartListHeader>
+        </LikeListHeader>
         <hr />
-        <CartItems>
-          {items.map((item, index) => {
+        <LikeItems>
+          {likeList.map((like, index) => {
             return (
-              <CartItemComp
+              <LikeItemComp
                 key={index}
-                id={item.id}
-                url={item.url}
-                name={item.name}
-                number={item.number}
-                price={item.price}
+                id={index}
+                url={like.productMainImgSrc}
+                name={like.productName}
+                number={1}
+                price={like.productPrice}
                 checkedItemHandler={checkedItemHandler}
+                checkedItems={checkedItems}
+                likeListSize={likeList.length}
+                changeCount={changeCount}
+                // setIsAllChecked={setIsAllChecked}
                 isAllChecked={isAllChecked}
-              ></CartItemComp>
+              ></LikeItemComp>
             );
           })}
-        </CartItems>
-      </CartListDiv>
-    </CartContentDiv>
+        </LikeItems>
+      </LikeListDiv>
+    </LikeContentDiv>
   );
 }

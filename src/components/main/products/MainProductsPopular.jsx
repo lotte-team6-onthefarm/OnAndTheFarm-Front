@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
+import { getProducts } from '../../../apis/user/product';
 import { Button } from '../../common/Button';
 import Product from '../../common/Product';
 import {
@@ -8,32 +10,26 @@ import {
 } from './MainProductsPopular.style';
 
 export default function MainProductsPopular(props) {
-  const MenuItems = [
+  const [productList, setProductList] = useState([]);
+  useEffect(() => {
+    let data = {
+      url: 'orderby/soldcount/',
+      page: 0,
+    };
+    getProduct(data);
+  }, []);
+
+  const { mutate: getProduct, isLoading: isGetProduct } = useMutation(
+    getProducts,
     {
-      title: '메인페이지',
-      url: '/',
+      onSuccess: res => {
+        setProductList(res.data);
+      },
+      onError: () => {
+        console.log('에러');
+      },
     },
-    {
-      title: '상품전제보기',
-      url: '/products',
-    },
-    {
-      title: '농장일기',
-      url: '/posts',
-    },
-    {
-      title: '공동구매',
-      url: '/groupbuy',
-    },
-    {
-      title: '공동구매',
-      url: '/groupbuy',
-    },
-    {
-      title: '공동구매',
-      url: '/groupbuy',
-    },
-  ];
+  );
   return (
     <MainProductsDiv>
       <MainProductsSubjectDiv>
@@ -46,8 +42,8 @@ export default function MainProductsPopular(props) {
         ></Button>
       </MainProductsSubjectDiv>
       <PopularProductsDiv>
-        {MenuItems.map((item, index) => {
-          return <Product key={index}></Product>;
+        {productList.map((product, index) => {
+          return <Product key={index} product={product}></Product>;
         })}
       </PopularProductsDiv>
     </MainProductsDiv>

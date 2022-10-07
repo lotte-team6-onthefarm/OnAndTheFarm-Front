@@ -114,10 +114,6 @@ width: 80%;
 margin: 20px auto;
 `;
 
-const ReviewDiv = styled.div`
-height: 100px;
-  border: 1px solid red;
-`;
 
 export {
   ProductDetailDiv,
@@ -137,5 +133,4 @@ export {
   ReviewAddDiv,
   ReviewAddButtonDiv,
   ReviewListDiv,
-  ReviewDiv,
 };

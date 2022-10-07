@@ -3,11 +3,11 @@ import styled from 'styled-components';
 const RatingInputDiv = styled.div`
   width: 100%;
   button {
-    font-size: x-large;
+    font-size: ${props => (props.font ? props.font : 'x-large')};
     background-color: transparent;
     border: none;
     outline: none;
-    cursor: pointer;
+    cursor: ${props => (props.rate ? '' : 'pointer')};
   }
   .on {
     color: darkorange;
@@ -17,7 +17,6 @@ const RatingInputDiv = styled.div`
   }
 `;
 
-const RatingButton = styled.button`
-`;
+const RatingButton = styled.button``;
 
 export { RatingInputDiv, RatingButton };
