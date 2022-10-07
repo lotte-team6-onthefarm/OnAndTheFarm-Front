@@ -11,6 +11,7 @@ import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { ReactQueryDevtools } from 'react-query/devtools';
+import ScrollToTop from './components/common/ScrollToTop';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +28,7 @@ root.render(
       <GlobalStyle />
       <RecoilRoot>
         <BrowserRouter>
+          <ScrollToTop />
           <App />
         </BrowserRouter>
       </RecoilRoot>
