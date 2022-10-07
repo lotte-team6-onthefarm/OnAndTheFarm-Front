@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { AiFillStar } from 'react-icons/ai';
+import React from 'react';
 import { Button } from '../../common/Button';
 import RatingInputComp from '../../common/Rating';
 import ReviewItemComp from '../review/ReviewItem';

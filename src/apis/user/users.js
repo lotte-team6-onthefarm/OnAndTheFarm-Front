@@ -1,4 +1,4 @@
-import { JWTapiUser, ApiUser } from '.';
+import { JWTapiUser } from '.';
 
 // 찜목록 불러오기
 const getLikeList = async () => {

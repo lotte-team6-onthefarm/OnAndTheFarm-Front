@@ -1,4 +1,4 @@
-import { JWTapiUser, ApiUser } from '.';
+import { JWTapiUser } from '.';
 
 // 위시리스트 추가
 const postAddCart = async (data) => {

@@ -1,13 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AiFillHeart } from 'react-icons/ai';
-import Counter from '../../common/Counter';
 import RatingInputComp from '../../common/Rating';
 import {
   ReviewItem,
   ReviewItemImg,
   ReviewItemContent,
   ReviewItemDetail,
-  ReviewItemNumber,
   ReviewItemPrice,
 } from './ReviewItem.style';
 

@@ -1,4 +1,4 @@
-import { JWTapiUser, ApiUser } from '.';
+import { JWTapiUser } from '.';
 
 // 상품 불러오기
 const getProducts = async (data) => {
@@ -8,7 +8,7 @@ const getProducts = async (data) => {
 
 // 상품 단건조회
 const getProduct = async (data) => {
-  const response = await JWTapiUser.get(`product/${data.productId}`);
+  const response = await JWTapiUser.get(`product/${data}`);
   return response.data;
 };
 

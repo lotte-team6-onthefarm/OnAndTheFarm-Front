@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useState } from 'react';
 import { Button } from '../../../components/common/Button';
@@ -22,7 +22,7 @@ export default function MainLikes() {
 
   const {
     isLoading: isGetLikeList,
-    refetch: getLikeListRefetch,
+    // refetch: getLikeListRefetch,
     data: likeList,
   } = useQuery('getLikeList', () => getLikeList({ sellerId: 1, pageNo: 1 }), {
     refetchOnWindowFocus: true,
@@ -99,7 +99,7 @@ export default function MainLikes() {
     deleteWish({ wishId: wishId });
   };
 
-  const { mutate: addCart, isLoading: isAddCart } = useMutation(postAddCart, {
+  const { mutate: addCart, isLoading: isAddCartLoading } = useMutation(postAddCart, {
     onSuccess: res => {
       alert('장바구니에 추가되었습니다');
       window.location.reload();
@@ -109,7 +109,7 @@ export default function MainLikes() {
     },
   });
 
-  const { mutate: deleteWish, isLoading: isDeleteWish } = useMutation(deleteWishList, {
+  const { mutate: deleteWish, isLoading: isDeleteWishLoading } = useMutation(deleteWishList, {
     onSuccess: res => {
       alert('삭제되었습니다');
       window.location.reload();

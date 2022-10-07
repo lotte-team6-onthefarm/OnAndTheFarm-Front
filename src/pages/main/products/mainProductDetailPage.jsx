@@ -11,42 +11,27 @@ import {
   ProductDetailImgDiv,
   ProductDetailImg,
   ProductReviewDiv,
-  ReviewStatisticsDiv,
-  ReviewCoutnDiv,
-  ReviewTotalDiv,
-  ReviewCoutnListDiv,
   ReviewAddDiv,
   ReviewAddButtonDiv,
   ReviewListDiv,
-  ReviewDiv,
 } from './mainProductDetailPage.style';
 import detailImg from '../../../assets/productDetail.png';
 import detailBundleImg from '../../../assets/popularBundlePack.png';
 import { AiFillStar, AiOutlineShoppingCart } from 'react-icons/ai';
-import Counter from '../../../components/common/Counter';
 import { Button } from '../../../components/common/Button';
 import MenuTab from '../../../components/common/MenuTab';
-import RatingInput from '../../../components/common/Rating';
-import ReviewItemComp from '../../../components/main/review/ReviewItem';
 import QnaItemComp from '../../../components/main/qna/QnaItem';
 import { getProduct } from '../../../apis/user/product';
 import ProductReviewComp from '../../../components/main/products/ProductReview';
 
 export default function MainProductDetailPage(props) {
-  let data = {
-    productId: 0,
-  };
 
   const params = useParams();
 
   const [productDetail, setProductDetail] = useState({});
 
-  useEffect(() => {
-    data.productId = params.id;
-    getProductDetail(data);
-  }, []);
-
-  const { mutate: getProductDetail, isLoading: isGetProductDetail } =
+  
+  const { mutate: getProductDetail, isLoading: isGetProductDetailLoading } =
     useMutation(getProduct, {
       onSuccess: res => {
         setProductDetail(res.data);
@@ -55,7 +40,10 @@ export default function MainProductDetailPage(props) {
         console.log('에러');
       },
     });
-
+    useEffect(() => {
+      getProductDetail(params.id);
+    }, []);
+  
   const items = [
     {
       id: 1,

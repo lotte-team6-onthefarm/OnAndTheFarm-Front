@@ -33,7 +33,7 @@ export default function AddProduct() {
   };
 
   // useMutation
-  const { mutate: addProduct, isLoading: isAddingProduct } = useMutation(
+  const { mutate: addProduct, isLoading: isAddingProductLoading } = useMutation(
     postSellerProduct,
     {
       onSuccess: (res, variables, context) => {

@@ -11,7 +11,6 @@ import {
 } from '.';
 import { MainWrapper } from '../../components/seller/common/Box.style';
 import SellerNavbar from '../../components/seller/common/navbar/SellerNavbar';
-import Test from './test';
 
 export default function SellerIndexLayout() {
   return (
@@ -25,7 +24,6 @@ export default function SellerIndexLayout() {
         <Route path="/delivery" element={<SellerDelivery />} />
         <Route path="/delivery/:id" element={<SellerDeliveryDetail />} />
         <Route path="/statistics" element={<SellerStatistics />} />
-        <Route path="/test" element={<Test />} />
       </Routes>
     </MainWrapper>
   );

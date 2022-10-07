@@ -42,7 +42,7 @@ export default function Product(props) {
     navigate(`/products/detail/${id}`);
   };
 
-  const { mutate: addWish, isLoading: isAddWish } = useMutation(
+  const { mutate: addWish, isLoading: isAddWishLoading } = useMutation(
     postAddWish,
     {
       onSuccess: res => {
@@ -54,7 +54,7 @@ export default function Product(props) {
     },
   );
 
-  const { mutate: addCart, isLoading: isAddCart } = useMutation(postAddCart, {
+  const { mutate: addCart, isLoading: isAddCartLoading } = useMutation(postAddCart, {
     onSuccess: res => {
       alert('장바구니에 추가되었습니다');
       window.location.reload();
