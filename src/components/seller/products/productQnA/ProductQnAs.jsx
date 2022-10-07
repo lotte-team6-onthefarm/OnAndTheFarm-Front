@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import { getSellerQna } from '../../../../apis/seller/qna';
 import { WhiteWrapper } from '../../common/Box.style';
 import { UserImgWrapper } from '../../common/sellerCommon.style';
 import SubTitle from '../../common/SubTitle';
 import { SellerTitle } from '../../common/Title.style';
+import { EmptyTable } from '../../main/popularProducts/MainPopularProducts.style';
 import {
   ProductReviewsTable,
   ReviewBlock,
@@ -18,6 +21,15 @@ export default function ProductQnAs() {
     const newSelected = selected.filter(select => select !== idx);
     setSelected(newSelected);
   };
+  const {
+    isLoading: sellerQnALoading,
+    // refetch: sellerMainProduct,
+    data: qna,
+  } = useQuery('sellerQnA', () => getSellerQna(), {
+    onError: () => {
+      console.log('error');
+    },
+  });
   const datas = [
     {
       name: '손은성',
@@ -39,63 +51,75 @@ export default function ProductQnAs() {
   return (
     <>
       <SellerTitle>QnA 관리</SellerTitle>
-      <WhiteWrapper width="100%" marginBottom="10px">
+      <WhiteWrapper width="100%" marginBottom="10px" minHeight="80vh">
         <SubTitle color="#B5E4CA" title="상품별 QnA" />
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <ProductReviewsTable>
-            <thead>
-              <tr style={{ fontSize: '13px' }}>
-                <th width="5%">NO.</th>
-                <th width="70%">QnA</th>
-                <th width="25%">상품</th>
-              </tr>
-            </thead>
-            {datas.map((data, idx) => {
-              return (
-                <tbody
-                  key={idx}
-                  className={selected.includes(idx) ? 'selectedTbody' : ''}
-                >
-                  <tr>
-                    <td>{idx + 1}</td>
-                    <td>
-                      <ReviewBlock>
-                        <UserImgWrapper
-                          src={require('../../../../assets/구데타마.png')}
-                          alt=""
-                          width="50px"
-                        ></UserImgWrapper>
-                        <div>
-                          <div>{data.name}</div>
-                          <div className="review">{data.review}</div>
-                        </div>
-                        <div className="time">8h</div>
-                      </ReviewBlock>
-                      <div
+        {!sellerQnALoading && (
+          <>
+            {qna.length !== 0 ? (
+              <EmptyTable height="60vh">
+                <h3>현재 등록된 QnA가 없습니다.</h3>
+              </EmptyTable>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <ProductReviewsTable>
+                  <thead>
+                    <tr style={{ fontSize: '13px' }}>
+                      <th width="5%">NO.</th>
+                      <th width="70%">QnA</th>
+                      <th width="25%">상품</th>
+                    </tr>
+                  </thead>
+                  {datas.map((data, idx) => {
+                    return (
+                      <tbody
+                        key={idx}
                         className={
-                          selected.includes(idx) ? 'selected' : 'answer'
+                          selected.includes(idx) ? 'selectedTbody' : ''
                         }
                       >
-                        <AnswerBox
-                          idx={idx}
-                          selectedAddHandler={selectedAddHandler}
-                          selectedDelHandler={selectedDelHandler}
-                        />
-                      </div>
-                    </td>
-                    <td className="title">
-                      <img
-                        src={require('../../../../assets/products/복숭아.png')}
-                        alt=""
-                      />
-                      <div>{data.productName}</div>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </ProductReviewsTable>
-        </div>
+                        <tr>
+                          <td>{idx + 1}</td>
+                          <td>
+                            <ReviewBlock>
+                              <UserImgWrapper
+                                src={require('../../../../assets/구데타마.png')}
+                                alt=""
+                                width="50px"
+                              ></UserImgWrapper>
+                              <div>
+                                <div>{data.name}</div>
+                                <div className="review">{data.review}</div>
+                              </div>
+                              <div className="time">8h</div>
+                            </ReviewBlock>
+                            <div
+                              className={
+                                selected.includes(idx) ? 'selected' : 'answer'
+                              }
+                            >
+                              <AnswerBox
+                                idx={idx}
+                                selectedAddHandler={selectedAddHandler}
+                                selectedDelHandler={selectedDelHandler}
+                              />
+                            </div>
+                          </td>
+                          <td className="title">
+                            <img
+                              src={require('../../../../assets/products/복숭아.png')}
+                              alt=""
+                            />
+                            <div>{data.productName}</div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    );
+                  })}
+                </ProductReviewsTable>
+              </div>
+            )}
+          </>
+        )}
       </WhiteWrapper>
     </>
   );

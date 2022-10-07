@@ -32,6 +32,7 @@ const PageCol = styled.div`
 const WhiteWrapper = styled.div`
   width: ${props => props.width};
   height: ${props => props.height};
+  min-height: ${props => props.minHeight};
   background-color: white;
   border-radius: 8px;
   margin-bottom: ${props => props.marginBottom};

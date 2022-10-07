@@ -2,10 +2,9 @@ import { JWTapiSeller } from '..';
 
 // 셀러 전체 질의 조회
 const getSellerQna = async () => {
-  const response = await JWTapiSeller.post('QnA');
-  console.log(response);
-
-  return response.data;
+  const response = await JWTapiSeller.get('QnA');
+  console.log(response.data.data, 'getapi');
+  return response.data.data;
 };
 
 // 질의 답변

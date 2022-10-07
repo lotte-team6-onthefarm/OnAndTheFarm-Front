@@ -2,6 +2,7 @@ import { JWTapiSeller, ApiSeller } from '..';
 
 // 셀러 회원가입
 const postSellerSignup = async data => {
+  console.log(data);
   const response = await JWTapiSeller.post('signup', data);
   console.log(response);
   return response.data;
@@ -9,8 +10,9 @@ const postSellerSignup = async data => {
 
 // 셀러 로그인
 const postSellerlogin = async data => {
+  console.log(data, '들어온 데이터');
   const response = await ApiSeller.post('login', data);
-  console.log(response);
+  console.log(response.data.data.token, 'asdasda');
   return response.data;
 };
 
@@ -23,8 +25,8 @@ const postSellerPasswd = async data => {
 
 // 이메일 인증
 const postSellerEmail = async data => {
+  console.log(data, '들어온이메일 데이터');
   const response = await ApiSeller.post('email', data);
-  console.log(response);
   return response.data;
 };
 

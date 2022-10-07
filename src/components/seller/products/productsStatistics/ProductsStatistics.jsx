@@ -8,6 +8,10 @@ import { BsPencil } from 'react-icons/bs';
 import { ProductStatisticsTable, StatusTd } from './ProductsStatistics.style';
 import { AiTwotoneHeart, AiTwotoneStar } from 'react-icons/ai';
 import { IconBox, IconWrapper } from '../../common/Icon.style';
+import { useQuery } from 'react-query';
+import { getSellerProduct } from '../../../../apis/seller/product';
+import { useState } from 'react';
+import { EmptyTable } from '../../main/popularProducts/MainPopularProducts.style';
 
 export default function ProductsStatistics() {
   const datas = [
@@ -147,7 +151,21 @@ export default function ProductsStatistics() {
       img: '../../../../assets/products/거봉.png',
     },
   ];
+  // const [products, setProducts] = useState(datas);
+  const [pageNo, setPageNo] = useState(0);
+
   const title = `전체 상품 (총 ${datas.length}개)`;
+
+  const {
+    isLoading: sellerProductLoading,
+    // refetch: sellerMainProduct,
+    data: products,
+  } = useQuery('sellerProducts', () => getSellerProduct(pageNo), {
+    onSuccess: res => {
+      console.log(res);
+    },
+    onError: {},
+  });
 
   // hook
   const navigate = useNavigate();
@@ -159,67 +177,77 @@ export default function ProductsStatistics() {
   return (
     <>
       <SellerTitle>상품 관리</SellerTitle>
-      <WhiteWrapper width="100%" marginBottom="10px">
+      <WhiteWrapper width="100%" marginBottom="10px" minHeight="80vh">
         <SubTitle color="#FFBC99" title={title} />
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <ProductStatisticsTable>
-            <thead>
-              <tr style={{ fontSize: '13px' }}>
-                <th width="5%">NO.</th>
-                <th width="30%">상품명</th>
-                <th width="10%">상태</th>
-                <th width="12.5%">가격</th>
-                <th width="10%">별점</th>
-                <th width="10%">좋아요수</th>
-                <th width="12.5%">조회수</th>
-              </tr>
-            </thead>
-            {datas.map((data, idx) => {
-              return (
-                <tbody key={idx}>
-                  <tr>
-                    <td>{idx + 1}</td>
-                    <td className="title">
-                      <img
-                        src={require('../../../../assets/products/복숭아.png')}
-                        alt=""
-                      />
-                      <div>{data.title}</div>
-                    </td>
-                    <td>
-                      <StatusTd status={data.status}>
-                        {data.status === 1 ? '판매중' : '판매중지'}
-                      </StatusTd>
-                      <div className="updateBtn">
-                        <div onClick={() => updateUrl(idx)}>
-                          <BsPencil />
-                        </div>
-                      </div>
-                    </td>
-                    <td>{toLocaleString(data.price)}원</td>
-                    <td className="grayBack">
-                      <IconWrapper>
-                        <IconBox>
-                          <AiTwotoneStar style={{ color: '#eff21b' }} />
-                        </IconBox>
-                        {data.star}
-                      </IconWrapper>
-                    </td>
-                    <td>
-                      <IconWrapper>
-                        <IconBox>
-                          <AiTwotoneHeart style={{ color: '#f73f2a' }} />
-                        </IconBox>
-                        {data.like}
-                      </IconWrapper>
-                    </td>
-                    <td>{data.view}회</td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </ProductStatisticsTable>
-        </div>
+        {!sellerProductLoading && (
+          <>
+            {products.length === 0 ? (
+              <EmptyTable height="60vh">
+                <h3>현재 등록된 상품이 없습니다</h3>
+              </EmptyTable>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <ProductStatisticsTable>
+                  <thead>
+                    <tr style={{ fontSize: '13px' }}>
+                      <th width="5%">NO.</th>
+                      <th width="30%">상품명</th>
+                      <th width="10%">상태</th>
+                      <th width="12.5%">가격</th>
+                      <th width="10%">별점</th>
+                      <th width="10%">좋아요수</th>
+                      <th width="12.5%">조회수</th>
+                    </tr>
+                  </thead>
+                  {datas.map((data, idx) => {
+                    return (
+                      <tbody key={idx}>
+                        <tr>
+                          <td>{idx + 1}</td>
+                          <td className="title">
+                            <img
+                              src={require('../../../../assets/products/복숭아.png')}
+                              alt=""
+                            />
+                            <div>{data.title}</div>
+                          </td>
+                          <td>
+                            <StatusTd status={data.status}>
+                              {data.status === 1 ? '판매중' : '판매중지'}
+                            </StatusTd>
+                            <div className="updateBtn">
+                              <div onClick={() => updateUrl(idx)}>
+                                <BsPencil />
+                              </div>
+                            </div>
+                          </td>
+                          <td>{toLocaleString(data.price)}원</td>
+                          <td className="grayBack">
+                            <IconWrapper>
+                              <IconBox>
+                                <AiTwotoneStar style={{ color: '#eff21b' }} />
+                              </IconBox>
+                              {data.star}
+                            </IconWrapper>
+                          </td>
+                          <td>
+                            <IconWrapper>
+                              <IconBox>
+                                <AiTwotoneHeart style={{ color: '#f73f2a' }} />
+                              </IconBox>
+                              {data.like}
+                            </IconWrapper>
+                          </td>
+                          <td>{data.view}회</td>
+                        </tr>
+                      </tbody>
+                    );
+                  })}
+                </ProductStatisticsTable>
+              </div>
+            )}
+          </>
+        )}
       </WhiteWrapper>
     </>
   );

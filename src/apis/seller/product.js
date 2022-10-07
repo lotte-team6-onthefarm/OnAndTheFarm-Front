@@ -22,9 +22,9 @@ const getSellerNewestProduct = async data => {
 };
 
 // 셀러별 상품 조회
-const getSellerProduct = async data => {
+const getSellerProduct = async pageNo => {
   const response = await JWTapiSeller.get(
-    `product/list/orderby/seller/${data.sellerId}/${data.pageNo}`,
+    `product/list/orderby/seller/${pageNo}`,
   );
   return response.data.data;
 };

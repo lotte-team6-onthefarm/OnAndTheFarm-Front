@@ -13,7 +13,6 @@ import {
 export default function OrderState(props) {
   const closeModal = props.closeModal;
   const data = props.data;
-  console.log(data);
   return (
     <div>
       <SubTitle color="#FFBC99" title="취소/반품 처리" />
