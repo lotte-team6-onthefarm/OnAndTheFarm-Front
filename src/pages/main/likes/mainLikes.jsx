@@ -11,6 +11,7 @@ import {
 import { getLikeList } from '../../../apis/user/users';
 import LikeItemComp from '../../../components/main/like/LikeItem';
 import { postAddCart } from '../../../apis/user/cart';
+import { deleteWishList } from '../../../apis/user/product';
 
 export default function MainLikes() {
   // const [likeList, setLikeList] = useState([]);
@@ -86,10 +87,31 @@ export default function MainLikes() {
     }
     addCart({ cartList: cartList });
   };
+  const deleteWishClick = () => {
+    let wishId = [];
+    if (checkedItems.size === 0) {
+      alert('삭제할 아이템을 선택해주세요');
+      return;
+    }
+    for (const item of checkedItems) {
+      wishId.push(likeList[item].wistId);
+    }
+    deleteWish({ wishId: wishId });
+  };
 
   const { mutate: addCart, isLoading: isAddCart } = useMutation(postAddCart, {
     onSuccess: res => {
       alert('장바구니에 추가되었습니다');
+      window.location.reload();
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+
+  const { mutate: deleteWish, isLoading: isDeleteWish } = useMutation(deleteWishList, {
+    onSuccess: res => {
+      alert('삭제되었습니다');
       window.location.reload();
     },
     onError: () => {
@@ -122,6 +144,7 @@ export default function MainLikes() {
               color="#40AA54"
               width="130px"
               margin="auto auto auto 20px"
+              onClick={deleteWishClick}
             ></Button>
           </div>
         </LikeListHeader>
