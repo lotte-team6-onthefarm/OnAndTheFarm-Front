@@ -30,9 +30,9 @@ export default function MainLikes() {
       },
     },
   );
-  useEffect(() => {
-    getLikeList()
-  }, []);
+  // useEffect(() => {
+  //   getLikeList()
+  // }, []);
 
   const changeCount = (id, quantity) => {
     selectedItems[id] = quantity
