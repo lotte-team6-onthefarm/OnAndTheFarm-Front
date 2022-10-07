@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { RatingInputDiv, RatingButton } from './Rating.style';
 
-export default function RatingInput(props) {
+export default function RatingInputComp(props) {
   
-  const [rating, setRating] = useState(5);
+  const [rating, setRating] = useState(props.rate?props.rate:5);
   const [hover, setHover] = useState(0);
-  // useEffect(() => {
-  //   if(props.rate){
-  //     setRating(props.rate);
-  //   }
-  // }, []);
+
   return (
-    <RatingInputDiv>
+    <RatingInputDiv font={props.font} rate={props.rate}>
       {[...Array(5)].map((star, index) => {
         index += 1;
         return (
@@ -24,7 +20,7 @@ export default function RatingInput(props) {
             onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(rating)}
           >
-            <span className="star">&#9733;</span>
+            <span>&#9733;</span>
           </RatingButton>
         );
       })}

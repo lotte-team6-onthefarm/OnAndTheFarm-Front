@@ -30,6 +30,7 @@ import RatingInput from '../../../components/common/Rating';
 import ReviewItemComp from '../../../components/main/review/ReviewItem';
 import QnaItemComp from '../../../components/main/qna/QnaItem';
 import { getProduct } from '../../../apis/user/product';
+import ProductReviewComp from '../../../components/main/products/ProductReview';
 
 export default function MainProductDetailPage(props) {
   let data = {
@@ -132,82 +133,7 @@ export default function MainProductDetailPage(props) {
           <ProductDetailImg src={detailBundleImg} />
         </ProductDetailImgDiv>
       </ProductDetailContentDiv>
-      <ProductReviewDiv>
-        <div>
-          <h4>후기리뷰</h4>
-          <hr />
-          <div style={{ display: 'flex', margin: '20px auto', width: '90%' }}>
-            <ReviewStatisticsDiv>
-              <ReviewTotalDiv>140개의 리뷰</ReviewTotalDiv>
-              <ReviewCoutnListDiv>
-                <ReviewCoutnDiv>
-                  만족도 5점 <AiFillStar color="darkorange" />
-                  <AiFillStar color="darkorange" />
-                  <AiFillStar color="darkorange" />
-                  <AiFillStar color="darkorange" />
-                  <AiFillStar color="darkorange" />
-                </ReviewCoutnDiv>
-                <ReviewCoutnDiv>
-                  만족도 4점 <AiFillStar color="darkorange" />
-                  <AiFillStar color="darkorange" />
-                  <AiFillStar color="darkorange" />
-                  <AiFillStar color="darkorange" />
-                </ReviewCoutnDiv>
-                <ReviewCoutnDiv>
-                  만족도 3점 <AiFillStar color="darkorange" />
-                  <AiFillStar color="darkorange" />
-                  <AiFillStar color="darkorange" />
-                </ReviewCoutnDiv>
-                <ReviewCoutnDiv>
-                  만족도 2점 <AiFillStar color="darkorange" />
-                  <AiFillStar color="darkorange" />
-                </ReviewCoutnDiv>
-                <ReviewCoutnDiv>
-                  만족도 1점 <AiFillStar color="darkorange" />
-                </ReviewCoutnDiv>
-              </ReviewCoutnListDiv>
-            </ReviewStatisticsDiv>
-            <ReviewAddDiv>
-              <input
-                style={{ width: '100%', height: '100px', marginRight: '20px' }}
-              ></input>
-              <ReviewAddButtonDiv>
-                <div>
-                  <RatingInput></RatingInput>
-                </div>
-                <Button
-                  text="사진첨부"
-                  color="#40AA54"
-                  width="130px"
-                  height="30px"
-                ></Button>
-                <Button
-                  text="리뷰작성"
-                  color="#40AA54"
-                  width="130px"
-                  height="30px"
-                ></Button>
-              </ReviewAddButtonDiv>
-            </ReviewAddDiv>
-          </div>
-        </div>
-        <ReviewListDiv>
-          {items.map((item, index) => {
-            return (
-              <ReviewItemComp
-                key={index}
-                id={item.id}
-                url={item.url}
-                name={item.name}
-                content={item.content}
-                rate={item.rate}
-                date={item.date}
-                like={item.like}
-              ></ReviewItemComp>
-            );
-          })}
-        </ReviewListDiv>
-      </ProductReviewDiv>
+      <ProductReviewComp></ProductReviewComp>
       <ProductReviewDiv>
         <div>
           <h4>문의사항</h4>

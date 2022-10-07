@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { AiFillHeart } from 'react-icons/ai';
 import Counter from '../../common/Counter';
-import RatingInput from '../../common/Rating';
+import RatingInputComp from '../../common/Rating';
 import {
   ReviewItem,
   ReviewItemImg,
@@ -21,7 +21,7 @@ export default function ReviewItemComp(props) {
           <p>{props.content}</p>
         </ReviewItemDetail>
         <ReviewItemPrice>
-        <RatingInput rate={props.rate}/>
+        <RatingInputComp rate={props.rate}/>
         
           <p>{props.date} 일전</p>
           <p><AiFillHeart color='red'/>{props.like} </p>
