@@ -14,20 +14,24 @@ import {
 } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { postAddWish } from '../../apis/user/product';
+import { postAddCart } from '../../apis/user/cart';
 
 export default function Product(props) {
   const product = props.product
-  const addCart = () => {
-    alert('카트에 추가')
+  const addCartClick = (id) => {
+    let cartList = [{
+      productId: id,
+      cartQty: 1,
+    }];
+    addCart({ cartList: cartList });
   };
   const addLike = () => {
-    console.log(product.productId)
     const data = {
       body: {
         "productId" : product.productId
     }
     }
-    postAddWish(data)
+    addWish(data)
   };
 
   // hook
@@ -42,13 +46,23 @@ export default function Product(props) {
     postAddWish,
     {
       onSuccess: res => {
-        console.log('추가성공')
+        alert('찜목록에 추가되었습니다')
       },
       onError: () => {
         console.log('에러');
       },
     },
   );
+
+  const { mutate: addCart, isLoading: isAddCart } = useMutation(postAddCart, {
+    onSuccess: res => {
+      alert('장바구니에 추가되었습니다');
+      window.location.reload();
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
 
   return (
     <ProductDiv width={props.width}>
@@ -59,7 +73,7 @@ export default function Product(props) {
         ></ProductImg>
         <ProductImgIcons>
           <AiOutlineHeart fontSize="x-large" onClick={addLike}/>
-          <AiOutlineShoppingCart fontSize="x-large" onClick={addCart}/>
+          <AiOutlineShoppingCart fontSize="x-large" onClick={e => addCartClick(product.productId)}/>
         </ProductImgIcons>
       </ProductImgDiv>
 

@@ -10,33 +10,33 @@ import {
 } from './mainLikes.style';
 import { getLikeList } from '../../../apis/user/users';
 import LikeItemComp from '../../../components/main/like/LikeItem';
+import { postAddCart } from '../../../apis/user/cart';
+import { deleteWishList } from '../../../apis/user/product';
 
 export default function MainLikes() {
-  const [likeList, setLikeList] = useState([]);
+  // const [likeList, setLikeList] = useState([]);
   const [checkedItems, setCheckedItems] = useState(new Set());
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [allChecked, setAllChecked] = useState(false);
   const [selectedItems, setSelectedItems] = useState({});
 
-  const { isLoading: isGetLikeList, refetch: getLikeListRefetch } = useQuery(
-    'getLikeList',
-    () => getLikeList({ sellerId: 1, pageNo: 1 }),
-    {
-      onSuccess: res => {
-        setLikeList(res.data);
-      },
-      onError: () => {
-        console.log('에러');
-      },
+  const {
+    isLoading: isGetLikeList,
+    refetch: getLikeListRefetch,
+    data: likeList,
+  } = useQuery('getLikeList', () => getLikeList({ sellerId: 1, pageNo: 1 }), {
+    refetchOnWindowFocus: true,
+    onSuccess: res => {
+      // setLikeList(res.data);
     },
-  );
-  // useEffect(() => {
-  //   getLikeList()
-  // }, []);
+    onError: () => {
+      console.log('에러');
+    },
+  });
 
   const changeCount = (id, quantity) => {
-    selectedItems[id] = quantity
-  }
+    selectedItems[id] = quantity;
+  };
 
   const checkedItemHandler = (id, isChecked, quantity) => {
     if (isChecked) {
@@ -47,7 +47,7 @@ export default function MainLikes() {
       setCheckedItems(checkedItems);
     }
 
-    selectedItems[id] = quantity
+    selectedItems[id] = quantity;
 
     if (likeList.length === checkedItems.size) {
       setAllChecked(true);
@@ -73,7 +73,51 @@ export default function MainLikes() {
     setAllChecked(!allChecked);
     allCheckedHandler(target.checked);
   };
+  const addCartClick = () => {
+    let cartList = [];
+    if (checkedItems.size === 0) {
+      alert('장바구니에 추가할 아이템을 선택해주세요');
+      return;
+    }
+    for (const item of checkedItems) {
+      cartList.push({
+        productId: likeList[item].productId,
+        cartQty: selectedItems[item],
+      });
+    }
+    addCart({ cartList: cartList });
+  };
+  const deleteWishClick = () => {
+    let wishId = [];
+    if (checkedItems.size === 0) {
+      alert('삭제할 아이템을 선택해주세요');
+      return;
+    }
+    for (const item of checkedItems) {
+      wishId.push(likeList[item].wistId);
+    }
+    deleteWish({ wishId: wishId });
+  };
 
+  const { mutate: addCart, isLoading: isAddCart } = useMutation(postAddCart, {
+    onSuccess: res => {
+      alert('장바구니에 추가되었습니다');
+      window.location.reload();
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+
+  const { mutate: deleteWish, isLoading: isDeleteWish } = useMutation(deleteWishList, {
+    onSuccess: res => {
+      alert('삭제되었습니다');
+      window.location.reload();
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
   return (
     <LikeContentDiv>
       <LikeListDiv>
@@ -89,35 +133,44 @@ export default function MainLikes() {
             <p style={{ margin: 'auto 20px' }}>전체선택</p>
           </div>
           <div>
-            <Button text="장바구니 담기" color="#40AA54" width="130px"></Button>
+            <Button
+              text="장바구니 담기"
+              color="#40AA54"
+              width="130px"
+              onClick={addCartClick}
+            ></Button>
             <Button
               text="선택삭제"
               color="#40AA54"
               width="130px"
               margin="auto auto auto 20px"
+              onClick={deleteWishClick}
             ></Button>
           </div>
         </LikeListHeader>
         <hr />
         <LikeItems>
-          {likeList.map((like, index) => {
-            return (
-              <LikeItemComp
-                key={index}
-                id={index}
-                url={like.productMainImgSrc}
-                name={like.productName}
-                number={1}
-                price={like.productPrice}
-                checkedItemHandler={checkedItemHandler}
-                checkedItems={checkedItems}
-                likeListSize={likeList.length}
-                changeCount={changeCount}
-                // setIsAllChecked={setIsAllChecked}
-                isAllChecked={isAllChecked}
-              ></LikeItemComp>
-            );
-          })}
+          {!isGetLikeList && (
+            <>
+              {likeList.map((like, index) => {
+                return (
+                  <LikeItemComp
+                    key={index}
+                    id={index}
+                    url={like.productMainImgSrc}
+                    name={like.productName}
+                    number={1}
+                    price={like.productPrice}
+                    checkedItemHandler={checkedItemHandler}
+                    checkedItems={checkedItems}
+                    likeListSize={likeList.length}
+                    changeCount={changeCount}
+                    isAllChecked={isAllChecked}
+                  ></LikeItemComp>
+                );
+              })}
+            </>
+          )}
         </LikeItems>
       </LikeListDiv>
     </LikeContentDiv>
