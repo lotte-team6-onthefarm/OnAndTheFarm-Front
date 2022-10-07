@@ -30,7 +30,6 @@ export default function AddProduct() {
     productDetailShort: 'sibaaaal',
     productRegisterDate: '202202202',
     productWishCount: '1242034',
-    sellerId: 1,
   };
 
   // useMutation

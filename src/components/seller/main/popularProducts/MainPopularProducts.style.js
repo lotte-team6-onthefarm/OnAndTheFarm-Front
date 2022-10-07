@@ -26,5 +26,12 @@ const MainPopularProductsTable = styled.table`
     }
   }
 `;
+const EmptyTable = styled.div`
+  color: #bbbbbb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: ${props => props.height};
+`;
 
-export { MainPopularProductsTable };
+export { MainPopularProductsTable, EmptyTable };

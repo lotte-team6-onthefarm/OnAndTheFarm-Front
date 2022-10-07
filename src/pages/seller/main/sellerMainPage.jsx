@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { getSellerMypage } from '../../../apis/seller/account';
 import {
@@ -17,7 +17,7 @@ export default function SellerMainPage() {
   // 셀러별 메인페이지
   const {
     isLoading: sellerMainProductLoading,
-    refetch: sellerMainProduct,
+    // refetch: sellerMainProduct,
     data: mainData,
   } = useQuery(
     'sellerMain',
@@ -27,7 +27,7 @@ export default function SellerMainPage() {
         endDate: '2022.09.30 15:09:55',
       }),
     {
-      onSuccess: res => {
+      onSuccess: () => {
         // setMainData(res.data);
       },
       onError: {},
