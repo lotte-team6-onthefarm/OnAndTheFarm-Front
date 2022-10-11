@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import { useState } from 'react';
 import CartItemComp from '../../../components/main/cart/CartItem';
 import { Button } from '../../../components/common/Button';
@@ -12,73 +13,123 @@ import {
   CartPriceRow,
   CartPriceTotal,
 } from './mainCart.style';
+import { deleteCartList, getCartList } from '../../../apis/user/cart';
+import { useNavigate } from 'react-router-dom';
 
 export default function MainCart() {
+  // const [cartList, setCartList] = useState([]);
   const [checkedItems, setCheckedItems] = useState(new Set());
   const [isAllChecked, setIsAllChecked] = useState(false);
-  const [allChecked, setChecked] = useState(false);
+  const [allChecked, setAllChecked] = useState(false);
+  const [selectedItems, setSelectedItems] = useState({});
+  const [changeChecked, setChangeChecked] = useState(true);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const checkedItemHandler = (id, isChecked) => {
+  const {
+    isLoading: isGetCartList,
+    // refetch: getCartistRefetch,
+    data: cartList,
+  } = useQuery(['getCartList'], () => getCartList(), {
+    refetchOnWindowFocus: true,
+    onSuccess: res => {
+      // setCartList(res.data);
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+
+  const deleteWishClick = () => {
+    let cartId = [];
+    if (checkedItems.size === 0) {
+      alert('삭제할 아이템을 선택해주세요');
+      return;
+    }
+    for (const item of checkedItems) {
+      cartId.push(cartList[item].cartId);
+    }
+    deleteCart({ cartList: cartId });
+  };
+
+  const { mutate: deleteCart, isLoading: isDeleteCartLoading } = useMutation(
+    deleteCartList,
+    {
+      onSuccess: res => {
+        alert('삭제되었습니다');
+        window.location.reload();
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+
+  const changeCount = (id, quantity) => {
+    selectedItems[id] = quantity;
+    setSelectedItems(selectedItems)
+    setChangeChecked(!changeChecked)
+  };
+
+  const checkedItemHandler = (id, isChecked, quantity) => {
     if (isChecked) {
       checkedItems.add(id);
       setCheckedItems(checkedItems);
+      // setCheckedItems(new Set([...checkedItems, id]));
     } else if (!isChecked && checkedItems.has(id)) {
+      // let temp2 = new Set([...checkedItems].filter(x => x !== id))
+      // setCheckedItems(new Set([...temp2]));
       checkedItems.delete(id);
       setCheckedItems(checkedItems);
+      
     }
-    if (items.length === checkedItems.size) {
-      setChecked(true);
+    
+    selectedItems[id] = quantity;
+    setSelectedItems(selectedItems)
+    if (cartList.length === checkedItems.size) {
+      setAllChecked(true);
+      setIsAllChecked(true);
     } else {
-      setChecked(false);
+      setAllChecked(false);
+      setIsAllChecked(false);
     }
+    setChangeChecked(!changeChecked)
   };
 
   const allCheckedHandler = isChecked => {
     if (isChecked) {
-      setCheckedItems(new Set(items.map(({ id }) => String(id))));
+      setCheckedItems(new Set(cartList.map((like, idx) => String(idx))));
       setIsAllChecked(true);
     } else {
       checkedItems.clear();
-      setCheckedItems(setCheckedItems);
+      setCheckedItems(new Set());
       setIsAllChecked(false);
     }
   };
 
-  const checkHandler = ({ target }) => {
-    setChecked(!allChecked);
+  const checkAllHandler = ({ target }) => {
+    setAllChecked(!allChecked);
+    setChangeChecked(!changeChecked)
     allCheckedHandler(target.checked);
   };
+// hook
+const navigate = useNavigate();
 
-  const items = [
-    {
-      id: 1,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277665/P512007DE92C4154D55ADF24400888FF8E97013E948F47C574A0F9C99D9E24DF9/file/dims/optimize',
-    },
-    {
-      id: 2,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277236/P7C67A0F32EC59C38BBC7C73B004388F250AED8CD63AA23D3B80AD2335EA5AE60/file/dims/optimize',
-    },
-    {
-      id: 3,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/276873/P75260B86794950F9B3895FCA46D6F5D7ABF08A546585DF0082E2F542351E5B0C/file/dims/optimize',
-    },
-    {
-      id: 4,
-      name: '사미헌한끼 갈비탕 5팩 1팩700g*5',
-      price: '20000',
-      number: '3',
-      url: 'https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277222/PFFB4AEF95EF2C68DD7CBA7F847E5C9443123A4929F8CB291AE79280B5D67F84E/file/dims/optimize',
-    },
-  ];
+  const orderCart = () => {
+    let tempCartItems = []
+    for (const item of checkedItems) {
+      cartList[item].cartQty = selectedItems[item]
+      tempCartItems.push(cartList[item])
+    }
+    navigate(`/order`, { state: tempCartItems });
+  }
+
+  useEffect(() => {
+    let tempPrice = 0
+    for (const item of checkedItems) {
+      tempPrice = tempPrice + cartList[item].productPrice * selectedItems[item]
+    }
+    setTotalPrice(tempPrice)
+  }, [changeChecked]);
 
   return (
     <CartContentDiv>
@@ -89,62 +140,70 @@ export default function MainCart() {
             <input
               type="checkbox"
               checked={allChecked}
-              onChange={e => checkHandler(e)}
+              onChange={e => checkAllHandler(e)}
               style={{ margin: 'auto' }}
             />
             <p style={{ margin: 'auto 20px' }}>전체선택</p>
           </div>
           <div>
-            <Button text="계속 담아두기" color="#40AA54" width="130px"></Button>
             <Button
               text="선택삭제"
               color="#40AA54"
               width="130px"
               margin="auto auto auto 20px"
+              onClick={deleteWishClick}
             ></Button>
           </div>
         </CartListHeader>
         <hr />
         <CartItems>
-          {items.map((item, index) => {
-            return (
-              <CartItemComp
-                key={index}
-                id={item.id}
-                url={item.url}
-                name={item.name}
-                number={item.number}
-                price={item.price}
-                checkedItemHandler={checkedItemHandler}
-                isAllChecked={isAllChecked}
-              ></CartItemComp>
-            );
-          })}
+          {!isGetCartList && (
+            <>
+              {cartList.map((cart, index) => {
+                return (
+                  <CartItemComp
+                    key={index}
+                    id={index}
+                    url={cart.productMainImgSrc}
+                    name={cart.productName}
+                    number={cart.cartQty}
+                    price={cart.productPrice}
+                    checkedItemHandler={checkedItemHandler}
+                    checkedItems={checkedItems}
+                    likeListSize={cartList.length}
+                    changeCount={changeCount}
+                    isAllChecked={isAllChecked}
+                  ></CartItemComp>
+                );
+              })}
+            </>
+          )}
         </CartItems>
       </CartListDiv>
       <CartPriceDiv>
         <CartPriceHeader>결제예정금액</CartPriceHeader>
         <CartPriceRow>
           <p>상품금액</p>
-          <p>000원</p>
+          <p>{totalPrice}원</p>
         </CartPriceRow>
-        <CartPriceRow>
+        {/* <CartPriceRow>
           <p>할인금액</p>
           <p>000원</p>
         </CartPriceRow>
         <CartPriceRow>
           <p>배송비</p>
           <p>000원</p>
-        </CartPriceRow>
+        </CartPriceRow> */}
         <CartPriceTotal>
-          <span>20000</span>원
+          <span>{totalPrice}</span>원
         </CartPriceTotal>
         <Button
-              text="주문하기"
-              color="#40AA54"
-              width="130px"
-              margin="0 0 0 150px"
-            ></Button>
+          text="주문하기"
+          color="#40AA54"
+          width="130px"
+          margin="0 0 0 150px"
+          onClick={orderCart}
+        ></Button>
       </CartPriceDiv>
     </CartContentDiv>
   );

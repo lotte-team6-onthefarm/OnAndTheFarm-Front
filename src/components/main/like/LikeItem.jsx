@@ -27,7 +27,6 @@ export default function LikeItemComp(props) {
     }
   };
 
-
   useEffect(() => allCheckHandler(), [props.checkedItems.size]);
   useEffect(() => props.changeCount(props.id, quantity), [quantity]);
 

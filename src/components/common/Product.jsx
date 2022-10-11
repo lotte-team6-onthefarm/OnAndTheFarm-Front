@@ -57,7 +57,6 @@ export default function Product(props) {
   const { mutate: addCart, isLoading: isAddCartLoading } = useMutation(postAddCart, {
     onSuccess: res => {
       alert('장바구니에 추가되었습니다');
-      window.location.reload();
     },
     onError: () => {
       console.log('에러');
