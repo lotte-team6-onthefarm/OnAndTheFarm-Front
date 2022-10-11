@@ -29,16 +29,6 @@ const OrderDateWrapper = styled.div`
   }
 `;
 
-const OrderStatus = styled.div`
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 6px;
-  background-color: ${props =>
-    props.status === 'os1' ? '#B5E4CA' : '#CABDFF'};
-  font-size: 15px;
-  font-weight: 550;
-`;
-
 const OrderTableWrapper = styled.table`
   width: 100%;
   cursor: pointer;
@@ -79,4 +69,4 @@ const OrderTableWrapper = styled.table`
   }
 `;
 
-export { OrderButtonWrapper, OrderStatus, OrderDateWrapper, OrderTableWrapper };
+export { OrderButtonWrapper, OrderDateWrapper, OrderTableWrapper };

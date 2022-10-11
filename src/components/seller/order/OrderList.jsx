@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Modal from '../../common/Modal';
 import { WhiteWrapper } from '../common/Box.style';
+import { GreenPurpleStatusButton } from '../common/ColorStatusButton';
 import { UserImgWrapper } from '../common/sellerCommon.style';
 import SubTitle from '../common/SubTitle';
 import { Orderdatas } from './dummy';
 import {
   OrderButtonWrapper,
   OrderDateWrapper,
-  OrderStatus,
   OrderTableWrapper,
 } from './Order.style';
 import OrderState from './orderState/OrderState';
@@ -90,9 +90,11 @@ export default function OrderList() {
                     {data.product}/{data.optios}
                   </td>
                   <td className="content">
-                    <OrderStatus status={data.orderState}>
-                      {data.orderState === 'os1' ? '취소요청' : '반품요청'}
-                    </OrderStatus>
+                    <GreenPurpleStatusButton
+                      fontSize="15px"
+                      text={data.orderState === 'os1' ? '취소요청' : '반품요청'}
+                      status={data.orderState}
+                    />
                   </td>
                   <td className="content">{data.orderDate}</td>
                   <td>
