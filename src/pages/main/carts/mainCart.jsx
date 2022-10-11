@@ -66,8 +66,8 @@ export default function MainCart() {
 
   const changeCount = (id, quantity) => {
     selectedItems[id] = quantity;
-    setSelectedItems(selectedItems)
-    setChangeChecked(!changeChecked)
+    setSelectedItems(selectedItems);
+    setChangeChecked(!changeChecked);
   };
 
   const checkedItemHandler = (id, isChecked, quantity) => {
@@ -80,11 +80,10 @@ export default function MainCart() {
       // setCheckedItems(new Set([...temp2]));
       checkedItems.delete(id);
       setCheckedItems(checkedItems);
-      
     }
-    
+
     selectedItems[id] = quantity;
-    setSelectedItems(selectedItems)
+    setSelectedItems(selectedItems);
     if (cartList.length === checkedItems.size) {
       setAllChecked(true);
       setIsAllChecked(true);
@@ -92,7 +91,7 @@ export default function MainCart() {
       setAllChecked(false);
       setIsAllChecked(false);
     }
-    setChangeChecked(!changeChecked)
+    setChangeChecked(!changeChecked);
   };
 
   const allCheckedHandler = isChecked => {
@@ -108,27 +107,29 @@ export default function MainCart() {
 
   const checkAllHandler = ({ target }) => {
     setAllChecked(!allChecked);
-    setChangeChecked(!changeChecked)
+    setChangeChecked(!changeChecked);
     allCheckedHandler(target.checked);
   };
-// hook
-const navigate = useNavigate();
+  // hook
+  const navigate = useNavigate();
 
   const orderCart = () => {
-    let tempCartItems = []
+    let tempCartItems = [];
     for (const item of checkedItems) {
-      cartList[item].cartQty = selectedItems[item]
-      tempCartItems.push(cartList[item])
+      cartList[item].cartQty = selectedItems[item];
+      tempCartItems.push(cartList[item]);
     }
+    console.log(tempCartItems)
+    deleteWishClick();
     navigate(`/order`, { state: tempCartItems });
-  }
+  };
 
   useEffect(() => {
-    let tempPrice = 0
+    let tempPrice = 0;
     for (const item of checkedItems) {
-      tempPrice = tempPrice + cartList[item].productPrice * selectedItems[item]
+      tempPrice = tempPrice + cartList[item].productPrice * selectedItems[item];
     }
-    setTotalPrice(tempPrice)
+    setTotalPrice(tempPrice);
   }, [changeChecked]);
 
   return (

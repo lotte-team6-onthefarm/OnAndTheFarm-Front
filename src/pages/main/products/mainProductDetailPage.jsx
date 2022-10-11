@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useMutation, useQuery } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   ProductDetailDiv,
   ProductTopDiv,
@@ -11,39 +11,95 @@ import {
   ProductDetailImgDiv,
   ProductDetailImg,
   ProductReviewDiv,
-  ReviewAddDiv,
-  ReviewAddButtonDiv,
-  ReviewListDiv,
 } from './mainProductDetailPage.style';
 import detailImg from '../../../assets/productDetail.png';
 import detailBundleImg from '../../../assets/popularBundlePack.png';
-import { AiFillStar, AiOutlineShoppingCart } from 'react-icons/ai';
+import {
+  AiFillStar,
+  AiOutlineHeart,
+  AiOutlineShoppingCart,
+} from 'react-icons/ai';
 import { Button } from '../../../components/common/Button';
 import MenuTab from '../../../components/common/MenuTab';
 import QnaItemComp from '../../../components/main/qna/QnaItem';
-import { getProduct } from '../../../apis/user/product';
+import { getProduct, postAddWish } from '../../../apis/user/product';
 import ProductReviewComp from '../../../components/main/products/ProductReview';
+import Counter from '../../../components/common/Counter';
+import { postAddCart } from '../../../apis/user/cart';
+import { postAddQna } from '../../../apis/user/qna';
+import ProductQnaComp from '../../../components/main/products/ProductQna';
 
 export default function MainProductDetailPage(props) {
-
   const params = useParams();
 
-  const [productDetail, setProductDetail] = useState({});
+  const [quantity, setQuantity] = useState(props.number);
 
-  
-  const { mutate: getProductDetail, isLoading: isGetProductDetailLoading } =
-    useMutation(getProduct, {
+  const {
+    isLoading: isGetProductDetailLoading,
+    // refetch: getCartistRefetch,
+    data: productDetail,
+  } = useQuery('getProductDetail', () => getProduct(params.id), {
+    refetchOnWindowFocus: true,
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const addCartClick = id => {
+    let cartList = [
+      {
+        productId: productDetail.productId,
+        cartQty: quantity,
+      },
+    ];
+    addCart({ cartList: cartList });
+  };
+  const addLike = () => {
+    const data = {
+      body: {
+        productId: productDetail.productId,
+      },
+    };
+    addWish(data);
+  };
+
+  const { mutate: addWish, isLoading: isAddWishLoading } = useMutation(
+    postAddWish,
+    {
       onSuccess: res => {
-        setProductDetail(res.data);
+        alert('찜목록에 추가되었습니다');
       },
       onError: () => {
         console.log('에러');
       },
+    },
+  );
+
+  const { mutate: addCart, isLoading: isAddCartLoading } = useMutation(
+    postAddCart,
+    {
+      onSuccess: res => {
+        alert('장바구니에 추가되었습니다');
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+
+  // hook
+  const navigate = useNavigate();
+
+  const orderCart = () => {
+    let tempCartItems = [];
+    tempCartItems.push({
+      ...productDetail,
+      productId: productDetail.productId,
+      cartQty: quantity,
+      productPrice: productDetail.productPrice,
     });
-    useEffect(() => {
-      getProductDetail(params.id);
-    }, []);
-  
+    navigate(`/order`, { state: tempCartItems });
+  };
   const items = [
     {
       id: 1,
@@ -78,87 +134,60 @@ export default function MainProductDetailPage(props) {
   ];
   const param = useParams();
   const id = param.id;
+
   return (
-    <ProductDetailDiv>
-      <ProductTopDiv>
-        <ProductTopImgDiv>
-          <ProductTopImg src={detailImg}></ProductTopImg>
-        </ProductTopImgDiv>
-        <ProductTopContentDiv>
-          <h2>{productDetail.productName}</h2>
-          <h5>240 g</h5>
-          <h3>
-            <span>{productDetail.productPrice}원</span>
-          </h3>
-          <p>
-          {productDetail.productDetailShort}
-          </p>
+    <div>
+      {!isGetProductDetailLoading && (
+          <ProductDetailDiv>
+          <ProductTopDiv>
+            <ProductTopImgDiv>
+              <ProductTopImg src={detailImg}></ProductTopImg>
+            </ProductTopImgDiv>
+            <ProductTopContentDiv>
+              <h2>{productDetail.productName}</h2>
+              <h5>240 g</h5>
+              <h3>
+                <span>{productDetail.productPrice}원</span>
+              </h3>
+              <p>{productDetail.productDetailShort}</p>
+              <hr />
+              <div style={{ display: 'flex' }}>
+                <p>평점</p>
+                <p>
+                  <AiFillStar color="darkorange" /> 4.8(433)
+                </p>
+              </div>
+              <hr />
+              <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <Counter value={1} setQuantity={setQuantity} />
+                <AiOutlineHeart fontSize="x-large" onClick={addLike} />
+                <AiOutlineShoppingCart
+                  fontSize="x-large"
+                  onClick={e => addCartClick()}
+                />
+                <Button
+                  text="주문하기"
+                  color="#40AA54"
+                  width="130px"
+                  margin="0"
+                  onClick={orderCart}
+                ></Button>
+              </div>
+            </ProductTopContentDiv>
+          </ProductTopDiv>
           <hr />
-          <div style={{ display: 'flex' }}>
-            <p>평점</p>
-            <p>
-              <AiFillStar color="darkorange" /> 4.8(433)
-            </p>
-          </div>
+          <MenuTab></MenuTab>
           <hr />
-          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-            {/* <Counter value="1"></Counter> */}
-            <AiOutlineShoppingCart fontSize="x-large" />
-            <Button
-              text="주문하기"
-              color="#40AA54"
-              width="130px"
-              margin="0"
-            ></Button>
-          </div>
-        </ProductTopContentDiv>
-      </ProductTopDiv>
-      <hr />
-      <MenuTab></MenuTab>
-      <hr />
-      <ProductDetailContentDiv>
-        <ProductDetailImgDiv>
-          <ProductDetailImg src={detailBundleImg} />
-        </ProductDetailImgDiv>
-      </ProductDetailContentDiv>
-      <ProductReviewComp></ProductReviewComp>
-      <ProductReviewDiv>
-        <div>
-          <h4>문의사항</h4>
-          <hr />
-        </div>
-        <ReviewListDiv>
-          {items.map((item, index) => {
-            return (
-              <QnaItemComp
-                key={index}
-                id={item.id}
-                url={item.url}
-                name={item.name}
-                content={item.content}
-                rate={item.rate}
-                date={item.date}
-                like={item.like}
-              ></QnaItemComp>
-            );
-          })}
-        </ReviewListDiv>
-        <div style={{ display: 'flex', margin: '20px auto', width: '90%' }}>
-          <ReviewAddDiv>
-            <input
-              style={{ width: '100%', height: '100px', marginRight: '20px' }}
-            ></input>
-            <ReviewAddButtonDiv>
-              <Button
-                text="문의 작성"
-                color="#40AA54"
-                width="130px"
-                height="30px"
-              ></Button>
-            </ReviewAddButtonDiv>
-          </ReviewAddDiv>
-        </div>
-      </ProductReviewDiv>
-    </ProductDetailDiv>
+          <ProductDetailContentDiv>
+            <ProductDetailImgDiv>
+              <ProductDetailImg src={detailBundleImg} />
+            </ProductDetailImgDiv>
+          </ProductDetailContentDiv>
+          <ProductReviewComp productDetailId={productDetail.productId}></ProductReviewComp>
+          <ProductQnaComp productDetailId={productDetail.productId}></ProductQnaComp>
+        </ProductDetailDiv>
+        )}
+      
+    </div>
   );
 }
