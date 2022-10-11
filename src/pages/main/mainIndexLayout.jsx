@@ -15,7 +15,7 @@ import UserLoginPage from './account/userLoginPage';
 import MainKakaoLogin from './account/mainKakaoLogin';
 import UserSignupPage from './account/userSignupPage';
 import MainOrder from './order/mainOrder';
-import SuccessPage from './\bsuccessPage';
+import SuccessPage from './successPage';
 
 export default function MainIndexLayout() {
   return (

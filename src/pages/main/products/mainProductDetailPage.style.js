@@ -71,48 +71,6 @@ const ProductDetailImg = styled.img`
   width: 100%;
 `;
 
-const ProductReviewDiv = styled.div`
-margin: auto;
-  width: 800px;
-`;
-
-const ReviewStatisticsDiv = styled.div`
-margin: auto;
-  width: 300px;
-  display: flex;
-`;
-
-const ReviewTotalDiv = styled.div`
-width: 100px;
-`;
-
-const ReviewCoutnListDiv = styled.div`
-width: 170px;
-`;
-
-const ReviewCoutnDiv = styled.div`
-width: 170px;
-`;
-
-const ReviewAddDiv = styled.div`
-margin: auto;
-  width: 500px;
-  display: flex;
-`;
-
-const ReviewAddButtonDiv = styled.div`
-margin: auto;
-  height: 100px;
-  display: grid;
-  div{
-    text-align: center;
-  }
-`;
-
-const ReviewListDiv = styled.div`
-width: 80%;
-margin: 20px auto;
-`;
 
 
 export {
@@ -124,13 +82,5 @@ export {
   ProductTabDiv,
   ProductDetailContentDiv,
   ProductDetailImgDiv,
-  ProductDetailImg,
-  ProductReviewDiv,
-  ReviewStatisticsDiv,
-  ReviewCoutnDiv,
-  ReviewTotalDiv,
-  ReviewCoutnListDiv,
-  ReviewAddDiv,
-  ReviewAddButtonDiv,
-  ReviewListDiv,
+  ProductDetailImg
 };

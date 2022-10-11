@@ -9,7 +9,7 @@ const getProducts = async (data) => {
 // 상품 단건조회
 const getProduct = async (data) => {
   const response = await JWTapiUser.get(`product/${data}`);
-  return response.data;
+  return response.data.data;
 };
 
 // 위시리스트 추가

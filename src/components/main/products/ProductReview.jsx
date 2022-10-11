@@ -11,7 +11,7 @@ import {
   ReviewAddDiv,
   ReviewAddButtonDiv,
   ReviewListDiv,
-} from './ProductReview.style copy';
+} from './ProductReview.style';
 
 export default function ProductReviewComp(props) {
   const items = [
@@ -77,7 +77,7 @@ export default function ProductReviewComp(props) {
               </ReviewCountDiv>
             </ReviewCountListDiv>
           </ReviewStatisticsDiv>
-          <ReviewAddDiv>
+          {/* <ReviewAddDiv>
             <input
               style={{ width: '100%', height: '100px', marginRight: '20px' }}
             ></input>
@@ -98,7 +98,7 @@ export default function ProductReviewComp(props) {
                 height="30px"
               ></Button>
             </ReviewAddButtonDiv>
-          </ReviewAddDiv>
+          </ReviewAddDiv> */}
         </div>
       </div>
       <ReviewListDiv>
