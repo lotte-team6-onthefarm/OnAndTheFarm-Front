@@ -183,7 +183,7 @@ export default function MainProductDetailPage(props) {
               <ProductDetailImg src={detailBundleImg} />
             </ProductDetailImgDiv>
           </ProductDetailContentDiv>
-          <ProductReviewComp></ProductReviewComp>
+          <ProductReviewComp productDetailId={productDetail.productId}></ProductReviewComp>
           <ProductQnaComp productDetailId={productDetail.productId}></ProductQnaComp>
         </ProductDetailDiv>
         )}

@@ -9,7 +9,6 @@ const postAddQna = async (data) => {
 // 카트 불러오기
 const getQnaList = async data => {
   const response = await JWTapiUser.get(`product/QnA/${data}`);
-  console.log(response.data.data)
   return response.data.data;
 };
 
