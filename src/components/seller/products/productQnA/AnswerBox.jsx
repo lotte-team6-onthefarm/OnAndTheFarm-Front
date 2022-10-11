@@ -6,6 +6,7 @@ import { AnswerBoxWrapper, AnswerBtnBox } from './ProductQnAs.style';
 export default function AnswerBox(props) {
   const selectedAddHandler = props.selectedAddHandler;
   const selectedDelHandler = props.selectedDelHandler;
+  const productQnaStatus = props.data.productQnaStatus;
   const idx = props.idx;
   const [button, setButton] = useState(false);
   const buttonHandler = () => {
@@ -17,12 +18,19 @@ export default function AnswerBox(props) {
     setButton(false);
     selectedDelHandler(idx);
   };
+
   return (
     <AnswerBoxWrapper>
       {button ? (
-        <AnswerTextBox setButton={setButton} closeBtn={closeBtn} />
+        <AnswerTextBox
+          setButton={setButton}
+          closeBtn={closeBtn}
+          data={props.data}
+        />
       ) : (
-        <AnswerBtnBox onClick={buttonHandler}>답글달기</AnswerBtnBox>
+        <AnswerBtnBox onClick={buttonHandler}>
+          {productQnaStatus === 'completed' ? '답변보기' : '답변달기'}
+        </AnswerBtnBox>
       )}
     </AnswerBoxWrapper>
   );

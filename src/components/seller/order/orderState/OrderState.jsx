@@ -1,8 +1,8 @@
 import React from 'react';
 import { BlueButton, WhiteButton } from '../../../common/Button.style';
 import { GrayWrapper } from '../../common/Box.style';
+import { GreenPurpleStatusButton } from '../../common/ColorStatusButton';
 import SubTitle from '../../common/SubTitle';
-import { OrderStatus } from '../Order.style';
 import {
   ImageTitleBlock,
   OrderStateBtnWrapper,
@@ -22,9 +22,11 @@ export default function OrderState(props) {
           <div className="right">
             <div className="title">{data.product}</div>
             <div style={{ display: 'flex' }}>
-              <OrderStatus status={data.orderState}>
-                {data.orderState === 'os1' ? '취소요청' : '반품요청'}
-              </OrderStatus>
+              <GreenPurpleStatusButton
+                fontSize="15px"
+                text={data.orderState === 'os1' ? '취소요청' : '반품요청'}
+                status={data.orderState}
+              />
             </div>
           </div>
         </ImageTitleBlock>

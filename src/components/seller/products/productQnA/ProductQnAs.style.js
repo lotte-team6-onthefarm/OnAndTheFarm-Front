@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const AnswerBoxWrapper = styled.div`
   margin-top: 10px;
-  margin-left: 70px;
+  margin-left: 20px;
 `;
 
 const AnswerBtnBox = styled.div`
@@ -16,7 +16,7 @@ const AnswerTextWrapper = styled.div`
   flex-direction: column;
   textarea {
     margin-left: 10px;
-    width: 350px;
+    width: 500px;
     height: 80px;
     font-size: 16px;
     overflow: hidden;
@@ -30,14 +30,18 @@ const AnswerTextWrapper = styled.div`
   .btn {
     /* border: solid 1px red; */
     margin-top: 10px;
-    width: 53%;
     display: flex;
     justify-content: flex-end;
     div {
       display: flex;
-      /* border: solid 1px red; */
-      width: 150px;
+      button:nth-child(2) {
+        margin-left: 10px;
+      }
     }
+  }
+  .sellerAnswer {
+    margin-left: 10px;
+    width: 350px;
   }
 `;
 

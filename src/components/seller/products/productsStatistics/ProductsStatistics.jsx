@@ -12,6 +12,7 @@ import { useQuery } from 'react-query';
 import { getSellerProduct } from '../../../../apis/seller/product';
 import { useState } from 'react';
 import { EmptyTable } from '../../main/popularProducts/MainPopularProducts.style';
+import { GreenRedStatusButton } from '../../common/ColorStatusButton';
 
 export default function ProductsStatistics() {
   const datas = [
@@ -212,9 +213,11 @@ export default function ProductsStatistics() {
                             <div>{data.title}</div>
                           </td>
                           <td>
-                            <StatusTd status={data.status}>
-                              {data.status === 1 ? '판매중' : '판매중지'}
-                            </StatusTd>
+                            <GreenRedStatusButton
+                              fontSize="12px"
+                              status={data.status}
+                              text={data.status === 1 ? '판매중' : '판매중지'}
+                            />
                             <div className="updateBtn">
                               <div onClick={() => updateUrl(idx)}>
                                 <BsPencil />
