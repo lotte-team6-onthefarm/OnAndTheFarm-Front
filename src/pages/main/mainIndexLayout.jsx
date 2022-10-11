@@ -15,6 +15,7 @@ import UserLoginPage from './account/userLoginPage';
 import MainKakaoLogin from './account/mainKakaoLogin';
 import UserSignupPage from './account/userSignupPage';
 import MainOrder from './order/mainOrder';
+import SuccessPage from './\bsuccessPage';
 
 export default function MainIndexLayout() {
   return (
@@ -33,6 +34,7 @@ export default function MainIndexLayout() {
           <Route exact path="/order" element={<MainOrder />} />
           <Route exact path="/mypage/*" element={<MainMypage />} />
           <Route exact path="/login/success/kakao" element={<MainKakaoLogin />} />
+          <Route exact path="/order/success" element={<SuccessPage />} />
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </StyledMainDiv>

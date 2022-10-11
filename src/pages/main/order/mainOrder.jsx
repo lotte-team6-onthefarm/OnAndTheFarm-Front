@@ -1,194 +1,151 @@
 import React, { useEffect } from 'react';
-import { useMutation, useQuery } from 'react-query';
 import { useState } from 'react';
-import CartItemComp from '../../../components/main/cart/CartItem';
+import { useMutation } from 'react-query';
+import { useLocation, useNavigate } from "react-router"
 import { Button } from '../../../components/common/Button';
 import {
-  CartContentDiv,
-  CartListDiv,
-  CartPriceDiv,
-  CartListHeader,
-  CartItems,
-  CartPriceHeader,
-  CartPriceRow,
-  CartPriceTotal,
+  PreOrderContentDiv,
+  PreOrderListDiv,
+  PreOrderPriceDiv,
+  PreOrderListHeader,
+  PreOrderItems,
+  PreOrderPriceHeader,
+  PreOrderPriceRow,
+  PreOrderPriceTotal,
 } from './mainOrder.style';
-import { deleteCartList, getCartList } from '../../../apis/user/cart';
+import ProductListComp from '../../../components/main/products/ProductList';
+import Input from '../../../components/common/Input';
+import { postMakeOrder } from '../../../apis/user/order';
 
 export default function MainOrder() {
-  // const [cartList, setCartList] = useState([]);
-  const [checkedItems, setCheckedItems] = useState(new Set());
-  const [isAllChecked, setIsAllChecked] = useState(false);
-  const [allChecked, setAllChecked] = useState(false);
-  const [selectedItems, setSelectedItems] = useState({});
-  const [changeChecked, setChangeChecked] = useState(true);
+  const { state } = useLocation();
+  const [preOrderList, setPreOrderList] = useState(state);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const {
-    isLoading: isGetCartList,
-    // refetch: getCartistRefetch,
-    data: cartList,
-  } = useQuery('getCartList', () => getCartList(), {
-    refetchOnWindowFocus: true,
-    onSuccess: res => {
-      // setCartList(res.data);
-    },
-    onError: () => {
-      console.log('에러');
-    },
-  });
+  const [recieverName, setRecieverName] = useState('');
+  const [recieverAddress, setRecieverAddress] = useState('');
+  const [recieverPhone, setRecieverPhone] = useState('');
+  const [recieverRequest, setRecieverRequest] = useState('');
 
-  const deleteWishClick = () => {
-    let cartId = [];
-    if (checkedItems.size === 0) {
-      alert('삭제할 아이템을 선택해주세요');
-      return;
-    }
-    for (const item of checkedItems) {
-      cartId.push(cartList[item].cartId);
-    }
-    deleteCart({ cartList: cartId });
-  };
 
-  const { mutate: deleteCart, isLoading: isDeleteCartLoading } = useMutation(
-    deleteCartList,
+  const test = () => {
+    let productList = []
+    for (let index = 0; index < preOrderList.length; index++) {
+      productList.push({productId:preOrderList[index].productId, productQty:preOrderList[index].cartQty})
+    }
+    const data = {
+      "orderRecipientName":recieverName,
+    "orderAddress":recieverAddress,
+    "orderPhone":recieverPhone,
+    "orderRequest":recieverRequest,
+    "productList": productList
+    }
+    console.log(data)
+    makeOrder(data)
+  }
+  useEffect(() => {
+    let tempPrice = 0
+    for (let index = 0; index < preOrderList.length; index++) {
+      tempPrice = tempPrice + preOrderList[index].productPrice * preOrderList[index].cartQty
+    }
+    setTotalPrice(tempPrice)
+  }, []);
+  const navigate = useNavigate();
+
+  const { mutate: makeOrder, isLoading: isMakeOrderLoading } = useMutation(
+    postMakeOrder,
     {
       onSuccess: res => {
-        alert('삭제되었습니다');
-        window.location.reload();
+        alert('주문완료되었습니다')
+        navigate(`/order/success`, { state: "주문완료" });
       },
       onError: () => {
         console.log('에러');
       },
     },
   );
-
-  const changeCount = (id, quantity) => {
-    selectedItems[id] = quantity;
-    setSelectedItems(selectedItems)
-    setChangeChecked(!changeChecked)
-  };
-
-  const checkedItemHandler = (id, isChecked, quantity) => {
-    if (isChecked) {
-      checkedItems.add(id);
-      setCheckedItems(checkedItems);
-      // setCheckedItems(new Set([...checkedItems, id]));
-    } else if (!isChecked && checkedItems.has(id)) {
-      // let temp2 = new Set([...checkedItems].filter(x => x !== id))
-      // setCheckedItems(new Set([...temp2]));
-      checkedItems.delete(id);
-      setCheckedItems(checkedItems);
-      
-    }
-    
-    selectedItems[id] = quantity;
-    setSelectedItems(selectedItems)
-    if (cartList.length === checkedItems.size) {
-      setAllChecked(true);
-      setIsAllChecked(true);
-    } else {
-      setAllChecked(false);
-      setIsAllChecked(false);
-    }
-    setChangeChecked(!changeChecked)
-  };
-
-  const allCheckedHandler = isChecked => {
-    if (isChecked) {
-      setCheckedItems(new Set(cartList.map((like, idx) => String(idx))));
-      setIsAllChecked(true);
-    } else {
-      checkedItems.clear();
-      setCheckedItems(new Set());
-      setIsAllChecked(false);
-    }
-  };
-
-  const checkAllHandler = ({ target }) => {
-    setAllChecked(!allChecked);
-    setChangeChecked(!changeChecked)
-    allCheckedHandler(target.checked);
-  };
-
-  const test = () => {
-    console.log('주문서 생성')
-  }
-
-  useEffect(() => {
-    let tempPrice = 0
-    for (const item of checkedItems) {
-      tempPrice = tempPrice + cartList[item].productPrice * selectedItems[item]
-    }
-    setTotalPrice(tempPrice)
-  }, [changeChecked]);
-
+  
   return (
-    <CartContentDiv>
-      <CartListDiv>
-        <p className="subject">주문서</p>
-        <CartListHeader>
-          <div style={{ display: 'flex' }}>
-            <input
-              type="checkbox"
-              checked={allChecked}
-              onChange={e => checkAllHandler(e)}
-              style={{ margin: 'auto' }}
-            />
-            <p style={{ margin: 'auto 20px' }}>전체선택</p>
-          </div>
-          <div>
-            <Button
-              text="선택삭제"
-              color="#40AA54"
-              width="130px"
-              margin="auto auto auto 20px"
-              onClick={deleteWishClick}
-            ></Button>
-          </div>
-        </CartListHeader>
+    <PreOrderContentDiv>
+      <PreOrderListDiv>
+        
+        <PreOrderListHeader>
+        <p className="subject">주문/결제</p>
         <hr />
-        <CartItems>
-          {!isGetCartList && (
-            <>
-              {cartList.map((cart, index) => {
+        <Input
+          value={recieverName}
+          onChange={e => setRecieverName(e.target.value)}
+          label="받는분"
+          placeholder="홍길동"
+          id="name"
+          type="text"
+        />
+        <Input
+          value={recieverAddress}
+          onChange={e => setRecieverAddress(e.target.value)}
+          label="배송지"
+          placeholder="서울시 강남구"
+          id="address"
+          type="text"
+        />
+        <Input
+          value={recieverPhone}
+          onChange={e => setRecieverPhone(e.target.value)}
+          label="전화번호"
+          placeholder="010-1234-5678"
+          id="phone"
+          type="text"
+        />
+        
+        </PreOrderListHeader>
+        
+        <PreOrderListHeader>
+        <p className="subject">배송요청사항</p>
+        <hr />
+        <Input
+          value={recieverRequest}
+          onChange={e => setRecieverRequest(e.target.value)}
+          label="요청사항"
+          placeholder="배송 요청사항을 적어주세요"
+          id="request"
+          type="text"
+        />
+        </PreOrderListHeader>
+        <PreOrderItems>
+        <p className="subject">상품 리스트</p>
+        <hr />
+        {preOrderList.map((cart, index) => {
                 return (
-                  <CartItemComp
+                  <ProductListComp
                     key={index}
                     id={index}
                     url={cart.productMainImgSrc}
                     name={cart.productName}
                     number={cart.cartQty}
                     price={cart.productPrice}
-                    checkedItemHandler={checkedItemHandler}
-                    checkedItems={checkedItems}
-                    likeListSize={cartList.length}
-                    changeCount={changeCount}
-                    isAllChecked={isAllChecked}
-                  ></CartItemComp>
+                    likeListSize={preOrderList.length}
+                  ></ProductListComp>
                 );
               })}
-            </>
-          )}
-        </CartItems>
-      </CartListDiv>
-      <CartPriceDiv>
-        <CartPriceHeader>결제예정금액</CartPriceHeader>
-        <CartPriceRow>
+        </PreOrderItems>
+      </PreOrderListDiv>
+      <PreOrderPriceDiv>
+        <PreOrderPriceHeader>결제금액</PreOrderPriceHeader>
+        <PreOrderPriceRow>
           <p>상품금액</p>
           <p>{totalPrice}원</p>
-        </CartPriceRow>
-        {/* <CartPriceRow>
+        </PreOrderPriceRow>
+        {/* <PreOrderPriceRow>
           <p>할인금액</p>
           <p>000원</p>
-        </CartPriceRow>
-        <CartPriceRow>
+        </PreOrderPriceRow>
+        <PreOrderPriceRow>
           <p>배송비</p>
           <p>000원</p>
-        </CartPriceRow> */}
-        <CartPriceTotal>
+        </PreOrderPriceRow> */}
+        <PreOrderPriceTotal>
           <span>{totalPrice}</span>원
-        </CartPriceTotal>
+        </PreOrderPriceTotal>
         <Button
           text="주문하기"
           color="#40AA54"
@@ -196,7 +153,7 @@ export default function MainOrder() {
           margin="0 0 0 150px"
           onClick={test}
         ></Button>
-      </CartPriceDiv>
-    </CartContentDiv>
+      </PreOrderPriceDiv>
+    </PreOrderContentDiv>
   );
 }

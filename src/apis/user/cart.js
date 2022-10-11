@@ -2,7 +2,7 @@ import { JWTapiUser } from '.';
 
 // 카트 추가
 const postAddCart = async (data) => {
-  const response = await JWTapiUser.post('cart', data);
+  const response = await JWTapiUser.post('cart/add', data);
   return response.data;
 };
 

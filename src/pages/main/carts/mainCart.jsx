@@ -29,7 +29,7 @@ export default function MainCart() {
     isLoading: isGetCartList,
     // refetch: getCartistRefetch,
     data: cartList,
-  } = useQuery('getCartList', () => getCartList(), {
+  } = useQuery(['getCartList'], () => getCartList(), {
     refetchOnWindowFocus: true,
     onSuccess: res => {
       // setCartList(res.data);
@@ -114,8 +114,13 @@ export default function MainCart() {
 // hook
 const navigate = useNavigate();
 
-  const test = () => {
-    navigate(`/order`);
+  const orderCart = () => {
+    let tempCartItems = []
+    for (const item of checkedItems) {
+      cartList[item].cartQty = selectedItems[item]
+      tempCartItems.push(cartList[item])
+    }
+    navigate(`/order`, { state: tempCartItems });
   }
 
   useEffect(() => {
@@ -197,7 +202,7 @@ const navigate = useNavigate();
           color="#40AA54"
           width="130px"
           margin="0 0 0 150px"
-          onClick={test}
+          onClick={orderCart}
         ></Button>
       </CartPriceDiv>
     </CartContentDiv>
