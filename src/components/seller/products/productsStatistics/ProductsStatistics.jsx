@@ -167,7 +167,7 @@ export default function ProductsStatistics() {
     },
     onError: {},
   });
-
+  console.log(products, '내상품');
   // hook
   const navigate = useNavigate();
 
