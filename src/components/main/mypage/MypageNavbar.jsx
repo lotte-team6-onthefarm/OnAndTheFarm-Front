@@ -34,7 +34,7 @@ export default function MypageNavbar() {
   ];
   return (
     <NavbarDiv>
-      <NavbarPofileComp />
+      {/* <NavbarPofileComp /> */}
       {menus.map((menu, idx) => {
         return (
           <div key={idx}>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const NavbarDiv = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   height: auto;
 `;
 
