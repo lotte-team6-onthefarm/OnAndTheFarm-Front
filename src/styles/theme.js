@@ -21,6 +21,7 @@ const colors = {
   blue: '#3288E5',
   red: '#FF0000',
   white: '#FFFFFF',
+  snsGray: '#d7d7d7',
 };
 
 const subTitleColors = {

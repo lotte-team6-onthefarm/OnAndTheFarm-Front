@@ -26,14 +26,18 @@ export default function MainIndexLayout() {
           <Route exact path="/" element={<MainMainPage />} />
           <Route exact path="/login" element={<UserLoginPage />} />
           <Route exact path="/signup" element={<UserSignupPage />} />
-          <Route exact path="/products/*" element={<MainProductPage/>} />
+          <Route exact path="/products/*" element={<MainProductPage />} />
           <Route exact path="/posts" element={<MainPost />} />
           <Route exact path="/groupbuy" element={<MainGroupBuy />} />
           <Route exact path="/like" element={<MainLikes />} />
           <Route exact path="/cart" element={<MainCart />} />
           <Route exact path="/order" element={<MainOrder />} />
           <Route exact path="/mypage/*" element={<MainMypage />} />
-          <Route exact path="/login/success/kakao" element={<MainKakaoLogin />} />
+          <Route
+            exact
+            path="/login/success/kakao"
+            element={<MainKakaoLogin />}
+          />
           <Route exact path="/order/success" element={<SuccessPage />} />
           <Route path="*" element={<NotFound />}></Route>
         </Routes>

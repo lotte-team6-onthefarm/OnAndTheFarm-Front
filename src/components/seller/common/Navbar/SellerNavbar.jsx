@@ -11,6 +11,7 @@ import {
   AiOutlineShop,
   AiOutlinePercentage,
   AiOutlinePlus,
+  AiOutlineGlobal,
 } from 'react-icons/ai';
 import { BiSubdirectoryRight } from 'react-icons/bi';
 import { TbTruckDelivery } from 'react-icons/tb';
@@ -44,6 +45,11 @@ export default function SellerNavbar() {
       icons: <AiOutlinePercentage />,
       title: '프로모션',
       url: '/seller/promotion',
+    },
+    {
+      icons: <AiOutlineGlobal />,
+      title: 'SNS 이동',
+      url: '/sns',
     },
   ];
   const [selectMenu, setSelectMenu] = useRecoilState(sellerNavState);
