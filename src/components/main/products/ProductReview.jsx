@@ -121,11 +121,12 @@ export default function ProductReviewComp(props) {
                 key={index}
                 id={item.reviewId}
                 url="https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/277665/P512007DE92C4154D55ADF24400888FF8E97013E948F47C574A0F9C99D9E24DF9/file/dims/optimize"
-                name="스태틱"
+                name={item.userName}
                 content={item.reviewContent}
                 rate={item.reviewRate}
                 date={item.reviewCreatedAt}
                 like={item.reviewLikeCount}
+                isAvailableUp={item.isAvailableUp}
               ></ReviewItemComp>
             );
           })}

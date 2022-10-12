@@ -19,7 +19,7 @@ const postLikeReview = async (data) => {
 };
 // 리뷰 좋아요 취소
 const postCancelLikeReview = async (data) => {
-  const response = await JWTapiUser.post('review/like/cancel', data);
+  const response = await JWTapiUser.put('review/like/cancel', data);
   return response.data;
 };
 

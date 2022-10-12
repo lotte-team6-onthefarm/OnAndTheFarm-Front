@@ -128,6 +128,7 @@ export default function UserSignupPage() {
       <ButtonGroup
         buttons={['남자', '여자']}
         doSomethingAfterClick={printButtonLabel}
+        selected={userGender}
       />
       <Input
         value={userBirthday}

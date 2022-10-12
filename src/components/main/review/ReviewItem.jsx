@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiFillHeart } from 'react-icons/ai';
-import { postLikeReview } from '../../../apis/user/review';
+import { postCancelLikeReview, postLikeReview } from '../../../apis/user/review';
 import { useMutation } from 'react-query';
 import RatingInputComp from '../../common/Rating';
 import {
@@ -13,11 +13,27 @@ import {
 
 export default function ReviewItemComp(props) {
 
+  const [isAvailableUp, setIsAvailableUp] = useState(props.isAvailableUp);
+
   const { mutate: likeReview, isLoading: isLikeReviewLoading } = useMutation(
     postLikeReview,
     {
       onSuccess: res => {
         alert('좋아요');
+        setIsAvailableUp(!isAvailableUp)
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+  
+  const { mutate: cancelLikeReview, isLoading: isCancelLikeReviewLoading } = useMutation(
+    postCancelLikeReview,
+    {
+      onSuccess: res => {
+        alert('좋아요 취소');
+        setIsAvailableUp(!isAvailableUp)
       },
       onError: () => {
         console.log('에러');
@@ -26,7 +42,12 @@ export default function ReviewItemComp(props) {
   );
 
   const reviewLike = () => {
-    likeReview({reviewId:props.id})
+    if (props.isAvailableUp){
+      likeReview({reviewId:props.id})
+    } else {
+      cancelLikeReview({reviewId:props.id})
+    }
+    
   }
   
   return (
@@ -41,7 +62,7 @@ export default function ReviewItemComp(props) {
         <RatingInputComp rate={props.rate}/>
         
           <p>{props.date} 일전</p>
-          <p  onClick={reviewLike}><AiFillHeart color='red' />{props.like} </p>
+          <p  onClick={reviewLike}><AiFillHeart color={isAvailableUp?'lightgray':'red'} />  좋아요 {props.like} 개</p>
         </ReviewItemPrice>
       </ReviewItemContent>
     </ReviewItem>

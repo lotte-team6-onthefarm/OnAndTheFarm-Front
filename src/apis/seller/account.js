@@ -3,7 +3,7 @@ import { JWTapiSeller, ApiSeller } from '..';
 // 셀러 회원가입
 const postSellerSignup = async data => {
   console.log(data);
-  const response = await JWTapiSeller.post('signup', data);
+  const response = await ApiSeller.post('signup', data);
   console.log(response);
   return response.data;
 };
