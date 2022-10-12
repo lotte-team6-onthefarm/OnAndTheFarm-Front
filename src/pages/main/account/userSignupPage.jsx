@@ -5,7 +5,7 @@ import WellcomeMessage from '../../../components/main/WellcomeMessage';
 import Input from '../../../components/common/Input';
 import { StyledBoxDiv, StyledRowDiv, StyledFind } from './userSignupPage.style';
 import { Button } from '../../../components/common/Button';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ButtonGroup from '../../../components/common/ButtonGroup';
 import { nullCheck } from '../../../utils/validation';
 
@@ -21,7 +21,7 @@ export default function UserSignupPage() {
   const [userGender, setUserGender] = useState(0);
   const [userBirthday, setUserBirthday] = useState('');
 
-  const test = () => {
+  const register = () => {
     
     let data = {
       userName: userName,
@@ -32,18 +32,20 @@ export default function UserSignupPage() {
       userSex: userGender,
       userBirthday: userBirthday,
     };
+    console.log(data)
     if(nullCheck(data)){
       signupUser(data);
     } else {
       alert('빈 값이 있습니다.')
     }
   };
-
+  const navigate = useNavigate();
   const { mutate: signupUser, isLoading: issignupUser } = useMutation(
     postUserSignup,
     {
       onSuccess: res => {
-        console.log(res, '성공');
+        alert('회원가입 성공')
+        navigate(`/`);
       },
       onError: () => {
         console.log('에러');
@@ -139,7 +141,7 @@ export default function UserSignupPage() {
         text="회원가입"
         color="#3288E5"
         width="150px"
-        onClick={test}
+        onClick={register}
       ></Button>
     </StyledBoxDiv>
   );

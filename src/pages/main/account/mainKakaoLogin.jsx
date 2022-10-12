@@ -29,6 +29,7 @@ export default function MainKakaoLogin() {
         if (res.data.needRegister) {
           setisLogin(true)
           navigate(`/signup`, { state: res.data.email });
+          document.location.href= '/signup';
         } else {
           document.location.href= '/';
         }

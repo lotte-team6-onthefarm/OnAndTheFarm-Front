@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ButtonGroupDiv, StyledButton } from './ButtonGroup.style';
 
 export default function ButtonGroup(props) {
-  const [clickedId, setClickedId] = useState(0);
+  const [clickedId, setClickedId] = useState(props.selected);
 
   const handleClick = (id) => {
     setClickedId(id);

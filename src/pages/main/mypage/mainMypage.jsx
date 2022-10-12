@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MypageNavbar from '../../../components/main/mypage/MypageNavbar';
+import MainLikes from '../likes/mainLikes';
 import { MypageDiv, MypageContentDiv, MypageNavbarDiv } from './mainMypage.style';
 import MainMypageHome from './mainMypageHome';
 import MainMypageLikes from './mainMypageLikes';
@@ -16,7 +17,7 @@ export default function MainMypage() {
       <Routes>
         <Route path="/" element={<MainMypageHome />} />
         <Route path="/profile" element={<MainMypageProfile />} />
-        <Route path="/likes" element={<MainMypageLikes />} />
+        <Route path="/likes" element={<MainLikes />} />
         <Route path="/posts" element={<MainMypagePosts />} />
         <Route path="/orders" element={<MainMypageOrders />} />
 

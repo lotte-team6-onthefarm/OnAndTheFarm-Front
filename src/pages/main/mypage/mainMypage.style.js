@@ -2,9 +2,7 @@ import styled from 'styled-components';
 
 const MypageDiv = styled.div`
 width: 1130px;
-  padding: 20px 30px;
   margin: 100px auto;
-  display: flex;
 `;
 
 const MypageNavbarDiv = styled.div`
@@ -16,8 +14,7 @@ const MypageNavbarDiv = styled.div`
 `;
 
 const MypageContentDiv = styled.div`
-width: 800px;
-height: 200px;
+/* width: 100%; */
   padding: 30px;
   border-radius: 5px;
   border: solid 1px green;

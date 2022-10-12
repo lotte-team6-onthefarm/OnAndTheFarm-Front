@@ -81,6 +81,7 @@ export default function MainProductList() {
           <hr />
           <h5>과일</h5>
         </CartPriceHeader>
+        <CartPriceRow>전체보기</CartPriceRow>
         {CATEGORY.fruits.map((item, index) => {
           return <CartPriceRow key={index}>{item}</CartPriceRow>;
         })}
