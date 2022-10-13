@@ -6,9 +6,9 @@ import {
   LikeImgBlock,
   LikeImgWrapper,
   LikeItemDescription,
-} from './LikeDetail.styled';
+} from './Like.styled';
 
-export default function LikeDetail() {
+export default function Like() {
   const data = ['', '', '', '', '', '', '', '', '', ''];
   const a = (
     <LikeCardWrapper>

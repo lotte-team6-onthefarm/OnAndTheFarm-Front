@@ -1,7 +1,7 @@
 import React from 'react';
-import { FeedScrapWrapper, ScrapImgWrapper } from './ScrapbookDetail.styled';
+import { FeedScrapWrapper, ScrapImgWrapper } from './Scrapbook.styled';
 
-export default function ScrapbookDetail() {
+export default function Scrapbook() {
   const turn = [
     'https://image.ohou.se/i/video-service-prd-s3-bucket-thumbnail/634527c3e82a3072d14b2044/634527c3e82a3072d14b2044.0000001.jpg?gif=1&w=480&q=80&webp=1',
     'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/166022826437388126.jpg?gif=1&w=640&h=640&c=c&webp=1',

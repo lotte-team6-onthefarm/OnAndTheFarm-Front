@@ -1,7 +1,8 @@
 import React from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiMessageAlt } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import FeedWriter from '../../../components/sns/feed/FeedWriter';
 import {
   FeedActionList,
   FeedCardWrapper,
@@ -10,9 +11,13 @@ import {
   FeedItemImg,
   FeedItemWrapper,
   FeedWriterWrapper,
-} from './FeedDetail.styled';
+} from './Feed.styled';
 
-export default function FeedDetail() {
+export default function Feed() {
+  const navigate = useNavigate();
+  const feedDetailNavigator = () => {
+    navigate('/sns/detail');
+  };
   return (
     <FeedDetailWrapper>
       <FeedCardWrapper>
@@ -29,7 +34,7 @@ export default function FeedDetail() {
           <button>팔로우</button>
         </FeedWriterWrapper>
         {/* 컨텐츠 */}
-        <FeedItemWrapper>
+        <FeedItemWrapper onClick={feedDetailNavigator}>
           <FeedItemImg>
             <img
               src="https://image.ohou.se/i/video-service-prd-s3-bucket-thumbnail/634527c3e82a3072d14b2044/634527c3e82a3072d14b2044.0000001.jpg?gif=1&w=480&q=80&webp=1"
@@ -101,7 +106,8 @@ export default function FeedDetail() {
       </FeedCardWrapper>
       <FeedCardWrapper>
         {/* 작성자 */}
-        <FeedWriterWrapper>
+        <FeedWriter />
+        {/* <FeedWriterWrapper>
           <Link to>
             <img
               src="https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images/166227517469087324.jpeg?gif=1&w=36&h=36&c=c&webp=1"
@@ -111,7 +117,7 @@ export default function FeedDetail() {
           </Link>
           <span className="FeedWriterWrapperSpan" />
           <button>팔로우</button>
-        </FeedWriterWrapper>
+        </FeedWriterWrapper> */}
         {/* 컨텐츠 */}
         <FeedItemWrapper>
           <FeedItemImg>

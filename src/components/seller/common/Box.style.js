@@ -19,7 +19,6 @@ const RightWrapper = styled.div`
 `;
 
 const PageRow = styled.div`
-  /* border: solid 1px red; */
   max-width: 1200px;
   display: flex;
 `;
