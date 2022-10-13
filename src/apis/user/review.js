@@ -2,13 +2,19 @@ import { JWTapiUser } from '.';
 
 // 리뷰 추가
 const postAddReview = async (data) => {
-  const response = await JWTapiUser.post('QnA', data);
+  const response = await JWTapiUser.post('review/new', data);
   return response.data;
 };
 
 // 리뷰 불러오기
 const getReviewList = async data => {
   const response = await JWTapiUser.get(`review/list/orderby/${data.filter}/${data.productId}/${data.page}`);
+  return response.data.data;
+};
+
+// 작성가능한 리뷰 불러오기
+const getAddReviewList = async data => {
+  const response = await JWTapiUser.get(`mypage/review`);
   return response.data.data;
 };
 
@@ -28,6 +34,7 @@ const postCancelLikeReview = async (data) => {
 export {
   postAddReview,
   getReviewList,
+  getAddReviewList,
   postLikeReview,
   postCancelLikeReview,
 };

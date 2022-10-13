@@ -8,6 +8,7 @@ import MainMypageLikes from './mainMypageLikes';
 import MainMypageOrders from './mainMypageOrders';
 import MainMypagePosts from './mainMypagePosts';
 import MainMypageProfile from './mainMypageProfile';
+import MainMypageReview from './mainMypageReview';
 
 export default function MainMypage() {
   return (
@@ -18,6 +19,7 @@ export default function MainMypage() {
         <Route path="/" element={<MainMypageHome />} />
         <Route path="/profile" element={<MainMypageProfile />} />
         <Route path="/likes" element={<MainLikes />} />
+        <Route path="/review" element={<MainMypageReview />} />
         <Route path="/posts" element={<MainMypagePosts />} />
         <Route path="/orders" element={<MainMypageOrders />} />
 
