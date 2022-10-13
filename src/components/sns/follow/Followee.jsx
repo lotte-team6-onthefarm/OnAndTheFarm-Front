@@ -1,11 +1,6 @@
 import React from 'react';
-import { FeedDetailWrapper } from '../feed/FeedDetail.styled';
-import {
-  FollowBlock,
-  FollowButton,
-  FollowingButton,
-  FollowWrapper,
-} from './follow.styled';
+import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
+import { FollowingButton, FollowWrapper } from './follow.styled';
 import FollowUser from './FollowUser';
 
 export default function Followee() {

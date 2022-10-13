@@ -1,15 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FeedDetailWrapper } from '../feed/FeedDetail.styled';
-import {
-  FollowBlock,
-  FollowButton,
-  FollowerBlock,
-  FollowImageWrapper,
-  FollowingButton,
-  FollowNameWrapper,
-  FollowWrapper,
-} from './follow.styled';
+import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
+import { FollowButton, FollowingButton, FollowWrapper } from './follow.styled';
 import FollowUser from './FollowUser';
 
 export default function Follower() {
