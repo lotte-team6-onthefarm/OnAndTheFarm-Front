@@ -24,7 +24,7 @@ export default function MypageNavbar() {
     {
       icons: <RiArticleLine />,
       title: '나의 리뷰',
-      url: '/mypage/review',
+      url: '/mypage/review/addlist',
     },
     // {
     //   icons: <RiArticleLine />,

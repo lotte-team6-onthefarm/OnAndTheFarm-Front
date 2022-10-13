@@ -12,9 +12,10 @@ import {
   StyledLabel,
 } from './ReviewInput.style';
 import { postAddReview } from '../../../apis/user/review';
+import { AiFillHeart } from 'react-icons/ai';
 
-export default function ReviewReviewInput(props) {
-  const [reviewContent, setReviewContent] = useState('');
+export default function ReviewInput(props) {
+  const [reviewContent, setReviewContent] = useState(props.reviewContent);
   const [rating, setRating] = useState(5);
 
   const { mutate: addReview, isLoading: isAddReviewLoading } = useMutation(
@@ -54,6 +55,8 @@ export default function ReviewReviewInput(props) {
         <div>
           <RatingInputComp setRating={setRating}></RatingInputComp>
         </div>
+        {props.reviewLikeCount && <p><AiFillHeart color='red' />  좋아요 {props.reviewLikeCount} 개</p>}
+          
         <Button
           text="리뷰작성"
           color="#40AA54"
