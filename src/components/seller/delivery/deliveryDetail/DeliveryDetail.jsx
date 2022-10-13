@@ -141,7 +141,7 @@ export default function DeliveryDetail() {
           </div>
         </div>
         {/* horizontal line */}
-        <HorizontalLine />
+        <HorizontalLine color="#aaa" />
         {/* 배송 */}
         <div>
           <div

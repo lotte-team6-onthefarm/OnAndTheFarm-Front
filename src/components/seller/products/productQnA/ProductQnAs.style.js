@@ -28,7 +28,6 @@ const AnswerTextWrapper = styled.div`
     display: flex;
   }
   .btn {
-    /* border: solid 1px red; */
     margin-top: 10px;
     display: flex;
     justify-content: flex-end;
