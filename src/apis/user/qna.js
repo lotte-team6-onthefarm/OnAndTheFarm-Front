@@ -6,21 +6,36 @@ const postAddQna = async (data) => {
   return response.data;
 };
 
-// 카트 불러오기
+// 질문 불러오기
 const getQnaList = async data => {
   const response = await JWTapiUser.get(`product/QnA/${data}`);
   return response.data.data;
 };
 
-// // 카트 삭제
-// const deleteCartList = async (data) => {
-//   const response = await JWTapiUser.put(`cart/delete`, data);
-//   return response.data;
-// };
+// 나의질문 불러오기
+const getMyQnaList = async () => {
+  const response = await JWTapiUser.get(`mypage/QnA`);
+  console.log(response.data.data)
+  return response.data.data;
+};
+
+// 질문 수정
+const putQnaEdit = async (data) => {
+  const response = await JWTapiUser.put('QnA', data);
+  return response.data;
+};
+// 질문 삭제
+const putQnaDelete = async (data) => {
+  const response = await JWTapiUser.put(`QnA/delete?productQnaId=${data.productQnaId}`);
+  return response.data;
+};
 
 
 
 export {
   postAddQna,
   getQnaList,
+  getMyQnaList,
+  putQnaEdit,
+  putQnaDelete,
 };

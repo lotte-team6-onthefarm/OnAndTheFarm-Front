@@ -15,7 +15,7 @@ import { postAddReview } from '../../../apis/user/review';
 import { AiFillHeart } from 'react-icons/ai';
 
 export default function ReviewInput(props) {
-  const [reviewContent, setReviewContent] = useState(props.reviewContent);
+  const [reviewContent, setReviewContent] = useState('');
   const [rating, setRating] = useState(5);
 
   const { mutate: addReview, isLoading: isAddReviewLoading } = useMutation(
