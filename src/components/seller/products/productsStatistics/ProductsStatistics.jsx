@@ -5,7 +5,7 @@ import { WhiteWrapper } from '../../common/Box.style';
 import SubTitle from '../../common/SubTitle';
 import { SellerTitle } from '../../common/Title.style';
 import { BsPencil } from 'react-icons/bs';
-import { ProductStatisticsTable, StatusTd } from './ProductsStatistics.style';
+import { ProductStatisticsTable } from './ProductsStatistics.style';
 import { AiTwotoneHeart, AiTwotoneStar } from 'react-icons/ai';
 import { IconBox, IconWrapper } from '../../common/Icon.style';
 import { useQuery } from 'react-query';
@@ -15,166 +15,60 @@ import { EmptyTable } from '../../main/popularProducts/MainPopularProducts.style
 import { GreenRedStatusButton } from '../../common/ColorStatusButton';
 
 export default function ProductsStatistics() {
-  const datas = [
-    {
-      title: '달콤 샤인 머스캣',
-      status: 1,
-      price: '14900',
-      star: '5.0',
-      like: 241,
-      view: 1252,
-      img: '../../../../assets/products/머스캣.png',
-    },
-    {
-      title: '경북 청도 천도복숭아 2kg/1box',
-      status: 0,
-      price: '48000',
-      star: '4.0',
-      like: 251,
-      view: 4252,
-      img: '../../../../assets/products/복숭아.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 2,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      status: 1,
-      price: '38500',
-      star: '2.5',
-      like: 633,
-      view: 2141,
-      img: '../../../../assets/products/거봉.png',
-    },
-  ];
-  // const [products, setProducts] = useState(datas);
   const [pageNo, setPageNo] = useState(0);
-
-  const title = `전체 상품 (총 ${datas.length}개)`;
-
-  const {
-    isLoading: sellerProductLoading,
-    // refetch: sellerMainProduct,
-    data: products,
-  } = useQuery('sellerProducts', () => getSellerProduct(pageNo), {
-    onSuccess: res => {
-      console.log(res);
+  const [productCnt, setProductCnt] = useState(0);
+  const { isLoading: sellerProductLoading, data: products } = useQuery(
+    'sellerProducts',
+    () => getSellerProduct(pageNo),
+    {
+      onSuccess: res => {
+        setProductCnt(res.length);
+      },
+      onError: {},
     },
-    onError: {},
-  });
+  );
+
+  const title = `전체 상품 (총 ${productCnt}개)`;
   console.log(products, '내상품');
   // hook
   const navigate = useNavigate();
 
   //function
-  const updateUrl = id => {
-    navigate(`/seller/products/update/${id}`);
+  const updateUrl = (id, product) => {
+    console.log(product, 'aedhja');
+    navigate(`/seller/products/update/${id}`, { state: product });
   };
+
+  const productDetailUrl = id => {
+    navigate(`/products/detail/${id}`);
+  };
+
+  const productStatusCheck = productStatus => {
+    // selling : 판매중
+    // soldout : 재고가 부족(모든 옵션의 재고가 부족한 경우)
+    // pause : 판매자가 판매를 일시 정지
+    if (productStatus === 'selling') {
+      return '판매중';
+    } else if (productStatus === 'soldout') {
+      return '재고부족';
+    } else if (productStatus === 'pause') {
+      return '판매정지';
+    }
+  };
+
+  const productStatusStyleCheck = productStatus => {
+    // selling : 판매중   1
+    // soldout : 재고가 부족(모든 옵션의 재고가 부족한 경우)  1
+    // pause : 판매자가 판매를 일시 정지  2
+    if (productStatus === 'selling') {
+      return 1;
+    } else if (productStatus === 'soldout') {
+      return 2;
+    } else if (productStatus === 'pause') {
+      return 3;
+    }
+  };
+
   return (
     <>
       <SellerTitle>상품 관리</SellerTitle>
@@ -200,37 +94,54 @@ export default function ProductsStatistics() {
                       <th width="12.5%">조회수</th>
                     </tr>
                   </thead>
-                  {datas.map((data, idx) => {
+                  {products.map((product, idx) => {
                     return (
                       <tbody key={idx}>
                         <tr>
                           <td>{idx + 1}</td>
-                          <td className="title">
+                          <td
+                            className="title"
+                            onClick={() => {
+                              productDetailUrl(product.productId);
+                            }}
+                          >
                             <img
-                              src={require('../../../../assets/products/복숭아.png')}
-                              alt=""
+                              src={product.productMainImgSrc}
+                              alt={require('../../../../assets/products/복숭아.png')}
                             />
-                            <div>{data.title}</div>
+                            <div>{product.productName}</div>
                           </td>
                           <td>
                             <GreenRedStatusButton
                               fontSize="12px"
-                              status={data.status}
-                              text={data.status === 1 ? '판매중' : '판매중지'}
+                              status={productStatusStyleCheck(
+                                product.productStatus,
+                              )}
+                              text={productStatusCheck(product.productStatus)}
                             />
                             <div className="updateBtn">
-                              <div onClick={() => updateUrl(idx)}>
+                              <div onClick={() => updateUrl(idx, product)}>
                                 <BsPencil />
                               </div>
                             </div>
                           </td>
-                          <td>{toLocaleString(data.price)}원</td>
+                          <td>{toLocaleString(product.productPrice)}원</td>
                           <td className="grayBack">
                             <IconWrapper>
-                              <IconBox>
-                                <AiTwotoneStar style={{ color: '#eff21b' }} />
-                              </IconBox>
-                              {data.star}
+                              {product.reviewRate === null ? (
+                                <div className="IconWrapper_none_review">
+                                  등록된 리뷰가 없습니다
+                                </div>
+                              ) : (
+                                <>
+                                  <IconBox>
+                                    <AiTwotoneStar
+                                      style={{ color: '#eff21b' }}
+                                    />
+                                  </IconBox>
+                                  {product.reviewRate}
+                                </>
+                              )}
                             </IconWrapper>
                           </td>
                           <td>
@@ -238,10 +149,10 @@ export default function ProductsStatistics() {
                               <IconBox>
                                 <AiTwotoneHeart style={{ color: '#f73f2a' }} />
                               </IconBox>
-                              {data.like}
+                              {product.productWishCount}
                             </IconWrapper>
                           </td>
-                          <td>{data.view}회</td>
+                          <td>2회</td>
                         </tr>
                       </tbody>
                     );

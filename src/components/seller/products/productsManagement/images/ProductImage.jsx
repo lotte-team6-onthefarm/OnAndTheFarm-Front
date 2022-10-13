@@ -4,12 +4,17 @@ import { FiUpload } from 'react-icons/fi';
 import { IconBox, IconWrapper } from '../../../common/Icon.style';
 
 export default function ProductImage(props) {
+  const type = props.type;
+  const setImages = props.setImages;
   const fileInput = useRef();
   const fileUploadHandler = () => {
     fileInput.current.click();
   };
 
-  const handleChange = e => {};
+  const handleChange = e => {
+    console.log(e.target.files, '이미지들');
+    setImages(e.target.files);
+  };
   return (
     <ProductImageWrapper>
       <div className="title">{props.title}</div>
@@ -27,12 +32,22 @@ export default function ProductImage(props) {
           </IconWrapper>
         </button>
       </div>
-      <input
-        type="file"
-        style={{ display: 'none' }}
-        ref={fileInput}
-        onChange={handleChange}
-      />
+      {type === 'main' ? (
+        <input
+          type="file"
+          style={{ display: 'none' }}
+          ref={fileInput}
+          onChange={handleChange}
+        />
+      ) : (
+        <input
+          type="file"
+          style={{ display: 'none' }}
+          ref={fileInput}
+          multiple="multiple"
+          onChange={handleChange}
+        />
+      )}
     </ProductImageWrapper>
   );
 }

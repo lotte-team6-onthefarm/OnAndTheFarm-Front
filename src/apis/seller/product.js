@@ -1,8 +1,8 @@
 import { JWTapiSeller } from '..';
 
 // 상품등록
-const postSellerProduct = async data => {
-  const response = await JWTapiSeller.post('product/new', data);
+const postSellerProduct = async formData => {
+  const response = await JWTapiSeller.post('product/new', formData);
   console.log(response);
   return response.data;
 };

@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 const IconWrapper = styled.div`
   display: flex;
+  .IconWrapper_none_review {
+    font-size: 13px;
+    word-break: keep-all;
+  }
 `;
 
 const IconBox = styled.div`
