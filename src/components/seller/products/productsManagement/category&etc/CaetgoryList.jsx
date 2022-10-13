@@ -7,7 +7,8 @@ import {
   RightListBlock,
 } from './CategoryList.style';
 
-export default function CaetgoryList() {
+export default function CaetgoryList(props) {
+  const setProductCategory = props.setProductCategory;
   const [categoryList, setCategoryList] = useState('과일류');
   const [categoryData, setCategoryData] = useState('');
 
@@ -17,6 +18,7 @@ export default function CaetgoryList() {
   };
   const categoryDataHandler = data => {
     setCategoryData(data);
+    setProductCategory(data);
   };
   return (
     <CategoryListWrapper>
@@ -44,11 +46,11 @@ export default function CaetgoryList() {
               <div
                 key={idx}
                 onClick={() => {
-                  categoryDataHandler(fruit);
+                  categoryDataHandler(fruit.id);
                 }}
-                className={categoryData === fruit ? 'active' : ''}
+                className={categoryData === fruit.id ? 'active' : ''}
               >
-                {fruit}
+                {fruit.name}
               </div>
             );
           })}
@@ -61,11 +63,11 @@ export default function CaetgoryList() {
               <div
                 key={idx}
                 onClick={() => {
-                  categoryDataHandler(cereal);
+                  categoryDataHandler(cereal.id);
                 }}
-                className={categoryData === cereal ? 'active' : ''}
+                className={categoryData === cereal.id ? 'active' : ''}
               >
-                {cereal}
+                {cereal.name}
               </div>
             );
           })}
@@ -78,11 +80,11 @@ export default function CaetgoryList() {
               <div
                 key={idx}
                 onClick={() => {
-                  categoryDataHandler(vegetable);
+                  categoryDataHandler(vegetable.id);
                 }}
-                className={categoryData === vegetable ? 'active' : ''}
+                className={categoryData === vegetable.id ? 'active' : ''}
               >
-                {vegetable}
+                {vegetable.name}
               </div>
             );
           })}

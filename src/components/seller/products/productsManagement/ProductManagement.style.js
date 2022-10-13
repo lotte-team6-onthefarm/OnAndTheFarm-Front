@@ -60,6 +60,17 @@ const ProductContentWrapper = styled.div`
     height: 200px;
     background-color: ${props => props.theme.colors.gray};
     border-radius: 12px;
+    textarea {
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      border-radius: 12px;
+      resize: none;
+      background-color: ${props => props.theme.colors.gray};
+      padding: 10px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+    }
   }
 `;
 

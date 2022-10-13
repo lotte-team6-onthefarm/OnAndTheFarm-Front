@@ -5,14 +5,15 @@ import Images from '../images/Images';
 import PriceAmount from '../price&amount/PriceAmount';
 import TitleDescription from '../title&description/TitleDescription';
 import CategoryEtc from '../category&etc/CategoryEtc';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { ProductManagementWrapper } from '../ProductManagement.style';
 
 export default function UpdateProduct() {
   const param = useParams();
   const id = param.id;
+  const { state } = useLocation();
   const innerComponents = [
-    <TitleDescription id={id} />,
+    <TitleDescription />,
     <PriceAmount />,
     <Images />,
     <CategoryEtc />,
