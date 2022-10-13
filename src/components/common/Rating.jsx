@@ -6,6 +6,11 @@ export default function RatingInputComp(props) {
   const [rating, setRating] = useState(props.rate?props.rate:5);
   const [hover, setHover] = useState(0);
 
+  const changeRating = (index) => {
+    setRating(index)
+    props.setRating(index)
+  }
+
   return (
     <RatingInputDiv font={props.font} rate={props.rate}>
       {[...Array(5)].map((star, index) => {
@@ -16,7 +21,7 @@ export default function RatingInputComp(props) {
             type="button"
             key={index}
             className={index <= (hover || rating) ? 'on' : 'off'}
-            onClick={() => setRating(index)}
+            onClick={() => changeRating(index)}
             onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(rating)}
           >

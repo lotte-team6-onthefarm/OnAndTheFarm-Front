@@ -3,7 +3,7 @@ import { DeliveryButtonWrapper } from '../seller/delivery/Delivery.style';
 
 export default function MenuTab(props) {
   // usestate
-  const [deliveryState, setDeliveryState] = useState('0'); // 0 : 배송처리 1 : 배송중 2 : 배송완료
+  const [deliveryState, setDeliveryState] = useState('0');
   // function
   const deliveryStateHandler = num => {
     setDeliveryState(num);

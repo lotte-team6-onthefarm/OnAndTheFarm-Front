@@ -20,17 +20,22 @@ export default function MypageNavbar() {
   const menus = [
     { icons: <AiOutlineHome />, title: '마이페이지', url: '/mypage' },
     { icons: <CgProfile />, title: '프로필', url: '/mypage/profile' },
-    { icons: <AiOutlineHeart />, title: '찜목록', url: '/mypage/likes' },
+    // { icons: <AiOutlineHeart />, title: '찜목록', url: '/mypage/likes' },
     {
       icons: <RiArticleLine />,
-      title: '내글목록',
-      url: '/mypage/posts',
+      title: '나의 리뷰',
+      url: '/mypage/review/addlist',
     },
-    {
-      icons: <TbTruckDelivery />,
-      title: '주문관리',
-      url: '/mypage/orders',
-    },
+    // {
+    //   icons: <RiArticleLine />,
+    //   title: '내글목록',
+    //   url: '/mypage/posts',
+    // },
+    // {
+    //   icons: <TbTruckDelivery />,
+    //   title: '주문관리',
+    //   url: '/mypage/orders',
+    // },
   ];
   return (
     <NavbarDiv>
