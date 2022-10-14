@@ -11,34 +11,32 @@ import {
 } from '../../../components/seller/products/productReviews/ProductReviews.style';
 import { ReviewContentDiv, AnswerDiv } from './mainMypageReview.style';
 import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
-import { getMyQnaList } from '../../../apis/user/qna';
-import QnaEditInput from '../../../components/main/mypage/QnaEditInput';
 
-export default function MainMypageQna() {
+export default function MainMypageOrderCancel() {
   const menuTab = [
-    { title: '작성 가능한 리뷰', url: '/mypage/review/addlist' },
-    { title: '내가 작성한 리뷰', url: '/mypage/review/myreview' },
-    { title: '문의사항', url: '/mypage/review/qna' },
+    { title: '주문내역', url: '/mypage/orders/list' },
+    { title: '주문취소/반품 내역', url: '/mypage/orders/cancel' },
   ];
   const {
-    isLoading: MyQnaListLoading,
-    // refetch: getMyQnaListRefetch,
-    data: qnaList,
-  } = useQuery('MyQnaList',()=> getMyQnaList(0), {
+    isLoading: MyReviewListLoading,
+    // refetch: getMyReviewListRefetch,
+    data: reviews,
+  } = useQuery('MyReviewList', () => getMyReviewList(0), {
     onError: () => {
       console.log('error');
     },
   });
 
+
   return (
     <div>
       <MenuTabComp menuTab={menuTab}></MenuTabComp>
       <ReviewContentDiv>
-        {!MyQnaListLoading && (
+        {!MyReviewListLoading && (
           <>
-            {qnaList.length === 0 ? (
+            {reviews.length === 0 ? (
               <EmptyTable height="60vh">
-                <h3>등록된 질문이 없습니다</h3>
+                <h3>현재 등록가능한 리뷰가 없습니다.</h3>
               </EmptyTable>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -46,15 +44,17 @@ export default function MainMypageQna() {
                   <thead>
                     <tr style={{ fontSize: '13px' }}>
                       <th width="5%">NO.</th>
-                      <th width="10%">상품이미지</th>
+                      <th width="10%">주문취소</th>
                       <th width="25%">상품이름</th>
                       <th width="10%">작성날짜</th>
-                      <th width="50%">질문</th>
+                      <th width="50%">리뷰내용</th>
                     </tr>
                   </thead>
-                  {qnaList.map((data, idx) => {
+                  {reviews.map((data, idx) => {
                     return (
-                      <tbody key={idx}>
+                      <tbody
+                        key={idx}
+                      >
                         <tr>
                           <td>{idx + 1}</td>
                           <td className="title">
@@ -67,13 +67,16 @@ export default function MainMypageQna() {
                               </div>
                             </ReviewBlock>
                           </td>
-                          <td>{data.productQnaCreatedAt}</td>
-                          <td style={{ display: 'flex' }}>
-                            <QnaEditInput
-                              placeholder="나의질문"
-                              id={data.productQnaId}
+                          <td>{data.reviewCreatedAt}</td>
+                          <td style={{display:"flex"}}>
+                            <ReviewEditInput
+                              placeholder="나의리뷰"
+                              id={data.reviewId}
                               type="text"
-                              qnaContent={data.productQnaContent}
+                              reviewContent={data.reviewContent}
+                              reviewRate={data.reviewRate}
+                              reviewLikeCount={data.reviewLikeCount}
+                              orderProductId={data.orderProductId}
                             />
                           </td>
                         </tr>

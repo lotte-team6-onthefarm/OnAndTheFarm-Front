@@ -12,6 +12,11 @@ import {
 import { ReviewContentDiv, AnswerDiv } from './mainMypageReview.style';
 
 export default function MainMypageReview() {
+  const menuTab = [
+    { title: '작성 가능한 리뷰', url: '/mypage/review/addlist' },
+    { title: '내가 작성한 리뷰', url: '/mypage/review/myreview' },
+    { title: '문의사항', url: '/mypage/review/qna' },
+  ];
   const {
     isLoading: AddReviewListLoading,
     // refetch: getAddReviewListRefetch,
@@ -25,7 +30,7 @@ export default function MainMypageReview() {
 
   return (
     <div>
-      <MenuTabComp></MenuTabComp>
+      <MenuTabComp menuTab={menuTab}></MenuTabComp>
       <ReviewContentDiv>
         {!AddReviewListLoading && (
           <>
