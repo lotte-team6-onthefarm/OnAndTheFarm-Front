@@ -8,9 +8,8 @@ import {
 } from './CategoryList.style';
 
 export default function CaetgoryList(props) {
-  const productCategoryId = props.productCategoryId;
-  const productCategory = props.productCategory;
-  const setProductCategory = props.setProductCategory;
+  const categoryId = props.categoryId;
+  const setCategoryId = props.setCategoryId;
   const [categoryList, setCategoryList] = useState('과일류');
   const [categoryData, setCategoryData] = useState('');
 
@@ -20,7 +19,7 @@ export default function CaetgoryList(props) {
   };
   const categoryDataHandler = data => {
     setCategoryData(data);
-    setProductCategory(data);
+    setCategoryId(data);
   };
   return (
     <CategoryListWrapper>
@@ -33,7 +32,7 @@ export default function CaetgoryList(props) {
                 categoryHandler(category);
               }}
               className={
-                categoryList === category || productCategory ? 'active' : ''
+                categoryList === category || categoryId ? 'active' : ''
               }
             >
               {idx === 0 && category + `(${CATEGORY.fruits.length})`}

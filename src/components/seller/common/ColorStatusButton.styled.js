@@ -18,8 +18,12 @@ const GPButtonWrapper = styled.div`
   display: inline-block;
   padding: 2px 8px;
   border-radius: 8px;
-  background-color: ${props =>
-    props.status === 'os1' ? '#B5E4CA' : '#CABDFF'};
+  color: ${props => props.status === 1 && '#83BF6E'};
+  color: ${props => props.status === 2 && '#ffaa00'};
+  color: ${props => props.status === 3 && 'white'};
+  background-color: ${props => props.status === 1 && '#EAFAE5'};
+  background-color: ${props => props.status === 2 && '#FFE7E4'};
+  background-color: ${props => props.status === 3 && 'black'};
   font-size: ${props => props.fontSize};
   font-weight: 550;
 `;

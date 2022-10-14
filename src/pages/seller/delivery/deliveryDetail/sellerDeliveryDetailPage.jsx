@@ -10,6 +10,7 @@ import DeliveryDetail from '../../../../components/seller/delivery/deliveryDetai
 
 export default function SellerDeliveryDetailPage() {
   const { id } = useParams();
+  console.log(id, '자식');
   return (
     <RightWrapper>
       <SellerTitle>주문 상세</SellerTitle>

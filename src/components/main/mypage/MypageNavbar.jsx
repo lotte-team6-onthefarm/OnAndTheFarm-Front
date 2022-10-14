@@ -1,16 +1,8 @@
 import React from 'react';
 import { NavbarDiv, ListWrapper } from './MypageNavbar.style';
-import {
-  AiOutlineHome,
-  AiOutlineShop,
-  AiOutlineHeart,
-} from 'react-icons/ai';
-import {
-  CgProfile
-} from 'react-icons/cg';
-import {
-  RiArticleLine
-} from 'react-icons/ri';
+import { AiOutlineHome, AiOutlineShop, AiOutlineHeart } from 'react-icons/ai';
+import { CgProfile } from 'react-icons/cg';
+import { RiArticleLine } from 'react-icons/ri';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import { NavbarProfileDiv } from './NavbarProfile.style';

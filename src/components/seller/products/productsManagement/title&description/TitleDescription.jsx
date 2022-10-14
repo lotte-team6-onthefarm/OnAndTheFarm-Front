@@ -11,7 +11,6 @@ export default function TitleDescription(props) {
   const setProductName = props.setProductName;
   const setProductDetail = props.setProductDetail;
   const setProductDetailShort = props.setProductDetailShort;
-  console.log(productName, 'productName');
   return (
     <WhiteWrapper width="100%" marginBottom="10px">
       <SubTitle color="#FFBC99" title="이름 및 설명" />

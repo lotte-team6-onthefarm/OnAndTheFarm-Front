@@ -12,7 +12,6 @@ export default function ProductImage(props) {
   };
 
   const handleChange = e => {
-    console.log(e.target.files, '이미지들');
     setImages(e.target.files);
   };
   return (

@@ -96,7 +96,7 @@ export default function DeliveryDetail() {
               <div style={{ width: '150px' }}>주문일자</div>
               <div>{data.orderDate}</div>
             </div>
-          </div>{' '}
+          </div>
           {/* 고객 정보 */}
           <div
             style={{

@@ -5,11 +5,11 @@ import { ProductCategoryWrapper } from '../ProductManagement.style';
 import ProductInput from '../ProductInput';
 import CaetgoryList from './CaetgoryList';
 export default function CategoryEtc(props) {
-  const productCategoryId = props.productCategoryId;
+  const categoryId = props.categoryId;
   const productCategory = props.productCategory;
   const productOriginPlace = props.productOriginPlace;
   const productDeliveryCompany = props.productDeliveryCompany;
-  const setProductCategory = props.setProductCategory;
+  const setCategoryId = props.setCategoryId;
   const setProductOriginPlace = props.setProductOriginPlace;
   const setProductDeliveryCompany = props.setProductDeliveryCompany;
   return (
@@ -18,9 +18,9 @@ export default function CategoryEtc(props) {
       <ProductCategoryWrapper>
         <div className="title">카테고리</div>
         <CaetgoryList
-          productCategoryId={productCategoryId}
+          categoryId={categoryId}
           productCategory={productCategory}
-          setProductCategory={setProductCategory}
+          setCategoryId={setCategoryId}
         />
       </ProductCategoryWrapper>
       <ProductInput

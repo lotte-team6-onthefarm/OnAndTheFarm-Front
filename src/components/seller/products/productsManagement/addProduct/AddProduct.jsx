@@ -13,7 +13,7 @@ import TitleDescription from '../title&description/TitleDescription';
 export default function AddProduct() {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState(0);
-  const [productCategory, setProductCategory] = useState('');
+  const [categoryId, setCategoryId] = useState('');
   const [productTotalStock, setProductTotalStock] = useState('');
   const [productDetail, setProductDetail] = useState('');
   const [productDetailShort, setProductDetailShort] = useState('');
@@ -51,8 +51,8 @@ export default function AddProduct() {
       setProductImages={setProductImages}
     />,
     <CategoryEtc
-      productCategory={productCategory}
-      setProductCategory={setProductCategory}
+      categoryId={categoryId}
+      setCategoryId={setCategoryId}
       productOriginPlace={productOriginPlace}
       setProductOriginPlace={setProductOriginPlace}
       productDeliveryCompany={productDeliveryCompany}
@@ -64,7 +64,7 @@ export default function AddProduct() {
     // 상품 정보 데이터 객체화
     productName: productName,
     productPrice: productPrice,
-    productCategory: productCategory,
+    categoryId: categoryId,
     productTotalStock: productTotalStock,
     productDetail: productDetail,
     productOriginPlace: productOriginPlace,
@@ -91,7 +91,7 @@ export default function AddProduct() {
       alert('상품 메인 이미지를 등록해주세요');
     } else if (productImages.length === 0) {
       alert('상품 상세 이미지를 선택해주세요');
-    } else if (productCategory === '') {
+    } else if (categoryId === '') {
       alert('상품 카테고리를 선택해주세요');
     } else if (productOriginPlace === '') {
       alert('원산지를 입력해주세요');
@@ -111,7 +111,6 @@ export default function AddProduct() {
       formData.append('images', productMainImages[0]);
       for (let i = 0; i < productImages.length; i++) {
         formData.append('images', productImages[i]);
-        console.log(productImages[i], ` productImages[${i}]`);
       }
       // 상품 데이터 추가
       formData.append(

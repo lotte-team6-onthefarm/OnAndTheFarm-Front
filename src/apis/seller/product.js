@@ -3,7 +3,6 @@ import { JWPapiSellertoUser, JWTapiSeller } from '..';
 // 상품등록
 const postSellerProduct = async formData => {
   const response = await JWTapiSeller.post('product/new', formData);
-  console.log(response);
   return response.data;
 };
 
@@ -31,7 +30,6 @@ const getSellerProduct = async pageNo => {
 
 // 상품 단건조회
 const getProductSeller = async data => {
-  console.log(data);
   const response = await JWPapiSellertoUser.get(`product/${data}`);
   return response.data.data;
 };

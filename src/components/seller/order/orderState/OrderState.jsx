@@ -1,4 +1,10 @@
 import React from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import {
+  getSellerOrderClaimDetailList,
+  postOrderClaimApprove,
+} from '../../../../apis/seller/order';
 import { BlueButton, WhiteButton } from '../../../common/Button.style';
 import { GrayWrapper } from '../../common/Box.style';
 import { GreenPurpleStatusButton } from '../../common/ColorStatusButton';
@@ -10,67 +16,100 @@ import {
   OrderStateUl,
 } from './OrderState.style';
 
+// canceled : 주문취소
+// refundRequest : 반품신청
+// refundCompleted : 반품확정
+
 export default function OrderState(props) {
+  const queryClient = useQueryClient();
   const closeModal = props.closeModal;
-  const data = props.data;
+  const orderProductId = props.selectData.orderProductId;
+  const selectData = props.selectData;
+
+  const { data, isLoading: isClaimListDetail } = useQuery(
+    'orderClaimListDetail',
+    () => getSellerOrderClaimDetailList(orderProductId),
+    { refetchOnMount: true },
+  );
+
+  const navigate = useNavigate();
+
+  const { mutate: orderClaimApprove, isLoading: isOrderClaimApproveLoading } =
+    useMutation(postOrderClaimApprove, {
+      onSuccess: () => {
+        // 콜백 부분에 쿼리키 무효화를 실행
+        queryClient.invalidateQueries('orderClaimList');
+        closeModal();
+        navigate('/seller/order');
+      },
+    });
+
   return (
     <div>
       <SubTitle color="#FFBC99" title="취소/반품 처리" />
-      <GrayWrapper>
-        <ImageTitleBlock>
-          <img src={require('../../../../assets/products/복숭아.png')} alt="" />
-          <div className="right">
-            <div className="title">{data.product}</div>
-            <div style={{ display: 'flex' }}>
-              <GreenPurpleStatusButton
-                fontSize="15px"
-                text={data.orderState === 'os1' ? '취소요청' : '반품요청'}
-                status={data.orderState}
-              />
+      {!isClaimListDetail && (
+        <GrayWrapper>
+          <ImageTitleBlock>
+            <img
+              src={require('../../../../assets/products/복숭아.png')}
+              alt=""
+            />
+            <div className="right">
+              <div className="title">{data.productName}</div>
+              <div style={{ display: 'flex' }}>
+                <GreenPurpleStatusButton
+                  fontSize="15px"
+                  text={
+                    (data.productStatus === 'canceled' && '취소요청') ||
+                    (data.productStatus === 'refundRequest' && '반품신청') ||
+                    (data.productStatus === 'refundCompleted' && '반품확정')
+                  }
+                  status={
+                    (data.productStatus === 'canceled' && 1) ||
+                    (data.productStatus === 'refundRequest' && 2) ||
+                    (data.productStatus === 'refundCompleted' && 3)
+                  }
+                />
+              </div>
             </div>
-          </div>
-        </ImageTitleBlock>
-        <OrderStateUl>
-          <OrderStateli>
-            <div>주문 번호</div>
-            <div>{data.orderNum}</div>
-          </OrderStateli>
-          <OrderStateli>
-            <div>주문 일자</div>
-            <div>{data.orderDate}</div>
-          </OrderStateli>
-          <OrderStateli>
-            <div>취소/반품 사유</div>
-            <div>
-              생의 속에 같이 있으랴? 우리는 밥을 천자만홍이 튼튼하며, 군영과
-              너의 이상은 것이다. 대고, 이것은 웅대한 그림자는 어디 것이다. 되는
-              이것을 있는 듣기만 풍부하게 노년에게서 사막이다. 어디 피어나기
-              청춘을 아니다. 청춘은 품고 위하여 부패를 불러 따뜻한 것이다. 능히
-              인간의 기관과 사랑의 가치를 커다란 속에서 있는가? 것은 찾아
-              그러므로 눈에 대한 사막이다. 곧 바로 작고 무엇이 황금시대를
-              위하여, 그들의 사막이다. 그러므로 풀이 그림자는 할지라도 영락과
-              열락의 있는 피다. 따뜻한 같지 위하여서 봄날의 청춘을 착목한는
-              풀밭에 약동하다. 타오르고 목숨을 청춘의 이상의 커다란 뿐이다.
-              동력은 스며들어 기관과 대한 듣는다. 인생에 거선의 인생에 거선의
-              인생에 거선의
-            </div>
-          </OrderStateli>
-          <OrderStateli>
-            <div>주문 상태</div>
-            <div>{data.orderState}</div>
-          </OrderStateli>
-          <OrderStateli>
-            <div>가격</div>
-            <div>20,000원</div>
-          </OrderStateli>
-        </OrderStateUl>
-        <OrderStateBtnWrapper>
-          <WhiteButton width="calc(50% - 8px)" onClick={closeModal}>
-            취소
-          </WhiteButton>
-          <BlueButton width="calc(50% - 8px)">승인</BlueButton>
-        </OrderStateBtnWrapper>
-      </GrayWrapper>
+          </ImageTitleBlock>
+          <OrderStateUl>
+            <OrderStateli>
+              <div>주문자</div>
+              <div>{data.userName}</div>
+            </OrderStateli>
+            <OrderStateli>
+              <div>상품 수량</div>
+              <div>{data.productQty}개</div>
+            </OrderStateli>
+            <OrderStateli>
+              <div>가격</div>
+              <div>{data.productTotalPrice}원</div>
+            </OrderStateli>
+            <OrderStateli>
+              <div>환불 주소</div>
+              <div>{data.userAddress}</div>
+            </OrderStateli>
+            <OrderStateli>
+              <div>취소/반품 사유</div>
+              <div>{data.cancelDetail}</div>
+            </OrderStateli>
+          </OrderStateUl>
+          <OrderStateBtnWrapper>
+            <WhiteButton width="calc(50% - 8px)" onClick={closeModal}>
+              취소
+            </WhiteButton>
+            <BlueButton
+              width="calc(50% - 8px)"
+              onClick={() => {
+                orderClaimApprove(selectData.orderProductId);
+              }}
+            >
+              승인
+            </BlueButton>
+          </OrderStateBtnWrapper>
+        </GrayWrapper>
+      )}
     </div>
   );
 }
