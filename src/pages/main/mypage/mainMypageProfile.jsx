@@ -1,12 +1,20 @@
-import { React, useState } from 'react';
+import { React, useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import { getUserInfo, postUserInfo } from '../../../apis/user/account';
 import { Button } from '../../../components/common/Button';
 import ButtonGroup from '../../../components/common/ButtonGroup';
 import Input from '../../../components/common/Input';
+import {
+  UserDetailBlock,
+  UserDetailImg,
+  UserDetailImgBlock,
+  UserInfoSetting,
+} from './mainMypageProfile.style';
 import { StyledBoxDiv, StyledRowDiv } from '../account/mainSignupPage.style';
 
 export default function MainMypageProfile() {
+  const [userImg, setUserImg] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [userPhone, setUserPhone] = useState('');
@@ -15,6 +23,11 @@ export default function MainMypageProfile() {
   const [userDetailAddress, setUserDetailAddress] = useState('');
   const [userGender, setUserGender] = useState(0);
   const [userBirthday, setUserBirthday] = useState('');
+  const [profileImages, setProfileImages] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+
+  // 이미지 전송을 위한 FormData
+  let formData = new FormData();
 
   const {
     isLoading: isgetUserInfo,
@@ -23,6 +36,9 @@ export default function MainMypageProfile() {
   } = useQuery('userInfo', () => getUserInfo(), {
     refetchOnWindowFocus: true,
     onSuccess: res => {
+      if (res.userProfileImg) {
+        setUserImg(res.userProfileImg);
+      }
       if (res.userEmail) {
         setUserEmail(res.userEmail);
       }
@@ -58,6 +74,7 @@ export default function MainMypageProfile() {
     {
       onSuccess: res => {
         alert('성공');
+        URL.revokeObjectURL(imageUrl);
       },
       onError: () => {
         console.log('에러');
@@ -75,19 +92,68 @@ export default function MainMypageProfile() {
       userSex: userGender,
       userBirthday: userBirthday,
     };
-    changeUserInfo(data);
+    formData.append('images', profileImages[0]);
+    // 상품 데이터 추가
+    formData.append(
+      'data',
+      new Blob([JSON.stringify(data)], { type: 'application/json' }),
+    );
+    console.log(formData);
+    changeUserInfo(formData);
   };
 
   const printButtonLabel = event => {
     setUserGender(event);
   };
 
+  const fileInput = useRef();
+  const fileUploadHandler = () => {
+    fileInput.current.click();
+  };
+
+  const handleChange = e => {
+    URL.revokeObjectURL(imageUrl);
+    const url = URL.createObjectURL(e.target.files[0])
+    setImageUrl(url);
+    setProfileImages(e.target.files);
+  };
+
+  const test = () => {
+    console.log(imageUrl);
+  };
 
   return (
     <div>
       {!isgetUserInfo && (
         <StyledBoxDiv>
           <h2>회원정보 수정</h2>
+          <StyledRowDiv
+            position="start"
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <UserDetailBlock>
+              <UserDetailImgBlock>
+                <UserDetailImg src={imageUrl===''? userImg:imageUrl} />
+              </UserDetailImgBlock>
+              <UserInfoSetting>
+                <input
+                  type="file"
+                  accept="image/*"
+                  // accept='image/jpg,impge/png,image/jpeg,image/gif'
+                  style={{ display: 'none' }}
+                  ref={fileInput}
+                  onChange={handleChange}
+                />
+                <button
+                  onClick={() => {
+                    fileUploadHandler();
+                  }}
+                >
+                  설정
+                </button>
+              </UserInfoSetting>
+            </UserDetailBlock>
+          </StyledRowDiv>
           <StyledRowDiv position="start">
             <Input
               value={userEmail}
