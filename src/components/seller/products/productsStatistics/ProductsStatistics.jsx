@@ -21,6 +21,7 @@ export default function ProductsStatistics() {
     'sellerProducts',
     () => getSellerProduct(pageNo),
     {
+      refetchOnWindowFocus: true,
       onSuccess: res => {
         setProductCnt(res.length);
       },
@@ -34,9 +35,8 @@ export default function ProductsStatistics() {
   const navigate = useNavigate();
 
   //function
-  const updateUrl = (id, product) => {
-    console.log(product, 'aedhja');
-    navigate(`/seller/products/update/${id}`, { state: product });
+  const updateUrl = id => {
+    navigate(`/seller/products/update/${id}`);
   };
 
   const productDetailUrl = id => {
@@ -120,7 +120,7 @@ export default function ProductsStatistics() {
                               text={productStatusCheck(product.productStatus)}
                             />
                             <div className="updateBtn">
-                              <div onClick={() => updateUrl(idx, product)}>
+                              <div onClick={() => updateUrl(product.productId)}>
                                 <BsPencil />
                               </div>
                             </div>

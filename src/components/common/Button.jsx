@@ -3,12 +3,21 @@ import { StyledButton } from './Button.style';
 
 function Button(props) {
   return (
-    <StyledButton width={props.width} height={props.height} fontColor={props.fontColor} color={props.color} margin={props.margin} onClick={props.onClick}>{props.text}</StyledButton>
+    <StyledButton
+      width={props.width}
+      height={props.height}
+      fontColor={props.fontColor}
+      color={props.color}
+      margin={props.margin}
+      onClick={props.onClick}
+    >
+      {props.text}
+    </StyledButton>
   );
 }
 
 function GreenButton(props) {
-  return <GreenButton width="100px">ㅁㅇㄹㅁㄴㄹㅁ</GreenButton>;
+  return <GreenButton width="100px">{props.text}</GreenButton>;
 }
 
 function BlueButton(props) {

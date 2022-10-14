@@ -1,6 +1,14 @@
 import styled from 'styled-components';
 
 const DeliveryWrapper = styled.div``;
+
+// activated : 주문완료
+// canceled : 주문취소
+// refundRequest : 반품신청
+// refundCompleted : 반품확정
+// deliveryProgress : 배송중
+// deliveryCompleted : 배송완료
+
 const DeliveryButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -11,13 +19,13 @@ const DeliveryButtonWrapper = styled.div`
     cursor: pointer;
     margin: auto;
     :nth-child(1) {
-      color: ${props => props.state === '0' && 'black'};
+      color: ${props => props.state === 'activated' && 'black'};
     }
     :nth-child(2) {
-      color: ${props => props.state === '1' && 'black'};
+      color: ${props => props.state === 'deliveryProgress' && 'black'};
     }
     :nth-child(3) {
-      color: ${props => props.state === '2' && 'black'};
+      color: ${props => props.state === 'deliveryCompleted' && 'black'};
     }
   }
 `;
@@ -59,6 +67,7 @@ const DeliveryTableWrapper = styled.table`
     font-size: 15px;
     display: flex;
     align-items: center;
+    position: relative;
     div {
       padding-left: 20px;
     }
@@ -68,6 +77,12 @@ const DeliveryTableWrapper = styled.table`
   }
   .content {
     padding-top: 25px;
+  }
+  span {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 12px;
   }
 `;
 

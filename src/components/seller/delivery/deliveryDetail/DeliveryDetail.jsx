@@ -1,4 +1,5 @@
 import React from 'react';
+import { GreenButton } from '../../../common/Button';
 import { HorizontalLine } from '../../../common/HorizontalLine.style';
 import { WhiteWrapper } from '../../common/Box.style';
 import SubTitle from '../../common/SubTitle';
@@ -197,19 +198,7 @@ export default function DeliveryDetail() {
       <div
         style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}
       >
-        <button
-          style={{
-            width: '100px',
-            height: '50px',
-            border: 'none',
-            backgroundColor: '#07b544',
-            color: 'white',
-            fontSize: '15px',
-            borderRadius: '8px',
-          }}
-        >
-          배송 처리
-        </button>
+        <GreenButton text="배송 처리" />
       </div>
     </>
   );
