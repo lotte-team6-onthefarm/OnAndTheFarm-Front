@@ -30,7 +30,6 @@ export default function ProductsStatistics() {
   );
 
   const title = `전체 상품 (총 ${productCnt}개)`;
-  console.log(products, '내상품');
   // hook
   const navigate = useNavigate();
 

@@ -1,34 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
+import { getSellerOrderClaimList } from '../../../apis/seller/order';
+import { addDays, getDate } from '../../../utils/commonFunction';
 import Modal from '../../common/Modal';
 import { WhiteWrapper } from '../common/Box.style';
 import { GreenPurpleStatusButton } from '../common/ColorStatusButton';
 import { UserImgWrapper } from '../common/sellerCommon.style';
 import SubTitle from '../common/SubTitle';
-import { Orderdatas } from './dummy';
 import {
   OrderButtonWrapper,
   OrderDateWrapper,
   OrderTableWrapper,
 } from './Order.style';
 import OrderState from './orderState/OrderState';
+
+// canceled : 주문취소
+// refundRequest : 반품신청
+// refundCompleted : 반품확정
+
 export default function OrderList() {
   // usestate
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [modal, setModal] = useState(false);
   const [selectData, setSelectData] = useState({});
-
-  // useeffect
-  useEffect(() => {
-    // 30일 기간으로 체크하기
-    const today = new Date();
-    let year = today.getFullYear();
-    let month = ('0' + (today.getMonth() + 1)).slice(-2);
-    let day = ('0' + today.getDate()).slice(-2);
-
-    let dayString = year + '-' + month + '-' + day;
-    setStartDate(dayString);
-  }, []);
+  const [pageNo, setPageNo] = useState(0);
 
   // function
 
@@ -48,6 +44,25 @@ export default function OrderList() {
       // 데이터 가져오는 api
     }
   };
+
+  const { data: datas, isLoading: isOrderClaimListLoading } = useQuery(
+    'orderClaimList',
+    () => getSellerOrderClaimList(startDate, endDate, pageNo),
+    {
+      refetchOnMount: true,
+      enabled: startDate !== '' && endDate !== '',
+    },
+  );
+
+  // useeffect
+  useEffect(() => {
+    const today = new Date();
+    // 30일 기간으로 체크하기
+    const formatToday = getDate();
+    const formatEnd = addDays(today, 30);
+    setStartDate(formatToday);
+    setEndDate(formatEnd);
+  }, []);
 
   return (
     <WhiteWrapper width="100%">
@@ -71,54 +86,76 @@ export default function OrderList() {
               <th width="20%">주문자</th>
             </tr>
           </thead>
-          {Orderdatas.map((data, idx) => {
-            return (
-              <tbody
-                key={idx}
-                onClick={() => {
-                  setSelectData(data);
-                  setModal(!modal);
-                }}
-              >
-                <tr>
-                  <td className="title">
-                    <img
-                      src={require('../../../assets/products/복숭아.png')}
-                      alt=""
-                    />
-                    <div>{data.title}</div>
-                    {data.product}/{data.optios}
-                  </td>
-                  <td className="content">
-                    <GreenPurpleStatusButton
-                      fontSize="15px"
-                      text={data.orderState === 'os1' ? '취소요청' : '반품요청'}
-                      status={data.orderState}
-                    />
-                  </td>
-                  <td className="content">{data.orderDate}</td>
-                  <td>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <UserImgWrapper
-                        src={require('../../../assets/구데타마.png')}
-                        alt=""
-                        width="30px"
-                      ></UserImgWrapper>
-                      <div style={{ paddingLeft: '10px' }}>
-                        {data.orderUser}
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            );
-          })}
+          {!isOrderClaimListLoading && startDate !== '' && endDate !== '' && (
+            <>
+              {datas.map((data, idx) => {
+                return (
+                  <tbody
+                    key={idx}
+                    onClick={() => {
+                      setSelectData(data);
+                      setModal(!modal);
+                    }}
+                  >
+                    <tr>
+                      <td className="title">
+                        <img
+                          src={require('../../../assets/products/복숭아.png')}
+                          alt=""
+                        />
+                        <div>{data.title}</div>
+                        {data.orderProductName} / ({data.orderProductQty}EA)
+                      </td>
+                      <td className="content">
+                        <GreenPurpleStatusButton
+                          // canceled : 주문취소
+                          // refundRequest : 반품신청
+                          // refundCompleted : 반품확정
+                          fontSize="15px"
+                          text={
+                            (data.orderProductStatus === 'canceled' &&
+                              '취소요청') ||
+                            (data.orderProductStatus === 'refundRequest' &&
+                              '반품신청') ||
+                            (data.orderProductStatus === 'refundCompleted' &&
+                              '반품확정')
+                          }
+                          status={
+                            (data.orderProductStatus === 'canceled' && 1) ||
+                            (data.orderProductStatus === 'refundRequest' &&
+                              2) ||
+                            (data.orderProductStatus === 'refundCompleted' && 3)
+                          }
+                        />
+                      </td>
+                      <td className="content">{data.ordersDate}</td>
+                      <td>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <UserImgWrapper
+                            src={require('../../../assets/구데타마.png')}
+                            alt=""
+                            width="30px"
+                          ></UserImgWrapper>
+                          <div style={{ paddingLeft: '10px' }}>
+                            {data.userName}
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
+            </>
+          )}
         </OrderTableWrapper>
       </div>
       {/* modal */}
       {modal && (
         <Modal closeModal={() => setModal(!modal)}>
-          <OrderState data={selectData} closeModal={() => setModal(!modal)} />
+          <OrderState
+            selectData={selectData}
+            closeModal={() => setModal(!modal)}
+          />
         </Modal>
       )}
     </WhiteWrapper>

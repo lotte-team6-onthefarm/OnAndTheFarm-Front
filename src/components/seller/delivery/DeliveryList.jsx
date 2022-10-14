@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { postSellerOrderList } from '../../../apis/seller/order';
+import { getSellerOrderList } from '../../../apis/seller/order';
 import {
   addDays,
   getDate,
@@ -26,15 +26,7 @@ export default function DeliveryList() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [pageNo, setPageNo] = useState(0);
-  const [orderList, setOrderList] = useState([]);
 
-  const getSellerOrderList = newEndDate => {
-    sellerOrderList({
-      startDate: startDate,
-      endDate: newEndDate,
-      pageNumber: pageNo,
-    });
-  };
   // useeffect
   useEffect(() => {
     const today = new Date();
@@ -43,11 +35,6 @@ export default function DeliveryList() {
     const formatEnd = addDays(today, 30);
     setStartDate(formatToday);
     setEndDate(formatEnd);
-    sellerOrderList({
-      startDate: formatToday,
-      endDate: formatEnd,
-      pageNumber: pageNo,
-    });
   }, []);
 
   // function
@@ -69,17 +56,26 @@ export default function DeliveryList() {
     } else {
       setEndDate(e.target.value);
       // 데이터 가져오는 api
-      getSellerOrderList(e.target.value);
+      orderListRefetch();
+      // getSellerOrderList(e.target.value);
     }
   };
 
-  const { mutate: sellerOrderList } = useMutation(postSellerOrderList, {
-    onSuccess: res => {
-      setOrderList(res);
+  const {
+    data: orderList,
+    isLoading: isOrderListLoading,
+    refetch: orderListRefetch,
+  } = useQuery(
+    'sellerOrderList',
+    () => getSellerOrderList(startDate, endDate, pageNo),
+    {
+      refetchOnMount: true,
+      enabled: startDate !== '' && endDate !== '',
     },
-  });
+  );
 
   const deliveryDetailRouter = id => {
+    console.log(id, '부모');
     navigator(`/seller/delivery/${id}`);
   };
 
@@ -113,52 +109,61 @@ export default function DeliveryList() {
               <th width="20%">주문자</th>
             </tr>
           </thead>
-          {orderList.map((list, idx) => {
-            const order = list.orderSellerResponses[0];
-            return (
-              deliveryState === order.orderProductStatus && (
-                <tbody key={idx}>
-                  <tr>
-                    <td
-                      className="title"
-                      onClick={() => {
-                        deliveryDetailRouter(order.orderProductId);
-                      }}
-                    >
-                      <img
-                        src={require('../../../assets/products/복숭아.png')}
-                        alt=""
-                      />
-                      <div>
-                        {order.orderProductName}/({order.orderProductQty}EA)
-                        {list.orderSellerResponses.length > 1 && (
-                          <span>+{list.orderSellerResponses.length - 1}개</span>
-                        )}
-                      </div>
-                    </td>
-                    <td className="content">
-                      {getOrderNumber(order.ordersSerial)}
-                    </td>
-                    <td className="content">
-                      {getNoTimeDate(order.ordersDate)}
-                    </td>
-                    <td>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <UserImgWrapper
-                          src={require('../../../assets/구데타마.png')}
-                          alt=""
-                          width="30px"
-                        ></UserImgWrapper>
-                        <div style={{ paddingLeft: '10px' }}>
-                          {order.userName}
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              )
-            );
-          })}
+          {!isOrderListLoading && startDate !== '' && endDate !== '' && (
+            <>
+              {orderList.map((list, idx) => {
+                const order = list.orderSellerResponses[0];
+                return (
+                  deliveryState === order.orderProductStatus && (
+                    <tbody key={idx}>
+                      <tr>
+                        <td
+                          className="title"
+                          onClick={() => {
+                            deliveryDetailRouter(order.ordersSerial);
+                          }}
+                        >
+                          <img
+                            src={require('../../../assets/products/복숭아.png')}
+                            alt=""
+                          />
+                          <div>
+                            {order.orderProductName} / ({order.orderProductQty}
+                            EA)
+                            {list.orderSellerResponses.length > 1 && (
+                              <span>
+                                +{list.orderSellerResponses.length - 1}개
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="content">
+                          {getOrderNumber(order.ordersSerial)}
+                        </td>
+                        <td className="content">
+                          {getNoTimeDate(order.ordersDate)}
+                        </td>
+                        <td>
+                          <div
+                            style={{ display: 'flex', alignItems: 'center' }}
+                          >
+                            <UserImgWrapper
+                              src={require('../../../assets/구데타마.png')}
+                              alt=""
+                              width="30px"
+                            ></UserImgWrapper>
+                            <div style={{ paddingLeft: '10px' }}>
+                              {order.userName}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  )
+                );
+              })}
+            </>
+          )}
         </DeliveryTableWrapper>
       </DeliveryWrapper>
     </WhiteWrapper>

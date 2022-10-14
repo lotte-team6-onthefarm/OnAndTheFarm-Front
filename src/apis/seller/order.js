@@ -1,32 +1,40 @@
 import { JWTapiSeller } from '..';
 
 // 셀러 주문내역 조회
-const postSellerOrderList = async data => {
-  const response = await JWTapiSeller.post('orders/list', data);
-  console.log(response);
+const getSellerOrderList = async (startDate, endDate, pageNo) => {
+  const response = await JWTapiSeller.get(
+    `orders/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}`,
+  );
   return response.data.data.responses;
 };
 
 // 셀러 주문 상세내역 조회
-const postSellerOrderListDetail = async data => {
-  const response = await JWTapiSeller.post('orders/list/detail', data);
-  console.log(response);
-  return response.data;
+const getSellerOrderListDetail = async orderSerial => {
+  const response = await JWTapiSeller.get(
+    `orders/list/detail?orderSerial=${orderSerial}`,
+  );
+  return response.data.data;
 };
 
 // 셀러 반품/취소 내역 조회
-const postSellerOrderClaimList = async data => {
-  const response = await JWTapiSeller.post('orders/claim/list', data);
-  console.log(response);
-  return response.data;
+const getSellerOrderClaimList = async (startDate, endDate, pageNo) => {
+  const response = await JWTapiSeller.get(
+    `orders/claim/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}`,
+  );
+  return response.data.data.responses;
 };
 
-// // 반품 확정
-// const postSellerOrderList = async data => {
-//   const response = await JWTapiSeller.post('orders/list', data);
-//   console.log(response);
-//   return response.data;
-// };
+// 셀러 반품/취소 상세 내역 조회
+const getSellerOrderClaimDetailList = async data => {
+  const response = await JWTapiSeller.get(`orders/claim/list/${data}`);
+  return response.data.data;
+};
+
+// 반품 확정
+const postOrderClaimApprove = async data => {
+  const response = await JWTapiSeller.post(`orders/claim/list/${data}`);
+  return response.data;
+};
 
 // // 셀러 주문내역 조회
 // const postSellerOrderList = async data => {
@@ -50,7 +58,9 @@ const postSellerOrderClaimList = async data => {
 // };
 
 export {
-  postSellerOrderList,
-  postSellerOrderListDetail,
-  postSellerOrderClaimList,
+  getSellerOrderList,
+  getSellerOrderListDetail,
+  getSellerOrderClaimDetailList,
+  getSellerOrderClaimList,
+  postOrderClaimApprove,
 };
