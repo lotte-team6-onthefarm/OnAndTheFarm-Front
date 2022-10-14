@@ -6,6 +6,7 @@ import { ProductStatusWrapper } from '../ProductManagement.style';
 // pause : 판매자가 판매를 일시 정지
 
 export default function ProductStatus(props) {
+  const productStatus = props.productStatus;
   const setProductStatus = props.setProductStatus;
   const statusHandler = num => {
     if (num === 0) {

@@ -29,22 +29,33 @@ export default function AddProduct() {
   // InnerComponent
   const innerComponents = [
     <TitleDescription
+      productName={productName}
       setProductName={setProductName}
+      productDetail={productDetail}
       setProductDetail={setProductDetail}
+      productDetailShort={productDetailShort}
       setProductDetailShort={setProductDetailShort}
     />,
     <PriceAmount
+      productPrice={productPrice}
       setProductPrice={setProductPrice}
+      productTotalStock={productTotalStock}
       setProductTotalStock={setProductTotalStock}
+      productStatus={productStatus}
       setProductStatus={setProductStatus}
     />,
     <Images
+      productMainImages={productMainImages}
       setProductMainImages={setProductMainImages}
+      productImages={productImages}
       setProductImages={setProductImages}
     />,
     <CategoryEtc
+      productCategory={productCategory}
       setProductCategory={setProductCategory}
+      productOriginPlace={productOriginPlace}
       setProductOriginPlace={setProductOriginPlace}
+      productDeliveryCompany={productDeliveryCompany}
       setProductDeliveryCompany={setProductDeliveryCompany}
     />,
   ];
