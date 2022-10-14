@@ -3,13 +3,15 @@ import { useQuery } from 'react-query';
 import MenuTabComp from '../../../components/main/mypage/MenuTabComp';
 import { EmptyTable } from '../../../components/seller/main/popularProducts/MainPopularProducts.style';
 import { ProductReviewsTable } from '../../../components/seller/products/productReviews/ProductReviews.style';
-import { ReviewContentDiv } from './mainMypageReview.style';
+import { ReviewContentDiv } from './mainMypageOrderDetail.style';
 import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
 import { getMyOrderList } from '../../../apis/user/order';
 import OrderItemComp from '../../../components/main/mypage/OrderItem';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function MainMypageOrderList() {
+export default function MainMypageOrderDetail() {
+  const { state } = useLocation();
+  const [orderId, setOrderId] = useState(state);
   const menuTab = [
     { title: '주문내역', url: '/mypage/orders/list' },
     { title: '주문취소/반품 내역', url: '/mypage/orders/cancel' },
@@ -31,7 +33,6 @@ export default function MainMypageOrderList() {
 
   return (
     <div>
-      <MenuTabComp menuTab={menuTab}></MenuTabComp>
       <ReviewContentDiv>
         {!MyOrderListLoading && (
           <>
@@ -45,8 +46,8 @@ export default function MainMypageOrderList() {
                   <thead>
                     <tr style={{ fontSize: '13px' }}>
                       <th width="5%">NO.</th>
-                      <th width="10%">주문날짜</th>
-                      <th width="10%">주문번호</th>
+                      <th width="10%">주문상세페이지</th>
+                      <th width="10%">{orderId}</th>
                       <th width="10%">가격</th>
                       <th width="10%">상태</th>
                       <th width="55%">상품리스트</th>
