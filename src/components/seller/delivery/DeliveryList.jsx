@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { postSellerOrderList } from '../../../apis/seller/order';
+import {
+  addDays,
+  getDate,
+  getNoTimeDate,
+  getOrderNumber,
+} from '../../../utils/commonFunction';
 import { WhiteWrapper } from '../common/Box.style';
 import { UserImgWrapper } from '../common/sellerCommon.style';
 import SubTitle from '../common/SubTitle';
@@ -10,34 +18,36 @@ import {
   DeliveryTableWrapper,
   DeliveryWrapper,
 } from './Delivery.style';
-import DeliveryState from './deliveryState/DeliveryState';
-import { Deliverydatas } from './dummy';
 export default function DeliveryList() {
-  const shippingCompany = [
-    '배송사 선택',
-    '롯데택배',
-    '대한통운',
-    'GS택배',
-    '우체국택배',
-    'CU택배',
-  ];
   // usenavigator
   const navigator = useNavigate();
   // usestate
-  const [deliveryState, setDeliveryState] = useState('0'); // 0 : 배송처리 1 : 배송중 2 : 배송완료
+  const [deliveryState, setDeliveryState] = useState('activated'); // 0 : 배송처리 1 : 배송중 2 : 배송완료
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [pageNo, setPageNo] = useState(0);
+  const [orderList, setOrderList] = useState([]);
 
+  const getSellerOrderList = newEndDate => {
+    sellerOrderList({
+      startDate: startDate,
+      endDate: newEndDate,
+      pageNumber: pageNo,
+    });
+  };
   // useeffect
   useEffect(() => {
-    // 30일 기간으로 체크하기
     const today = new Date();
-    let year = today.getFullYear();
-    let month = ('0' + (today.getMonth() + 1)).slice(-2);
-    let day = ('0' + today.getDate()).slice(-2);
-
-    let dayString = year + '-' + month + '-' + day;
-    setStartDate(dayString);
+    // 30일 기간으로 체크하기
+    const formatToday = getDate();
+    const formatEnd = addDays(today, 30);
+    setStartDate(formatToday);
+    setEndDate(formatEnd);
+    sellerOrderList({
+      startDate: formatToday,
+      endDate: formatEnd,
+      pageNumber: pageNo,
+    });
   }, []);
 
   // function
@@ -59,8 +69,15 @@ export default function DeliveryList() {
     } else {
       setEndDate(e.target.value);
       // 데이터 가져오는 api
+      getSellerOrderList(e.target.value);
     }
   };
+
+  const { mutate: sellerOrderList } = useMutation(postSellerOrderList, {
+    onSuccess: res => {
+      setOrderList(res);
+    },
+  });
 
   const deliveryDetailRouter = id => {
     navigator(`/seller/delivery/${id}`);
@@ -71,9 +88,13 @@ export default function DeliveryList() {
       <SubTitle color="#FFBC99" title="주문 관리 내역" />
       <DeliveryWrapper>
         <DeliveryButtonWrapper state={deliveryState}>
-          <div onClick={() => deliveryStateHandler('0')}>주문 내역</div>
-          <div onClick={() => deliveryStateHandler('1')}>배송 중</div>
-          <div onClick={() => deliveryStateHandler('2')}>배송 완료</div>
+          <div onClick={() => deliveryStateHandler('activated')}>주문 내역</div>
+          <div onClick={() => deliveryStateHandler('deliveryProgress')}>
+            배송 중
+          </div>
+          <div onClick={() => deliveryStateHandler('deliveryCompleted')}>
+            배송 완료
+          </div>
         </DeliveryButtonWrapper>
         <DeliveryDateWrapper>
           <div>조회기간</div>
@@ -90,30 +111,37 @@ export default function DeliveryList() {
               <th width="20%">주문번호</th>
               <th width="20%">주문일</th>
               <th width="20%">주문자</th>
-              {/* <th width="17%">운송장번호</th>
-              <th>배송처리</th> */}
             </tr>
           </thead>
-          {Deliverydatas.map((data, idx) => {
+          {orderList.map((list, idx) => {
+            const order = list.orderSellerResponses[0];
             return (
-              deliveryState === data.orderState && (
+              deliveryState === order.orderProductStatus && (
                 <tbody key={idx}>
                   <tr>
                     <td
                       className="title"
                       onClick={() => {
-                        deliveryDetailRouter(data.id);
+                        deliveryDetailRouter(order.orderProductId);
                       }}
                     >
                       <img
                         src={require('../../../assets/products/복숭아.png')}
                         alt=""
                       />
-                      <div>{data.title}</div>
-                      {data.product}/{data.optios}
+                      <div>
+                        {order.orderProductName}/({order.orderProductQty}EA)
+                        {list.orderSellerResponses.length > 1 && (
+                          <span>+{list.orderSellerResponses.length - 1}개</span>
+                        )}
+                      </div>
                     </td>
-                    <td className="content">{data.orderNum}</td>
-                    <td className="content">{data.orderDate}</td>
+                    <td className="content">
+                      {getOrderNumber(order.ordersSerial)}
+                    </td>
+                    <td className="content">
+                      {getNoTimeDate(order.ordersDate)}
+                    </td>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
                         <UserImgWrapper
@@ -122,14 +150,10 @@ export default function DeliveryList() {
                           width="30px"
                         ></UserImgWrapper>
                         <div style={{ paddingLeft: '10px' }}>
-                          {data.orderUser}
+                          {order.userName}
                         </div>
                       </div>
                     </td>
-                    {/* <DeliveryState
-                      data={data}
-                      shippingCompany={shippingCompany}
-                    ></DeliveryState> */}
                   </tr>
                 </tbody>
               )

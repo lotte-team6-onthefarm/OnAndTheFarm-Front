@@ -4,7 +4,7 @@ import { JWTapiSeller } from '..';
 const postSellerOrderList = async data => {
   const response = await JWTapiSeller.post('orders/list', data);
   console.log(response);
-  return response.data;
+  return response.data.data.responses;
 };
 
 // 셀러 주문 상세내역 조회
