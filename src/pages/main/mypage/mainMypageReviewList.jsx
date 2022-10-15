@@ -13,6 +13,11 @@ import { ReviewContentDiv, AnswerDiv } from './mainMypageReview.style';
 import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
 
 export default function MainMypageReviewList() {
+  const menuTab = [
+    { title: '작성 가능한 리뷰', url: '/mypage/review/addlist' },
+    { title: '내가 작성한 리뷰', url: '/mypage/review/myreview' },
+    { title: '문의사항', url: '/mypage/review/qna' },
+  ];
   const {
     isLoading: MyReviewListLoading,
     // refetch: getMyReviewListRefetch,
@@ -26,13 +31,13 @@ export default function MainMypageReviewList() {
 
   return (
     <div>
-      <MenuTabComp></MenuTabComp>
+      <MenuTabComp menuTab={menuTab}></MenuTabComp>
       <ReviewContentDiv>
         {!MyReviewListLoading && (
           <>
             {reviews.length === 0 ? (
               <EmptyTable height="60vh">
-                <h3>현재 등록가능한 리뷰가 없습니다.</h3>
+                <h3>등록된 리뷰가 없습니다.</h3>
               </EmptyTable>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
