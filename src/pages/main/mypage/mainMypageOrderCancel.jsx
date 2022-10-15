@@ -7,6 +7,7 @@ import { ReviewContentDiv } from './mainMypageReview.style';
 import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
 import { getCancelOrderList, getMyOrderList } from '../../../apis/user/order';
 import OrderItemComp from '../../../components/main/mypage/OrderItem';
+import { useNavigate } from 'react-router-dom';
 
 export default function MainMypageOrderCancel() {
   const menuTab = [
@@ -22,9 +23,11 @@ export default function MainMypageOrderCancel() {
       console.log('error');
     },
   });
-  const moveDetail = () =>{
-    console.log('test')
-  }
+   // hook
+   const navigate = useNavigate();
+   const moveDetail = id => {
+     navigate(`/mypage/orders/detail`, { state: id });
+   };
 
   return (
     <div>
@@ -54,17 +57,17 @@ export default function MainMypageOrderCancel() {
                   {claimList.responses.map((data, idx) => {
                     return (
                       <tbody key={idx}>
-                        <tr onClick={moveDetail}>
+                        <tr onClick={() => moveDetail(data.orderSerial)}>
                           <td width="5%">{idx + 1}</td>
                           <td width="10%" className="title">
-                            <img src={data.orderProductMainImg} alt="" />
+                            <img src={data.productImage} alt="" />
                           </td>
-                          <td width="10%">{data.orderProductName}</td>
-                          <td width="5%">{data.orderProductQty}</td>
-                          <td width="5%">{data.orderProductPrice}</td>
-                          <td width="10%">{data.orderProductStatus}</td>
-                          <td width="10%">{data.ordersDate}</td>
-                          <td width="45%">{data.orderStatus}</td>
+                          <td width="10%">{data.productName}</td>
+                          <td width="5%">{data.productQty}</td>
+                          <td width="5%">{data.productPrice}</td>
+                          <td width="10%">{data.productStatus}</td>
+                          <td width="10%">{data.orderDate}</td>
+                          <td width="45%">{data.cancelDetail}</td>
                         </tr>
                       </tbody>
                     );
