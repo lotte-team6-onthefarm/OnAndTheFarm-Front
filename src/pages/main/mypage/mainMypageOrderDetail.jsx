@@ -10,6 +10,10 @@ import {
 } from '../order/mainOrder.style';
 import Input from '../../../components/common/Input';
 import ProductListComp from '../../../components/main/products/ProductList';
+import OrderProductComp from '../../../components/main/mypage/OrderProductComp';
+import Modal from '../../../components/common/Modal';
+import { ClaimDiv } from '../../../components/main/mypage/Claim.style';
+import ClaimComp from '../../../components/main/mypage/Claim';
 
 export default function MainMypageOrderDetail() {
   const { state } = useLocation();
@@ -26,6 +30,9 @@ export default function MainMypageOrderDetail() {
   const [deliveryCompany, setDeliveryCompany] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
 
+  const [modal, setModal] = useState(false);
+  const [selectData, setSelectData] = useState('');
+
   const {
     isLoading: OrderDetailLoading,
     // refetch: getOrderDetailRefetch,
@@ -33,22 +40,37 @@ export default function MainMypageOrderDetail() {
   } = useQuery('OrderDetail', () => getOrderDetail(orderId), {
     onSuccess: res => {
       console.log(res);
-      setTotalPrice(res.orderTotalPrice)
-      setRecieverName(res.orderName)
-      setRecieverAddress(res.orderAddress)
-      setRecieverPhone(res.orderPhone)
-      setRecieverRequest(res.orderRequest)
-      setOrderStatus(res.orderStatus)
-      setOrderDate(res.orderDate)
-      setDeliveryNumber(res.orderProductDeliveryWaybillNumber)
-      setDeliveryCompany(res.orderProductDeliveryCompany)
-      setDeliveryDate(res.orderProductDeliveryDate)
-      
+      setTotalPrice(res.orderTotalPrice);
+      setRecieverName(res.orderName);
+      setRecieverAddress(res.orderAddress);
+      setRecieverPhone(res.orderPhone);
+      setRecieverRequest(res.orderRequest);
+      setOrderStatus(res.orderStatus);
+      setOrderDate(res.orderDate);
+      setDeliveryNumber(
+        res.orderProductDeliveryWaybillNumber === null
+          ? ''
+          : res.orderProductDeliveryWaybillNumber,
+      );
+      setDeliveryCompany(
+        res.orderProductDeliveryCompany === null
+          ? ''
+          : res.orderProductDeliveryCompany,
+      );
+      setDeliveryDate(
+        res.orderProductDeliveryDate === null
+          ? ''
+          : res.orderProductDeliveryDate,
+      );
     },
     onError: () => {
       console.log('error');
     },
   });
+
+  const modalChange = () =>{
+    setModal(!modal)
+  }
 
   return (
     <div>
@@ -157,20 +179,30 @@ export default function MainMypageOrderDetail() {
             <PreOrderItems>
               <p className="subject">상품 리스트</p>
               <hr />
-              {order.orderProducts.map((cart, index) => {
+              {order.orderProducts.map((product, index) => {
                 return (
-                  <ProductListComp
+                  <OrderProductComp
                     key={index}
-                    id={index}
-                    url={cart.productImg}
-                    name={cart.productName}
-                    number={cart.productQty}
-                    price={cart.productPrice}
-                  ></ProductListComp>
+                    id={product.orderProductId}
+                    url={product.productImg}
+                    name={product.productName}
+                    number={product.productQty}
+                    price={product.productPrice}
+                    status={product.orderProductStatus}
+                    orderstatus={order.orderStatus}
+                    modalChange={modalChange}
+                    setSelectData={setSelectData}
+                  ></OrderProductComp>
                 );
               })}
             </PreOrderItems>
           </PreOrderListDiv>
+        )}
+        {/* modal */}
+        {modal && (
+          <Modal closeModal={() => setModal(!modal)}>
+            <ClaimComp orderStatus={orderStatus} selectData={selectData}></ClaimComp>
+          </Modal>
         )}
       </ReviewContentDiv>
     </div>

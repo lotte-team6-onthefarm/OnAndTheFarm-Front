@@ -24,8 +24,26 @@ const getCancelOrderList = async data => {
 // 주문 상세내역
 const getOrderDetail = async data => {
   const response = await JWTapiUser.get(`orders/list/${data}`);
-  console.log(response.data.data)
   return response.data.data;
 };
 
-export { postMakeOrder, getMyOrderList, getCancelOrderList, getOrderDetail };
+// 환불신청
+const postRefundProduct = async data => {
+  const response = await JWTapiUser.post('orders/claim/refund', data);
+  return response.data;
+};
+
+// 주문취소
+const postCancelProduct = async data => {
+  const response = await JWTapiUser.post('orders/claim/cancel', data);
+  return response.data;
+};
+
+export {
+  postMakeOrder,
+  getMyOrderList,
+  getCancelOrderList,
+  getOrderDetail,
+  postRefundProduct,
+  postCancelProduct,
+};
