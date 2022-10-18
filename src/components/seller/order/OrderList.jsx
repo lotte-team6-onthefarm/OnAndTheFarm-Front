@@ -80,8 +80,8 @@ export default function OrderList() {
   useEffect(() => {
     const today = new Date();
     // 30일 기간으로 체크하기
-    const formatToday = getDate();
-    const formatEnd = addDays(today, 30);
+    const formatToday = addDays(today, -30);
+    const formatEnd = addDays(today, 1);
     setStartDate(getDateFormat(formatToday));
     setEndDate(getDateFormat(formatEnd));
   }, []);

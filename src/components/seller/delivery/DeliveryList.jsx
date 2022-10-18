@@ -62,7 +62,7 @@ export default function DeliveryList() {
   // useeffect
   useEffect(() => {
     // 30일 기간으로 체크하기
-    const today = getDate();
+    const today = addDays(getDate(), 1);
     setToday(today);
     const start = addDays(today, -30);
     setEndDay(today);
