@@ -42,16 +42,18 @@ export default function MainReviews(props) {
   const reviewUrl = () => {
     navigate('/seller/products/reviews');
   };
+
+  console.log(reviews);
   return (
-    <WhiteWrapper width="100%">
+    <WhiteWrapper width="100%" height="650px">
       <SubTitle color="#B1E5FC" title="실시간 리뷰" />
       {reviews.length === 0 ? (
-        <EmptyTable height="380px">
+        <EmptyTable height="480px">
           <h3>현재 등록된 리뷰가 없습니다</h3>
         </EmptyTable>
       ) : (
-        <>
-          {products.map((product, idx) => {
+        <div style={{ minHeight: '480px' }}>
+          {reviews.map((review, idx) => {
             return (
               <div key={idx} style={{ display: 'flex', width: '100%' }}>
                 <img
@@ -59,7 +61,7 @@ export default function MainReviews(props) {
                   alt=""
                   style={{
                     marginRight: '10px',
-                    width: '30%',
+                    width: '95px',
                     cursor: 'pointer',
                   }}
                 />
@@ -72,9 +74,9 @@ export default function MainReviews(props) {
                       cursor: 'pointer',
                     }}
                   >
-                    {product.title}
+                    {review.productName}
                   </div>
-                  <ReviewStar reviewRate={product.reviewRate}></ReviewStar>
+                  <ReviewStar reviewRate={review.reviewRate}></ReviewStar>
                   <div
                     style={{
                       whiteSpace: 'nowrap',
@@ -82,13 +84,13 @@ export default function MainReviews(props) {
                       textOverflow: 'ellipsis',
                     }}
                   >
-                    {product.review}
+                    {review.reviewContent}
                   </div>
                 </div>
               </div>
             );
           })}
-        </>
+        </div>
       )}
       <BlackBorderButton onClick={reviewUrl}>리뷰 전체</BlackBorderButton>
     </WhiteWrapper>

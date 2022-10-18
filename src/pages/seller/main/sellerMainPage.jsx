@@ -74,7 +74,6 @@ export default function SellerMainPage() {
       onError: {},
     },
   );
-  const testF = () => {};
   return (
     <>
       {!MainProductLoading && !MainConditiontLoading && !PreMainProductLoading && (
