@@ -9,16 +9,11 @@ const getDate = () => {
   return today;
 };
 
-const addDays = (date, days, status) => {
+const addDays = (date, days) => {
   // 지정 날짜 , 추가 일자
   const clone = new Date(date);
-  clone.setDate(date.getDate() + days);
-  // if (status === 'basic') {
-  //   return getDateFormat(clone);
-  // } else if (status === 'dot') {
-  //   return getDateDotFormat(clone);
-  // }
-  return clone; // YYYY-MM-DD 형식에 맞게 return
+  clone.setDate(clone.getDate() + days);
+  return clone;
 };
 
 const getDateFormat = date => {
@@ -50,6 +45,31 @@ const getNoSecDate = date => {
   return date.substr(0, 16);
 };
 
+// 현재시간 - 지정시간
+const getGoneTime = data => {
+  const today = new Date();
+  const timeValue = new Date(data);
+  const betweenTime = Math.floor(
+    (today.getTime() - timeValue.getTime()) / 1000 / 60,
+  );
+  if (betweenTime < 1) return '방금전';
+  if (betweenTime < 60) {
+    return `${betweenTime}분전`;
+  }
+
+  const betweenTimeHour = Math.floor(betweenTime / 60);
+  if (betweenTimeHour < 24) {
+    return `${betweenTimeHour}시간전`;
+  }
+
+  const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+  if (betweenTimeDay < 365) {
+    return `${betweenTimeDay}일전`;
+  }
+
+  return `${Math.floor(betweenTimeDay / 365)}년전`;
+};
+
 // 주문번호 자르기
 const getOrderNumber = number => {
   //7563a2f7-057a-493f-8dd8-021fed01c79b
@@ -64,4 +84,5 @@ export {
   getNoSecDate,
   getOrderNumber,
   getDateDotFormat,
+  getGoneTime,
 };

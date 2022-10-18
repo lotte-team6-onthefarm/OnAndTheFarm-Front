@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FeedProductWrapper } from './FeedProduct.styled';
 
-export default function FeedProduct() {
+export default function FeedProduct(props) {
   const images = [
     'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/163644707906688086.jpg?gif=1&w=144',
     'https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1555291407_102180_1.jpg?gif=1&w=144',
@@ -27,6 +27,7 @@ export default function FeedProduct() {
           );
         })}
       </ul>
+      <p>{props.feedContent}</p>
     </FeedProductWrapper>
   );
 }

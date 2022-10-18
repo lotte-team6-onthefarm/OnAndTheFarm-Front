@@ -34,7 +34,7 @@ export default function SnsUser() {
       <UserDetailBlock>
         <UserDetailImgBlock>
           <UserDetailImg
-            class="css-1cqverl e18gdfbl2"
+            className="css-1cqverl e18gdfbl2"
             src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c&amp;webp=1"
             srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=320&amp;h=320&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 3x"
           />

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { BiSubdirectoryRight } from 'react-icons/bi';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { postSellerQna } from '../../../../apis/seller/qna';
 import { BlueButton, WhiteButton } from '../../../common/Button.style';
 import { AnswerTextWrapper } from './ProductQnAs.style';
 
 export default function AnswerTextBox(props) {
-  const productQnaAnswer = props.data.productQnaAnswer;
+  const productSellerAnswer = props.qna.productSellerAnswer;
+  const queryClient = useQueryClient();
   const [answer, setAnswer] = useState('');
   const answerHandler = e => {
     setAnswer(e.target.value);
@@ -15,6 +16,8 @@ export default function AnswerTextBox(props) {
   const { mutate: answerQnA } = useMutation(postSellerQna, {
     onSuccess: res => {
       alert('등록이 완료되었습니다');
+      setAnswer('');
+      queryClient.invalidateQueries('sellerQnA');
     },
     onError: () => {
       console.log('에러');
@@ -22,20 +25,24 @@ export default function AnswerTextBox(props) {
   });
 
   const handle = () => {
-    answerQnA({ productQnaId: 52, productQnaAnswerContent: answer });
+    answerQnA({
+      productQnaId: props.qna.productQnaId,
+      productQnaAnswerContent: answer,
+    });
   };
 
   const closeBtn = props.closeBtn;
 
   return (
-    <AnswerTextWrapper productQnaAnswer={productQnaAnswer}>
+    <AnswerTextWrapper productQnaAnswer={productSellerAnswer}>
       <div className="textInput">
         <BiSubdirectoryRight />
-        {productQnaAnswer !== null ? (
-          <div className="sellerAnswer">{productQnaAnswer}</div>
+        {productSellerAnswer !== null ? (
+          <div className="sellerAnswer">{productSellerAnswer}</div>
         ) : (
           <textarea
             type="text"
+            value={answer}
             placeholder="답변을 작성해주세요"
             onChange={answerHandler}
           />
@@ -43,7 +50,7 @@ export default function AnswerTextBox(props) {
       </div>
       <div className="btn">
         <div>
-          {productQnaAnswer !== null ? (
+          {productSellerAnswer !== null ? (
             ''
           ) : (
             <BlueButton height="30px" onClick={handle}>

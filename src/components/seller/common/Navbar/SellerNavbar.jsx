@@ -9,7 +9,6 @@ import {
 import {
   AiOutlineHome,
   AiOutlineShop,
-  AiOutlinePercentage,
   AiOutlinePlus,
   AiOutlineGlobal,
 } from 'react-icons/ai';
@@ -41,11 +40,11 @@ export default function SellerNavbar() {
     { icons: <TbTruckDelivery />, title: '주문 관리', url: '/seller/delivery' },
     { icons: <RiBillLine />, title: '취소/반품 관리', url: '/seller/order' },
     { icons: <BsGraphUp />, title: '통계 수치', url: '/seller/statistics' },
-    {
-      icons: <AiOutlinePercentage />,
-      title: '프로모션',
-      url: '/seller/promotion',
-    },
+    // {
+    //   icons: <AiOutlinePercentage />,
+    //   title: '프로모션',
+    //   url: '/seller/promotion',
+    // },
     {
       icons: <AiOutlineGlobal />,
       title: 'SNS 이동',

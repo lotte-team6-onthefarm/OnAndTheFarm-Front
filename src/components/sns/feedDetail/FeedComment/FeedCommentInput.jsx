@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { postUploadComment } from '../../../../apis/sns/comment';
 import {
   CommentBlock,
   CommentBottom,
@@ -8,16 +10,27 @@ import {
   FeedCommentInputWrapper,
 } from './FeedComment.styled';
 
-export default function FeedComment() {
+export default function FeedComment(props) {
   const [comment, setComment] = useState('');
+  const queryClient = useQueryClient();
   const commentHadler = e => {
     setComment(e.target.value);
   };
+
+  const { mutate: uploadComment } = useMutation(postUploadComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('Comment');
+      setComment('');
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
   return (
     <FeedCommentInputWrapper>
       <section>
         <CommentTopP>
-          댓글<span>0</span>
+          댓글<span>{props.comment.length}</span>
         </CommentTopP>
         <CommentBottom>
           <img
@@ -34,18 +47,25 @@ export default function FeedComment() {
             <CommentBlock>
               <input
                 placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"
+                value={comment}
                 onChange={commentHadler}
               ></input>
               <div>
-                <button
-                  className={
-                    comment.length === 0
-                      ? 'comment_button_inactive'
-                      : 'comment_button_active'
-                  }
-                >
-                  입력
-                </button>
+                {comment.length === 0 ? (
+                  <button className={'comment_button_inactive'}>입력</button>
+                ) : (
+                  <button
+                    className={'comment_button_active'}
+                    onClick={() => {
+                      uploadComment({
+                        feedId: 1,
+                        feedCommentContent: comment,
+                      });
+                    }}
+                  >
+                    입력
+                  </button>
+                )}
               </div>
             </CommentBlock>
           </CommentWrapper>
