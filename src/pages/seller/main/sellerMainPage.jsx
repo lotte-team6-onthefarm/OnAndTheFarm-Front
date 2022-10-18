@@ -1,6 +1,11 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
-import { getSellerMypage } from '../../../apis/seller/account';
+import {
+  getSellerCondition,
+  getSellerMypage,
+} from '../../../apis/seller/account';
 import {
   PageCol,
   PageRow,
@@ -11,42 +16,81 @@ import MainPopularProducts from '../../../components/seller/main/popularProducts
 import MainReviews from '../../../components/seller/main/reviews/MainReviews';
 import MainSalesStatistics from '../../../components/seller/main/salesStatistics/MainSalesStatistics';
 import MainUserManagement from '../../../components/seller/main/userManagement/MainUserManagement';
+import {
+  addDays,
+  getDateDotFormat,
+  getDateFormat,
+} from '../../../utils/commonFunction';
 
 export default function SellerMainPage() {
-  // const [mainDatas, setMainDatas] = useState({});
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [preStartDate, setPreStartDate] = useState('');
+  const [preEndDate, setPreEndDate] = useState('');
+
+  useEffect(() => {
+    const eDate = new Date();
+    const sDate = addDays(eDate, -7);
+    const pEDate = addDays(eDate, -8);
+    const pSDate = addDays(eDate, -14);
+    setStartDate(getDateDotFormat(getDateFormat(sDate)));
+    setEndDate(getDateDotFormat(getDateFormat(eDate)));
+    setPreStartDate(getDateDotFormat(getDateFormat(pSDate)));
+    setPreEndDate(getDateDotFormat(getDateFormat(pEDate)));
+  }, []);
   // 셀러별 메인페이지
-  const {
-    isLoading: sellerMainProductLoading,
-    // refetch: sellerMainProduct,
-    data: mainData,
-  } = useQuery(
+  const { isLoading: MainProductLoading, data: mainData } = useQuery(
     'sellerMain',
     () =>
       getSellerMypage({
-        startDate: '2022.09.23 09:09:55',
-        endDate: '2022.09.30 15:09:55',
+        startDate: startDate,
+        endDate: endDate,
       }),
     {
-      onSuccess: () => {
-        // setMainData(res.data);
-      },
+      enabled: startDate !== '' && endDate !== '',
+      onSuccess: () => {},
+      onError: {},
+    },
+  );
+  // 셀러별 메인페이지 전주 데이터
+  const { isLoading: PreMainProductLoading, data: preMainData } = useQuery(
+    'sellerPreMain',
+    () =>
+      getSellerMypage({
+        startDate: preStartDate,
+        endDate: preEndDate,
+      }),
+    {
+      enabled: preStartDate !== '' && preEndDate !== '',
+      onSuccess: () => {},
+      onError: {},
+    },
+  );
+  const { isLoading: MainConditiontLoading, data: conditionData } = useQuery(
+    'sellerCondition',
+    getSellerCondition,
+    {
+      onSuccess: () => {},
       onError: {},
     },
   );
 
   return (
     <>
-      {!sellerMainProductLoading && (
+      {!MainProductLoading && !MainConditiontLoading && !PreMainProductLoading && (
         <RightWrapper>
           <SellerTitle>메인 페이지</SellerTitle>
           <PageRow>
             <PageCol width="calc(100% - 400px)" paddingRight="8px">
-              <MainUserManagement mainData={mainData.data} />
-              <MainSalesStatistics mainData={mainData.data} />
+              <MainUserManagement
+                mainData={mainData}
+                preMainData={preMainData}
+              />
+              <MainSalesStatistics conditionData={conditionData} />
             </PageCol>
             <PageCol width="400px">
-              <MainPopularProducts products={mainData.data.popularProducts} />
-              <MainReviews reviews={mainData.data.reviews} />
+              <MainPopularProducts products={mainData.popularProducts} />
+              <MainReviews reviews={mainData.reviews} />
             </PageCol>
           </PageRow>
         </RightWrapper>

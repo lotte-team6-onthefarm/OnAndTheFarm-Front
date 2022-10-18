@@ -58,7 +58,13 @@ const getSellerMypage = async data => {
   const response = await JWTapiSeller.get(
     `mypage?startDate=${data.startDate}&endDate=${data.endDate}`,
   );
-  return response.data;
+  return response.data.data;
+};
+
+// 셀러 메인페이지 운영현황 조회
+const getSellerCondition = async data => {
+  const response = await JWTapiSeller.get('orders/condition');
+  return response.data.data;
 };
 
 export {
@@ -70,4 +76,5 @@ export {
   putSellerInfo,
   getSellerEmailConfirm,
   getSellerMypage,
+  getSellerCondition,
 };

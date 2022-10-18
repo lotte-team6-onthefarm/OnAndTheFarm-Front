@@ -1,4 +1,6 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { SellerDeliveryDetail } from '..';
 import {
   PageCol,
   PageRow,
@@ -13,7 +15,11 @@ export default function SellerDeliveryPage() {
       <SellerTitle>주문 관리</SellerTitle>
       <PageRow>
         <PageCol width="100%">
-          <DeliveryList />
+          <Routes>
+            <Route path="/" element={<DeliveryList />} />
+            <Route path="/:id" element={<DeliveryList />} />
+            <Route path="/detail/:id" element={<SellerDeliveryDetail />} />
+          </Routes>
         </PageCol>
       </PageRow>
     </RightWrapper>

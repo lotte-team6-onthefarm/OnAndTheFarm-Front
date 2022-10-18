@@ -41,7 +41,6 @@ const DeliveryDateWrapper = styled.div`
 `;
 const DeliveryTableWrapper = styled.table`
   width: 100%;
-  cursor: pointer;
   font-size: 14px;
   margin-top: 20px;
   border-collapse: collapse;
@@ -55,34 +54,63 @@ const DeliveryTableWrapper = styled.table`
     padding: 16px 12px;
     font-weight: 600;
     border-collapse: collapse;
-    border-bottom: solid 1px ${props => props.theme.colors.gray};
-    vertical-align: top;
+    border: solid 1px ${props => props.theme.colors.gray};
   }
   tbody {
     :hover {
       background-color: ${props => props.theme.colors.gray};
     }
   }
-  .title {
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    div {
-      padding-left: 20px;
-    }
-    img {
-      width: 80px;
-    }
-  }
   .content {
     padding-top: 25px;
+    div {
+      :nth-child(1) {
+        padding-top: 3px;
+        font-size: 12px;
+        color: gray;
+      }
+    }
   }
   span {
     position: absolute;
     top: 10px;
     right: 20px;
     font-size: 12px;
+  }
+  .deliveryNumberInput {
+    border-radius: 4px;
+    border: solid 1px ${props => props.theme.colors.snsGray};
+    padding-left: 10px;
+    height: 30px;
+    :focus {
+      outline: none;
+    }
+  }
+`;
+
+const ProductDetailDiv = styled.div`
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  img {
+    width: 70px;
+    height: 70px;
+  }
+  :nth-child(n + 2) {
+    border-top: solid 1px ${props => props.theme.colors.gray};
+  }
+  div {
+    padding-left: 20px;
+    div {
+      font-size: 13px;
+      color: gray;
+      :nth-child(1) {
+        font-size: 15px;
+        color: black;
+      }
+    }
   }
 `;
 
@@ -108,4 +136,5 @@ export {
   DeliveryDateWrapper,
   DeliveryTableWrapper,
   WaybillWrapper,
+  ProductDetailDiv,
 };

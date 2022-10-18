@@ -33,37 +33,39 @@ export default function MainPopularProducts(props) {
           <h3>현재 등록된 상품이 없습니다</h3>
         </EmptyTable>
       ) : (
-        <MainPopularProductsTable>
-          <thead>
-            <tr>
-              <th width="85%">상품</th>
-              <th width="15%">좋아요수</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product, idx) => {
-              return (
-                <tr key={idx}>
-                  <td>
-                    <img
-                      src={require('../../../../assets/products/거봉.png')}
-                      alt=""
-                    />
-                    <div className="title">{product.productName}</div>
-                  </td>
-                  <td>
-                    <IconWrapper>
-                      <IconBox>
-                        <AiTwotoneHeart style={{ color: '#f73f2a' }} />
-                      </IconBox>
-                      {product.productWishCount}
-                    </IconWrapper>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </MainPopularProductsTable>
+        <div style={{ minHeight: '480px' }}>
+          <MainPopularProductsTable>
+            <thead>
+              <tr>
+                <th width="85%">상품</th>
+                <th width="15%">좋아요수</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product, idx) => {
+                return (
+                  <tr key={idx}>
+                    <td>
+                      <img
+                        src={require('../../../../assets/products/거봉.png')}
+                        alt=""
+                      />
+                      <div className="title">{product.productName}</div>
+                    </td>
+                    <td>
+                      <IconWrapper>
+                        <IconBox>
+                          <AiTwotoneHeart style={{ color: '#f73f2a' }} />
+                        </IconBox>
+                        {product.productWishCount}
+                      </IconWrapper>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </MainPopularProductsTable>
+        </div>
       )}
       <BlackBorderButton onClick={productUrl}>전체 상품</BlackBorderButton>
     </WhiteWrapper>
