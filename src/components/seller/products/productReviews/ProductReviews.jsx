@@ -76,6 +76,7 @@ export default function ProductReviews() {
                                 src={require('../../../../assets/구데타마.png')}
                                 alt=""
                                 width="50px"
+                                className="productReviewsImg"
                               ></UserImgWrapper>
                               <div>
                                 <div>dmstjd3256</div>
