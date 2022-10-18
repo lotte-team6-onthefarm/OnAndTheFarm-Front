@@ -55,6 +55,7 @@ export default function ProductQnAs() {
       productQnaAnswer: null,
     },
   ];
+  console.log(qnas);
   return (
     <>
       <SellerTitle>QnA 관리</SellerTitle>
@@ -77,7 +78,7 @@ export default function ProductQnAs() {
                       <th width="25%">상품</th>
                     </tr>
                   </thead>
-                  {datas.map((data, idx) => {
+                  {qnas.map((qna, idx) => {
                     return (
                       <tbody
                         key={idx}
@@ -90,12 +91,12 @@ export default function ProductQnAs() {
                           <td>
                             <GreenRedStatusButton
                               text={
-                                data.productQnaStatus === 'completed'
+                                qna.productQnaStatus === 'completed'
                                   ? '답변완료'
                                   : '답변대기중'
                               }
                               status={
-                                data.productQnaStatus === 'completed' ? 1 : 2
+                                qna.productQnaStatus === 'completed' ? 1 : 2
                               }
                               fontSize="12px"
                             ></GreenRedStatusButton>
@@ -103,10 +104,13 @@ export default function ProductQnAs() {
                           <td>
                             <ReviewBlock>
                               <div>
-                                <div>{data.name}</div>
-                                <div className="review">{data.review}</div>
+                                <div>{qna.userName}</div>
+                                <div className="review">
+                                  {qna.productQnaContent}
+                                </div>
                               </div>
                               <div className="time">8h</div>
+                              {/* qna.productQnaCreatedAt 작성시간 변경하기 */}
                             </ReviewBlock>
                             <div
                               className={
@@ -117,16 +121,13 @@ export default function ProductQnAs() {
                                 idx={idx}
                                 selectedAddHandler={selectedAddHandler}
                                 selectedDelHandler={selectedDelHandler}
-                                data={data}
+                                qna={qna}
                               />
                             </div>
                           </td>
                           <td className="title">
-                            <img
-                              src={require('../../../../assets/products/복숭아.png')}
-                              alt=""
-                            />
-                            <div>{data.productName}</div>
+                            <img src={qna.productImg} alt="" />
+                            <div>{qna.productName}</div>
                           </td>
                         </tr>
                       </tbody>

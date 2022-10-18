@@ -61,6 +61,9 @@ const SideButtonWrapper = styled.button`
         line-height: 1;
         color: rgb(33, 38, 41);
       }
+      .fillIcons {
+        color: ${props => props.theme.colors.green};
+      }
     }
     :nth-child(2) {
       position: absolute;

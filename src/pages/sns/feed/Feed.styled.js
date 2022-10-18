@@ -56,7 +56,7 @@ const FeedWriterWrapper = styled.div`
     padding: 0px;
     border: none;
     background: none;
-    color: rgb(53, 197, 240);
+    color: ${props => props.theme.colors.green};
     font-size: inherit;
     font-weight: 700;
     :hover {

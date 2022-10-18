@@ -52,6 +52,14 @@ const FeedProductWrapper = styled.div`
       }
     }
   }
+  p {
+    margin-top: 40px;
+    padding: 0px;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgb(47, 52, 56);
+    word-break: break-all;
+  }
 `;
 
 export { FeedProductWrapper };

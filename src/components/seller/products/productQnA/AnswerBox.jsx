@@ -6,7 +6,7 @@ import { AnswerBoxWrapper, AnswerBtnBox } from './ProductQnAs.style';
 export default function AnswerBox(props) {
   const selectedAddHandler = props.selectedAddHandler;
   const selectedDelHandler = props.selectedDelHandler;
-  const productQnaStatus = props.data.productQnaStatus;
+  const productQnaStatus = props.qna.productQnaStatus;
   const idx = props.idx;
   const [button, setButton] = useState(false);
   const buttonHandler = () => {
@@ -25,7 +25,7 @@ export default function AnswerBox(props) {
         <AnswerTextBox
           setButton={setButton}
           closeBtn={closeBtn}
-          data={props.data}
+          qna={props.qna}
         />
       ) : (
         <AnswerBtnBox onClick={buttonHandler}>

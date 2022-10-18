@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { getComment } from '../../../apis/sns/comment';
+import { getFeedDetail, putFeedShare } from '../../../apis/sns/content';
 import { HorizontalLine } from '../../../components/common/HorizontalLine.style';
 import FeedWriter from '../../../components/sns/feed/FeedWriter';
 import FeedComment from '../../../components/sns/feedDetail/FeedComment/FeedCommentInput';
 import FeedCommentList from '../../../components/sns/feedDetail/FeedComment/FeedCommentList';
 import FeedProduct from '../../../components/sns/feedDetail/FeedProduct/FeedProduct';
+import FeedTag from '../../../components/sns/feedDetail/FeedTag/FeedTag';
 import SideButton from '../../../components/sns/feedDetail/SideButton';
 import {
   FeedDetailBlock,
@@ -13,33 +17,134 @@ import {
   FeedDetailWrapper,
   FeedImageWrapper,
 } from './FeedDetail.styled';
+import {
+  putFeedLike,
+  putFeedScrap,
+  putFeedUnLike,
+  putFeedUnScrap,
+} from '../../../apis/sns/content';
 
-export default function FeedDetail() {
+export default function FeedDetail(props) {
+  const [feedId, setFeedId] = useState(1);
+  const [likeStatus, setLikeStatus] = useState(false);
+  const [scrapStatus, setScrapStatus] = useState(false);
+  // feedId = props.feedId
+  const queryClient = useQueryClient();
+
+  const { isLoading: isFeedDetailLoading, data: feedDetail } = useQuery(
+    'FeedDetail',
+    () => getFeedDetail(feedId),
+    {
+      refetchOnWindowFocus: true,
+      onSuccess: res => {},
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+
+  const { isLoading: isCommentLoading, data: comment } = useQuery(
+    'Comment',
+    () => getComment(feedId),
+    {
+      refetchOnWindowFocus: true,
+      onSuccess: res => {},
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+  console.log(feedDetail, comment);
+
+  const { mutate: feedLike } = useMutation(putFeedLike, {
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedUnLike } = useMutation(putFeedUnLike, {
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedScrap } = useMutation(putFeedScrap, {
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedUnScrap } = useMutation(putFeedUnScrap, {
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedShare } = useMutation(putFeedShare, {
+    onSuccess: res => {
+      queryClient.invalidateQueries('FeedDetail');
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+
   return (
-    <FeedDetailWrapper>
-      <FeedDetailBlock>
-        <FeedWriter />
-        <FeedImageWrapper>
-          <img
-            src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/166547899181963276.jpeg?gif=1&w=720&webp=1"
-            alt=""
-          ></img>
-        </FeedImageWrapper>
-        <FeedProduct />
-        <HorizontalLine color="#d7d7d7" />
-        <FeedComment />
-        <FeedCommentList />
-      </FeedDetailBlock>
-      <FeedDetailSideWrapper>
-        <FeedDetailStickyContainer>
-          <FeedDetailSideBlock>
-            <SideButton icon="heart" count="13" />
-            <SideButton icon="scrap" count="15" />
-            <SideButton icon="comment" count="13" />
-            <SideButton icon="share" count="13" />
-          </FeedDetailSideBlock>
-        </FeedDetailStickyContainer>
-      </FeedDetailSideWrapper>
-    </FeedDetailWrapper>
+    <>
+      {!isFeedDetailLoading && !isCommentLoading && (
+        <FeedDetailWrapper>
+          <FeedDetailBlock>
+            <FeedWriter />
+            <FeedImageWrapper>
+              <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" />
+            </FeedImageWrapper>
+            <FeedProduct feedContent={feedDetail.feedContent} />
+            <FeedTag feedTag={feedDetail.feedTag} />
+            <HorizontalLine color="#d7d7d7" />
+            <FeedComment feedId={feedDetail.feedId} comment={comment} />
+            <FeedCommentList comment={comment} />
+          </FeedDetailBlock>
+          <FeedDetailSideWrapper>
+            <FeedDetailStickyContainer>
+              <FeedDetailSideBlock>
+                <SideButton
+                  icon="heart"
+                  count={feedDetail.feedLikeCount}
+                  feedId={feedDetail.feedId}
+                  method={
+                    feedDetail.feedLikeStatus
+                      ? () => feedLike(feedDetail.feedId)
+                      : () => feedUnLike(feedDetail.feedId)
+                  }
+                  status={likeStatus}
+                  setStatus={setLikeStatus}
+                />
+                <SideButton
+                  icon="scrap"
+                  count={feedDetail.feedScrapCount}
+                  feedId={feedDetail.feedId}
+                  method={
+                    feedDetail.scrapStatus
+                      ? () => feedScrap(feedDetail.feedId)
+                      : () => feedUnScrap(feedDetail.feedId)
+                  }
+                  status={scrapStatus}
+                  setStatus={setScrapStatus}
+                />
+                <SideButton
+                  icon="comment"
+                  count={feedDetail.feedCommentCount}
+                />
+                <SideButton
+                  icon="share"
+                  count={feedDetail.feedShareCount}
+                  method={() => feedShare(feedDetail.feedId)}
+                />
+              </FeedDetailSideBlock>
+            </FeedDetailStickyContainer>
+          </FeedDetailSideWrapper>
+        </FeedDetailWrapper>
+      )}
+    </>
   );
 }
