@@ -3,6 +3,10 @@ import styled from 'styled-components';
 const ProductDetailDiv = styled.div`
   width: 1130px;
   margin: 100px auto;
+  .fixed{
+    width: 100px;
+    color: #fff;
+  }
 `;
 
 const ProductTopDiv = styled.div`
@@ -28,7 +32,72 @@ const ProductTopImg = styled.img`
 
 const ProductTopContentDiv = styled.div`
   width: 400px;
-  padding: 20px;
+  padding: 50px;
+  h1 {
+    margin: 9px 0px 0px;
+    span {
+      
+      :nth-child(1) {
+        display: block;
+        color: rgb(117, 117, 117);
+        word-break: break-all;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 13px;
+      }
+      :nth-child(2) {
+        max-height: 500px;
+        margin-top: 5px;
+        word-break: break-all;
+        font-size: 35px;
+        font-weight: 400;
+        /* line-height: 17px; */
+        margin: 10px 0px 0px;
+        color: rgb(0, 0, 0);
+        transition: opacity 0.1s ease 0s;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow-wrap: break-word;
+      }
+    }
+  }
+  .production-item-price {
+    margin: 20px 0px 10px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 25px;
+    line-height: 30px;
+    font-weight: 700;
+    span {
+      :nth-child(1) {
+        color: rgb(53, 197, 240);
+        margin-right: 4px;
+      }
+    }
+  }
+  .production-item-stats {
+    margin: 20px 0 10px;
+    font-size: 25px;
+    color: rgb(158, 158, 158);
+    line-height: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    .production-item-stats--icon {
+      display: flex;
+      align-items: center;
+      color: rgb(53, 197, 240);
+      margin-right: 1px;
+    }
+    strong {
+      color: black;
+      margin-right: 4px;
+    }
+  }
 `;
 
 const ProductTabDiv = styled.div`
@@ -71,7 +140,9 @@ const ProductDetailImg = styled.img`
   width: 100%;
 `;
 
-
+const LikeItemDescription = styled.div`
+  
+`;
 
 export {
   ProductDetailDiv,
