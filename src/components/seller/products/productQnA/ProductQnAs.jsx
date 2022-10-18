@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { getSellerQna } from '../../../../apis/seller/qna';
+import { getGoneTime } from '../../../../utils/commonFunction';
 import { WhiteWrapper } from '../../common/Box.style';
 import { GreenRedStatusButton } from '../../common/ColorStatusButton';
 import { UserImgWrapper } from '../../common/sellerCommon.style';
@@ -103,14 +104,15 @@ export default function ProductQnAs() {
                           </td>
                           <td>
                             <ReviewBlock>
-                              <div>
+                              <div className="productQnAsdiv">
                                 <div>{qna.userName}</div>
                                 <div className="review">
                                   {qna.productQnaContent}
                                 </div>
                               </div>
-                              <div className="time">8h</div>
-                              {/* qna.productQnaCreatedAt 작성시간 변경하기 */}
+                              <div className="time">
+                                {getGoneTime(qna.productQnaCreatedAt)}
+                              </div>
                             </ReviewBlock>
                             <div
                               className={
