@@ -42,7 +42,7 @@ export default function MainNavbar(props) {
     },
     {
       title: '농장일기',
-      url: '/posts',
+      url: '/sns',
     },
     {
       title: '공동구매',
