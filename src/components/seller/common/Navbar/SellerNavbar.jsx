@@ -49,7 +49,7 @@ export default function SellerNavbar() {
     {
       icons: <AiOutlineGlobal />,
       title: 'SNS 이동',
-      url: '/sns',
+      url: '/seller/sns',
     },
   ];
   const [selectMenu, setSelectMenu] = useRecoilState(sellerNavState);

@@ -17,7 +17,7 @@ function App() {
         <Route path="seller/signup" element={<SellerSignupPage />} />
         <Route path="seller/searchId" element={<SellerSearchId />} />
         <Route path="seller/searchPw" element={<SellerSearchPw />} />
-        <Route path="/sns/*" element={<SnsIndexLayout />} />
+        {/* <Route path="/sns/*" element={<SnsIndexLayout />} /> */}
         <Route path="/sns/detail" element={<FeedDetail />} />
       </Routes>
     </div>
