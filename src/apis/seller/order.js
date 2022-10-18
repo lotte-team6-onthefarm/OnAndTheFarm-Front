@@ -2,9 +2,11 @@ import { JWTapiSeller } from '..';
 
 // 셀러 주문내역 조회
 const getSellerOrderList = async (startDate, endDate, pageNo) => {
+  console.log(startDate, endDate, pageNo);
   const response = await JWTapiSeller.get(
     `orders/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}`,
   );
+  console.log(response.data.data.responses);
   return response.data.data.responses;
 };
 
@@ -36,12 +38,17 @@ const postOrderClaimApprove = async data => {
   return response.data;
 };
 
-// // 셀러 주문내역 조회
-// const postSellerOrderList = async data => {
-//   const response = await JWTapiSeller.post('orders/list', data);
-//   console.log(response);
-//   return response.data;
-// };
+// 셀러 배송 시작 처리
+const postSellerDeliveryStart = async data => {
+  const response = await JWTapiSeller.post('orders/delivery', data);
+  return response.data;
+};
+
+// 셀러 배송 완료 처리
+const postSellerDeliveryDone = async data => {
+  const response = await JWTapiSeller.post(`orders/delivery/${data}`);
+  return response.data;
+};
 
 // // 셀러 주문내역 조회
 // const postSellerOrderList = async data => {
@@ -63,4 +70,6 @@ export {
   getSellerOrderClaimDetailList,
   getSellerOrderClaimList,
   postOrderClaimApprove,
+  postSellerDeliveryStart,
+  postSellerDeliveryDone,
 };
