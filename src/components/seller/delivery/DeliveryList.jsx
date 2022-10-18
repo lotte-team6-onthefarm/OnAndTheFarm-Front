@@ -107,25 +107,8 @@ export default function DeliveryList() {
 
   const waybillNumberHandler = e => {
     setWaybillNumber(e.target.value);
-    }
   };
 
-  const {
-    data: orderList,
-    isLoading: isOrderListLoading,
-    refetch: orderListRefetch,
-  } = useQuery(
-    'sellerOrderList',
-    () => getSellerOrderList(startDate, endDate, pageNo),
-    {
-      refetchOnMount: true,
-      enabled: startDate !== '' && endDate !== '',
-    },
-  );
-
-  const deliveryDetailRouter = id => {
-    navigator(`/seller/delivery/${id}`);
-  };
   const {
     data: orderList,
     isLoading: isOrderListLoading,
@@ -172,6 +155,7 @@ export default function DeliveryList() {
     //요일이 바뀔때 마다 refetch
     orderListRefetch();
   }, [startDate, endDate]);
+
   return (
     <WhiteWrapper width="100%" minHeight="80vh">
       <SubTitle color="#FFBC99" title="주문 관리 내역" />
