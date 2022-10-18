@@ -66,6 +66,7 @@ export default function UpdateProduct() {
     'productSeller',
     () => getProductSeller(id),
     {
+      refetchOnMount: true,
       onSuccess: res => {
         setProductName(res.productName);
         setProductPrice(res.productPrice);

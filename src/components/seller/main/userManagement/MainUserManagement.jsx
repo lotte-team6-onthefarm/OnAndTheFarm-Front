@@ -14,7 +14,20 @@ import { UpDownBox } from '../../common/sellerCommon.style';
 import { toLocaleString } from '../../../../utils/commonFunction';
 import MainBottomGraph from './mainBottom/MainBottomGraph';
 
-export default function MainUserManagement() {
+export default function MainUserManagement(props) {
+  const mainData = props.mainData;
+  const preMainData = props.preMainData;
+  const precentageCal = (before, now) => {
+    return ((now - before) / before) * 100;
+  };
+  const pricePercent = precentageCal(
+    preMainData.totalPrice,
+    mainData.totalPrice,
+  );
+  const orderPercent = precentageCal(
+    preMainData.totalOrderCount,
+    mainData.totalOrderCount,
+  );
   const data = {
     customerCount: '24',
     customerPercent: '17.5',
@@ -43,9 +56,16 @@ export default function MainUserManagement() {
                 </IconBox>
                 <IconTitleBox width="18px">신규 주문 수</IconTitleBox>
               </IconWrapper>
-              <UpDownBox state="0">↓ {data.customerPercent}%</UpDownBox>
+              {orderPercent > 100 && <UpDownBox state="1">↑ 100%</UpDownBox>}
+              {orderPercent > 0 && orderPercent < 100 && (
+                <UpDownBox state="1">↑ {orderPercent}%</UpDownBox>
+              )}
+              {orderPercent > -100 && orderPercent < 0 && (
+                <UpDownBox state="0">↓ {orderPercent}</UpDownBox>
+              )}
+              {orderPercent < -100 && <UpDownBox state="1">↓ -100%</UpDownBox>}
             </div>
-            <GrayInnerWrapper>{data.customerCount}건</GrayInnerWrapper>
+            <GrayInnerWrapper>{mainData.totalOrderCount}건</GrayInnerWrapper>
           </MainUserWhiteBlock>
         </MainUserWhiteWrapper>
         <MainUserWhiteWrapper
@@ -63,13 +83,26 @@ export default function MainUserManagement() {
                 </IconBox>
                 <IconTitleBox width="18px">수익</IconTitleBox>
               </IconWrapper>
-              <UpDownBox>↑ {data.earnPercent}%</UpDownBox>
+              {pricePercent >= 100 && <UpDownBox state="1">↑ 100%</UpDownBox>}
+              {pricePercent > 0 && pricePercent < 100 && (
+                <UpDownBox state="1">↑ {pricePercent}%</UpDownBox>
+              )}
+              {pricePercent > -100 && pricePercent <= 0 && (
+                <UpDownBox state="0">↓ {pricePercent}</UpDownBox>
+              )}
+              {pricePercent <= -100 && <UpDownBox state="1">↓ -100%</UpDownBox>}
             </div>
-            <GrayInnerWrapper>{toLocaleString(data.earn)}원</GrayInnerWrapper>
+            <GrayInnerWrapper>
+              {toLocaleString(mainData.totalPrice)}원
+            </GrayInnerWrapper>
           </MainUserWhiteBlock>
         </MainUserWhiteWrapper>
       </GrayWrapper>
-      <MainBottomGraph menu={menu}></MainBottomGraph>
+      <MainBottomGraph
+        menu={menu}
+        dayOrderCount={mainData.dayOrderCount}
+        dayPrices={mainData.dayPrices}
+      ></MainBottomGraph>
     </WhiteWrapper>
   );
 }
