@@ -5,13 +5,7 @@ import { DeliveryButtonWrapper, MenuTabDiv } from './MenuTabComp.style';
 export default function MenuTabComp(props) {
   // usestate
   const [deliveryState, setDeliveryState] = useState(0);
-
-  const menuTab = [
-    { title: '작성 가능한 리뷰', url: '/mypage/review/addlist' },
-    { title: '내가 작성한 리뷰', url: '/mypage/review/myreview' },
-    { title: '문의사항', url: '/mypage/review/qna' },
-  ];
-
+  const [menuTab, setMenuTabState] = useState(props.menuTab);
   // function
   const deliveryStateHandler = num => {
     setDeliveryState(num);

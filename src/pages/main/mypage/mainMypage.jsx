@@ -5,6 +5,9 @@ import MainLikes from '../likes/mainLikes';
 import { MypageDiv, MypageContentDiv, MypageNavbarDiv } from './mainMypage.style';
 import MainMypageHome from './mainMypageHome';
 import MainMypageLikes from './mainMypageLikes';
+import MainMypageOrderCancel from './mainMypageOrderCancel';
+import MainMypageOrderDetail from './mainMypageOrderDetail';
+import MainMypageOrderList from './mainMypageOrderList';
 import MainMypageOrders from './mainMypageOrders';
 import MainMypagePosts from './mainMypagePosts';
 import MainMypageProfile from './mainMypageProfile';
@@ -24,8 +27,10 @@ export default function MainMypage() {
         <Route path="/review/addlist" element={<MainMypageReview />} />
         <Route path="/review/myreview" element={<MainMypageReviewList />} />
         <Route path="/review/qna" element={<MainMypageQna />} />
+        <Route path="/orders/list" element={<MainMypageOrderList />} />
+        <Route path="/orders/cancel" element={<MainMypageOrderCancel />} />
+        <Route path="/orders/detail" element={<MainMypageOrderDetail />} />
         <Route path="/posts" element={<MainMypagePosts />} />
-        <Route path="/orders" element={<MainMypageOrders />} />
 
 
         

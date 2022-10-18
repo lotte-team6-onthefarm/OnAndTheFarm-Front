@@ -15,11 +15,16 @@ import { getMyQnaList } from '../../../apis/user/qna';
 import QnaEditInput from '../../../components/main/mypage/QnaEditInput';
 
 export default function MainMypageQna() {
+  const menuTab = [
+    { title: '작성 가능한 리뷰', url: '/mypage/review/addlist' },
+    { title: '내가 작성한 리뷰', url: '/mypage/review/myreview' },
+    { title: '문의사항', url: '/mypage/review/qna' },
+  ];
   const {
     isLoading: MyQnaListLoading,
     // refetch: getMyQnaListRefetch,
     data: qnaList,
-  } = useQuery('MyQnaList', getMyQnaList, {
+  } = useQuery('MyQnaList',()=> getMyQnaList(0), {
     onError: () => {
       console.log('error');
     },
@@ -27,13 +32,13 @@ export default function MainMypageQna() {
 
   return (
     <div>
-      <MenuTabComp></MenuTabComp>
+      <MenuTabComp menuTab={menuTab}></MenuTabComp>
       <ReviewContentDiv>
         {!MyQnaListLoading && (
           <>
             {qnaList.length === 0 ? (
               <EmptyTable height="60vh">
-                <h3>현재 등록가능한 리뷰가 없습니다.</h3>
+                <h3>등록된 질문이 없습니다</h3>
               </EmptyTable>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column' }}>

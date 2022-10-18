@@ -2,11 +2,9 @@ import { JWTapiSeller } from '..';
 
 // 셀러 주문내역 조회
 const getSellerOrderList = async (startDate, endDate, pageNo) => {
-  console.log(startDate, endDate, pageNo);
   const response = await JWTapiSeller.get(
     `orders/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}`,
   );
-  console.log(response.data.data.responses);
   return response.data.data.responses;
 };
 

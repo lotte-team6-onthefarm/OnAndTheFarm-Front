@@ -107,6 +107,24 @@ export default function DeliveryList() {
 
   const waybillNumberHandler = e => {
     setWaybillNumber(e.target.value);
+    }
+  };
+
+  const {
+    data: orderList,
+    isLoading: isOrderListLoading,
+    refetch: orderListRefetch,
+  } = useQuery(
+    'sellerOrderList',
+    () => getSellerOrderList(startDate, endDate, pageNo),
+    {
+      refetchOnMount: true,
+      enabled: startDate !== '' && endDate !== '',
+    },
+  );
+
+  const deliveryDetailRouter = id => {
+    navigator(`/seller/delivery/${id}`);
   };
   const {
     data: orderList,

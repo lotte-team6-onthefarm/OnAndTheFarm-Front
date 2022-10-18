@@ -23,11 +23,11 @@ export default function MypageNavbar() {
     //   title: '내글목록',
     //   url: '/mypage/posts',
     // },
-    // {
-    //   icons: <TbTruckDelivery />,
-    //   title: '주문관리',
-    //   url: '/mypage/orders',
-    // },
+    {
+      icons: <TbTruckDelivery />,
+      title: '주문관리',
+      url: '/mypage/orders/list',
+    },
   ];
   return (
     <NavbarDiv>

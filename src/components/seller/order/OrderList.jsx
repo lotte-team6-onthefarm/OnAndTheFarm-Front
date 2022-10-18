@@ -14,6 +14,7 @@ import { GreenPurpleStatusButton } from '../common/ColorStatusButton';
 import { UserImgWrapper } from '../common/sellerCommon.style';
 import SubTitle from '../common/SubTitle';
 import { EmptyTable } from '../main/popularProducts/MainPopularProducts.style';
+
 import {
   OrderButtonWrapper,
   OrderDateWrapper,
@@ -89,6 +90,7 @@ export default function OrderList() {
     //요일이 바뀔때 마다 refetch
     orderClaimListRefetch();
   }, [startDate, endDate]);
+
   return (
     <WhiteWrapper width="100%" minHeight="80vh">
       <SubTitle color="#FFBC99" title="취소/반품 관리 내역" />
