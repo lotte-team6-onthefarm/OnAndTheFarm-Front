@@ -141,7 +141,7 @@ export default function MainProductDetailPage(props) {
           <ProductDetailDiv>
           <ProductTopDiv>
             <ProductTopImgDiv>
-              <ProductTopImg src={detailImg}></ProductTopImg>
+              <ProductTopImg src={productDetail.productMainImgSrc}></ProductTopImg>
             </ProductTopImgDiv>
             <ProductTopContentDiv>
               <h2>{productDetail.productName}</h2>
@@ -180,7 +180,9 @@ export default function MainProductDetailPage(props) {
           <hr />
           <ProductDetailContentDiv>
             <ProductDetailImgDiv>
-              <ProductDetailImg src={detailBundleImg} />
+              {/* <p>{productDetail.productDetail}</p> */}
+              <img src={productDetail.productDetail} alt="dfasdf" />
+              <ProductDetailImg src={productDetail.productMainImgSrc} />
             </ProductDetailImgDiv>
           </ProductDetailContentDiv>
           <ProductReviewComp productDetailId={productDetail.productId}></ProductReviewComp>

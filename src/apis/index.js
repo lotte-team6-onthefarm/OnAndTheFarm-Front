@@ -28,4 +28,17 @@ const ApiSeller = axios.create({
   },
 });
 
-export { JWTapiSeller, ApiSeller, JWPapiSellertoUser };
+const BaseApi = axios.create({
+  baseURL: '',
+  headers: {
+    contentType: 'application/json',
+  },
+});
+
+// 상품상세정보 이 미지
+const getProductDetailImg = async data => {
+  const response = await BaseApi.get(data);
+  return response.data;
+};
+
+export { JWTapiSeller, ApiSeller, JWPapiSellertoUser, getProductDetailImg};
