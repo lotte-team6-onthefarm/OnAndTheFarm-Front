@@ -1,97 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { CATEGORY } from '../../../../../assets/category/category';
-import {
-  CategoryListWrapper,
-  LeftListBlock,
-  RightListBlock,
-} from './CategoryList.style';
+import SelectBox from '../../../../common/SelectBox';
+import { CategoryListWrapper } from './CategoryList.style';
 
 export default function CaetgoryList(props) {
   const categoryId = props.categoryId;
   const setCategoryId = props.setCategoryId;
   const [categoryList, setCategoryList] = useState('과일류');
-  const [categoryData, setCategoryData] = useState('');
+  const [categoryData, setCategoryData] = useState(0);
 
-  // function
-  const categoryHandler = data => {
-    setCategoryList(data);
-  };
-  const categoryDataHandler = data => {
-    setCategoryData(data);
-    setCategoryId(data);
-  };
+  useEffect(() => {
+    setCategoryId(categoryData);
+  }, [categoryData]);
+
+  useEffect(() => {
+    if (categoryList === '과일류') {
+      setCategoryData(1);
+    } else if (categoryList === '곡물류') {
+      setCategoryData(26);
+    } else if (categoryList === '채소류') {
+      setCategoryData(34);
+    }
+  }, [categoryList]);
   return (
     <CategoryListWrapper>
-      <LeftListBlock>
-        {CATEGORY.categorys.map((category, idx) => {
-          return (
-            <div
-              key={idx}
-              onClick={() => {
-                categoryHandler(category);
-              }}
-              className={
-                categoryList === category || categoryId ? 'active' : ''
-              }
-            >
-              {idx === 0 && category + `(${CATEGORY.fruits.length})`}
-              {idx === 1 && category + `(${CATEGORY.cereals.length})`}
-              {idx === 2 && category + `(${CATEGORY.vegetables.length})`}
-            </div>
-          );
-        })}
-      </LeftListBlock>
+      <SelectBox
+        options={CATEGORY.categorys}
+        setSelectData={setCategoryList}
+      ></SelectBox>
       {categoryList === '과일류' && (
-        <RightListBlock>
-          {CATEGORY.fruits.map((fruit, idx) => {
-            return (
-              <div
-                key={idx}
-                onClick={() => {
-                  categoryDataHandler(fruit.id);
-                }}
-                className={categoryData === fruit.id ? 'active' : ''}
-              >
-                {fruit.name}
-              </div>
-            );
-          })}
-        </RightListBlock>
+        <SelectBox
+          options={CATEGORY.fruits}
+          setSelectData={setCategoryData}
+        ></SelectBox>
       )}
       {categoryList === '곡물류' && (
-        <RightListBlock>
-          {CATEGORY.cereals.map((cereal, idx) => {
-            return (
-              <div
-                key={idx}
-                onClick={() => {
-                  categoryDataHandler(cereal.id);
-                }}
-                className={categoryData === cereal.id ? 'active' : ''}
-              >
-                {cereal.name}
-              </div>
-            );
-          })}
-        </RightListBlock>
+        <SelectBox
+          options={CATEGORY.cereals}
+          setSelectData={setCategoryData}
+        ></SelectBox>
       )}
       {categoryList === '채소류' && (
-        <RightListBlock>
-          {CATEGORY.vegetables.map((vegetable, idx) => {
-            return (
-              <div
-                key={idx}
-                onClick={() => {
-                  categoryDataHandler(vegetable.id);
-                }}
-                className={categoryData === vegetable.id ? 'active' : ''}
-              >
-                {vegetable.name}
-              </div>
-            );
-          })}
-        </RightListBlock>
+        <SelectBox
+          options={CATEGORY.vegetables}
+          setSelectData={setCategoryData}
+        ></SelectBox>
       )}
     </CategoryListWrapper>
   );

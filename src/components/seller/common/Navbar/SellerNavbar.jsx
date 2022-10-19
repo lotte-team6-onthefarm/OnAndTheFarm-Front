@@ -73,7 +73,7 @@ export default function SellerNavbar() {
       console.log('asdasdasdad');
       navigate('/seller/login');
     } else {
-      console.log(token);
+      // console.log(token);
     }
   }, [navigate]);
 

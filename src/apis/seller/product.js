@@ -7,8 +7,8 @@ const postSellerProduct = async formData => {
 };
 
 // 상품 수정
-const putSellerProduct = async data => {
-  const response = await JWTapiSeller.put('product/update', data);
+const putSellerProduct = async formData => {
+  const response = await JWTapiSeller.put('product/update', formData);
   return response.data;
 };
 

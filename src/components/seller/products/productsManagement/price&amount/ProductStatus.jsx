@@ -22,6 +22,7 @@ export default function ProductStatus(props) {
       <div className="title">판매 상태</div>
       <div className="statusBtn">
         <div
+          className={productStatus === 'selling' ? 'statusBtnactive' : ''}
           onClick={() => {
             statusHandler(0);
           }}
@@ -29,6 +30,7 @@ export default function ProductStatus(props) {
           판매중
         </div>
         <div
+          className={productStatus === 'soldout' ? 'statusBtnactive' : ''}
           onClick={() => {
             statusHandler(1);
           }}
@@ -36,6 +38,7 @@ export default function ProductStatus(props) {
           판매일시중지
         </div>
         <div
+          className={productStatus === 'pause' ? 'statusBtnactive' : ''}
           onClick={() => {
             statusHandler(2);
           }}

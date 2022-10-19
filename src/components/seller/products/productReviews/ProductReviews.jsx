@@ -43,7 +43,6 @@ export default function ProductReviews() {
     },
   });
 
-  console.log(reviews);
   return (
     <>
       <SellerTitle>리뷰 관리</SellerTitle>
