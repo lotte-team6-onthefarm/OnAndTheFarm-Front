@@ -132,9 +132,9 @@ export default function MainProductDetailPage(props) {
               </h1>
               <div className="production-item-stats">
                 <div className="production-item-stats--icon">
-                  <RatingInputComp rate={5} />
+                  <RatingInputComp rate={productDetail.reviewRate} />
                 </div>
-                <span style={{ fontSize: 'large' }}>1222 개의뷰</span>
+                <span style={{ fontSize: 'large' }}>&nbsp;&nbsp;{productDetail.reviewCount} 개의리뷰</span>
               </div>
               <span className="production-item-price">
                 <span>12%</span>

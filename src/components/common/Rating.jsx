@@ -3,11 +3,11 @@ import { RatingInputDiv, RatingButton } from './Rating.style';
 
 export default function RatingInputComp(props) {
   
-  const [rating, setRating] = useState(props.rate?props.rate:5);
+  const [rate, setRate] = useState(props.rate!==""?(props.rate===0?0:props.rate):5);
   const [hover, setHover] = useState(0);
-
   const changeRating = (index) => {
-    setRating(index)
+    console.log(index)
+    setRate(index)
     props.setRating(index)
   }
 
@@ -17,13 +17,13 @@ export default function RatingInputComp(props) {
         index += 1;
         return (
           <RatingButton
-            disabled={props.rate}
+            disabled={props.rate||props.rate===0}
             type="button"
             key={index}
-            className={index <= (hover || rating) ? 'on' : 'off'}
+            className={index <= (hover || rate) ? 'on' : 'off'}
             onClick={() => changeRating(index)}
             onMouseEnter={() => setHover(index)}
-            onMouseLeave={() => setHover(rating)}
+            onMouseLeave={() => setHover(rate)}
           >
             <span>&#9733;</span>
           </RatingButton>

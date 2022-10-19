@@ -9,7 +9,6 @@ const ProductQnaDiv = styled.div`
     font-size: 18px;
     line-height: 24px;
     font-weight: 700;
-    padding-bottom: 20px;
     span {
       color: #40aa54;
       margin-left: 4px;

@@ -15,7 +15,11 @@ import {
   SelectDiv,
   RateDiv,
 } from './ProductReview.style';
-import { getReviewList } from '../../../apis/user/review';
+import {
+  getProductReviewCount,
+  getReviewList,
+} from '../../../apis/user/review';
+import NoneFeed from '../../sns/main/NoneFeed';
 
 export default function ProductReviewComp(props) {
   const filterList = ['최신순', '좋아요순'];
@@ -33,6 +37,21 @@ export default function ProductReviewComp(props) {
       console.log('에러');
     },
   });
+  const {
+    isLoading: isProductReviewCount,
+    refetch: getProductReviewCountRefetch,
+    data: productReviewCount,
+  } = useQuery(
+    'productReviewCount',
+    () => getProductReviewCount(data.productId),
+    {
+      refetchOnWindowFocus: true,
+      onSuccess: res => {},
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
 
   const test = e => {
     setSelectedFilter(e.target.value);
@@ -47,104 +66,75 @@ export default function ProductReviewComp(props) {
 
   return (
     <ReviewDiv>
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <h4>
-            후기리뷰<span>4,103</span>{' '}
-          </h4>
-          <SelectDiv>
-            <select onChange={test} value={selectedFilter} className="select">
-              {filterList.map((filter, idx) => {
-                return (
-                  <option value={filter} key={idx}>
-                    {filter}
-                  </option>
-                );
-              })}
-            </select>
-          </SelectDiv>
-        </div>
+      {!isProductReviewCount && (
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <h4>
+              후기리뷰<span>{productReviewCount.reviewCount}</span>{' '}
+            </h4>
+            <SelectDiv>
+              <select onChange={test} value={selectedFilter} className="select">
+                {filterList.map((filter, idx) => {
+                  return (
+                    <option value={filter} key={idx}>
+                      {filter}
+                    </option>
+                  );
+                })}
+              </select>
+            </SelectDiv>
+          </div>
 
-        <hr />
-        <ReviewStatisticsDiv>
-          <ReviewTotalDiv>
-            <RatingInputComp rate={5} font="13px" />
-            <span>4.6</span>
-          </ReviewTotalDiv>
-          <ReviewCountListDiv>
-            <ReviewCountDiv>
-              <span>
-                5점
-              </span>
-              <RateDiv>
-                <div></div>
-                <div
-                  style={{"width": "71.9055%"}}
-                ></div>
-              </RateDiv>
-              <span>
-                2,951
-              </span>
-            </ReviewCountDiv>
-            <ReviewCountDiv>
-              <span>
-                5점
-              </span>
-              <RateDiv>
-                <div></div>
-                <div
-                  style={{"width": "71.9055%"}}
-                ></div>
-              </RateDiv>
-              <span>
-                2,951
-              </span>
-            </ReviewCountDiv>
-            <ReviewCountDiv>
-              <span>
-                5점
-              </span>
-              <RateDiv>
-                <div></div>
-                <div
-                  style={{"width": "71.9055%"}}
-                ></div>
-              </RateDiv>
-              <span>
-                2,951
-              </span>
-            </ReviewCountDiv>
-            <ReviewCountDiv>
-              <span>
-                5점
-              </span>
-              <RateDiv>
-                <div></div>
-                <div
-                  style={{"width": "71.9055%"}}
-                ></div>
-              </RateDiv>
-              <span>
-                2,951
-              </span>
-            </ReviewCountDiv>
-            <ReviewCountDiv>
-              <span>
-                5점
-              </span>
-              <RateDiv>
-                <div></div>
-                <div
-                  style={{"width": "71.9055%"}}
-                ></div>
-              </RateDiv>
-              <span>
-                2,951
-              </span>
-            </ReviewCountDiv>
-          </ReviewCountListDiv>
-        </ReviewStatisticsDiv>
-        {/* <ReviewAddDiv>
+          <hr />
+          <ReviewStatisticsDiv>
+            <ReviewTotalDiv>
+              <RatingInputComp rate={productReviewCount.reviewRate} font="13px" />
+              <span>{productReviewCount.reviewRate}</span>
+            </ReviewTotalDiv>
+            <ReviewCountListDiv>
+              <ReviewCountDiv>
+                <span>5점</span>
+                <RateDiv>
+                  <div></div>
+                  <div style={{ width: `${productReviewCount.reviewFiveCount/productReviewCount.reviewCount*100}%` }}></div>
+                </RateDiv>
+                <span>{productReviewCount.reviewFiveCount}</span>
+              </ReviewCountDiv>
+              <ReviewCountDiv>
+                <span>4점</span>
+                <RateDiv>
+                  <div></div>
+                  <div style={{ width: `${productReviewCount.reviewFourCount/productReviewCount.reviewCount*100}%` }}></div>
+                </RateDiv>
+                <span>{productReviewCount.reviewFourCount}</span>
+              </ReviewCountDiv>
+              <ReviewCountDiv>
+                <span>3점</span>
+                <RateDiv>
+                  <div></div>
+                  <div style={{ width: `${productReviewCount.reviewThreeCount/productReviewCount.reviewCount*100}%` }}></div>
+                </RateDiv>
+                <span>{productReviewCount.reviewThreeCount}</span>
+              </ReviewCountDiv>
+              <ReviewCountDiv>
+                <span>2점</span>
+                <RateDiv>
+                  <div></div>
+                  <div style={{ width: `${productReviewCount.reviewTwoCount/productReviewCount.reviewCount*100}%` }}></div>
+                </RateDiv>
+                <span>{productReviewCount.reviewTwoCount}</span>
+              </ReviewCountDiv>
+              <ReviewCountDiv>
+                <span>1점&nbsp;</span>
+                <RateDiv>
+                  <div></div>
+                  <div style={{ width: `${productReviewCount.reviewOneCount/productReviewCount.reviewCount*100}%` }}></div>
+                </RateDiv>
+                <span>{productReviewCount.reviewOneCount}</span>
+              </ReviewCountDiv>
+            </ReviewCountListDiv>
+          </ReviewStatisticsDiv>
+          {/* <ReviewAddDiv>
             <input
               style={{ width: '100%', height: '100px', marginRight: '20px' }}
             ></input>
@@ -166,26 +156,31 @@ export default function ProductReviewComp(props) {
               ></Button>
             </ReviewAddButtonDiv>
           </ReviewAddDiv> */}
-      </div>
-      {!isGetReviewList && (
-        <ReviewListDiv>
-          {reviewList.map((item, index) => {
-            return (
-              <ReviewItemComp
-                key={index}
-                id={item.reviewId}
-                url={item.userProfileImg}
-                name={item.userName}
-                content={item.reviewContent}
-                rate={item.reviewRate}
-                date={item.reviewCreatedAt}
-                like={item.reviewLikeCount}
-                isAvailableUp={item.isAvailableUp}
-              ></ReviewItemComp>
-            );
-          })}
-        </ReviewListDiv>
+        </div>
       )}
+
+      {!isGetReviewList &&
+        (reviewList.length === 0 ? (
+          <NoneFeed text="리뷰가 없습니다" />
+        ) : (
+          <ReviewListDiv>
+            {reviewList.map((item, index) => {
+              return (
+                <ReviewItemComp
+                  key={index}
+                  id={item.reviewId}
+                  url={item.userProfileImg}
+                  name={item.userName}
+                  content={item.reviewContent}
+                  rate={item.reviewRate}
+                  date={item.reviewCreatedAt}
+                  like={item.reviewLikeCount}
+                  isAvailableUp={item.isAvailableUp}
+                ></ReviewItemComp>
+              );
+            })}
+          </ReviewListDiv>
+        ))}
     </ReviewDiv>
   );
 }

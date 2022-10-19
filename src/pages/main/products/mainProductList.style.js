@@ -8,7 +8,7 @@ const CartContentDiv = styled.div`
 `;
 
 const CartListDiv = styled.div`
-  width: 800px;
+  width: 920px;
   padding: 30px;
   border-radius: 5px;
   .subject {
@@ -32,12 +32,13 @@ const CartItems = styled.div`
 `;
 
 const ProductCategoryDiv = styled.div`
-  width: 200px;
+  width: 210px;
   height: 100%;
-  margin-left: 20px;
   padding: 20px 5px;
   border: solid 1px lightgray;
   border-radius: 5px;
+  top: 0;
+  position: sticky;
 `;
 
 const CartPriceHeader = styled.div`

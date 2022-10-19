@@ -12,6 +12,7 @@ import {
 } from './ProductQna.style';
 import Modal from '../../common/Modal';
 import MakeQna from '../qna/MakeQna';
+import NoneFeed from '../../sns/main/NoneFeed';
 
 export default function ProductQnaComp(props) {
   const productId = props.productDetailId;
@@ -61,14 +62,17 @@ export default function ProductQnaComp(props) {
         ></Button>
       </div>
       <hr />
-      {!isGetQnaList && (
-        <QnaListDiv>
-          {qnaList.map((item, index) => {
+      {!isGetQnaList &&
+        (qnaList.length === 0 ? (
+          <NoneFeed text="문의가 없습니다" />
+        ) : (
+          <QnaListDiv>
+          {qnaList.productQnAResponseList.map((item, index) => {
             return (
               <QnaItemComp
                 key={index}
                 id={item.productQnaId}
-                url="https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/276873/P75260B86794950F9B3895FCA46D6F5D7ABF08A546585DF0082E2F542351E5B0C/file/dims/optimize"
+                url={item.userProfileImg}
                 name={item.userName}
                 content={item.productQnaContent}
                 answer={item.productSellerAnswer}
@@ -77,9 +81,9 @@ export default function ProductQnaComp(props) {
             );
           })}
         </QnaListDiv>
-      )}
+        ))}
       {modal && (
-        <Modal closeModal={() => setModal(!modal)}>
+        <Modal closeModal={() => setModal(!modal)} style={{zIndex:"10"}}>
           <MakeQna id={productId}></MakeQna>
         </Modal>
       )}
