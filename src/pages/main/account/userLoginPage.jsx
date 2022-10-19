@@ -10,10 +10,11 @@ export default function UserLoginPage() {
   const navigate = useNavigate();
   const REACT_APP_KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
   const REACT_APP_NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID;
+  const REACT_APP_KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
   const state = encodeURI("http://localhost:3000/login/success/naver")
 
   const loginKakao = () => {
-    const kakao_url = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=http://localhost:3000/login/success/kakao&response_type=code`;
+    const kakao_url = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${REACT_APP_KAKAO_REDIRECT_URI}/login/success/kakao&response_type=code`;
     window.location.href = kakao_url
   };
   const loginNaver = () => {
