@@ -9,8 +9,6 @@ import { SellerTitle } from '../../../../components/seller/common/Title.style';
 import DeliveryDetail from '../../../../components/seller/delivery/deliveryDetail/DeliveryDetail';
 
 export default function SellerDeliveryDetailPage() {
-  const { id } = useParams();
-  console.log(id, '자식');
   return (
     <RightWrapper>
       <SellerTitle>주문 상세</SellerTitle>

@@ -21,7 +21,8 @@ export default function ProductsStatistics() {
     'sellerProducts',
     () => getSellerProduct(pageNo),
     {
-      refetchOnWindowFocus: true,
+      refetchOnMount: true,
+      refetchOnWindowFcous: true,
       onSuccess: res => {
         setProductCnt(res.length);
       },

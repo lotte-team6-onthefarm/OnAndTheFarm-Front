@@ -43,7 +43,6 @@ export default function MainReviews(props) {
     navigate('/seller/products/reviews');
   };
 
-  console.log(reviews);
   return (
     <WhiteWrapper width="100%" height="650px">
       <SubTitle color="#B1E5FC" title="실시간 리뷰" />

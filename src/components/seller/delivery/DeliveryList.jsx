@@ -35,12 +35,11 @@ import useDidMountEffect from '../../common/useDidMountEffect';
 export default function DeliveryList() {
   const param = useParams();
   const id = param.id;
-  console.log(id);
   useEffect(() => {
     if (id !== undefined) {
       setDeliveryState(id);
     }
-  }, []);
+  }, [id]);
   // usenavigator
   const navigator = useNavigate();
   const queryClient = useQueryClient();
@@ -148,8 +147,6 @@ export default function DeliveryList() {
         console.log('에러');
       },
     });
-
-  const navigater = useNavigate();
 
   useDidMountEffect(() => {
     //요일이 바뀔때 마다 refetch

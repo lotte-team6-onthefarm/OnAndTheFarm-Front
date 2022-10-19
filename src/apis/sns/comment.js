@@ -2,7 +2,6 @@ import { JWTapiUser } from '../user/index';
 
 // 댓글 등록 기능
 const postUploadComment = async data => {
-  console.log(data);
   const response = await JWTapiUser.post('sns/comment', data);
   return response.data;
 };

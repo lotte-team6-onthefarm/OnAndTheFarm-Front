@@ -56,7 +56,6 @@ export default function ProductQnAs() {
       productQnaAnswer: null,
     },
   ];
-  console.log(qnas);
   return (
     <>
       <SellerTitle>QnA 관리</SellerTitle>

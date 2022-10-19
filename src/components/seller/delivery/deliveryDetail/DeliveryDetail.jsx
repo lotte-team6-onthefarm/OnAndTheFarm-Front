@@ -20,7 +20,6 @@ export default function DeliveryDetail(props) {
     getSellerOrderListDetail(orderSerial),
   );
 
-  console.log(orderListDetail, 'orderListDetail');
   const data = {
     orderDate: '2022.09.30',
     orderNum: '202209302231',

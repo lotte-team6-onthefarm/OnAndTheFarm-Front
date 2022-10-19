@@ -113,7 +113,7 @@ export default function MainMypageProfile() {
 
   const handleChange = e => {
     URL.revokeObjectURL(imageUrl);
-    const url = URL.createObjectURL(e.target.files[0])
+    const url = URL.createObjectURL(e.target.files[0]);
     setImageUrl(url);
     setProfileImages(e.target.files);
   };
@@ -133,7 +133,7 @@ export default function MainMypageProfile() {
           >
             <UserDetailBlock>
               <UserDetailImgBlock>
-                <UserDetailImg src={imageUrl===''? userImg:imageUrl} />
+                <UserDetailImg src={imageUrl === '' ? userImg : imageUrl} />
               </UserDetailImgBlock>
               <UserInfoSetting>
                 <input

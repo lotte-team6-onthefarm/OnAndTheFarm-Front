@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { postSellerProduct } from '../../../../../apis/seller/product';
+import {
+  BlueButton,
+  GreenButton,
+  WhiteButton,
+} from '../../../../common/Button.style';
 import { PageCol, PageRow } from '../../../common/Box.style';
 import { SellerTitle } from '../../../common/Title.style';
 import CategoryEtc from '../category&etc/CategoryEtc';
 import Images from '../images/Images';
 import PriceAmount from '../price&amount/PriceAmount';
-import { ProductManagementWrapper } from '../ProductManagement.style';
+import {
+  AddProductBtnWrapper,
+  ProductManagementWrapper,
+} from '../ProductManagement.style';
 import TitleDescription from '../title&description/TitleDescription';
 
 export default function AddProduct() {
@@ -18,10 +26,11 @@ export default function AddProduct() {
   const [productDetail, setProductDetail] = useState('');
   const [productDetailShort, setProductDetailShort] = useState('');
   const [productOriginPlace, setProductOriginPlace] = useState('');
-  const [productDeliveryCompany, setProductDeliveryCompany] = useState('');
-  const [productStatus, setProductStatus] = useState('');
+  const [productStatus, setProductStatus] = useState('selling');
   const [productMainImages, setProductMainImages] = useState('');
   const [productImages, setProductImages] = useState([]);
+
+  const queryClient = useQueryClient();
 
   // 이미지 전송을 위한 FormData
   let formData = new FormData();
@@ -44,19 +53,17 @@ export default function AddProduct() {
       productStatus={productStatus}
       setProductStatus={setProductStatus}
     />,
-    <Images
-      productMainImages={productMainImages}
-      setProductMainImages={setProductMainImages}
-      productImages={productImages}
-      setProductImages={setProductImages}
-    />,
     <CategoryEtc
       categoryId={categoryId}
       setCategoryId={setCategoryId}
       productOriginPlace={productOriginPlace}
       setProductOriginPlace={setProductOriginPlace}
-      productDeliveryCompany={productDeliveryCompany}
-      setProductDeliveryCompany={setProductDeliveryCompany}
+    />,
+    <Images
+      productMainImages={productMainImages}
+      setProductMainImages={setProductMainImages}
+      productImages={productImages}
+      setProductImages={setProductImages}
     />,
   ];
 
@@ -68,7 +75,6 @@ export default function AddProduct() {
     productTotalStock: productTotalStock,
     productDetail: productDetail,
     productOriginPlace: productOriginPlace,
-    productDeliveryCompany: productDeliveryCompany,
     productStatus: productStatus,
     productDetailShort: productDetailShort,
   };
@@ -95,8 +101,6 @@ export default function AddProduct() {
       alert('상품 카테고리를 선택해주세요');
     } else if (productOriginPlace === '') {
       alert('원산지를 입력해주세요');
-    } else if (productDeliveryCompany === '') {
-      alert('배송업체를 입력해주세요');
     } else {
       return true;
     }
@@ -119,12 +123,17 @@ export default function AddProduct() {
       );
       // 상품 추가 API
       addProduct(formData);
+      console.log('외부');
+      // navigate('/seller/products');
     }
   };
+
+  const addPreviewBtn = () => {};
   // useMutation
   const { mutate: addProduct } = useMutation(postSellerProduct, {
     onSuccess: () => {
       // 상품 리스트 페이지로 이동
+      queryClient.invalidateQueries('sellerProducts');
       navigate('/seller/products');
     },
     onError: () => {
@@ -134,6 +143,7 @@ export default function AddProduct() {
 
   // useNavigate
   const navigate = useNavigate();
+
   return (
     <>
       <SellerTitle>상품 등록</SellerTitle>
@@ -148,7 +158,16 @@ export default function AddProduct() {
           </PageRow>
         );
       })}
-      <button onClick={addProductBtn}>상품등록</button>
+      <AddProductBtnWrapper>
+        <div>
+          <BlueButton onClick={addPreviewBtn} width="120px">
+            미리보기
+          </BlueButton>
+          <GreenButton onClick={addProductBtn} width="120px">
+            상품등록
+          </GreenButton>
+        </div>
+      </AddProductBtnWrapper>
     </>
   );
 }

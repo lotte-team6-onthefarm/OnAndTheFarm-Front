@@ -3,6 +3,7 @@ import { WhiteWrapper } from '../../../common/Box.style';
 import SubTitle from '../../../common/SubTitle';
 import { ProductContentWrapper } from '../ProductManagement.style';
 import ProductInput from '../ProductInput';
+import { HorizontalLine } from '../../../../common/HorizontalLine.style';
 
 export default function TitleDescription(props) {
   const productName = props.productName;
@@ -19,6 +20,7 @@ export default function TitleDescription(props) {
         placeholder={productName !== '' ? productName : '상품 이름 입력'}
         setFunction={setProductName}
       ></ProductInput>
+      <HorizontalLine color="#F2F2F2" />
       <ProductInput
         title="상품 한줄 설명"
         placeholder={
@@ -26,8 +28,9 @@ export default function TitleDescription(props) {
         }
         setFunction={setProductDetailShort}
       ></ProductInput>
+      <HorizontalLine color="#F2F2F2" />
       <ProductContentWrapper>
-        <div className="title">상품 설명(SummerNote)</div>
+        <div className="title">상품 상세 설명</div>
         <div className="content">
           <textarea
             placeholder={

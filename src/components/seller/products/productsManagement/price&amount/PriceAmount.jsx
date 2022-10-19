@@ -1,4 +1,5 @@
 import React from 'react';
+import { HorizontalLine } from '../../../../common/HorizontalLine.style';
 import { WhiteWrapper } from '../../../common/Box.style';
 import SubTitle from '../../../common/SubTitle';
 import ProductInput from '../ProductInput';
@@ -18,6 +19,7 @@ export default function PriceAmount(props) {
         placeholder={productPrice !== 0 ? productPrice : '가격을 입력해주세요'}
         setFunction={setProductPrice}
       ></ProductInput>
+      <HorizontalLine color="#F2F2F2" />
       <ProductInput
         title="상품 재고"
         placeholder={
@@ -25,6 +27,7 @@ export default function PriceAmount(props) {
         }
         setFunction={setProductTotalStock}
       />
+      <HorizontalLine color="#F2F2F2" />
       <ProductStatus
         productStatus={productStatus}
         setProductStatus={setProductStatus}
