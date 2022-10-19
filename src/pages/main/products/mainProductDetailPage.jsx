@@ -108,7 +108,7 @@ export default function MainProductDetailPage(props) {
   const param = useParams();
   const id = param.id;
 
-  const scroll = (idx) => {
+  const scroll = idx => {
     const x = inputRef.current[idx].offsetTop;
     window.scrollTo({ top: x, left: 0, behavior: 'smooth' });
   };
@@ -139,7 +139,26 @@ export default function MainProductDetailPage(props) {
                 <span>12%</span>
                 <span>{productDetail.productPrice}원</span>
               </span>
-
+              <div class="production-selling-header__promotion">
+                <div class="production-selling-header__promotion__title-wrap">
+                  <span>원산지</span>
+                </div>
+                <div class="production-selling-header__promotion__content-wrap">
+                  <p class="production-selling-header__promotion__entry">
+                    <b>국내산</b>
+                  </p>
+                </div>
+              </div>
+              <div class="production-selling-header__promotion">
+                <div class="production-selling-header__promotion__title-wrap">
+                  <span>배송</span>
+                </div>
+                <div class="production-selling-header__promotion__content-wrap">
+                  <p class="production-selling-header__promotion__entry">
+                    <b>롯데 택배</b>
+                  </p>
+                </div>
+              </div>
               <hr />
               <br />
               <div

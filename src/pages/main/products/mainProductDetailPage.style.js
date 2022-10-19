@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const ProductDetailDiv = styled.div`
   width: 1130px;
   margin: 100px auto;
-  .fixed{
+  .fixed {
     width: 100px;
     color: #fff;
   }
@@ -36,7 +36,6 @@ const ProductTopContentDiv = styled.div`
   h1 {
     margin: 9px 0px 0px;
     span {
-      
       :nth-child(1) {
         display: block;
         color: rgb(117, 117, 117);
@@ -49,7 +48,6 @@ const ProductTopContentDiv = styled.div`
         max-height: 500px;
         margin-top: 5px;
         word-break: break-all;
-        font-size: 35px;
         font-weight: 400;
         /* line-height: 17px; */
         margin: 10px 0px 0px;
@@ -58,7 +56,7 @@ const ProductTopContentDiv = styled.div`
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow-wrap: break-word;
       }
@@ -98,6 +96,21 @@ const ProductTopContentDiv = styled.div`
       margin-right: 4px;
     }
   }
+  .production-selling-header__promotion {
+    display: flex;
+    font-size: 14px;
+    line-height: 21px;
+    margin-bottom: 10px;
+    color: #292929;
+    .production-selling-header__promotion__title-wrap {
+      span {
+        font-size: 14px;
+        line-height: 21px;
+        color: #828c94;
+        margin-right: 10px;
+      }
+    }
+  }
 `;
 
 const ProductTabDiv = styled.div`
@@ -123,7 +136,7 @@ const ProductTabDiv = styled.div`
 `;
 
 const ProductDetailContentDiv = styled.div`
-margin: auto;
+  margin: auto;
   width: 800px;
 `;
 
@@ -140,9 +153,7 @@ const ProductDetailImg = styled.img`
   width: 100%;
 `;
 
-const LikeItemDescription = styled.div`
-  
-`;
+const LikeItemDescription = styled.div``;
 
 export {
   ProductDetailDiv,
@@ -153,5 +164,5 @@ export {
   ProductTabDiv,
   ProductDetailContentDiv,
   ProductDetailImgDiv,
-  ProductDetailImg
+  ProductDetailImg,
 };

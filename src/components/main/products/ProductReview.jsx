@@ -12,6 +12,8 @@ import {
   ReviewAddDiv,
   ReviewAddButtonDiv,
   ReviewListDiv,
+  SelectDiv,
+  RateDiv,
 } from './ProductReview.style';
 import { getReviewList } from '../../../apis/user/review';
 
@@ -26,8 +28,7 @@ export default function ProductReviewComp(props) {
     data: reviewList,
   } = useQuery('reviewList', () => getReviewList(data), {
     refetchOnWindowFocus: true,
-    onSuccess: res => {
-    },
+    onSuccess: res => {},
     onError: () => {
       console.log('에러');
     },
@@ -47,49 +48,103 @@ export default function ProductReviewComp(props) {
   return (
     <ReviewDiv>
       <div>
-        <div style={{display:'flex',justifyContent:'space-between'}}>
-        <h4>후기리뷰</h4>
-        <div>
-          <select onChange={test} value={selectedFilter}>
-            {filterList.map((filter, idx) => {
-              return (
-                <option value={filter} key={idx}>
-                  {filter}
-                </option>
-              );
-            })}
-          </select>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <h4>
+            후기리뷰<span>4,103</span>{' '}
+          </h4>
+          <SelectDiv>
+            <select onChange={test} value={selectedFilter} className="select">
+              {filterList.map((filter, idx) => {
+                return (
+                  <option value={filter} key={idx}>
+                    {filter}
+                  </option>
+                );
+              })}
+            </select>
+          </SelectDiv>
         </div>
-        </div>
-        
+
         <hr />
-        <div style={{ display: 'flex', margin: '20px auto', width: '90%' }}>
-          <ReviewStatisticsDiv>
-            <ReviewTotalDiv>140개의 리뷰</ReviewTotalDiv>
-            <ReviewCountListDiv>
-              <ReviewCountDiv>
-                <RatingInputComp rate={5} font="13px" />
-                <span>1330명</span>
-              </ReviewCountDiv>
-              <ReviewCountDiv>
-                <RatingInputComp rate={4} font="13px" />
-                <span>10명</span>
-              </ReviewCountDiv>
-              <ReviewCountDiv>
-                <RatingInputComp rate={3} font="13px" />
-                <span>102명</span>
-              </ReviewCountDiv>
-              <ReviewCountDiv>
-                <RatingInputComp rate={2} font="13px" />
-                <span>10명</span>
-              </ReviewCountDiv>
-              <ReviewCountDiv>
-                <RatingInputComp rate={1} font="13px" />
-                <span>10명</span>
-              </ReviewCountDiv>
-            </ReviewCountListDiv>
-          </ReviewStatisticsDiv>
-          {/* <ReviewAddDiv>
+        <ReviewStatisticsDiv>
+          <ReviewTotalDiv>
+            <RatingInputComp rate={5} font="13px" />
+            <span>4.6</span>
+          </ReviewTotalDiv>
+          <ReviewCountListDiv>
+            <ReviewCountDiv>
+              <span>
+                5점
+              </span>
+              <RateDiv>
+                <div></div>
+                <div
+                  style={{"width": "71.9055%"}}
+                ></div>
+              </RateDiv>
+              <span>
+                2,951
+              </span>
+            </ReviewCountDiv>
+            <ReviewCountDiv>
+              <span>
+                5점
+              </span>
+              <RateDiv>
+                <div></div>
+                <div
+                  style={{"width": "71.9055%"}}
+                ></div>
+              </RateDiv>
+              <span>
+                2,951
+              </span>
+            </ReviewCountDiv>
+            <ReviewCountDiv>
+              <span>
+                5점
+              </span>
+              <RateDiv>
+                <div></div>
+                <div
+                  style={{"width": "71.9055%"}}
+                ></div>
+              </RateDiv>
+              <span>
+                2,951
+              </span>
+            </ReviewCountDiv>
+            <ReviewCountDiv>
+              <span>
+                5점
+              </span>
+              <RateDiv>
+                <div></div>
+                <div
+                  style={{"width": "71.9055%"}}
+                ></div>
+              </RateDiv>
+              <span>
+                2,951
+              </span>
+            </ReviewCountDiv>
+            <ReviewCountDiv>
+              <span>
+                5점
+              </span>
+              <RateDiv>
+                <div></div>
+                <div
+                  style={{"width": "71.9055%"}}
+                ></div>
+              </RateDiv>
+              <span>
+                2,951
+              </span>
+            </ReviewCountDiv>
+          </ReviewCountListDiv>
+        </ReviewStatisticsDiv>
+        {/* <ReviewAddDiv>
             <input
               style={{ width: '100%', height: '100px', marginRight: '20px' }}
             ></input>
@@ -111,7 +166,6 @@ export default function ProductReviewComp(props) {
               ></Button>
             </ReviewAddButtonDiv>
           </ReviewAddDiv> */}
-        </div>
       </div>
       {!isGetReviewList && (
         <ReviewListDiv>
