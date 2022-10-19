@@ -59,13 +59,12 @@ const ProductReviewsTable = styled.table`
 const ReviewBlock = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
   div {
     height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-left: 10px;
+    /* padding-left: 10px; */
     div {
       display: flex;
       justify-content: center;
@@ -78,6 +77,18 @@ const ReviewBlock = styled.div`
     color: gray;
     font-weight: 100;
     margin-left: auto;
+  }
+  .productReviewsImg {
+    margin-right: 10px;
+  }
+  .productQnAsdiv {
+    width: 650px;
+    div:nth-child(1) {
+      margin-bottom: 10px;
+    }
+    .review {
+      word-break: break-all;
+    }
   }
 `;
 

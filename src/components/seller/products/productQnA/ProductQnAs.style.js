@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 const AnswerBoxWrapper = styled.div`
-  margin-top: 10px;
-  margin-left: 20px;
+  margin-top: 25px;
 `;
 
 const AnswerBtnBox = styled.div`

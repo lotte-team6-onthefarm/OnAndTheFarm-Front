@@ -22,9 +22,9 @@ export default function MainSalesStatistics() {
     },
   );
   const navigate = useNavigate();
-
+  console.log(conditionData);
   return (
-    <WhiteWrapper width="100%">
+    <WhiteWrapper width="100%" height="640px">
       <SubTitle color="#CABDFF" title="운영 현황" />
       <SalesStatisticsWrapper>
         <SalesStatisticsBlock onClick={() => navigate('products')}>

@@ -6,6 +6,7 @@ const SalesStatisticsWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: 90%;
 `;
 
 const SalesStatisticsBlock = styled.div`
