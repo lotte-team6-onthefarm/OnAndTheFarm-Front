@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const ProductQnaDiv = styled.div`
   align-items: center;
-  margin: 20px auto;
+  margin: 50px auto 50px;
   
   width: 800px;
   h4 {
@@ -52,7 +52,7 @@ const QnaAddButtonDiv = styled.div`
 
 const QnaListDiv = styled.div`
   width: 80%;
-  margin: 20px auto;
+  margin: 50px auto;
 `;
 
 export {
