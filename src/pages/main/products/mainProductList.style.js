@@ -8,7 +8,7 @@ const CartContentDiv = styled.div`
 `;
 
 const CartListDiv = styled.div`
-  width: 800px;
+  width: 920px;
   padding: 30px;
   border-radius: 5px;
   .subject {
@@ -32,12 +32,13 @@ const CartItems = styled.div`
 `;
 
 const ProductCategoryDiv = styled.div`
-  width: 200px;
+  width: 210px;
   height: 100%;
-  margin-left: 20px;
   padding: 20px 5px;
   border: solid 1px lightgray;
   border-radius: 5px;
+  top: 0;
+  position: sticky;
 `;
 
 const CartPriceHeader = styled.div`
@@ -45,10 +46,19 @@ const CartPriceHeader = styled.div`
 `;
 
 const CartPriceRow = styled.div`
+  color: ${props => (props.selectedCategory === props.idx ? '#40AA54' : 'black')};
   padding: 0 20px;
   margin: 10px;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
+  :hover{
+    background: #F2F2F2;
+    cursor: pointer;
+    border-radius: 8px;
+    border: solid 2px #F2F2F2;
+  }
+
 `;
 
 const CartPriceTotal = styled.h3`
@@ -65,13 +75,13 @@ const ProductListDiv = styled.div`
 `;
 
 const SearchInputWithIcon = styled.input`
-width: calc(100% - 15px);
-height: 40px;
-margin-top: 5px;
-padding-left: 15px;
-background-color: #f7f7f7;
-border: none;
-border-radius: 20px;
+  width: calc(100% - 15px);
+  height: 40px;
+  margin-top: 5px;
+  padding-left: 15px;
+  background-color: #f7f7f7;
+  border: none;
+  border-radius: 20px;
 `;
 
 export {

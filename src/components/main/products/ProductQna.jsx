@@ -10,17 +10,19 @@ import {
   QnaAddButtonDiv,
   QnaListDiv,
 } from './ProductQna.style';
+import Modal from '../../common/Modal';
+import MakeQna from '../qna/MakeQna';
+import NoneFeed from '../../sns/main/NoneFeed';
 
 export default function ProductQnaComp(props) {
   const productId = props.productDetailId;
   const [productQna, setProductQna] = useState('');
   const [productQnaList, setProductQnaList] = useState([]);
-  const test = () => {
-    let data = {};
-    data.productId = productId;
-    data.productQnaContent = productQna;
 
-    addQna(data);
+  const [modal, setModal] = useState(false);
+  const [selectData, setSelectData] = useState('');
+  const test = () => {
+    setModal(!modal);
   };
 
   const { mutate: addQna, isLoading: isAddQnaLoading } = useMutation(
@@ -48,18 +50,29 @@ export default function ProductQnaComp(props) {
 
   return (
     <ProductQnaDiv>
-      <div>
+      <div style={{display:"flex", justifyContent:"space-between"}}>
         <h4>문의사항</h4>
+        <Button
+          text="문의 작성"
+          color="#40AA54"
+          width="130px"
+          height="30px"
+          onClick={test}
+          margin = "10px"
+        ></Button>
       </div>
-        <hr />
-      {!isGetQnaList && (
-        <QnaListDiv>
-          {qnaList.map((item, index) => {
+      <hr />
+      {!isGetQnaList &&
+        (qnaList.length === 0 ? (
+          <NoneFeed text="문의가 없습니다" />
+        ) : (
+          <QnaListDiv>
+          {qnaList.productQnAResponseList.map((item, index) => {
             return (
               <QnaItemComp
                 key={index}
                 id={item.productQnaId}
-                url="https://contents.lotteon.com/display/dshoplnk/12905/2/M001402/276873/P75260B86794950F9B3895FCA46D6F5D7ABF08A546585DF0082E2F542351E5B0C/file/dims/optimize"
+                url={item.userProfileImg}
                 name={item.userName}
                 content={item.productQnaContent}
                 answer={item.productSellerAnswer}
@@ -68,27 +81,12 @@ export default function ProductQnaComp(props) {
             );
           })}
         </QnaListDiv>
+        ))}
+      {modal && (
+        <Modal closeModal={() => setModal(!modal)} style={{zIndex:"10"}}>
+          <MakeQna id={productId}></MakeQna>
+        </Modal>
       )}
-
-      <div style={{ display: 'flex', margin: '20px auto', width: '90%' }}>
-        <QnaAddDiv>
-          <input
-            value={productQna}
-            onChange={e => setProductQna(e.target.value)}
-            style={{ width: '100%', height: '100px', marginRight: '20px' }}
-            placeholder="문의내용을 작성해 주세요"
-          ></input>
-          <QnaAddButtonDiv>
-            <Button
-              text="문의 작성"
-              color="#40AA54"
-              width="130px"
-              height="30px"
-              onClick={test}
-            ></Button>
-          </QnaAddButtonDiv>
-        </QnaAddDiv>
-      </div>
     </ProductQnaDiv>
   );
 }

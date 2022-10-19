@@ -18,10 +18,16 @@ const QnaItemContent = styled.div`
   div{
     padding: 0 20px 0 0;
   }
+  h4{
+  margin: 0 0 5px 0;
+  padding: 0;
+}
 `;
 
 const QnaItemDetail = styled.div`
-display: flex;
+/* display: flex; */
+
+align-items: center;
 width: 700px;
   padding: 5px;
   font-size: 0.7rem;

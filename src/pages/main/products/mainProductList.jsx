@@ -12,10 +12,10 @@ import {
   ProductCategoryDiv,
   ProductListDiv,
 } from './mainProductList.style';
-import { CATEGORY } from '../../../assets/category/category';
 import Product from '../../../components/common/Product';
 import InputSearch from '../../../components/common/SearchInput';
 import { getProducts } from '../../../apis/user/product';
+import Pagination from '../../../components/common/Pagination';
 
 export default function MainProductList() {
   const filterList = ['최신순', '낮은가격순', '높은가격순', '높은판매순'];
@@ -23,6 +23,23 @@ export default function MainProductList() {
   const [searchWord, setSearchWord] = useState('');
   const [productList, setProductList] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('최신순');
+  const [selectedCategory, setSelectedCategory] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const CATEGORY = [
+    { id: 0, name: '전체보기' },
+    { id: 1, name: '바나나/오렌지/수입과일' },
+    { id: 2, name: '단감/복숭아/딸기' },
+    { id: 3, name: '사과/참외' },
+    { id: 4, name: '호두/땅콩/견과류' },
+    { id: 5, name: '포도/배/키위' },
+    { id: 6, name: '밤/대추/곶감/건과일' },
+    { id: 7, name: '냉동과일' },
+    { id: 8, name: '토마토/메론' },
+    { id: 9, name: '밀감/수박/자두' },
+    { id: 10, name: '기타/국산과일' },
+  ];
+
   let data = {
     url: 'all/newest/',
     page: 0,
@@ -78,25 +95,23 @@ export default function MainProductList() {
       <ProductCategoryDiv>
         <CartPriceHeader>
           <h2>카테고리</h2>
-          <hr />
-          <h5>과일</h5>
         </CartPriceHeader>
-        <CartPriceRow>전체보기</CartPriceRow>
-        {CATEGORY.fruits.map((item, index) => {
-          return <CartPriceRow key={index}>{item.name}</CartPriceRow>;
+        {CATEGORY.map((item, index) => {
+          return <CartPriceRow key={index} idx={index} selectedCategory={selectedCategory} onClick={()=>setSelectedCategory(index)}>{item.name}</CartPriceRow>;
         })}
       </ProductCategoryDiv>
       <CartListDiv>
-        <InputSearch
+        {/* <InputSearch
           id="search"
           value={searchWord}
           width="400px"
           onChange={e => setSearchWord(e.target.value)}
           placeholder="원하시는 상품을 검색해주세요"
           type="text"
-        ></InputSearch>
-        <p className="subject">과일</p>
+        ></InputSearch> */}
+
         <CartListHeader>
+          <p className="subject">{CATEGORY[selectedCategory].name}</p>
           <div style={{ display: 'flex' }}></div>
           <div>
             <select onChange={test} value={selectedFilter}>
@@ -110,7 +125,6 @@ export default function MainProductList() {
             </select>
           </div>
         </CartListHeader>
-        <hr />
         <ProductListDiv>
           {productList.map((product, index) => {
             return (
@@ -118,6 +132,7 @@ export default function MainProductList() {
             );
           })}
         </ProductListDiv>
+      <Pagination value={currentPage} setPage={setCurrentPage} ></Pagination>
       </CartListDiv>
     </CartContentDiv>
   );

@@ -44,6 +44,7 @@ export default function MainProductDetailPage(props) {
     data: productDetail,
   } = useQuery('getProductDetail', () => getProduct(params.id), {
     refetchOnWindowFocus: true,
+    refetchOnMount: true,
     onSuccess: res => {},
     onError: () => {
       console.log('에러');
@@ -131,30 +132,30 @@ export default function MainProductDetailPage(props) {
               </h1>
               <div className="production-item-stats">
                 <div className="production-item-stats--icon">
-                  <RatingInputComp rate={5} />
+                  <RatingInputComp rate={productDetail.reviewRate} />
                 </div>
-                <span style={{ fontSize: 'large' }}>1222 개의뷰</span>
+                <span style={{ fontSize: 'large' }}>&nbsp;&nbsp;{productDetail.reviewCount} 개의리뷰</span>
               </div>
               <span className="production-item-price">
                 <span>12%</span>
                 <span>{productDetail.productPrice}원</span>
               </span>
-              <div class="production-selling-header__promotion">
-                <div class="production-selling-header__promotion__title-wrap">
+              <div className="production-selling-header__promotion">
+                <div className="production-selling-header__promotion__title-wrap">
                   <span>원산지</span>
                 </div>
-                <div class="production-selling-header__promotion__content-wrap">
-                  <p class="production-selling-header__promotion__entry">
+                <div className="production-selling-header__promotion__content-wrap">
+                  <p className="production-selling-header__promotion__entry">
                     <b>국내산</b>
                   </p>
                 </div>
               </div>
-              <div class="production-selling-header__promotion">
-                <div class="production-selling-header__promotion__title-wrap">
+              <div className="production-selling-header__promotion">
+                <div className="production-selling-header__promotion__title-wrap">
                   <span>배송</span>
                 </div>
-                <div class="production-selling-header__promotion__content-wrap">
-                  <p class="production-selling-header__promotion__entry">
+                <div className="production-selling-header__promotion__content-wrap">
+                  <p className="production-selling-header__promotion__entry">
                     <b>롯데 택배</b>
                   </p>
                 </div>
@@ -185,7 +186,7 @@ export default function MainProductDetailPage(props) {
             </ProductTopContentDiv>
           </ProductTopDiv>
           <div
-            style={{ top: '0', position: 'sticky', backgroundColor: '#fff' }}
+            style={{ top: '0', position: 'sticky', backgroundColor: '#fff', zIndex:"5" }}
           >
             <hr />
             <ProductMenuTab scroll={scroll} />
@@ -193,7 +194,7 @@ export default function MainProductDetailPage(props) {
           </div>
           <ProductDetailContentDiv ref={elem => (inputRef.current[0] = elem)}>
             <ProductDetailImgDiv>
-              <ProductDetailImg src="https://red.lotteon.com/_m2_/_rsc_/LF1436371/?sref=http://www.joyard.co.kr/up/RR/RR001_750.jpg" />
+              <ProductDetailImg src={productDetail.productDetail} />
             </ProductDetailImgDiv>
           </ProductDetailContentDiv>
           <div ref={elem => (inputRef.current[1] = elem)}>
