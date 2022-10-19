@@ -8,7 +8,6 @@ const CounterButton = styled.button`
   width: 30px;
   height: 30px;
   color: #8b8b97;
-  font-size: 0.8rem;
   opacity: 0.25;
 `;
 

@@ -34,9 +34,9 @@ export default function Counter(props) {
   }, [number, props]);
   return (
     <CounterDiv>
-      <CounterButton onClick={minus}>-</CounterButton>
+      <CounterButton onClick={minus}><span>-</span></CounterButton>
       <CounterNumber value={number} onChange={change}/>
-      <CounterButton onClick={plus}>+</CounterButton>
+      <CounterButton onClick={plus}><span>+</span></CounterButton>
     </CounterDiv>
   );
 }

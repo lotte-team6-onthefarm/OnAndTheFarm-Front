@@ -50,8 +50,8 @@ export default function ProductQnaComp(props) {
     <ProductQnaDiv>
       <div>
         <h4>문의사항</h4>
-        <hr />
       </div>
+        <hr />
       {!isGetQnaList && (
         <QnaListDiv>
           {qnaList.map((item, index) => {
@@ -76,6 +76,7 @@ export default function ProductQnaComp(props) {
             value={productQna}
             onChange={e => setProductQna(e.target.value)}
             style={{ width: '100%', height: '100px', marginRight: '20px' }}
+            placeholder="문의내용을 작성해 주세요"
           ></input>
           <QnaAddButtonDiv>
             <Button

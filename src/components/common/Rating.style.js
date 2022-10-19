@@ -10,7 +10,7 @@ const RatingInputDiv = styled.div`
     cursor: ${props => (props.rate ? '' : 'pointer')};
   }
   .on {
-    color: darkorange;
+    color: #40AA54;
   }
   .off {
     color: lightgray;
