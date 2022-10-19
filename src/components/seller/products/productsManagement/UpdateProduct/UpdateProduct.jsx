@@ -16,6 +16,8 @@ import {
   putSellerProduct,
 } from '../../../../../apis/seller/product';
 import { BlueButton, GreenButton } from '../../../../common/Button.style';
+import UpdateImages from '../images/UpdateImages';
+import { useEffect } from 'react';
 
 export default function UpdateProduct() {
   const param = useParams();
@@ -36,6 +38,39 @@ export default function UpdateProduct() {
   const [delImageId, setDelImageId] = useState([]); // 삭제 리스트
   const [upNowMainImage, setUpNowMainImage] = useState(''); // 현재 메인 이미지
 
+  // useQuery
+  const { isLoading: getProductSellerLoading, data: products } = useQuery(
+    'productSeller',
+    () => getProductSeller(id),
+    {
+      cacheTime: 10,
+      refetchOnMount: 'always',
+      onSuccess: res => {
+        setProductName(res.productName);
+        setProductPrice(res.productPrice);
+        setProductCategory(res.categoryName);
+        setCategoryId(res.categoryId);
+        setProductTotalStock(res.productTotalStock);
+        setProductDetail(res.productDetail);
+        setProductDetailShort(res.productDetailShort);
+        setProductOriginPlace(res.productOriginPlace);
+        setProductStatus(res.productStatus);
+        setUpNowMainImage(res.productMainImgSrc);
+        setProductImages(res.productImageList);
+      },
+      onError: {},
+    },
+  );
+  // useMutation
+  const { mutate: updateProduct } = useMutation(putSellerProduct, {
+    onSuccess: () => {
+      // 상품 리스트 페이지로 이동
+      navigate('/seller/products');
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
   const innerComponents = [
     <TitleDescription
       productName={productName}
@@ -53,7 +88,7 @@ export default function UpdateProduct() {
       productStatus={productStatus}
       setProductStatus={setProductStatus}
     />,
-    <Images
+    <UpdateImages
       upNowMainImage={upNowMainImage}
       productMainImages={productMainImages}
       setProductMainImages={setProductMainImages}
@@ -113,39 +148,6 @@ export default function UpdateProduct() {
     return false;
   };
 
-  // useQuery
-  const { isLoading: getProductSellerLoading, data: products } = useQuery(
-    'productSeller',
-    () => getProductSeller(id),
-    {
-      refetchOnMount: true,
-      onSuccess: res => {
-        setProductName(res.productName);
-        setProductPrice(res.productPrice);
-        setProductCategory(res.categoryName);
-        setCategoryId(res.categoryId);
-        setProductTotalStock(res.productTotalStock);
-        setProductDetail(res.productDetail);
-        setProductDetailShort(res.productDetailShort);
-        setProductOriginPlace(res.productOriginPlace);
-        setProductStatus(res.productStatus);
-        setUpNowMainImage(res.productMainImgSrc);
-        setProductImages(res.productImageList);
-      },
-      onError: {},
-    },
-  );
-  // useMutation
-  const { mutate: updateProduct } = useMutation(putSellerProduct, {
-    onSuccess: () => {
-      // 상품 리스트 페이지로 이동
-      navigate('/seller/products');
-    },
-    onError: () => {
-      console.log('에러');
-    },
-  });
-
   const updatePreviewBtn = () => {};
   const updateProductBtn = () => {
     // 상품 등록 버튼
@@ -166,7 +168,6 @@ export default function UpdateProduct() {
       updateProduct(formData);
     }
   };
-
   return (
     <>
       {!getProductSellerLoading && (
@@ -183,6 +184,61 @@ export default function UpdateProduct() {
               </PageRow>
             );
           })}
+          {/* <PageRow>
+            <PageCol width="100%">
+              <ProductManagementWrapper>
+                <TitleDescription
+                  productName={productName}
+                  setProductName={setProductName}
+                  productDetail={productDetail}
+                  setProductDetail={setProductDetail}
+                  productDetailShort={productDetailShort}
+                  setProductDetailShort={setProductDetailShort}
+                />
+              </ProductManagementWrapper>
+            </PageCol>
+          </PageRow>
+          <PageRow>
+            <PageCol width="100%">
+              <ProductManagementWrapper>
+                <PriceAmount
+                  productPrice={productPrice}
+                  setProductPrice={setProductPrice}
+                  productTotalStock={productTotalStock}
+                  setProductTotalStock={setProductTotalStock}
+                  productStatus={productStatus}
+                  setProductStatus={setProductStatus}
+                />
+              </ProductManagementWrapper>
+            </PageCol>
+          </PageRow>
+          <PageRow>
+            <PageCol width="100%">
+              <ProductManagementWrapper>
+                <UpdateImages
+                  upNowMainImage={products.productMainImgSrc}
+                  productMainImages={productMainImages}
+                  setProductMainImages={setProductMainImages}
+                  productImages={products.productImageList}
+                  setProductImages={setProductImages}
+                />
+              </ProductManagementWrapper>
+            </PageCol>
+          </PageRow>
+          <PageRow>
+            <PageCol width="100%">
+              <ProductManagementWrapper>
+                <CategoryEtc
+                  categoryId={categoryId}
+                  setCategoryId={setCategoryId}
+                  productCategory={productCategory}
+                  setProductCategory={setProductCategory}
+                  productOriginPlace={productOriginPlace}
+                  setProductOriginPlace={setProductOriginPlace}
+                />
+              </ProductManagementWrapper>
+            </PageCol>
+          </PageRow> */}
           <AddProductBtnWrapper>
             <div>
               <BlueButton onClick={updatePreviewBtn} width="120px">

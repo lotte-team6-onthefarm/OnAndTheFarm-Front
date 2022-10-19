@@ -4,8 +4,10 @@ import { FiUpload } from 'react-icons/fi';
 import { IconBox, IconWrapper } from '../../../common/Icon.style';
 import ImagesView from './ImagesView';
 import { useEffect } from 'react';
+import UpdateImagesView from './UpdateImagesView';
+import { useQueryClient } from 'react-query';
 
-export default function ProductImage(props) {
+export default function UpdateProductImage(props) {
   const [detailImagesUrl, setDetailImagesUrl] = useState([]);
   const type = props.type;
   const setImages = props.setImages;
@@ -17,6 +19,11 @@ export default function ProductImage(props) {
   useEffect(() => {
     if (props.upNowMainImage !== undefined) {
       setDetailImagesUrl([props.upNowMainImage, ...detailImagesUrl]);
+    } else if (
+      props.productImages !== undefined &&
+      props.productImages.length > 0
+    ) {
+      setDetailImagesUrl(props.productImages);
     }
   }, []);
 
@@ -29,6 +36,16 @@ export default function ProductImage(props) {
     }
     setImages(e.target.files);
   };
+
+  // dddd
+  const deleteImg = idx => {
+    // let temp = [...detailImagesUrl];
+    // props.setProductImages(
+    //   props.productImages.filter(product => product.productImgId !== idx),
+    // );
+    console.log(idx, 'aateastae');
+  };
+
   return (
     <ProductImageWrapper>
       <div className="title">{props.title}</div>
@@ -49,10 +66,17 @@ export default function ProductImage(props) {
         ) : (
           <>
             {props.upNowMainImage !== undefined ? (
-              // <UpdateImageView upNowMainImage={props.upNowMainImage} />
-              <ImagesView images={detailImagesUrl} />
+              <UpdateImagesView
+                images={[
+                  { productImgId: 0, productImgSrc: detailImagesUrl[0] },
+                ]}
+                deleteImg={deleteImg}
+              />
             ) : (
-              <ImagesView images={detailImagesUrl} />
+              <UpdateImagesView
+                images={detailImagesUrl}
+                deleteImg={deleteImg}
+              />
             )}
           </>
         )}

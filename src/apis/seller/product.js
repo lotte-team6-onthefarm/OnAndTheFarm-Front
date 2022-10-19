@@ -30,6 +30,7 @@ const getSellerProduct = async pageNo => {
 
 // 상품 단건조회
 const getProductSeller = async data => {
+  console.log('들어와요 상품 단건조회?');
   const response = await JWPapiSellertoUser.get(`product/${data}`);
   return response.data.data;
 };

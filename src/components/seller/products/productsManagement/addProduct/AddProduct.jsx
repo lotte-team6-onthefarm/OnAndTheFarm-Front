@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { postSellerProduct } from '../../../../../apis/seller/product';
 import {
@@ -29,6 +29,8 @@ export default function AddProduct() {
   const [productStatus, setProductStatus] = useState('selling');
   const [productMainImages, setProductMainImages] = useState('');
   const [productImages, setProductImages] = useState([]);
+
+  const queryClient = useQueryClient();
 
   // 이미지 전송을 위한 FormData
   let formData = new FormData();
@@ -121,6 +123,8 @@ export default function AddProduct() {
       );
       // 상품 추가 API
       addProduct(formData);
+      console.log('외부');
+      // navigate('/seller/products');
     }
   };
 
@@ -129,6 +133,7 @@ export default function AddProduct() {
   const { mutate: addProduct } = useMutation(postSellerProduct, {
     onSuccess: () => {
       // 상품 리스트 페이지로 이동
+      queryClient.invalidateQueries('sellerProducts');
       navigate('/seller/products');
     },
     onError: () => {
