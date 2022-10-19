@@ -169,7 +169,10 @@ export default function Product(props) {
     // </div>
 
     <ProductDiv>
-      <ProductImgIcons>
+      <ProductImgIcons
+        productCartStatus={product.productCartStatus}
+        productWishStatus={product.productWishStatus}
+      >
         <AiOutlineHeart fontSize="x-large" onClick={addLike} />
         <AiOutlineShoppingCart
           fontSize="x-large"
@@ -190,22 +193,22 @@ export default function Product(props) {
         width={props.width}
         onClick={() => updateUrl(product.productId)}
       >
-        <p className='productInfoName'>{product.sellerName}</p>
-        <p className='productInfoTitle'>{product.productName}</p>
+        <p className="productInfoName">{product.sellerName}</p>
+        <p className="productInfoTitle">{product.productName}</p>
         <p>
-          <span>{product.productPrice} 원</span>
+          <span>{product.productPrice.toLocaleString()} 원</span>
         </p>
-        <p className='productInfoBottom'>
+        <div className="productInfoBottom">
           <IconWrapper>
             <IconBox>
-          <AiFillStar color="#40AA54" /><strong>{product.reviewRate}</strong></IconBox>
+              <AiFillStar color="#40AA54" />
+              <strong>{product.reviewRate}</strong>
+            </IconBox>
           </IconWrapper>
-          <div>
-         리뷰
-          </div>
+          <span>리뷰</span>
           {product.productReviewCount}
-        </p>
-        <div className='productInfoButton'>
+        </div>
+        <div className="productInfoButton">
           <div>무료 배송</div>
           <div>최저가 도전</div>
         </div>

@@ -17,11 +17,18 @@ const ProductImgIcons = styled.div`
   top: 160px;
   right: 10px;
   z-index: 9;
-  svg {
+  svg:nth-child(1) {
     margin: 0 3px;
-    border: 2px solid lightgrey;
+    border: 2px solid ${props => props.productWishStatus?'#FF6D59' : 'lightgray'};
     border-radius: 100px;
-    background-color: lightgrey;
+    background-color: ${props => props.productWishStatus? '#FF6D59' : 'lightgray'};
+    cursor: pointer;
+  }
+  svg:nth-child(2) {
+    margin: 0 3px;
+    border: 2px solid ${props => props.productWishStatus? '#40AA54' : 'lightgray'};
+    border-radius: 100px;
+    background-color: ${props => props.productWishStatus? '#40AA54' : 'lightgray'};
     cursor: pointer;
   }
   path {
@@ -88,8 +95,11 @@ const ProductInfoDiv = styled.div`
     color: #424242;
     font-weight: 700;
     }
-    div{
-      margin-right: 2px;
+    span{
+      font-size: 12px;
+    color: #9e9e9e;
+    line-height: 16px;
+    font-weight: 700;
     }
   }
   .productInfoButton{
