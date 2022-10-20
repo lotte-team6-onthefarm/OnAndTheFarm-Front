@@ -47,7 +47,7 @@ const CartPriceHeader = styled.div`
 
 const CartPriceRow = styled.div`
   color: ${props => (props.selectedCategory === props.idx ? '#40AA54' : 'black')};
-  padding: 0 20px;
+  padding: 3px 20px;
   margin: 10px;
   display: flex;
   justify-content: space-between;
@@ -56,9 +56,7 @@ const CartPriceRow = styled.div`
     background: #F2F2F2;
     cursor: pointer;
     border-radius: 8px;
-    border: solid 2px #F2F2F2;
   }
-
 `;
 
 const CartPriceTotal = styled.h3`
