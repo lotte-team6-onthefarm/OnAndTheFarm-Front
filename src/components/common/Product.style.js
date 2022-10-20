@@ -4,6 +4,7 @@ const ProductDiv = styled.div`
   width: ${props => (props.width ? props.width : '200px')};
   margin: 0 7.5px 40px;
   position: relative;
+  padding: ${props => (props.padding ? props.padding : '0')};
 `;
 const ProductImgDiv = styled.div`
   width: 200px;
@@ -19,16 +20,20 @@ const ProductImgIcons = styled.div`
   z-index: 9;
   svg:nth-child(1) {
     margin: 0 3px;
-    border: 2px solid ${props => props.productWishStatus?'#FF6D59' : 'lightgray'};
+    border: 2px solid
+      ${props => (props.productWishStatus ? '#FF6D59' : 'lightgray')};
     border-radius: 100px;
-    background-color: ${props => props.productWishStatus? '#FF6D59' : 'lightgray'};
+    background-color: ${props =>
+      props.productWishStatus ? '#FF6D59' : 'lightgray'};
     cursor: pointer;
   }
   svg:nth-child(2) {
     margin: 0 3px;
-    border: 2px solid ${props => props.productWishStatus? '#40AA54' : 'lightgray'};
+    border: 2px solid
+      ${props => (props.productWishStatus ? '#40AA54' : 'lightgray')};
     border-radius: 100px;
-    background-color: ${props => props.productWishStatus? '#40AA54' : 'lightgray'};
+    background-color: ${props =>
+      props.productWishStatus ? '#40AA54' : 'lightgray'};
     cursor: pointer;
   }
   path {
@@ -42,9 +47,10 @@ const ProductImg = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 4px;
+  object-fit: cover;
   cursor: pointer;
   transition: all 0.1s linear;
-  :hover{
+  :hover {
     transform: scale(1.02);
   }
 `;
@@ -54,16 +60,16 @@ const ProductInfoDiv = styled.div`
   height: 150px;
   p {
     margin-top: 5px;
-  span{
-    flex-wrap: wrap;
-    font-size: 17px;
-    line-height: 23px;
-    font-weight: 700;
-    color: #000;
-    margin-right: 4px;
+    span {
+      flex-wrap: wrap;
+      font-size: 17px;
+      line-height: 23px;
+      font-weight: 700;
+      color: #000;
+      margin-right: 4px;
+    }
   }
-  }
-  .productInfoName{
+  .productInfoName {
     display: block;
     color: #757575;
     word-break: break-all;
@@ -71,7 +77,7 @@ const ProductInfoDiv = styled.div`
     font-weight: 400;
     line-height: 13px;
   }
-  .productInfoTitle{
+  .productInfoTitle {
     max-height: 34px;
     margin-top: 5px;
     word-break: break-all;
@@ -79,42 +85,42 @@ const ProductInfoDiv = styled.div`
     font-weight: 400;
     line-height: 17px;
     color: #000;
-    transition: opacity .1s;
+    transition: opacity 0.1s;
     overflow: hidden;
     text-overflow: ellipsis;
     word-wrap: break-word;
   }
-  .productInfoBottom{
+  .productInfoBottom {
     display: flex;
     font-size: 12px;
     color: #9e9e9e;
     line-height: 16px;
     font-weight: 700;
-    strong{
-    margin-right: 2px;
-    color: #424242;
-    font-weight: 700;
+    strong {
+      margin-right: 2px;
+      color: #424242;
+      font-weight: 700;
     }
-    span{
+    span {
       font-size: 12px;
-    color: #9e9e9e;
-    line-height: 16px;
-    font-weight: 700;
+      color: #9e9e9e;
+      line-height: 16px;
+      font-weight: 700;
     }
   }
-  .productInfoButton{
+  .productInfoButton {
     margin: 8px 0 0;
     display: flex;
     font-weight: 600;
-    div{
-      :nth-child(1){
+    div {
+      :nth-child(1) {
         font-size: 11px;
         padding: 2px 4px;
         color: white;
         border-radius: 4px;
         background-color: rgb(255, 119, 119);
       }
-      :nth-child(2){
+      :nth-child(2) {
         margin-left: 3px;
         font-size: 11px;
         padding: 2px 4px;

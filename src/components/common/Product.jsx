@@ -168,7 +168,7 @@ export default function Product(props) {
     //   </article>
     // </div>
 
-    <ProductDiv>
+    <ProductDiv padding={props.padding}>
       <ProductImgIcons
         productCartStatus={product.productCartStatus}
         productWishStatus={product.productWishStatus}

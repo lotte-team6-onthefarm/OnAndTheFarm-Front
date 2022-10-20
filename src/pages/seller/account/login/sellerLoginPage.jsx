@@ -45,6 +45,11 @@ export default function SellerLoginPage() {
     },
   });
 
+  const onKeyPress = e => {
+    if (e.key === 'Enter') {
+      loginBtn();
+    }
+  };
   return (
     <StyledBoxWrapper>
       <StyledBoxDiv>
@@ -64,6 +69,7 @@ export default function SellerLoginPage() {
           placeholder="******"
           id="password"
           type="password"
+          onKeyPress={onKeyPress}
         />
         <StyledRowDiv position="end">
           <StyledFind onClick={() => navigate('/seller/searchId')}>

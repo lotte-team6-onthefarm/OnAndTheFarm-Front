@@ -5,7 +5,6 @@ import SellerLoginPage from './pages/seller/account/login/sellerLoginPage';
 import SellerSignupPage from './pages/seller/account/signup/sellerSignupPage';
 import SellerIndexLayout from './pages/seller/sellerIndexLayout';
 import FeedDetail from './pages/sns/feedDetail/FeedDetail';
-import SnsIndexLayout from './pages/sns/snsIndexLayout';
 
 function App() {
   return (

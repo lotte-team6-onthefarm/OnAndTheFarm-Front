@@ -16,6 +16,7 @@ const flex = {
 const colors = {
   green: '#40AA54',
   lightGreen: '#D5F0DB',
+  logoGreen: '#16B51E',
   gray: '#F2F2F2',
   thickGray: '#707070',
   blue: '#3288E5',

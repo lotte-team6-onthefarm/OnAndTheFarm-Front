@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const ProductDetailDiv = styled.div`
   width: 1130px;
-  margin: 100px auto;
+  margin: 50px auto;
   .fixed {
     width: 100px;
     color: #fff;
@@ -17,10 +17,13 @@ const ProductTopDiv = styled.div`
 `;
 
 const ProductTopImgDiv = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   margin: auto;
   display: flex;
+  overflow: hidden;
+  border-radius: 8px;
+  /* border: solid red; */
 `;
 
 const ProductTopImg = styled.img`
@@ -137,6 +140,7 @@ const ProductTabDiv = styled.div`
 
 const ProductDetailContentDiv = styled.div`
   margin: auto;
+  margin-top: 50px;
   width: 800px;
 `;
 

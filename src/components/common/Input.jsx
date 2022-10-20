@@ -12,6 +12,7 @@ export default function Input(props) {
         placeholder={props.placeholder}
         type={props.type}
         disabled={props.disabled}
+        onKeyPress={props.onKeyPress}
       ></StyledInput>
     </StyledInputDiv>
   );

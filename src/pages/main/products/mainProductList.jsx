@@ -97,7 +97,16 @@ export default function MainProductList() {
           <h2>카테고리</h2>
         </CartPriceHeader>
         {CATEGORY.map((item, index) => {
-          return <CartPriceRow key={index} idx={index} selectedCategory={selectedCategory} onClick={()=>setSelectedCategory(index)}>{item.name}</CartPriceRow>;
+          return (
+            <CartPriceRow
+              key={index}
+              idx={index}
+              selectedCategory={selectedCategory}
+              onClick={() => setSelectedCategory(index)}
+            >
+              {item.name}
+            </CartPriceRow>
+          );
         })}
       </ProductCategoryDiv>
       <CartListDiv>
@@ -132,7 +141,7 @@ export default function MainProductList() {
             );
           })}
         </ProductListDiv>
-      <Pagination value={currentPage} setPage={setCurrentPage} ></Pagination>
+        <Pagination value={currentPage} setPage={setCurrentPage}></Pagination>
       </CartListDiv>
     </CartContentDiv>
   );
