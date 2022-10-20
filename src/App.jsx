@@ -5,6 +5,8 @@ import SellerLoginPage from './pages/seller/account/login/sellerLoginPage';
 import SellerSignupPage from './pages/seller/account/signup/sellerSignupPage';
 import SellerIndexLayout from './pages/seller/sellerIndexLayout';
 import FeedDetail from './pages/sns/feedDetail/FeedDetail';
+import SnsIndexLayout from './pages/sns/snsIndexLayout';
+import SnsMainLayout from './pages/sns/main/Main';
 
 function App() {
   return (
@@ -16,7 +18,8 @@ function App() {
         <Route path="seller/signup" element={<SellerSignupPage />} />
         <Route path="seller/searchId" element={<SellerSearchId />} />
         <Route path="seller/searchPw" element={<SellerSearchPw />} />
-        {/* <Route path="/sns/*" element={<SnsIndexLayout />} /> */}
+        <Route path="/sns/profile" element={<SnsIndexLayout />} />
+        <Route path="/sns/*" element={<SnsMainLayout />} />
         <Route path="/sns/detail" element={<FeedDetail />} />
       </Routes>
     </div>
