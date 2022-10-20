@@ -83,8 +83,8 @@ const FollowButton = styled.button`
   white-space: nowrap;
   padding: 5px 7px 6px;
   line-height: 19px;
-  background-color: #35c5f0;
-  border: solid 1px #35c5f0;
+  background-color: #40aa54;
+  border: solid 1px #40aa54;
   border-radius: 3px;
   color: #fff;
   font-weight: 700;

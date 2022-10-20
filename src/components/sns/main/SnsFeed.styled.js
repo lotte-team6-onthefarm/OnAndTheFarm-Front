@@ -18,13 +18,13 @@ const SnsFeedBlock = styled.div`
       line-height: 1;
       span {
         margin-left: 3px;
-        color: #35c5f0;
+        color: #40aa54;
       }
     }
     div {
       a {
         margin: 0px 10px;
-        color: rgb(53, 197, 240);
+        color: #40aa54;
         font-size: 13px;
         font-weight: bold;
         transition: opacity 0.1s ease 0s;
