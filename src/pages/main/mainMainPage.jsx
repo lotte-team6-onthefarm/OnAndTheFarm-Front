@@ -1,5 +1,5 @@
 import React from 'react';
-import { postWishList } from '../../apis/sns/profile';
+import { putFeedUnScrap } from '../../apis/sns/content';
 import MainBanner from '../../components/main/main/MainBanner';
 import MainCarousel from '../../components/main/main/MainCarousel';
 import MainSns from '../../components/main/main/MainSns';
@@ -133,12 +133,63 @@ export default function MainMainPage() {
       }
   */
 
+  //content.js
+  /*
+    * postUploadFeed
+      못함
+    * putModifyFeed
+      못함
+
+    * putDeleteFeed
+      {
+        feedId : 1
+      }
+
+    * getFeedProduct
+    파라미터 없음!
+
+    * getFeedDetail
+    feedId=1
+
+    * putUpFeedShareCount
+    {
+      feedId : 4
+    }
+
+    * getFeedByTag //프로미스 문제
+    {
+      feedTageName : "딸기",
+      pageNumber : 0
+    }
+
+    * putFeedLike
+    {
+      feedId : 4
+    }
+
+    * putFeedUnLike
+    {
+      feedId : 4
+    }
+
+    * putFeedScrap
+    {
+      feedId : 4
+    }
+
+    * putFeedUnScrap
+    {
+      feedId : 4
+    }
+  */
+
 
   const testbtn = () =>{
+   
     const data = {
-      
+      feedId : 3
     }
-    const response =  postWishList(data);
+    const response = putFeedUnScrap(data);
     console.log(response);
   }
     return (
