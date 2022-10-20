@@ -14,6 +14,7 @@ const Navbar = styled.nav`
 const LogoImg = styled.img`
   display: flex;
   width: 200px;
+  cursor: pointer;
 `;
 
 const NavbarMenu = styled.ul`

@@ -25,6 +25,7 @@ import { isLoginState } from '../../recoil';
 
 export default function MainNavbar(props) {
   const [isLogin, setisLogin] = useRecoilState(isLoginState);
+  const navigate = useNavigate();
   // useeffect
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -43,7 +44,7 @@ export default function MainNavbar(props) {
     },
     {
       title: '오늘한상',
-      url: '/sns',
+      url: '/sns/main',
     },
   ];
   const MenuIcons = [
@@ -65,9 +66,17 @@ export default function MainNavbar(props) {
     localStorage.removeItem('token');
     document.location.href = '/';
   };
+
+  const mainUrl = () => {
+    navigate('/');
+  };
   return (
     <Navbar>
-      <LogoImg src={logoGreen} alt="onandthefarmlogo"></LogoImg>
+      <LogoImg
+        src={logoGreen}
+        alt="onandthefarmlogo"
+        onClick={mainUrl}
+      ></LogoImg>
       <NavbarMenu>
         {MenuItems.map((item, index) => {
           return (
