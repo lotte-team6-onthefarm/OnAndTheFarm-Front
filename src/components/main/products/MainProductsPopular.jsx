@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { getProducts } from '../../../apis/user/product';
 import { Button } from '../../common/Button';
 import Product from '../../common/Product';
@@ -11,6 +12,7 @@ import {
 
 export default function MainProductsPopular(props) {
   const [productList, setProductList] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     let data = {
       url: 'orderby/soldcount/',
@@ -30,6 +32,10 @@ export default function MainProductsPopular(props) {
       },
     },
   );
+
+  const productsUrl = () => {
+    navigate('products');
+  };
   return (
     <MainProductsDiv>
       <MainProductsSubjectDiv>
@@ -39,6 +45,7 @@ export default function MainProductsPopular(props) {
           color="#40AA54"
           width="100px"
           margin="0 10px 0"
+          onClick={productsUrl}
         ></Button>
       </MainProductsSubjectDiv>
       <PopularProductsDiv>

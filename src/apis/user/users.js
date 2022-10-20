@@ -6,6 +6,4 @@ const getLikeList = async () => {
   return response.data.data;
 };
 
-
-
 export { getLikeList };

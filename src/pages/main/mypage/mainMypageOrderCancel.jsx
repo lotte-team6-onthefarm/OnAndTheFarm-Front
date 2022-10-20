@@ -23,11 +23,11 @@ export default function MainMypageOrderCancel() {
       console.log('error');
     },
   });
-   // hook
-   const navigate = useNavigate();
-   const moveDetail = id => {
-     navigate(`/mypage/orders/detail`, { state: id });
-   };
+  // hook
+  const navigate = useNavigate();
+  const moveDetail = id => {
+    navigate(`/mypage/orders/detail`, { state: id });
+  };
 
   return (
     <div>
@@ -37,7 +37,7 @@ export default function MainMypageOrderCancel() {
           <>
             {claimList.responses.length === 0 ? (
               <EmptyTable height="60vh">
-                <h3>현재 등록가능한 리뷰가 없습니다.</h3>
+                <h3>주문 취소내역이 없습니다.</h3>
               </EmptyTable>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column' }}>

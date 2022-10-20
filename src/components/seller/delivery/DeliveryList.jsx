@@ -54,9 +54,6 @@ export default function DeliveryList() {
   const [deliveryCompany, setDeliveryCompany] = useState('롯데택배');
   const [waybillNumber, setWaybillNumber] = useState('');
   const [modal, setModal] = useState(false);
-  const [beforeData, setBeforeData] = useState([]);
-  const [shippingData, setShippingData] = useState([]);
-  const [doneData, setDoneData] = useState([]);
 
   // useeffect
   useEffect(() => {
@@ -119,6 +116,7 @@ export default function DeliveryList() {
         getDateDotFormat(startDate),
         getDateDotFormat(endDate),
         pageNo,
+        deliveryState,
       ),
     {
       refetchOnMount: true,
@@ -149,9 +147,9 @@ export default function DeliveryList() {
     });
 
   useDidMountEffect(() => {
-    //요일이 바뀔때 마다 refetch
+    //요일이랑 선택값이 바뀔때 마다 refetch
     orderListRefetch();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, deliveryState]);
 
   return (
     <WhiteWrapper width="100%" minHeight="80vh">
@@ -159,25 +157,25 @@ export default function DeliveryList() {
       <DeliveryWrapper>
         <DeliveryButtonWrapper state={deliveryState}>
           <div
+            className="deliveryStateButton"
             onClick={() => {
               deliveryStateHandler('activated');
-              // navigater('before');
             }}
           >
             주문 내역
           </div>
           <div
+            className="deliveryStateButton"
             onClick={() => {
               deliveryStateHandler('deliveryProgress');
-              // navigater('shipping');
             }}
           >
             배송 중
           </div>
           <div
+            className="deliveryStateButton"
             onClick={() => {
               deliveryStateHandler('deliveryCompleted');
-              // navigater('done');
             }}
           >
             배송 완료

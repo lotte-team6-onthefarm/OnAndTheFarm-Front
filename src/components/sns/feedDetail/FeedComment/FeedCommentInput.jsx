@@ -30,7 +30,8 @@ export default function FeedComment(props) {
     <FeedCommentInputWrapper>
       <section>
         <CommentTopP>
-          댓글<span>{props.comment.length}</span>
+          댓글<span>135</span>
+          {/* 댓글<span>{props.comment.length}</span> */}
         </CommentTopP>
         <CommentBottom>
           <img

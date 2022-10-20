@@ -15,7 +15,7 @@ const CartItemContent = styled.div`
   padding: 5px;
   display: flex;
   align-items: center;
-  div{
+  div {
     padding: 0 20px;
   }
 `;
@@ -32,8 +32,7 @@ const CartItemPrice = styled.div`
   padding: 5px;
 `;
 
-
-export { 
+export {
   CartItem,
   CartItemImg,
   CartItemContent,

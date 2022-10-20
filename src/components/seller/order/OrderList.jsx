@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 import { getSellerOrderClaimList } from '../../../apis/seller/order';
 import {
   addDays,
@@ -13,6 +14,7 @@ import { WhiteWrapper } from '../common/Box.style';
 import { GreenPurpleStatusButton } from '../common/ColorStatusButton';
 import { UserImgWrapper } from '../common/sellerCommon.style';
 import SubTitle from '../common/SubTitle';
+import { DeliveryButtonWrapper } from '../delivery/Delivery.style';
 import { EmptyTable } from '../main/popularProducts/MainPopularProducts.style';
 
 import {
@@ -27,14 +29,28 @@ import OrderState from './orderState/OrderState';
 // refundCompleted : 반품확정
 
 export default function OrderList() {
+  // 초기 orderState 설정(셀러메인->취소/반품내역)
+  const param = useParams();
+  const id = param.id;
+  useEffect(() => {
+    if (id !== undefined) {
+      setOrderState(id);
+    }
+    console.log(id, 'id');
+  }, [id]);
+
   // usestate
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [orderState, setOrderState] = useState('canceled');
   const [modal, setModal] = useState(false);
   const [selectData, setSelectData] = useState({});
   const [pageNo, setPageNo] = useState(0);
 
   // function
+  const orderStateHandler = num => {
+    setOrderState(num);
+  };
 
   const startDateHandler = e => {
     if (new Date(endDate) < new Date(e.target.value)) {
@@ -69,6 +85,7 @@ export default function OrderList() {
         getDateDotFormat(startDate),
         getDateDotFormat(endDate),
         pageNo,
+        orderState,
       ),
     {
       refetchOnMount: true,
@@ -89,11 +106,29 @@ export default function OrderList() {
   useDidMountEffect(() => {
     //요일이 바뀔때 마다 refetch
     orderClaimListRefetch();
-  }, [startDate, endDate]);
+  }, [startDate, endDate, orderState]);
 
   return (
     <WhiteWrapper width="100%" minHeight="80vh">
       <SubTitle color="#FFBC99" title="취소/반품 관리 내역" />
+      <DeliveryButtonWrapper state={orderState}>
+        <div
+          className="orderStateButton"
+          onClick={() => {
+            orderStateHandler('canceled');
+          }}
+        >
+          주문 내역
+        </div>
+        <div
+          className="orderStateButton"
+          onClick={() => {
+            orderStateHandler('refundRequest');
+          }}
+        >
+          반품 내역
+        </div>
+      </DeliveryButtonWrapper>
       <div>
         <OrderButtonWrapper />
         <OrderDateWrapper>

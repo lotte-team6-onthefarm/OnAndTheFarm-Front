@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const FeedDetailWrapper = styled.div`
   position: relative;
+  margin: 60px 0;
 `;
 const FeedDetailBlock = styled.div`
   width: 550px;
@@ -83,8 +84,26 @@ const FeedImageWrapper = styled.div`
   border-radius: 4px;
   display: flex;
   justify-content: center;
+  position: relative;
   img {
     height: 100%;
+  }
+  div {
+    color: #59de47;
+    cursor: pointer;
+    position: absolute;
+    :nth-child(2) {
+      top: 30px;
+      left: 255px;
+    }
+    :nth-child(3) {
+      top: 350px;
+      left: 450px;
+    }
+    :nth-child(4) {
+      top: 400px;
+      left: 400px;
+    }
   }
 `;
 export {

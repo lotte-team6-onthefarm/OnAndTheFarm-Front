@@ -36,7 +36,7 @@ export default function MainSalesStatistics() {
           <div className="SalesStatisticsTitle">판매 중지</div>
           <div className="SalesStatisticsCount">{conditionData.notSelling}</div>
         </SalesStatisticsBlock>
-        <SalesStatisticsBlock onClick={() => navigate('order')}>
+        <SalesStatisticsBlock onClick={() => navigate('order/refundRequest')}>
           <div className="SalesStatisticsTitle">환불 요청</div>
           <div className="SalesStatisticsCount">
             {conditionData.requestRefund}

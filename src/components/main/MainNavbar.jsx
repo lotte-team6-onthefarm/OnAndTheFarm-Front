@@ -1,14 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import onandthefarmlogo from '../../assets/Logo.svg';
+import React, { useEffect } from 'react';
 import logoGreen from '../../assets/logo_green.png';
-import {
-  Link,
-  useHistory,
-  Router,
-  Redirect,
-  useNavigate,
-  unstable_HistoryRouter,
-} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   LogoImg,
   Navbar,
@@ -25,6 +17,7 @@ import { isLoginState } from '../../recoil';
 
 export default function MainNavbar(props) {
   const [isLogin, setisLogin] = useRecoilState(isLoginState);
+  const navigate = useNavigate();
   // useeffect
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -43,7 +36,11 @@ export default function MainNavbar(props) {
     },
     {
       title: '오늘한상',
-      url: '/sns',
+      url: '/sns/main',
+    },
+    {
+      title: '나의 한상',
+      url: '/sns/mysns',
     },
   ];
   const MenuIcons = [
@@ -65,9 +62,17 @@ export default function MainNavbar(props) {
     localStorage.removeItem('token');
     document.location.href = '/';
   };
+
+  const mainUrl = () => {
+    navigate('/');
+  };
   return (
     <Navbar>
-      <LogoImg src={logoGreen} alt="onandthefarmlogo"></LogoImg>
+      <LogoImg
+        src={logoGreen}
+        alt="onandthefarmlogo"
+        onClick={mainUrl}
+      ></LogoImg>
       <NavbarMenu>
         {MenuItems.map((item, index) => {
           return (
@@ -94,7 +99,7 @@ export default function MainNavbar(props) {
         </Link>
         {isLogin ? (
           <div style={{ display: 'flex' }}>
-            <Link to="/mypage">
+            <Link to="/mypage/profile">
               <li>
                 <NavbarMenuPtag>마이페이지</NavbarMenuPtag>
               </li>

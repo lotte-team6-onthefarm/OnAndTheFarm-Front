@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import {
   PageCol,
   PageRow,
@@ -13,7 +14,10 @@ export default function SellerOrderPage() {
       <SellerTitle>취소/반품 관리</SellerTitle>
       <PageRow>
         <PageCol width="100%">
-          <OrderList />
+          <Routes>
+            <Route path="/" element={<OrderList />} />
+            <Route path="/:id" element={<OrderList />} />
+          </Routes>
         </PageCol>
       </PageRow>
     </RightWrapper>

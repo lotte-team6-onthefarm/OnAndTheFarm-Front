@@ -20,19 +20,18 @@ export default function MainLikes() {
   const [allChecked, setAllChecked] = useState(false);
   const [selectedItems, setSelectedItems] = useState({});
 
-  const {
-    isLoading: isGetLikeList,
-    // refetch: getLikeListRefetch,
-    data: likeList,
-  } = useQuery('getLikeList', () => getLikeList(), {
-    refetchOnWindowFocus: true,
-    onSuccess: res => {
-      // setLikeList(res.data);
+  const { isLoading: isGetLikeList, data: likeList } = useQuery(
+    'getLikeList',
+    () => getLikeList(),
+    {
+      refetchOnWindowFocus: true,
+      refetchOnMount: true,
+      onSuccess: res => {},
+      onError: () => {
+        console.log('에러');
+      },
     },
-    onError: () => {
-      console.log('에러');
-    },
-  });
+  );
 
   const changeCount = (id, quantity) => {
     selectedItems[id] = quantity;
@@ -115,10 +114,7 @@ export default function MainLikes() {
   const { mutate: deleteWish, isLoading: isDeleteWishLoading } = useMutation(
     deleteWishList,
     {
-      onSuccess: res => {
-        alert('삭제되었습니다');
-        window.location.reload();
-      },
+      onSuccess: res => {},
       onError: () => {
         console.log('에러');
       },

@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
-
 const NavbarDiv = styled.div`
   display: flex;
-  /* flex-direction: column; */
+  justify-content: space-between;
   height: auto;
+  .selectedMypageMenu {
+    color: black;
+  }
 `;
 
 const SubListWrapper = styled.div`
@@ -18,27 +20,26 @@ const ListWrapper = styled.div`
   margin-top: 10px;
   padding-left: 20px;
   border-radius: 5px;
+  justify-content: center;
   align-items: center;
   width: 270px;
   height: 45px;
   font-weight: 550;
-  color: ${props => (props.check === '1' ? 'black' : 'gray')};
-  background-color: ${props => props.color};
-  box-shadow: ${props =>
-    props.check === '1' ? '0 5px 5px -5px gray' : 'none'};
+  color: gray;
   :hover {
     color: black;
   }
   .icons {
-    font-size: 22px;
+    font-size: 30px;
     display: flex;
     align-items: center;
     margin-right: 20px;
   }
   .right {
-    width: 100%;
+    font-size: 20px;
+    font-weight: 700;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     .icons {
       font-size: 25px;
@@ -48,6 +49,5 @@ const ListWrapper = styled.div`
     }
   }
 `;
-
 
 export { NavbarDiv, ListWrapper, SubListWrapper };
