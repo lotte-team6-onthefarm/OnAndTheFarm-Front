@@ -13,12 +13,11 @@ import FeedDetail from './feedDetail/FeedDetail';
 export default function SnsIndexLayout() {
   return (
     <SnsMainWrapper>
-      {/* <UserWrapper>
+      <UserWrapper>
         <SnsUser></SnsUser>
       </UserWrapper>
-      <WhiteWrapper></WhiteWrapper> */}
+      <WhiteWrapper></WhiteWrapper>
       <Routes>
-        <Route path="/" element={<SnsMainLayout />} />
         <Route path="/mysns" element={<SnsMain />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/like" element={<Like />} />

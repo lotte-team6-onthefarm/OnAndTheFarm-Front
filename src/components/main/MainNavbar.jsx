@@ -46,6 +46,10 @@ export default function MainNavbar(props) {
       title: '오늘한상',
       url: '/sns/main',
     },
+    {
+      title: '나의 한상',
+      url: '/sns/mysns',
+    },
   ];
   const MenuIcons = [
     {
