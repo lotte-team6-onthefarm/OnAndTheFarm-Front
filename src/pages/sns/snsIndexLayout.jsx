@@ -8,8 +8,6 @@ import Follower from '../../components/sns/follow/Followerr';
 import Feed from './feed/Feed';
 import Like from './like/Like';
 import Scrapbook from './scrapbook/Scrapbook';
-import SnsMainLayout from './main/Main';
-import FeedDetail from './feedDetail/FeedDetail';
 export default function SnsIndexLayout() {
   return (
     <SnsMainWrapper>
@@ -24,7 +22,6 @@ export default function SnsIndexLayout() {
         <Route path="/scrapbook" element={<Scrapbook />} />
         <Route path="/follower" element={<Follower />} />
         <Route path="/followee" element={<Followee />} />
-        <Route path="/detail" element={<FeedDetail />} />
       </Routes>
     </SnsMainWrapper>
   );

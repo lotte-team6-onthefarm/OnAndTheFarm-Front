@@ -1,14 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import onandthefarmlogo from '../../assets/Logo.svg';
+import React, { useEffect } from 'react';
 import logoGreen from '../../assets/logo_green.png';
-import {
-  Link,
-  useHistory,
-  Router,
-  Redirect,
-  useNavigate,
-  unstable_HistoryRouter,
-} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   LogoImg,
   Navbar,
@@ -107,7 +99,7 @@ export default function MainNavbar(props) {
         </Link>
         {isLogin ? (
           <div style={{ display: 'flex' }}>
-            <Link to="/mypage">
+            <Link to="/mypage/profile">
               <li>
                 <NavbarMenuPtag>마이페이지</NavbarMenuPtag>
               </li>

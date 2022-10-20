@@ -18,6 +18,7 @@ import MainOrder from './order/mainOrder';
 import SuccessPage from './successPage';
 import SnsIndexLayout from '../sns/snsIndexLayout';
 import SnsMainLayout from '../sns/main/Main';
+import FeedDetail from '../sns/feedDetail/FeedDetail';
 
 export default function MainIndexLayout() {
   return (
@@ -36,6 +37,7 @@ export default function MainIndexLayout() {
           <Route exact path="/mypage/*" element={<MainMypage />} />
           <Route exact path="/sns/*" element={<SnsIndexLayout />} />
           <Route path="/sns/main" element={<SnsMainLayout />} />
+          <Route path="/sns/detail" element={<FeedDetail />} />
           <Route
             exact
             path="/login/success/kakao"

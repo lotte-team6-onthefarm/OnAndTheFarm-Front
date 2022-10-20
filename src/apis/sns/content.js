@@ -26,7 +26,9 @@ const getFeedProduct = async data => {
 
 // 피드 상세 페이지 조회
 const getFeedDetail = async data => {
+  console.log(data, 'getFeedDetail');
   const response = await JWTapiUser.get(`sns/detail?feedId=${data}`);
+  console.log(response, 'getFeedDetailresponse');
   return response.data.data;
 };
 
@@ -38,8 +40,10 @@ const putUpFeedShareCount = async data => {
 
 // 태그 별 피드 조회
 const getFeedByTag = async data => {
-  const response = await JWTapiUser.get(`sns/list/tag?feedTagName=${data.feedTageName}&pageNumber=${data.pageNumber}`);
-  console.log(response, "sdf");
+  const response = await JWTapiUser.get(
+    `sns/list/tag?feedTagName=${data.feedTageName}&pageNumber=${data.pageNumber}`,
+  );
+  console.log(response, 'sdf');
   return response.data;
 };
 
@@ -71,8 +75,6 @@ const putFeedUnScrap = async data => {
   return response.data;
 };
 
-
-
 export {
   postUploadFeed,
   putModifyFeed,
@@ -84,5 +86,5 @@ export {
   putFeedLike,
   putFeedUnLike,
   putFeedScrap,
-  putFeedUnScrap
+  putFeedUnScrap,
 };

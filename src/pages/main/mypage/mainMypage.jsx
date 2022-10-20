@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { HorizontalLine } from '../../../components/common/HorizontalLine.style';
 import MypageNavbar from '../../../components/main/mypage/MypageNavbar';
 import MainLikes from '../likes/mainLikes';
 import { MypageDiv, MypageContentDiv } from './mainMypage.style';
@@ -17,6 +18,7 @@ export default function MainMypage() {
   return (
     <MypageDiv>
       <MypageNavbar></MypageNavbar>
+      <HorizontalLine color="gray" />
       <MypageContentDiv>
         <Routes>
           <Route path="/" element={<MainMypageHome />} />

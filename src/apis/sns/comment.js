@@ -20,6 +20,7 @@ const deleteComment = async data => {
 
 // 댓글 조회 기능
 const getComment = async data => {
+  console.log(data, 'getComment');
   const response = await JWTapiUser.get(`sns/comment/?feedId=${data}`);
   return response.data.data;
 };

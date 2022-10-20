@@ -24,6 +24,9 @@ const NavbarMenu = styled.ul`
   width: 400px;
   margin: 0 20px;
   justify-content: space-between;
+  .selectedMainNavbarMenu {
+    color: ${props => props.theme.colors.logoGreen};
+  }
 `;
 
 const NavbarMenuPtag = styled.p`
@@ -34,9 +37,9 @@ const NavbarMenuPtag = styled.p`
   font-weight: 600;
   cursor: pointer;
   :hover {
-    background-color: #d5f0db;
+    color: ${props => props.theme.colors.logoGreen};
     border-radius: 4px;
-    transition: all 0.2s ease-out;
+    transition: all 0.1s ease-out;
   }
 `;
 

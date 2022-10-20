@@ -1,7 +1,7 @@
 import { JWTapiUser } from '.';
 
 // 질문 추가
-const postAddQna = async (data) => {
+const postAddQna = async data => {
   const response = await JWTapiUser.post('QnA', data);
   return response.data;
 };
@@ -13,28 +13,22 @@ const getQnaList = async data => {
 };
 
 // 나의질문 불러오기
-const getMyQnaList = async (data) => {
+const getMyQnaList = async data => {
   const response = await JWTapiUser.get(`mypage/QnA/${data}`);
   return response.data.data.responses;
 };
 
 // 질문 수정
-const putQnaEdit = async (data) => {
+const putQnaEdit = async data => {
   const response = await JWTapiUser.put('QnA', data);
   return response.data;
 };
 // 질문 삭제
-const putQnaDelete = async (data) => {
-  const response = await JWTapiUser.put(`QnA/delete?productQnaId=${data.productQnaId}`);
+const putQnaDelete = async data => {
+  const response = await JWTapiUser.put(
+    `QnA/delete?productQnaId=${data.productQnaId}`,
+  );
   return response.data;
 };
 
-
-
-export {
-  postAddQna,
-  getQnaList,
-  getMyQnaList,
-  putQnaEdit,
-  putQnaDelete,
-};
+export { postAddQna, getQnaList, getMyQnaList, putQnaEdit, putQnaDelete };

@@ -8,7 +8,7 @@ const getProducts = async data => {
 
 // 상품 단건조회
 const getProduct = async data => {
-  const response = await JWTapiUser.get(`product/${data}`);
+  const response = await ApiUser.get(`product/${data}`);
   return response.data.data;
 };
 

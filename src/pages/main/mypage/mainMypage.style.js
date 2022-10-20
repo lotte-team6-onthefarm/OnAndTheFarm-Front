@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const MypageDiv = styled.div`
-width: 1130px;
+  width: 1130px;
   margin: 100px auto;
 `;
 
@@ -14,15 +14,9 @@ const MypageNavbarDiv = styled.div`
 `;
 
 const MypageContentDiv = styled.div`
-/* width: 100%; */
   width: 1130px;
   padding: 30px;
   border-radius: 5px;
-  border: solid 1px green;
 `;
 
-export {
-  MypageDiv,
-  MypageNavbarDiv,
-  MypageContentDiv,
-};
+export { MypageDiv, MypageNavbarDiv, MypageContentDiv };
