@@ -28,7 +28,6 @@ export default function MainIndexLayout() {
           <Route exact path="/login" element={<UserLoginPage />} />
           <Route exact path="/signup" element={<UserSignupPage />} />
           <Route exact path="/products/*" element={<MainProductPage />} />
-          {/* <Route exact path="/posts" element={<MainPost />} /> */}
           <Route exact path="/groupbuy" element={<MainGroupBuy />} />
           <Route exact path="/like" element={<MainLikes />} />
           <Route exact path="/cart" element={<MainCart />} />

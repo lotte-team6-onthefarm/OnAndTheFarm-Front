@@ -35,15 +35,17 @@ export default function MainProductsPopular(props) {
       <MainProductsSubjectDiv>
         <p>인기상품</p>
         <Button
-          text="더보기"
+          text="전체보기"
           color="#40AA54"
-          width="130px"
+          width="100px"
           margin="0 10px 0"
         ></Button>
       </MainProductsSubjectDiv>
       <PopularProductsDiv>
         {productList.map((product, index) => {
-          return <Product key={index} product={product}></Product>;
+          return (
+            <Product key={index} product={product} padding="0 5px"></Product>
+          );
         })}
       </PopularProductsDiv>
     </MainProductsDiv>

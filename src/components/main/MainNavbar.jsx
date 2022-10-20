@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import onandthefarmlogo from '../../assets/Logo.svg';
+import logoGreen from '../../assets/logo_green.png';
 import {
   Link,
   useHistory,
@@ -33,20 +34,16 @@ export default function MainNavbar(props) {
   }, []);
   const MenuItems = [
     {
-      title: '메인페이지',
+      title: '메인 페이지',
       url: '/',
     },
     {
-      title: '상품전제보기',
+      title: '상품 전체보기',
       url: '/products',
     },
     {
-      title: '농장일기',
+      title: '오늘한상',
       url: '/sns',
-    },
-    {
-      title: '공동구매',
-      url: '/groupbuy',
     },
   ];
   const MenuIcons = [
@@ -64,14 +61,13 @@ export default function MainNavbar(props) {
     },
   ];
   // hook
-  const navigate = useNavigate();
   const logout = () => {
     localStorage.removeItem('token');
     document.location.href = '/';
   };
   return (
     <Navbar>
-      <LogoImg src={onandthefarmlogo} alt="onandthefarmlogo"></LogoImg>
+      <LogoImg src={logoGreen} alt="onandthefarmlogo"></LogoImg>
       <NavbarMenu>
         {MenuItems.map((item, index) => {
           return (

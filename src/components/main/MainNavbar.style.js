@@ -5,7 +5,7 @@ const Navbar = styled.nav`
   margin: 20px auto;
   height: 80px;
   display: flex;
-  border-bottom: solid;
+  border-bottom: solid 2px ${props => props.theme.colors.gray};
   justify-content: space-between;
   align-items: center;
   font-size: 1.2rem;
@@ -29,7 +29,8 @@ const NavbarMenuPtag = styled.p`
   color: #202020;
   text-decoration: none;
   padding: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
   :hover {
     background-color: #d5f0db;
@@ -44,9 +45,8 @@ const NavbarIcons = styled.ul`
   text-align: center;
   width: 200px;
   justify-content: flex-end;
-  margin-right: 2rem;
-  
 `;
+
 const NavbarIcon = styled.li`
   svg {
     margin: 0 20px;
@@ -59,10 +59,10 @@ const NavbarIcon = styled.li`
   path {
     color: white;
   }
-`; 
+`;
 
 const NavbarUser = styled.div`
-position: relative;
+  position: relative;
   width: 200px;
   list-style: none;
   text-align: center;
@@ -71,13 +71,22 @@ position: relative;
 `;
 
 const NavbarSeller = styled.p`
-width: 120px;
-color: #202020;
-position: absolute;
-text-decoration: none;
-font-size: small;
-top: -25px;
-right: -25px;
+  width: 120px;
+  color: #202020;
+  position: absolute;
+  text-decoration: none;
+  font-size: small;
+  top: -25px;
+  right: 0px;
 `;
 
-export { Navbar, LogoImg, NavbarMenu, NavbarMenuPtag, NavbarIcons, NavbarIcon, NavbarUser, NavbarSeller };
+export {
+  Navbar,
+  LogoImg,
+  NavbarMenu,
+  NavbarMenuPtag,
+  NavbarIcons,
+  NavbarIcon,
+  NavbarUser,
+  NavbarSeller,
+};

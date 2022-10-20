@@ -113,7 +113,7 @@ export default function MainProductDetailPage(props) {
     const x = inputRef.current[idx].offsetTop;
     window.scrollTo({ top: x, left: 0, behavior: 'smooth' });
   };
-
+  console.log(productDetail);
   return (
     <div>
       {!isGetProductDetailLoading && (
@@ -134,7 +134,9 @@ export default function MainProductDetailPage(props) {
                 <div className="production-item-stats--icon">
                   <RatingInputComp rate={productDetail.reviewRate} />
                 </div>
-                <span style={{ fontSize: 'large' }}>&nbsp;&nbsp;{productDetail.reviewCount} 개의리뷰</span>
+                <span style={{ fontSize: 'large' }}>
+                  &nbsp;&nbsp;{productDetail.reviewCount} 개의리뷰
+                </span>
               </div>
               <span className="production-item-price">
                 <span>12%</span>
@@ -186,7 +188,12 @@ export default function MainProductDetailPage(props) {
             </ProductTopContentDiv>
           </ProductTopDiv>
           <div
-            style={{ top: '0', position: 'sticky', backgroundColor: '#fff', zIndex:"5" }}
+            style={{
+              top: '0',
+              position: 'sticky',
+              backgroundColor: '#fff',
+              zIndex: '5',
+            }}
           >
             <hr />
             <ProductMenuTab scroll={scroll} />
