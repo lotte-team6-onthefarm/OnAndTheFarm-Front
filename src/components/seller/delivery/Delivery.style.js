@@ -14,18 +14,34 @@ const DeliveryButtonWrapper = styled.div`
   justify-content: center;
   margin: 20px;
   color: #cccccc;
-  div {
+  .deliveryStateButton {
     font-size: 18px;
     cursor: pointer;
     margin: auto;
     :nth-child(1) {
       color: ${props => props.state === 'activated' && 'black'};
+      font-weight: ${props => props.state === 'activated' && 600};
     }
     :nth-child(2) {
       color: ${props => props.state === 'deliveryProgress' && 'black'};
+      font-weight: ${props => props.state === 'deliveryProgress' && 600};
     }
     :nth-child(3) {
       color: ${props => props.state === 'deliveryCompleted' && 'black'};
+      font-weight: ${props => props.state === 'deliveryCompleted' && 600};
+    }
+  }
+  .orderStateButton {
+    font-size: 18px;
+    cursor: pointer;
+    margin: auto;
+    :nth-child(1) {
+      color: ${props => props.state === 'canceled' && 'black'};
+      font-weight: ${props => props.state === 'canceled' && 600};
+    }
+    :nth-child(2) {
+      color: ${props => props.state === 'refundRequest' && 'black'};
+      font-weight: ${props => props.state === 'refundRequest' && 600};
     }
   }
 `;

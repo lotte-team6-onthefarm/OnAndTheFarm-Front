@@ -1,9 +1,14 @@
 import { JWTapiSeller } from '..';
 
 // 셀러 주문내역 조회
-const getSellerOrderList = async (startDate, endDate, pageNo) => {
+const getSellerOrderList = async (
+  startDate,
+  endDate,
+  pageNo,
+  deliveryState,
+) => {
   const response = await JWTapiSeller.get(
-    `orders/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}`,
+    `orders/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}&ordersStatus=${deliveryState}`,
   );
   return response.data.data.responses;
 };
@@ -17,9 +22,15 @@ const getSellerOrderListDetail = async orderSerial => {
 };
 
 // 셀러 반품/취소 내역 조회
-const getSellerOrderClaimList = async (startDate, endDate, pageNo) => {
+const getSellerOrderClaimList = async (
+  startDate,
+  endDate,
+  pageNo,
+  orderState,
+) => {
+  console.log(orderState);
   const response = await JWTapiSeller.get(
-    `orders/claim/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}`,
+    `orders/claim/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}&ordersStatus=${orderState}`,
   );
   return response.data.data.responses;
 };
