@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getComment } from '../../../apis/sns/comment';
-import { getFeedDetail, putFeedShare } from '../../../apis/sns/content';
+import { getFeedDetail, putUpFeedShareCount } from '../../../apis/sns/content';
 import { HorizontalLine } from '../../../components/common/HorizontalLine.style';
 import FeedWriter from '../../../components/sns/feed/FeedWriter';
 import FeedComment from '../../../components/sns/feedDetail/FeedComment/FeedCommentInput';
@@ -80,7 +80,7 @@ export default function FeedDetail(props) {
       console.log('에러');
     },
   });
-  const { mutate: feedShare } = useMutation(putFeedShare, {
+  const { mutate: feedShare } = useMutation(putUpFeedShareCount, {
     onSuccess: res => {
       queryClient.invalidateQueries('FeedDetail');
     },
@@ -138,7 +138,7 @@ export default function FeedDetail(props) {
                 <SideButton
                   icon="share"
                   count={feedDetail.feedShareCount}
-                  method={() => feedShare(feedDetail.feedId)}
+                  method={() => putUpFeedShareCount(feedDetail.feedId)}
                 />
               </FeedDetailSideBlock>
             </FeedDetailStickyContainer>
