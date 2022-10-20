@@ -5,6 +5,7 @@ const StyledFooterDiv = styled.footer`
   height: 200px;
   display: flex;
   background-color: #f9f9f9;
+  padding-bottom: 20px;
 `;
 
 const StyledcontentDiv = styled.div`
@@ -12,17 +13,19 @@ const StyledcontentDiv = styled.div`
   height: 150px;
   display: flex;
   margin: auto;
+  /* border: solid; */
 `;
 
 const StyledLogoDiv = styled.div`
   width: 28%;
   height: 150px;
-  display: flex;
-  position: relative;
+  /* display: flex; */
+  /* border: solid red; */
 `;
 
 const StyledLinkDiv = styled.div`
-  margin-top: 20px;
+  /* border: solid gray; */
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   width: 30%;
@@ -35,11 +38,11 @@ const StyledLinkDiv = styled.div`
 `;
 
 const LogoImage = styled.img`
-  position: absolute;
-  top: 10px;
-  left: 300px;
   width: 190px;
+  margin: auto;
   cursor: pointer;
+  margin-left: 530px;
+  /* border: solid blue; */
 `;
 
 const FooterLink = styled.div`

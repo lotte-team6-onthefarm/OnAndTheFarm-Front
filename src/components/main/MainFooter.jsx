@@ -7,7 +7,6 @@ import {
   StyledLinkDiv,
   StyledLogoDiv,
 } from './MainFooter.style';
-import onandthefarmlogo_white from '../../assets/logo_white.png';
 import logoGreen from '../../assets/logo_green.png';
 
 export default function MainFooter(props) {
