@@ -37,7 +37,7 @@ export default function MainMypageOrderList() {
           <>
             {orders.responses.length === 0 ? (
               <EmptyTable height="60vh">
-                <h3>현재 등록가능한 리뷰가 없습니다.</h3>
+                <h3>주문 내역이 없습니다.</h3>
               </EmptyTable>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column' }}>

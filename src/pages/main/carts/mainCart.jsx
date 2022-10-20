@@ -31,6 +31,7 @@ export default function MainCart() {
     data: cartList,
   } = useQuery(['getCartList'], () => getCartList(), {
     refetchOnWindowFocus: true,
+    refetchOnMount: true,
     onSuccess: res => {
       // setCartList(res.data);
     },
@@ -54,10 +55,7 @@ export default function MainCart() {
   const { mutate: deleteCart, isLoading: isDeleteCartLoading } = useMutation(
     deleteCartList,
     {
-      onSuccess: res => {
-        alert('삭제되었습니다');
-        window.location.reload();
-      },
+      onSuccess: res => {},
       onError: () => {
         console.log('에러');
       },
@@ -119,7 +117,7 @@ export default function MainCart() {
       cartList[item].cartQty = selectedItems[item];
       tempCartItems.push(cartList[item]);
     }
-    console.log(tempCartItems)
+    console.log(tempCartItems);
     deleteWishClick();
     navigate(`/order`, { state: tempCartItems });
   };
