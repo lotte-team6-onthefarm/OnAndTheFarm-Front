@@ -13,8 +13,8 @@ const SelectWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   button {
-    width : 90px;
-    height : 40px;
+    width: 90px;
+    height: 40px;
     padding: 5px;
     margin: 0 10px;
     background: #f1f1f1;
@@ -122,6 +122,7 @@ const FeedItemDescription = styled.div`
 
 const FeedItemImg = styled.div`
   border-radius: 6px;
+  width: 250px;
   padding-bottom: 100%;
   position: relative;
   overflow: hidden;
