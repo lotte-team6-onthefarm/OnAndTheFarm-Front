@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const CounterDiv = styled.div`
+  width: 95px;
   height: 30px;
 `;
 
