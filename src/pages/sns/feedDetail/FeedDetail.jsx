@@ -30,6 +30,7 @@ export default function FeedDetail(props) {
   const [scrapStatus, setScrapStatus] = useState(false);
   // feedId = props.feedId
   const queryClient = useQueryClient();
+  console.log('wqkjedklasjdlkqwjd');
 
   const { isLoading: isFeedDetailLoading, data: feedDetail } = useQuery(
     'FeedDetail',

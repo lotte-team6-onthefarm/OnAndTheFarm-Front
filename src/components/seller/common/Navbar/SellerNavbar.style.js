@@ -16,6 +16,7 @@ const Head = styled.div`
   padding-right: 30px;
   height: auto;
   background-color: white;
+  position: relative;
 `;
 
 const SubListWrapper = styled.div`

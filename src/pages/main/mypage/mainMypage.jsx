@@ -2,13 +2,11 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MypageNavbar from '../../../components/main/mypage/MypageNavbar';
 import MainLikes from '../likes/mainLikes';
-import { MypageDiv, MypageContentDiv, MypageNavbarDiv } from './mainMypage.style';
+import { MypageDiv, MypageContentDiv } from './mainMypage.style';
 import MainMypageHome from './mainMypageHome';
-import MainMypageLikes from './mainMypageLikes';
 import MainMypageOrderCancel from './mainMypageOrderCancel';
 import MainMypageOrderDetail from './mainMypageOrderDetail';
 import MainMypageOrderList from './mainMypageOrderList';
-import MainMypageOrders from './mainMypageOrders';
 import MainMypagePosts from './mainMypagePosts';
 import MainMypageProfile from './mainMypageProfile';
 import MainMypageQna from './mainMypageQna';
@@ -20,21 +18,18 @@ export default function MainMypage() {
     <MypageDiv>
       <MypageNavbar></MypageNavbar>
       <MypageContentDiv>
-      <Routes>
-        <Route path="/" element={<MainMypageHome />} />
-        <Route path="/profile" element={<MainMypageProfile />} />
-        <Route path="/likes" element={<MainLikes />} />
-        <Route path="/review/addlist" element={<MainMypageReview />} />
-        <Route path="/review/myreview" element={<MainMypageReviewList />} />
-        <Route path="/review/qna" element={<MainMypageQna />} />
-        <Route path="/orders/list" element={<MainMypageOrderList />} />
-        <Route path="/orders/cancel" element={<MainMypageOrderCancel />} />
-        <Route path="/orders/detail" element={<MainMypageOrderDetail />} />
-        <Route path="/posts" element={<MainMypagePosts />} />
-
-
-        
-      </Routes>
+        <Routes>
+          <Route path="/" element={<MainMypageHome />} />
+          <Route path="/profile" element={<MainMypageProfile />} />
+          <Route path="/likes" element={<MainLikes />} />
+          <Route path="/review/addlist" element={<MainMypageReview />} />
+          <Route path="/review/myreview" element={<MainMypageReviewList />} />
+          <Route path="/review/qna" element={<MainMypageQna />} />
+          <Route path="/orders/list" element={<MainMypageOrderList />} />
+          <Route path="/orders/cancel" element={<MainMypageOrderCancel />} />
+          <Route path="/orders/detail" element={<MainMypageOrderDetail />} />
+          <Route path="/posts" element={<MainMypagePosts />} />
+        </Routes>
       </MypageContentDiv>
     </MypageDiv>
   );

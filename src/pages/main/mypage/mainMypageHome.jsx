@@ -1,5 +1,6 @@
 import React from 'react';
+import SnsMain from '../../../components/sns/main/snsMain';
 
 export default function MainMypageHome() {
-  return <div>마이페이지 홈</div>;
+  return <SnsMain />;
 }

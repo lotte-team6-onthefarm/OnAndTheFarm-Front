@@ -24,7 +24,7 @@ import SNS_6 from '../../../assets/sns/요리6.jpg';
 import SNS_7 from '../../../assets/sns/요리7.jpg';
 import SNS_8 from '../../../assets/sns/요리8.jpg';
 
-export default function Feed() {
+export default function SnsMainLayout() {
   const navigate = useNavigate();
   const feedDetailNavigator = () => {
     navigate('/sns/detail');
@@ -38,6 +38,9 @@ export default function Feed() {
         'https://mblogthumb-phinf.pstatic.net/MjAyMDA4MTBfNjAg/MDAxNTk3MDY2ODcxODIx.izwOJKtLZxm-A2UGvmyOAy9bAeXO0GsKghVAQeRMl1Eg.8Vg1CSsX947p0WRZuE1HG2awuxKoPsffCHTNM1DbOYAg.JPEG.7wayjeju/DH-1109.jpg?type=w800',
       content:
         '너무 맛있는 스테이크와 야채볶음~ 오늘 저녁도 맛있게 먹어보아요💛🧡',
+      h: 312,
+      s: 157,
+      c: 135,
     },
     {
       id: 'dmstje22',
@@ -45,6 +48,9 @@ export default function Feed() {
       profileUrl:
         'https://d2v80xjmx68n4w.cloudfront.net/gigs/JaqkS1637331647.jpg',
       content: '다양한 야채와 함께 먹는 푸짐한 밥상~ 남편이 차린 한상💝',
+      h: 2,
+      s: 23,
+      c: 8,
     },
     {
       id: 'dmswl2258',
@@ -52,6 +58,9 @@ export default function Feed() {
       profileUrl:
         'https://blog.kakaocdn.net/dn/QXaEz/btrrktbMISn/3MXSu705iYlDP5clzghLf0/img.jpg',
       content: '신선한 청경채와 함께 먹는 오늘의 메뉴 동파육',
+      h: 105,
+      s: 23,
+      c: 14,
     },
     {
       id: 'homecookMom_',
@@ -59,6 +68,9 @@ export default function Feed() {
       profileUrl:
         'https://lh3.googleusercontent.com/u8CYTrECdN-R8VMjbP2B3wf_bFfxo4sH4dYQDYV9v5FpAcAjPhGWRB5cQU41E_WFxBi8iusqTc3rc40jVjY7ffn1OW3xKBAfdJ1Yg0xXMMO8R8Vct1J1=w670-h980-n',
       content: '일주일치 반찬 완성 울 남편과 아이들이 참 좋아해요~🥙🥗',
+      h: 215,
+      s: 105,
+      c: 80,
     },
     {
       id: 'ItsMe',
@@ -67,6 +79,9 @@ export default function Feed() {
         'http://img.khan.co.kr/news/2018/12/27/l_2018122801003102200246132.jpg',
       content:
         '가을날씨에는 피크닉~ 신선한 야채와 함께 샌드위치를 만들어 보았어요ㅎㅎ',
+      h: 55,
+      s: 36,
+      c: 15,
     },
     {
       id: 'mommom',
@@ -74,6 +89,9 @@ export default function Feed() {
       profileUrl: 'https://cdn-icons-png.flaticon.com/512/6192/6192662.png',
       content:
         '이웃님들 잘 지내셨나요~ㅎㅎ 야채와 함께 한 건강한 저녁 밥상 입니다~!🥗',
+      h: 157,
+      s: 58,
+      c: 78,
     },
     {
       id: 'seoulCook',
@@ -82,6 +100,9 @@ export default function Feed() {
         'https://post-phinf.pstatic.net/MjAyMTExMDhfOCAg/MDAxNjM2MzY1MTc4NjA2.ePjpEBq7MhadBiJ97LuiqIAxAZ-n5RJQ9BheQdlkj44g.s9KmFSJQWvGd0pUOXjjziIifdIrj9QW8fn35sIcnXtgg.JPEG/%EA%B4%B4%EB%A0%A5%EB%AA%AC.jpg?type=w1200',
       content:
         '상큼한 자몽과 귤과 감이 함꼐한 리코타 부리토 치즈 과일 샐러드🌮',
+      h: 36,
+      s: 15,
+      c: 7,
     },
     {
       id: 'fafaCooker_',
@@ -89,12 +110,18 @@ export default function Feed() {
       profileUrl:
         'https://mblogthumb-phinf.pstatic.net/MjAyMDExMjRfOSAg/MDAxNjA2MjA1MDI5MzE1.FqSl8OtJxZxJm1IYKtRXrhFNum6Qfu5wMq7MAiZwhFgg.9RMA4C4GmAp8XFc04eqM6zuRfxrCcU1y7Z8fA2_NA38g.JPEG.sosohan_n/IMG_5374.JPG?type=w800',
       content: '부모님이 차려주신 따뜻한 밥상🖤',
+      h: 225,
+      s: 89,
+      c: 52,
     },
     {
       id: 'wweoood_o_o',
       url: SNS_2,
       profileUrl: 'https://newsimg.sedaily.com/2019/05/22/1VJ8PU7XCR_5.jpg',
       content: '가지가지 맛있는 가지 신선한 야채 건강한 밥상🥦🥒🥬🍓',
+      h: 267,
+      s: 58,
+      c: 19,
     },
   ];
   return (
@@ -125,15 +152,15 @@ export default function Feed() {
               <FeedActionList>
                 <Link to>
                   <AiOutlineHeart />
-                  <span>2</span>
+                  <span>{sns.h}</span>
                 </Link>
                 <Link to>
                   <BiBookmark />
-                  <span>23</span>
+                  <span>{sns.s}</span>
                 </Link>
                 <Link to>
                   <BiMessageAlt />
-                  <span>8</span>
+                  <span>{sns.c}</span>
                 </Link>
               </FeedActionList>
               <FeedItemDescription>

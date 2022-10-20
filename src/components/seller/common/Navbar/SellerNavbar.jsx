@@ -13,7 +13,7 @@ import {
   AiOutlineGlobal,
 } from 'react-icons/ai';
 import { BiSubdirectoryRight } from 'react-icons/bi';
-import { TbTruckDelivery } from 'react-icons/tb';
+import { TbLogout, TbTruckDelivery } from 'react-icons/tb';
 import { BsGraphUp } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import onandthefarmlogo from '../../../../assets/logo.png';
@@ -45,11 +45,11 @@ export default function SellerNavbar() {
     //   title: '프로모션',
     //   url: '/seller/promotion',
     // },
-    {
-      icons: <AiOutlineGlobal />,
-      title: 'SNS 이동',
-      url: '/seller/sns',
-    },
+    // {
+    //   icons: <AiOutlineGlobal />,
+    //   title: 'SNS 이동',
+    //   url: '/seller/sns',
+    // },
   ];
   const [selectMenu, setSelectMenu] = useRecoilState(sellerNavState);
   const [productSub, setProductSub] = useState(false);
@@ -147,6 +147,19 @@ export default function SellerNavbar() {
           </div>
         );
       })}
+      <ListWrapper
+        onClick={logoutBtn}
+        // check={idx === selectMenu ? '1' : '0'}
+        color="white"
+        productSub={productSub}
+      >
+        <div className="icons">
+          <TbLogout />
+        </div>
+        <div className="right">
+          <div>로그아웃</div>
+        </div>
+      </ListWrapper>
       {/* 상품등록 이동 버튼 */}
       <PlusIcon
         onClick={() => {
@@ -155,7 +168,10 @@ export default function SellerNavbar() {
       >
         <AiOutlinePlus onClick={productUrl} />
       </PlusIcon>
-      <div onClick={logoutBtn}>로그아웃</div>
+      {/* 셀러 로그아웃 navbar 형태로 만들기 */}
+      {/* <div onClick={logoutBtn} className="sellerNavbarLogout">
+        로그아웃
+      </div> */}
     </Head>
   );
 }
