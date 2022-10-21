@@ -75,6 +75,26 @@ const getOrderNumber = number => {
   //7563a2f7-057a-493f-8dd8-021fed01c79b
   return number.substr(-12);
 };
+
+// 주문,배송상태 변경
+const changeStatusName = status => {
+  console.log(status);
+  if (status === 'activated') {
+    return '배송 대기중';
+  } else if (status === 'deliveryProgress') {
+    return '배송중';
+  } else if (status === 'deliveryCompleted') {
+    return '배송완료';
+  } else if (status === 'canceled') {
+    return '주문취소';
+  } else if (status === 'refundRequest') {
+    return '환불요청';
+  } else if (status === 'refundCompleted') {
+    return '반품확정';
+  }
+  return '';
+};
+
 export {
   toLocaleString,
   getDate,
@@ -85,4 +105,5 @@ export {
   getOrderNumber,
   getDateDotFormat,
   getGoneTime,
+  changeStatusName,
 };

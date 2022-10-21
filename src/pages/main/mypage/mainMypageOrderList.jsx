@@ -4,10 +4,10 @@ import MenuTabComp from '../../../components/main/mypage/MenuTabComp';
 import { EmptyTable } from '../../../components/seller/main/popularProducts/MainPopularProducts.style';
 import { ProductReviewsTable } from '../../../components/seller/products/productReviews/ProductReviews.style';
 import { ReviewContentDiv } from './mainMypageReview.style';
-import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
 import { getMyOrderList } from '../../../apis/user/order';
 import OrderItemComp from '../../../components/main/mypage/OrderItem';
 import { useNavigate } from 'react-router-dom';
+import { changeStatusName, getNoSecDate } from '../../../utils/commonFunction';
 
 export default function MainMypageOrderList() {
   const menuTab = [
@@ -44,8 +44,8 @@ export default function MainMypageOrderList() {
                 <ProductReviewsTable>
                   <thead>
                     <tr style={{ fontSize: '13px' }}>
-                      <th width="5%">NO.</th>
-                      <th width="10%">주문날짜</th>
+                      <th width="10%">NO.</th>
+                      <th width="15%">주문날짜</th>
                       <th width="10%">주문번호</th>
                       <th width="10%">가격</th>
                       <th width="10%">상태</th>
@@ -57,10 +57,12 @@ export default function MainMypageOrderList() {
                       <tbody key={idx}>
                         <tr onClick={() => moveDetail(data.ordersSerial)}>
                           <td width="5%">{idx + 1}</td>
-                          <td width="10%">{data.orderDate}</td>
+                          <td width="10%">{getNoSecDate(data.orderDate)}</td>
                           <td width="10%">{data.ordersSerial}</td>
                           <td width="10%">{data.orderTotalPrice}</td>
-                          <td width="10%">{data.orderStatus}</td>
+                          <td width="10%">
+                            {changeStatusName(data.orderStatus)}
+                          </td>
                           <td>
                             {data.orderUserResponses.map((item, index) => {
                               return (

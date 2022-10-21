@@ -8,6 +8,7 @@ import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
 import { getCancelOrderList, getMyOrderList } from '../../../apis/user/order';
 import OrderItemComp from '../../../components/main/mypage/OrderItem';
 import { useNavigate } from 'react-router-dom';
+import { changeStatusName, getNoSecDate } from '../../../utils/commonFunction';
 
 export default function MainMypageOrderCancel() {
   const menuTab = [
@@ -44,14 +45,14 @@ export default function MainMypageOrderCancel() {
                 <ProductReviewsTable>
                   <thead>
                     <tr style={{ fontSize: '13px' }}>
-                      <th width="5%">NO.</th>
+                      <th width="10%">NO.</th>
                       <th width="10%">사진</th>
                       <th width="10%">상품이름</th>
-                      <th width="5%">갯수</th>
-                      <th width="5%">가격</th>
+                      <th width="10%">갯수</th>
+                      <th width="10%">가격</th>
                       <th width="10%">상태</th>
-                      <th width="10%">날짜</th>
-                      <th width="45%">내용</th>
+                      <th width="15%">날짜</th>
+                      <th>내용</th>
                     </tr>
                   </thead>
                   {claimList.responses.map((data, idx) => {
@@ -65,8 +66,10 @@ export default function MainMypageOrderCancel() {
                           <td width="10%">{data.productName}</td>
                           <td width="5%">{data.productQty}</td>
                           <td width="5%">{data.productPrice}</td>
-                          <td width="10%">{data.productStatus}</td>
-                          <td width="10%">{data.orderDate}</td>
+                          <td width="10%">
+                            {changeStatusName(data.productStatus)}
+                          </td>
+                          <td width="10%">{getNoSecDate(data.orderDate)}</td>
                           <td width="45%">{data.cancelDetail}</td>
                         </tr>
                       </tbody>

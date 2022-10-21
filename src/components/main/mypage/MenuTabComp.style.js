@@ -13,6 +13,7 @@ const DeliveryButtonWrapper = styled.div`
   div {
     display: flex;
     font-size: 18px;
+    font-weight: ${props => (props.state === props.idx ? 600 : '')};
     cursor: pointer;
     color: ${props => (props.state === props.idx ? 'black' : '#cccccc')};
   }
