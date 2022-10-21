@@ -46,7 +46,9 @@ const SnsFeedBlock = styled.div`
         border-radius: 6px;
         overflow: hidden;
         img {
+          border-radius: 6px;
           width: 160px;
+          object-fit: cover;
         }
       }
     }

@@ -1,23 +1,15 @@
 import React, { useState } from 'react';
-import { getQnaList, postAddQna } from '../../../apis/user/qna';
+import { getQnaList } from '../../../apis/user/qna';
 import { Button } from '../../common/Button';
-import { useMutation, useQuery } from 'react-query';
-import RatingInputComp from '../../common/Rating';
+import { useQuery } from 'react-query';
 import QnaItemComp from '../qna/QnaItem';
-import {
-  ProductQnaDiv,
-  QnaAddDiv,
-  QnaAddButtonDiv,
-  QnaListDiv,
-} from './ProductQna.style';
+import { ProductQnaDiv, QnaListDiv } from './ProductQna.style';
 import Modal from '../../common/Modal';
 import MakeQna from '../qna/MakeQna';
 import NoneFeed from '../../sns/main/NoneFeed';
 
 export default function ProductQnaComp(props) {
   const productId = props.productDetailId;
-  const [productQna, setProductQna] = useState('');
-  const [productQnaList, setProductQnaList] = useState([]);
 
   const [modal, setModal] = useState(false);
   const [selectData, setSelectData] = useState('');
@@ -25,32 +17,22 @@ export default function ProductQnaComp(props) {
     setModal(!modal);
   };
 
-  const { mutate: addQna, isLoading: isAddQnaLoading } = useMutation(
-    postAddQna,
+  const { isLoading: isGetQnaList, data: qnaList } = useQuery(
+    'qnaList',
+    () => getQnaList(productId),
     {
-      onSuccess: res => {
-        alert('질문이 추가되었습니다');
-      },
+      refetchOnWindowFocus: true,
+      refetchOnMount: true,
+      onSuccess: res => {},
       onError: () => {
         console.log('에러');
       },
     },
   );
-  const {
-    isLoading: isGetQnaList,
-    // refetch: getCartistRefetch,
-    data: qnaList,
-  } = useQuery('qnaList', () => getQnaList(productId), {
-    refetchOnWindowFocus: true,
-    onSuccess: res => {},
-    onError: () => {
-      console.log('에러');
-    },
-  });
 
   return (
     <ProductQnaDiv>
-      <div style={{display:"flex", justifyContent:"space-between"}}>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <h4>문의사항</h4>
         <Button
           text="문의 작성"
@@ -58,7 +40,7 @@ export default function ProductQnaComp(props) {
           width="130px"
           height="30px"
           onClick={test}
-          margin = "10px"
+          margin="10px"
         ></Button>
       </div>
       <hr />
@@ -67,24 +49,24 @@ export default function ProductQnaComp(props) {
           <NoneFeed text="문의가 없습니다" />
         ) : (
           <QnaListDiv>
-          {qnaList.productQnAResponseList.map((item, index) => {
-            return (
-              <QnaItemComp
-                key={index}
-                id={item.productQnaId}
-                url={item.userProfileImg}
-                name={item.userName}
-                content={item.productQnaContent}
-                answer={item.productSellerAnswer}
-                date={item.productQnaCreatedAt}
-              ></QnaItemComp>
-            );
-          })}
-        </QnaListDiv>
+            {qnaList.productQnAResponseList.map((item, index) => {
+              return (
+                <QnaItemComp
+                  key={index}
+                  id={item.productQnaId}
+                  url={item.userProfileImg}
+                  name={item.userName}
+                  content={item.productQnaContent}
+                  answer={item.productSellerAnswer}
+                  date={item.productQnaCreatedAt}
+                ></QnaItemComp>
+              );
+            })}
+          </QnaListDiv>
         ))}
       {modal && (
-        <Modal closeModal={() => setModal(!modal)} style={{zIndex:"10"}}>
-          <MakeQna id={productId}></MakeQna>
+        <Modal closeModal={() => setModal(!modal)} style={{ zIndex: '10' }}>
+          <MakeQna id={productId} setModal={setModal}></MakeQna>
         </Modal>
       )}
     </ProductQnaDiv>

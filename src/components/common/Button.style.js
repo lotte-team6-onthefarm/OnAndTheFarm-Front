@@ -30,4 +30,17 @@ const WhiteButton = styled(StyledButton)`
   }
 `;
 
-export { StyledButton, GreenButton, BlueButton, WhiteButton };
+const WhiteButtonNoHover = styled(StyledButton)`
+  background-color: ${props => props.theme.colors.white};
+  border: solid 1px ${props => props.theme.colors.gray};
+  color: black;
+  cursor: default;
+`;
+
+export {
+  StyledButton,
+  GreenButton,
+  BlueButton,
+  WhiteButton,
+  WhiteButtonNoHover,
+};

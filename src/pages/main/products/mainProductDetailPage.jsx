@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -10,25 +10,18 @@ import {
   ProductDetailContentDiv,
   ProductDetailImgDiv,
   ProductDetailImg,
-  ProductReviewDiv,
 } from './mainProductDetailPage.style';
-import detailImg from '../../../assets/productDetail.png';
-import detailBundleImg from '../../../assets/popularBundlePack.png';
 import {
   AiFillStar,
   AiOutlineHeart,
   AiOutlineShoppingCart,
 } from 'react-icons/ai';
 import { Button } from '../../../components/common/Button';
-import MenuTab from '../../../components/common/MenuTab';
-import QnaItemComp from '../../../components/main/qna/QnaItem';
 import { getProduct, postAddWish } from '../../../apis/user/product';
 import ProductReviewComp from '../../../components/main/products/ProductReview';
 import Counter from '../../../components/common/Counter';
 import { postAddCart } from '../../../apis/user/cart';
-import { postAddQna } from '../../../apis/user/qna';
 import ProductQnaComp from '../../../components/main/products/ProductQna';
-import { LikeItemDescription } from '../../sns/like/Like.styled';
 import RatingInputComp from '../../../components/common/Rating';
 import ProductMenuTab from '../../../components/main/products/ProductMenuTab';
 

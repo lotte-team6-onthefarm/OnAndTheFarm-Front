@@ -9,7 +9,7 @@ export default function MainMyFeed(props) {
     <MyFeedSection>
       <div className="FeedTitle">
         <h1>
-          사진 <span>23</span>
+          사진 <span>5</span>
         </h1>
         {datas.length === 0 ? (
           ''
@@ -24,9 +24,9 @@ export default function MainMyFeed(props) {
         <NoneFeed text="첫번째 사진을 올려보세요" />
       ) : (
         <div className="FeedContents">
-          {datas.map(() => {
+          {datas.map((data, idx) => {
             return (
-              <div>
+              <div key={idx}>
                 <a
                   class="css-gi86zd e1qgexi82"
                   href="/contents/card_collections/16854578"
@@ -34,7 +34,7 @@ export default function MainMyFeed(props) {
                   <img
                     class="css-1n0kzcr e1qgexi81"
                     alt=""
-                    src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/166540107473518899.jpeg?gif=1&amp;w=360&amp;h=360&amp;c=c&amp;webp=1"
+                    src={data}
                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/166540107473518899.jpeg?gif=1&amp;w=640&amp;h=640&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/166540107473518899.jpeg?gif=1&amp;w=720&amp;h=720&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/166540107473518899.jpeg?gif=1&amp;w=1080&amp;h=1080&amp;c=c&amp;webp=1 3x"
                   />
                 </a>

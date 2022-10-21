@@ -15,7 +15,7 @@ import {
 import { HiOutlineShare } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
-import { BiBookmark } from 'react-icons/bi';
+import { BiBookmark, BiImages } from 'react-icons/bi';
 import { RiCoupon3Line } from 'react-icons/ri';
 
 export default function SnsUser() {
@@ -40,13 +40,13 @@ export default function SnsUser() {
           />
         </UserDetailImgBlock>
         <UserInfoBlock>
-          <UserInfoNickName>벽장꾸미기</UserInfoNickName>
+          <UserInfoNickName>김성환</UserInfoNickName>
           <UserInfoBottom>
             <UserInfoFollow>
               <div>팔로워</div>
-              <div onClick={followerNavigator}>873</div>
+              <div onClick={followerNavigator}>6</div>
               <div>팔로잉</div>
-              <div onClick={followeeNavigator}>1</div>
+              <div onClick={followeeNavigator}>6</div>
             </UserInfoFollow>
             <UserInfoSetting>
               <Link to="/users/1462582/edit">설정</Link>
@@ -57,24 +57,24 @@ export default function SnsUser() {
       <UserButtonBlock>
         <Link to>
           <div>
-            <BiBookmark />
+            <BiImages />
           </div>
-          <div>스크랩북</div>
-          <div>1</div>
+          <div>사진</div>
+          <div>5</div>
         </Link>
         <Link to>
           <div>
             <AiOutlineHeart />
           </div>
-          <div>좋아요</div>
-          <div>2</div>
+          <div>위시 리스트</div>
+          <div>6</div>
         </Link>
         <Link to>
           <div>
-            <RiCoupon3Line />
+            <BiBookmark />
           </div>
-          <div>내 쿠폰</div>
-          <div>5</div>
+          <div>스크랩북</div>
+          <div>8</div>
         </Link>
       </UserButtonBlock>
     </SnsUserBlock>

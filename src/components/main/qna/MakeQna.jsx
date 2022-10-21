@@ -24,6 +24,7 @@ export default function MakeQna(props) {
     {
       onSuccess: res => {
         alert('질문이 추가되었습니다');
+        props.setModal(false);
       },
       onError: () => {
         console.log('에러');
@@ -35,7 +36,7 @@ export default function MakeQna(props) {
     let data = {};
     data.productId = productId;
     data.productQnaContent = productQna;
-    postAddQna(data)
+    addQna(data);
   };
 
   return (
@@ -49,12 +50,12 @@ export default function MakeQna(props) {
         type="text"
       />
       <Button
-          text="질문 작성"
-          color="#3288E5"
-          margin="auto auto 20px"
-          width="150px"
-          onClick={makeQuestion}
-        ></Button>
+        text="질문 작성"
+        color="#3288E5"
+        margin="auto auto 20px"
+        width="150px"
+        onClick={makeQuestion}
+      ></Button>
     </ClaimDiv>
   );
 }
