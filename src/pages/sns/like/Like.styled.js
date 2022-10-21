@@ -26,7 +26,9 @@ const LikeImgBlock = styled.div`
   overflow: hidden;
   position: relative;
   img {
-    width: 100%;
+    width: 240px;
+    height: 240px;
+    object-fit: cover;
     transition: all 0.1s linear;
     cursor: pointer;
     :hover {
@@ -41,8 +43,8 @@ const LikeItemDescription = styled.div`
   h1 {
     margin: 9px 0px 0px;
     span {
+      display: block;
       :nth-child(1) {
-        display: block;
         color: rgb(117, 117, 117);
         word-break: break-all;
         font-size: 11px;
@@ -52,6 +54,7 @@ const LikeItemDescription = styled.div`
       :nth-child(2) {
         max-height: 34px;
         margin-top: 5px;
+        width: 210px;
         word-break: break-all;
         font-size: 13px;
         font-weight: 400;
@@ -60,9 +63,6 @@ const LikeItemDescription = styled.div`
         transition: opacity 0.1s ease 0s;
         overflow: hidden;
         text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
         overflow-wrap: break-word;
       }
     }
@@ -77,7 +77,7 @@ const LikeItemDescription = styled.div`
     font-weight: 700;
     span {
       :nth-child(1) {
-        color: rgb(53, 197, 240);
+        color: ${props => props.theme.colors.logoGreen};
         margin-right: 4px;
       }
     }
@@ -93,7 +93,7 @@ const LikeItemDescription = styled.div`
     .production-item-stats--icon {
       display: flex;
       align-items: center;
-      color: rgb(53, 197, 240);
+      color: ${props => props.theme.colors.logoGreen};
       margin-right: 1px;
     }
     strong {

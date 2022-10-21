@@ -15,7 +15,7 @@ import {
   getDateFormat,
   getDateDotFormat,
 } from '../../../utils/commonFunction';
-import { GreenButton, WhiteButton } from '../../common/Button.style';
+import { GreenButton, WhiteButtonNoHover } from '../../common/Button.style';
 import Modal from '../../common/Modal';
 import SelectBox from '../../common/SelectBox';
 import { WhiteWrapper } from '../common/Box.style';
@@ -317,14 +317,9 @@ export default function DeliveryList() {
                               )}
                               {order.orderProductStatus ===
                                 'deliveryCompleted' && (
-                                <WhiteButton
-                                  height="40px"
-                                  onClick={() => {
-                                    startDeliveryBtn(order.ordersSerial);
-                                  }}
-                                >
+                                <WhiteButtonNoHover height="40px">
                                   배송완료
-                                </WhiteButton>
+                                </WhiteButtonNoHover>
                               )}
                             </div>
                           </td>
