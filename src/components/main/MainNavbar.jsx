@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import logoGreen from '../../assets/logo_green.png';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -17,6 +17,7 @@ import { isLoginState } from '../../recoil';
 
 export default function MainNavbar(props) {
   const [isLogin, setisLogin] = useRecoilState(isLoginState);
+  const [selectedMenu, setSelectedMenu] = useState(0);
   const navigate = useNavigate();
   // useeffect
   useEffect(() => {
@@ -78,7 +79,13 @@ export default function MainNavbar(props) {
           return (
             <Link key={index} to={item.url}>
               <li>
-                <NavbarMenuPtag>{item.title}</NavbarMenuPtag>
+                <NavbarMenuPtag 
+                  key={index}
+                  idx={index}
+                  selectedMenu={selectedMenu}
+                  onClick={() => setSelectedMenu(index)}>
+                  {item.title}
+                </NavbarMenuPtag>
               </li>
             </Link>
           );
@@ -101,17 +108,27 @@ export default function MainNavbar(props) {
           <div style={{ display: 'flex' }}>
             <Link to="/mypage/profile">
               <li>
-                <NavbarMenuPtag>마이페이지</NavbarMenuPtag>
+                <NavbarMenuPtag
+                  key={0}
+                  idx={0}
+                  selectedMenu={1}>마이페이지</NavbarMenuPtag>
               </li>
             </Link>
             <li>
-              <NavbarMenuPtag onClick={logout}>로그아웃</NavbarMenuPtag>
+              <NavbarMenuPtag
+                key={0}
+                idx={0}
+                selectedMenu={1}
+                onClick={logout}>로그아웃</NavbarMenuPtag>
             </li>
           </div>
         ) : (
           <Link to="/login">
             <li>
-              <NavbarMenuPtag>로그인</NavbarMenuPtag>
+              <NavbarMenuPtag
+                key={0}
+                idx={0}
+                selectedMenu={1}>로그인</NavbarMenuPtag>
             </li>
           </Link>
         )}

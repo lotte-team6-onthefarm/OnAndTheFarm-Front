@@ -30,7 +30,8 @@ const NavbarMenu = styled.ul`
 `;
 
 const NavbarMenuPtag = styled.p`
-  color: #202020;
+  // color: #202020;
+  color: ${props => (props.selectedMenu === props.idx ? '#40AA54' : '#202020')};
   text-decoration: none;
   padding: 0.5rem;
   font-size: 1.1rem;
