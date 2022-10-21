@@ -33,29 +33,29 @@ export default function FeedDetail(props) {
   // feedId = props.feedId
   const queryClient = useQueryClient();
 
-  const { isLoading: isFeedDetailLoading, data: feedDetail } = useQuery(
-    'FeedDetail',
-    () => getFeedDetail(feedId),
-    {
-      refetchOnWindowFocus: true,
-      onSuccess: res => {},
-      onError: () => {
-        console.log('에러');
-      },
-    },
-  );
+  // const { isLoading: isFeedDetailLoading, data: feedDetail } = useQuery(
+  //   'FeedDetail',
+  //   () => getFeedDetail(feedId),
+  //   {
+  //     refetchOnWindowFocus: true,
+  //     onSuccess: res => {},
+  //     onError: () => {
+  //       console.log('에러');
+  //     },
+  //   },
+  // );
 
-  const { isLoading: isCommentLoading, data: comment } = useQuery(
-    'Comment',
-    () => getComment(feedId),
-    {
-      refetchOnWindowFocus: true,
-      onSuccess: res => {},
-      onError: () => {
-        console.log('에러');
-      },
-    },
-  );
+  // const { isLoading: isCommentLoading, data: comment } = useQuery(
+  //   'Comment',
+  //   () => getComment(feedId),
+  //   {
+  //     refetchOnWindowFocus: true,
+  //     onSuccess: res => {},
+  //     onError: () => {
+  //       console.log('에러');
+  //     },
+  //   },
+  // );
 
   const { mutate: feedLike } = useMutation(putFeedLike, {
     onSuccess: res => {},
@@ -104,80 +104,80 @@ export default function FeedDetail(props) {
   ];
   return (
     <>
-      {!isFeedDetailLoading && !isCommentLoading && (
-        <FeedDetailWrapper>
-          {/* 더미 */}
-          <FeedDetailBlock>
-            <FeedWriter />
-            <FeedImageWrapper>
-              <img src={SNS_1} alt="" />
-              <div>
-                <svg
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 24 24"
-                  class="Vfsdi jCTZa css-18se8ix"
-                >
-                  <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                  <path
-                    stroke="#FFF"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                    d="M12 16V8m-4 4h8"
-                  ></path>
-                </svg>
-              </div>
-              <div>
-                <svg
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 24 24"
-                  class="Vfsdi jCTZa css-18se8ix"
-                >
-                  <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                  <path
-                    stroke="#FFF"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                    d="M12 16V8m-4 4h8"
-                  ></path>
-                </svg>
-              </div>
-              <div>
-                <svg
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 24 24"
-                  class="Vfsdi jCTZa css-18se8ix"
-                >
-                  <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                  <path
-                    stroke="#FFF"
-                    stroke-linecap="square"
-                    stroke-width="2"
-                    d="M12 16V8m-4 4h8"
-                  ></path>
-                </svg>
-              </div>
-            </FeedImageWrapper>
-            <FeedProduct feedContent="너무 맛있는 스테이크와 야채볶음~ 오늘 저녁도 맛있게 먹어보아요💛🧡" />
-            <FeedTag feedTag={tag} />
-            <HorizontalLine color="#d7d7d7" />
-            <FeedComment />
-            <FeedCommentList />
-          </FeedDetailBlock>
-          <FeedDetailSideWrapper>
-            <FeedDetailStickyContainer>
-              <FeedDetailSideBlock>
-                <SideButton icon="heart" count={312} />
-                <SideButton icon="scrap" count={157} />
-                <SideButton icon="comment" count={135} />
-                <SideButton icon="share" count={57} />
-              </FeedDetailSideBlock>
-            </FeedDetailStickyContainer>
-          </FeedDetailSideWrapper>
-          {/* 더미 */}
-          {/* <FeedDetailBlock>
+      {/* {!isFeedDetailLoading && !isCommentLoading && ( */}
+      <FeedDetailWrapper>
+        {/* 더미 */}
+        <FeedDetailBlock>
+          <FeedWriter />
+          <FeedImageWrapper>
+            <img src={SNS_1} alt="" />
+            <div>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                class="Vfsdi jCTZa css-18se8ix"
+              >
+                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
+                <path
+                  stroke="#FFF"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                  d="M12 16V8m-4 4h8"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                class="Vfsdi jCTZa css-18se8ix"
+              >
+                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
+                <path
+                  stroke="#FFF"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                  d="M12 16V8m-4 4h8"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                class="Vfsdi jCTZa css-18se8ix"
+              >
+                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
+                <path
+                  stroke="#FFF"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                  d="M12 16V8m-4 4h8"
+                ></path>
+              </svg>
+            </div>
+          </FeedImageWrapper>
+          <FeedProduct feedContent="너무 맛있는 스테이크와 야채볶음~ 오늘 저녁도 맛있게 먹어보아요💛🧡" />
+          <FeedTag feedTag={tag} />
+          <HorizontalLine color="#d7d7d7" />
+          <FeedComment />
+          <FeedCommentList />
+        </FeedDetailBlock>
+        <FeedDetailSideWrapper>
+          <FeedDetailStickyContainer>
+            <FeedDetailSideBlock>
+              <SideButton icon="heart" count={312} />
+              <SideButton icon="scrap" count={157} />
+              <SideButton icon="comment" count={135} />
+              <SideButton icon="share" count={57} />
+            </FeedDetailSideBlock>
+          </FeedDetailStickyContainer>
+        </FeedDetailSideWrapper>
+        {/* 더미 */}
+        {/* <FeedDetailBlock>
             <FeedWriter />
             <FeedImageWrapper>
               <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" />
@@ -227,8 +227,8 @@ export default function FeedDetail(props) {
               </FeedDetailSideBlock>
             </FeedDetailStickyContainer>
           </FeedDetailSideWrapper> */}
-        </FeedDetailWrapper>
-      )}
+      </FeedDetailWrapper>
+      {/* )} */}
     </>
   );
 }
