@@ -4,6 +4,7 @@ import { SellerSearchId, SellerSearchPw } from './pages/seller';
 import SellerLoginPage from './pages/seller/account/login/sellerLoginPage';
 import SellerSignupPage from './pages/seller/account/signup/sellerSignupPage';
 import SellerIndexLayout from './pages/seller/sellerIndexLayout';
+import SnsTest from './pages/snsTest';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="seller/signup" element={<SellerSignupPage />} />
         <Route path="seller/searchId" element={<SellerSearchId />} />
         <Route path="seller/searchPw" element={<SellerSearchPw />} />
+        <Route path="snstest" element={<SnsTest />} />
       </Routes>
     </div>
   );

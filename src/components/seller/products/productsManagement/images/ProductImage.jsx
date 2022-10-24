@@ -9,6 +9,7 @@ export default function ProductImage(props) {
   const [detailImagesUrl, setDetailImagesUrl] = useState([]);
   const type = props.type;
   const setImages = props.setImages;
+
   const fileInput = useRef();
   const fileUploadHandler = () => {
     fileInput.current.click();

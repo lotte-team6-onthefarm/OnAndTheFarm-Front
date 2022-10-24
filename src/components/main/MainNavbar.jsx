@@ -55,7 +55,7 @@ export default function MainNavbar(props) {
       icons: <AiOutlineShoppingCart />,
       title: '장바구니',
       url: '/cart',
-      color: '#40AA54',
+      color: '#16B51E',
     },
   ];
   // hook
@@ -79,11 +79,12 @@ export default function MainNavbar(props) {
           return (
             <Link key={index} to={item.url}>
               <li>
-                <NavbarMenuPtag 
+                <NavbarMenuPtag
                   key={index}
                   idx={index}
                   selectedMenu={selectedMenu}
-                  onClick={() => setSelectedMenu(index)}>
+                  onClick={() => setSelectedMenu(index)}
+                >
                   {item.title}
                 </NavbarMenuPtag>
               </li>
@@ -108,27 +109,39 @@ export default function MainNavbar(props) {
           <div style={{ display: 'flex' }}>
             <Link to="/mypage/profile">
               <li>
-                <NavbarMenuPtag
-                  key={0}
-                  idx={0}
-                  selectedMenu={1}>마이페이지</NavbarMenuPtag>
+                <NavbarMenuPtag key={0} idx={0} selectedMenu={1}>
+                  마이페이지
+                </NavbarMenuPtag>
               </li>
             </Link>
             <li>
-              <NavbarMenuPtag
-                key={0}
-                idx={0}
-                selectedMenu={1}
-                onClick={logout}>로그아웃</NavbarMenuPtag>
+              <NavbarMenuPtag key={0} idx={0} selectedMenu={1} onClick={logout}>
+                로그아웃
+              </NavbarMenuPtag>
             </li>
+            <Link to="/sns/add">
+              <li>
+                <NavbarMenuPtag
+                  key={0}
+                  idx={0}
+                  selectedMenu={1}
+                  style={{
+                    color: 'white',
+                    backgroundColor: '#16B51E',
+                    borderRadius: '4px',
+                  }}
+                >
+                  글쓰기
+                </NavbarMenuPtag>
+              </li>
+            </Link>
           </div>
         ) : (
           <Link to="/login">
             <li>
-              <NavbarMenuPtag
-                key={0}
-                idx={0}
-                selectedMenu={1}>로그인</NavbarMenuPtag>
+              <NavbarMenuPtag key={0} idx={0} selectedMenu={1}>
+                로그인
+              </NavbarMenuPtag>
             </li>
           </Link>
         )}

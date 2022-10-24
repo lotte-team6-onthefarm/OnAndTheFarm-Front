@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { postSellerProduct } from '../../../../../apis/seller/product';
-import {
-  BlueButton,
-  GreenButton,
-  WhiteButton,
-} from '../../../../common/Button.style';
+import { BlueButton, GreenButton } from '../../../../common/Button.style';
 import { PageCol, PageRow } from '../../../common/Box.style';
 import { SellerTitle } from '../../../common/Title.style';
 import CategoryEtc from '../category&etc/CategoryEtc';

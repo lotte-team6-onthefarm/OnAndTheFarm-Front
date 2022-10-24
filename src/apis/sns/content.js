@@ -19,9 +19,9 @@ const putDeleteFeed = async data => {
 };
 
 // 피드에 등록 가능한 상품 목록 조회
-const getFeedProduct = async data => {
+const getFeedProduct = async () => {
   const response = await JWTapiUser.get('sns/product');
-  return response.data;
+  return response.data.data;
 };
 
 // 피드 상세 페이지 조회
