@@ -1,11 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { putFeedUnScrap } from '../../apis/sns/content';
 import MainBanner from '../../components/main/main/MainBanner';
 import MainCarousel from '../../components/main/main/MainCarousel';
 import MainSns from '../../components/main/main/MainSns';
 import MainProductsPopular from '../../components/main/products/MainProductsPopular';
 import { MainContentDiv } from './mainMainPage.style';
-
 
 export default function MainMainPage() {
   //main.js
@@ -183,22 +183,21 @@ export default function MainMainPage() {
     }
   */
 
-
-  const testbtn = () =>{
-   
+  const testbtn = () => {
     const data = {
-      feedId : 3
-    }
+      feedId: 3,
+    };
     const response = putFeedUnScrap(data);
     console.log(response);
-  }
-    return (
+  };
+  return (
     <MainContentDiv>
       <MainCarousel />
-      {/* <MainBanner /> */}
-      {/* <MainCarousel /> */}
       <MainProductsPopular />
       <MainSns />
+      <div style={{ margin: '100px 0' }}>
+        <Link to="snstest">등록</Link>
+      </div>
     </MainContentDiv>
   );
 }

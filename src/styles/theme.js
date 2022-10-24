@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 const size = {
   mobile: '480px',
   tablet: '768px',
@@ -37,5 +39,11 @@ const theme = {
   colors,
   subTitleColors,
 };
+
+export const UserMaxWrapper = styled.div`
+  width: 1130px;
+  padding: 20px 30px;
+  margin: 0 auto;
+`;
 
 export default theme;
