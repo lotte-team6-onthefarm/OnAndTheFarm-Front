@@ -1,5 +1,18 @@
 import styled from 'styled-components';
 
+const AddFeedNavbar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1200px;
+  border-bottom: solid 2px #f2f2f2;
+  margin: 21px auto;
+  height: 80px;
+  button {
+    margin: 0;
+    font-size: 17.6px;
+  }
+`;
 const AddFeedWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -10,6 +23,11 @@ const AddFeedBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  h2 {
+    width: 550px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
   textarea {
     margin-top: 20px;
     width: 520px;
@@ -66,19 +84,18 @@ const ImageUploadWrapper = styled.div`
 `;
 
 const TagWrapper = styled.div`
-  border: solid red;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   width: 550px;
-  margin-top: 20px;
+  margin: 20px 0;
   .tagInput {
     display: inline-block;
     input {
-      width: 50px;
+      width: 100px;
       font-size: 16px;
-      padding: 10px 4px;
+      padding: 0 4px;
       border: none;
-      border: solid blue;
       color: #757575;
       :focus {
         outline: none;
@@ -86,9 +103,14 @@ const TagWrapper = styled.div`
     }
   }
   .addTagList {
-    border: solid;
     margin-right: 10px;
   }
 `;
 
-export { AddFeedWrapper, AddFeedBlock, ImageUploadWrapper, TagWrapper };
+export {
+  AddFeedNavbar,
+  AddFeedWrapper,
+  AddFeedBlock,
+  ImageUploadWrapper,
+  TagWrapper,
+};
