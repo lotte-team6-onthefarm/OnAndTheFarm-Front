@@ -32,10 +32,9 @@ export default function OrderProductComp(props) {
         </CartItemPrice>
         <CartItemPrice>
           <p>{props.status}</p>
-          <p>{props.orderstatus}</p>
         </CartItemPrice>
         <CartItemPrice>
-        {props.status === 'activated' &&
+        {props.status === 'deliveryCompleted' &&
           props.orderstatus === 'deliveryCompleted' ? (
             <Button
               text="환불요청"
