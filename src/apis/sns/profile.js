@@ -1,87 +1,87 @@
 import { JWTapiUser } from '../user/index';
 
 // 팔로우 기능
-const postAddFollow = async (data) => {
+const postAddFollow = async data => {
   const response = await JWTapiUser.post('follow/add', data);
-  return response.data;
+  return response.data.data;
 };
 
 // 팔로우 취소 기능
-const putCancelFollow = async (data) => {
+const putCancelFollow = async data => {
   const response = await JWTapiUser.put('follow/cancel', data);
-  return response.data;
+  return response.data.data;
 };
 
 // 프로필 정보(이름&프로필이미지&팔로우&팔로잉) 조회
-const postProfileInfo = async (data) => {
-  const response = await JWTapiUser.post('profile', data);
-  return response.data;
+const getProfileInfo = async data => {
+  const response = await JWTapiUser.get('profile', data);
+  return response.data.data;
 };
 
 // 스크랩&좋아요 수 조회
-const postScrapLikeCount = async (data) => {
-  const response = await JWTapiUser.post('sns/profile/count', data);
-  return response.data;
+const getScrapLikeCount = async data => {
+  const response = await JWTapiUser.get('sns/profile/count', data);
+  return response.data.data;
 };
 
 // 멤버의 팔로워 리스트 조회
-const postFollowerList = async (data) => {
+const getFollowerList = async data => {
   const response = await JWTapiUser.post('follow/follower-list', data);
-  return response.data;
+  return response.data.data;
 };
 
 // 멤버의 팔로잉 리스트 조회
-const postFollowingList = async (data) => {
-  const response = await JWTapiUser.post('follow/following-list', data);
-  return response.data;
+const getFollowingList = async data => {
+  const response = await JWTapiUser.get('follow/following-list', data);
+  return response.data.data;
 };
 
 // 프로필 화면 feed 부분 조회
-const postProfileFeedList = async (data) => {
-  const response = await JWTapiUser.post('sns/profile/main-feed', data);
+const getProfileFeedList = async data => {
+  const response = await JWTapiUser.get('sns/profile/main-feed', data);
   return response.data;
 };
 
 // 프로필 화면 scrap 부분 조회
-const postProfileScrapList = async (data) => {
-  const response = await JWTapiUser.post('sns/profile/main-scrap', data);
-  return response.data;
+const getProfileScrapList = async data => {
+  const response = await JWTapiUser.get('sns/profile/main-scrap', data);
+  return response.data.data;
 };
 
 // 프로필 화면 wish 부분 조회
-const postProfileWishList = async (data) => {
-  const response = await JWTapiUser.post('sns/profile/main-wish', data);
-  return response.data;
+const getProfileWishList = async data => {
+  const response = await JWTapiUser.get('sns/profile/main-wish', data);
+  return response.data.data;
 };
 
 // 멤버의 feed 전체 조회
-const postFeedList = async (data) => {
+const getFeedList = async data => {
   const response = await JWTapiUser.post('sns/profile/feed', data);
-  return response.data;
+  return response.data.data;
 };
 
 // 멤버의 scrap 전체 조회
-const postScrapList = async (data) => {
-  const response = await JWTapiUser.post('sns/profile/scrap', data);
-  return response.data;
+const getScrapList = async data => {
+  const response = await JWTapiUser.get('sns/profile/scrap', data);
+  return response.data.data;
 };
 
 // 멤버의 wish 전체 조회
-const postWishList = async (data) => {
-  const response = await JWTapiUser.post('sns/profile/wish', data);
-  return response.data;
+const getWishList = async data => {
+  const response = await JWTapiUser.get('sns/profile/wish', data);
+  return response.data.data;
 };
 export {
   postAddFollow,
   putCancelFollow,
-  postProfileInfo,
-  postScrapLikeCount,
-  postFollowerList,
-  postFollowingList,
-  postProfileFeedList,
-  postProfileScrapList,
-  postProfileWishList,
-  postFeedList,
-  postScrapList,
-  postWishList
+  getProfileInfo,
+  getScrapLikeCount,
+  getFollowerList,
+  getFollowingList,
+  getProfileFeedList,
+  getProfileScrapList,
+  getProfileWishList,
+  getFeedList,
+  getScrapList,
+  getWishList,
 };

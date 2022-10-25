@@ -116,7 +116,7 @@ export default function FeedDetail(props) {
                 width="1em"
                 height="1em"
                 viewBox="0 0 24 24"
-                class="Vfsdi jCTZa css-18se8ix"
+                className="Vfsdi jCTZa css-18se8ix"
               >
                 <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
                 <path
@@ -132,7 +132,7 @@ export default function FeedDetail(props) {
                 width="1em"
                 height="1em"
                 viewBox="0 0 24 24"
-                class="Vfsdi jCTZa css-18se8ix"
+                className="Vfsdi jCTZa css-18se8ix"
               >
                 <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
                 <path
@@ -148,7 +148,7 @@ export default function FeedDetail(props) {
                 width="1em"
                 height="1em"
                 viewBox="0 0 24 24"
-                class="Vfsdi jCTZa css-18se8ix"
+                className="Vfsdi jCTZa css-18se8ix"
               >
                 <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
                 <path
