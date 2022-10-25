@@ -2,7 +2,6 @@ import React from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiMessageAlt } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
-import FeedWriter from '../../../components/sns/feed/FeedWriter';
 import {
   FeedActionList,
   FeedCardWrapper,

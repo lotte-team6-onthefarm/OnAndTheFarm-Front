@@ -1,4 +1,6 @@
 import React from 'react';
+import { useQuery } from 'react-query';
+import { getFollowingList } from '../../../apis/sns/profile';
 import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
 import { FollowingButton, FollowWrapper } from './follow.styled';
 import FollowUser from './FollowUser';
@@ -37,6 +39,15 @@ export default function Followee() {
       status: <FollowingButton>팔로잉</FollowingButton>,
     },
   ];
+  const { data: Following, isLoading: FollowingLoading } = useQuery(
+    'getFollowingList',
+    getFollowingList,
+    {
+      onSuccess: () => {},
+    },
+  );
+
+  console.log(Following);
   return (
     <FeedDetailWrapper>
       <FollowWrapper>

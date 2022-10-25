@@ -32,14 +32,17 @@ const getFollowerList = async data => {
 
 // 멤버의 팔로잉 리스트 조회
 const getFollowingList = async data => {
-  const response = await JWTapiUser.get('follow/following-list', data);
+  const response = await JWTapiUser.get(
+    'follow/following-list?pageNumber=0',
+    data,
+  );
   return response.data.data;
 };
 
 // 프로필 화면 feed 부분 조회
 const getProfileFeedList = async data => {
   const response = await JWTapiUser.get('sns/profile/main-feed', data);
-  return response.data;
+  return response.data.data;
 };
 
 // 프로필 화면 scrap 부분 조회
