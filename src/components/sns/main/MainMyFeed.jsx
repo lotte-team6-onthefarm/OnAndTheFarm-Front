@@ -10,6 +10,7 @@ export default function MainMyFeed(props) {
     'profileFeedList',
     getProfileFeedList,
     {
+      refetchOnMount: true,
       onSuccess: () => {},
       onError: () => {},
     },
@@ -30,7 +31,6 @@ export default function MainMyFeed(props) {
               </div>
             )}
           </div>
-          {/* 사진 */}
           {feedListData.length === 0 ? (
             <Link to="/sns/add">
               <NoneFeed text="첫번째 사진을 올려보세요" />

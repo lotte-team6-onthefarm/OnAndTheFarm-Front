@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiMessageAlt } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
 import {
   FeedActionList,
   FeedCardWrapper,
@@ -17,8 +18,40 @@ import SNS_2 from '../../../assets/sns/mysns/myfeed2.png';
 import SNS_3 from '../../../assets/sns/mysns/myfeed3.png';
 import SNS_4 from '../../../assets/sns/mysns/myfeed4.png';
 import SNS_5 from '../../../assets/sns/mysns/myfeed5.png';
+import { useQuery, useInfiniteQuery } from 'react-query';
+import { getAllFeedList, getFeedList } from '../../../apis/sns/profile';
+import Loading from '../../../components/common/Loading';
+import { useState } from 'react';
 
 export default function Feed() {
+  const { ref, inView } = useInView();
+  const [page, setPage] = useState(0);
+
+  const { data, isLoading } = useQuery(
+    'allFeedList',
+    () => getAllFeedList(page),
+    {
+      onSuccess: () => {},
+    },
+  );
+  // const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+  //   'allFeedList',
+  //   () => getAllFeedList(page),
+  //   {
+  //     keepPreviousData: true,
+  //     getNextPageParam: lastPage =>
+  //       !lastPage.isLast ? lastPage.nextPage : undefined,
+  //     onSuccess: res => {
+  //       setPage(page + 1);
+  //     },
+  //   },
+  // );
+
+  // useEffect(() => {
+  //   if (inView) fetchNextPage();
+  // }, [inView]);
+
+  console.log(data);
   const navigate = useNavigate();
   const feedDetailNavigator = () => {
     navigate('/sns/detail');
@@ -125,6 +158,7 @@ export default function Feed() {
           </FeedItemWrapper>
         </FeedCardWrapper>
       ))}
+      {/* {isFetchingNextPage ? <Loading></Loading> : <div ref={ref}></div>} */}
     </FeedDetailWrapper>
   );
 }
