@@ -25,37 +25,39 @@ import {
 } from '../../../apis/sns/content';
 
 import SNS_1 from '../../../assets/sns/요리1.jpg'; // 더미
+import { useLocation } from 'react-router-dom';
 
 export default function FeedDetail(props) {
-  const [feedId, setFeedId] = useState(1);
+  const { state } = useLocation();
+  const [feedId, setFeedId] = useState(state);
   const [likeStatus, setLikeStatus] = useState(false);
   const [scrapStatus, setScrapStatus] = useState(false);
   // feedId = props.feedId
   const queryClient = useQueryClient();
 
-  // const { isLoading: isFeedDetailLoading, data: feedDetail } = useQuery(
-  //   'FeedDetail',
-  //   () => getFeedDetail(feedId),
-  //   {
-  //     refetchOnWindowFocus: true,
-  //     onSuccess: res => {},
-  //     onError: () => {
-  //       console.log('에러');
-  //     },
-  //   },
-  // );
+  const { isLoading: isFeedDetailLoading, data: feedDetail } = useQuery(
+    'FeedDetail',
+    () => getFeedDetail(feedId),
+    {
+      refetchOnWindowFocus: true,
+      onSuccess: res => {},
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
 
-  // const { isLoading: isCommentLoading, data: comment } = useQuery(
-  //   'Comment',
-  //   () => getComment(feedId),
-  //   {
-  //     refetchOnWindowFocus: true,
-  //     onSuccess: res => {},
-  //     onError: () => {
-  //       console.log('에러');
-  //     },
-  //   },
-  // );
+  const { isLoading: isCommentLoading, data: commentList } = useQuery(
+    'Comment',
+    () => getComment(feedId),
+    {
+      refetchOnWindowFocus: true,
+      onSuccess: res => {},
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
 
   const { mutate: feedLike } = useMutation(putFeedLike, {
     onSuccess: res => {},
@@ -89,29 +91,14 @@ export default function FeedDetail(props) {
       console.log('에러');
     },
   });
-  const tag = [
-    { feedTagName: '저녁' },
-    { feedTagName: '신혼' },
-    { feedTagName: '신선야채' },
-    { feedTagName: '파프리카' },
-    { feedTagName: '새우스테이크' },
-    { feedTagName: '오늘한상' },
-    { feedTagName: '또띠아' },
-    { feedTagName: '갈릭디핑소스' },
-    { feedTagName: '사워크림' },
-    { feedTagName: '살사소스' },
-    { feedTagName: '나의한상' },
-  ];
-  
   return (
     <>
-      {/* {!isFeedDetailLoading && !isCommentLoading && ( */}
+      {!isFeedDetailLoading && !isCommentLoading && (
       <FeedDetailWrapper>
-        {/* 더미 */}
         <FeedDetailBlock>
-          <FeedWriter />
+          <FeedWriter memberProfileImg={feedDetail.memberProfileImg} memberName={feedDetail.memberName} followStatus={true}/>
           <FeedImageWrapper>
-            <img src={SNS_1} alt="" onClick={test} />
+            <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" />
             <div>
               <svg
                 width="1em"
@@ -161,19 +148,19 @@ export default function FeedDetail(props) {
               </svg>
             </div>
           </FeedImageWrapper>
-          <FeedProduct feedContent="너무 맛있는 스테이크와 야채볶음~ 오늘 저녁도 맛있게 먹어보아요💛🧡" />
-          <FeedTag feedTag={tag} />
+          <FeedProduct feedContent={feedDetail.feedContent} />
+          <FeedTag feedTag={feedDetail.feedTag} />
           <HorizontalLine color="#d7d7d7" />
-          <FeedComment />
-          <FeedCommentList />
+          <FeedComment feedId={feedDetail.feedId} feedCommentCount={feedDetail.feedCommentCount}/>
+          <FeedCommentList commentList={commentList}/>
         </FeedDetailBlock>
         <FeedDetailSideWrapper>
           <FeedDetailStickyContainer>
             <FeedDetailSideBlock>
-              <SideButton icon="heart" count={312} />
-              <SideButton icon="scrap" count={157} />
-              <SideButton icon="comment" count={135} />
-              <SideButton icon="share" count={57} />
+              <SideButton icon="heart" count={feedDetail.feedLikeCount} />
+              <SideButton icon="scrap" count={feedDetail.feedScrapCount} />
+              <SideButton icon="comment" count={feedDetail.feedCommentCount} />
+              <SideButton icon="share" count={feedDetail.feedShareCount} />
             </FeedDetailSideBlock>
           </FeedDetailStickyContainer>
         </FeedDetailSideWrapper>
@@ -229,7 +216,7 @@ export default function FeedDetail(props) {
             </FeedDetailStickyContainer>
           </FeedDetailSideWrapper> */}
       </FeedDetailWrapper>
-      {/* )} */}
+    )}
     </>
   );
 }

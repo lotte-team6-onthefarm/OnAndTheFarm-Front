@@ -33,8 +33,8 @@ import Loading from '../../../components/common/Loading';
 
 export default function FeedListComp(props) {
   const navigate = useNavigate();
-  const feedDetailNavigator = () => {
-    navigate('/sns/detail');
+  const feedDetailNavigator = (feedId) => {
+    navigate(`/sns/detail`, { state: feedId });
   };
 
   const [snsList, setSnsList] = useState([]);
@@ -110,7 +110,7 @@ export default function FeedListComp(props) {
                   팔로우
                 </button>
               </FeedWriterWrapper>
-              <FeedItemWrapper onClick={feedDetailNavigator}>
+              <FeedItemWrapper onClick={() => feedDetailNavigator(sns.feedId)}>
                 <FeedItemImg>
                   <img src={sns.feedImageSrc} alt=""></img>
                 </FeedItemImg>
