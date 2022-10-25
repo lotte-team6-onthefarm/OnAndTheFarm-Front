@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { getFeedProduct, postUploadFeed } from '../apis/sns/content';
-import SelectBox from '../components/common/SelectBox';
-import ImagesView from '../components/seller/products/productsManagement/images/ImagesView';
 
 export default function SnsTest() {
   const [content, setContent] = useState(''); // sns 콘텐츠

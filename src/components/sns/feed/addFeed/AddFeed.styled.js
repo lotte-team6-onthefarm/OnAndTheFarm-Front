@@ -29,7 +29,7 @@ const AddFeedBlock = styled.div`
     align-items: flex-start;
   }
   textarea {
-    margin-top: 20px;
+    margin-top: 40px;
     width: 520px;
     resize: none;
     overflow-wrap: break-word;
@@ -49,13 +49,15 @@ const AddFeedBlock = styled.div`
 `;
 
 const ImageUploadWrapper = styled.div`
-  button {
+  width: 550px;
+  height: 540px;
+  .feedUploadButton {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 550px;
-    height: 540px;
+    width: 100%;
+    height: 100%;
     background-color: rgb(247, 248, 250);
     border: 1px dashed rgb(218, 220, 224);
     border-radius: 4px;
@@ -107,10 +109,79 @@ const TagWrapper = styled.div`
   }
 `;
 
+const AddFeedProductListWrapper = styled.div`
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px 0;
+  h3 {
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 20px;
+    text-align: left;
+  }
+  .feedProductListBlock {
+    box-sizing: border-box;
+    width: 375px;
+    padding: 0 20px;
+    :nth-child(n + 2) {
+      margin-top: 20px;
+    }
+    display: flex;
+    align-items: center;
+    button {
+    }
+  }
+  .feedProductListDetail {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 186px;
+    margin-right: 10px;
+    div {
+      font-size: 13px;
+      :nth-child(1) {
+        font-weight: bold;
+        font-size: 11px;
+        margin-bottom: 5px;
+      }
+      :nth-child(2) {
+        word-wrap: break-word;
+      }
+    }
+  }
+  img {
+    width: 70px;
+    height: 70px;
+    border-radius: 22px;
+    margin-right: 15px;
+  }
+`;
+
+const AddFeedCarouselImgDiv = styled.div`
+  width: ${props => props.width};
+  height: ${props => props.height};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const AddFeedCarouselImg = styled.img`
+  vertical-align: middle;
+  max-width: 100%;
+  object-fit: cover;
+`;
+
 export {
   AddFeedNavbar,
   AddFeedWrapper,
   AddFeedBlock,
   ImageUploadWrapper,
   TagWrapper,
+  AddFeedProductListWrapper,
+  AddFeedCarouselImgDiv,
+  AddFeedCarouselImg,
 };

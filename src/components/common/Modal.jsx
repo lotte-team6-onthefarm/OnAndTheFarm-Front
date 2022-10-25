@@ -6,7 +6,12 @@ export default function Modal(props) {
   const closeModal = props.closeModal;
   return (
     <ModalWrapper onClick={closeModal}>
-      <ModalBodyBlock onClick={e => e.stopPropagation()}>
+      <ModalBodyBlock
+        onClick={e => e.stopPropagation()}
+        width={props.width}
+        height={props.height}
+        padding={props.padding}
+      >
         <ModalCloseBtn onClick={closeModal}>
           <AiOutlineClose />
         </ModalCloseBtn>
