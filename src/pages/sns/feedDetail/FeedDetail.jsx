@@ -102,6 +102,7 @@ export default function FeedDetail(props) {
     { feedTagName: '살사소스' },
     { feedTagName: '나의한상' },
   ];
+  
   return (
     <>
       {/* {!isFeedDetailLoading && !isCommentLoading && ( */}
@@ -110,19 +111,19 @@ export default function FeedDetail(props) {
         <FeedDetailBlock>
           <FeedWriter />
           <FeedImageWrapper>
-            <img src={SNS_1} alt="" />
+            <img src={SNS_1} alt="" onClick={test} />
             <div>
               <svg
                 width="1em"
                 height="1em"
                 viewBox="0 0 24 24"
-                class="Vfsdi jCTZa css-18se8ix"
+                className="Vfsdi jCTZa css-18se8ix"
               >
                 <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
                 <path
                   stroke="#FFF"
-                  stroke-linecap="square"
-                  stroke-width="2"
+                  strokeLinecap="square"
+                  strokeWidth="2"
                   d="M12 16V8m-4 4h8"
                 ></path>
               </svg>
@@ -132,13 +133,13 @@ export default function FeedDetail(props) {
                 width="1em"
                 height="1em"
                 viewBox="0 0 24 24"
-                class="Vfsdi jCTZa css-18se8ix"
+                className="Vfsdi jCTZa css-18se8ix"
               >
                 <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
                 <path
                   stroke="#FFF"
-                  stroke-linecap="square"
-                  stroke-width="2"
+                  strokeLinecap="square"
+                  strokeWidth="2"
                   d="M12 16V8m-4 4h8"
                 ></path>
               </svg>
@@ -148,13 +149,13 @@ export default function FeedDetail(props) {
                 width="1em"
                 height="1em"
                 viewBox="0 0 24 24"
-                class="Vfsdi jCTZa css-18se8ix"
+                className="Vfsdi jCTZa css-18se8ix"
               >
                 <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
                 <path
                   stroke="#FFF"
-                  stroke-linecap="square"
-                  stroke-width="2"
+                  strokeLinecap="square"
+                  strokeWidth="2"
                   d="M12 16V8m-4 4h8"
                 ></path>
               </svg>
