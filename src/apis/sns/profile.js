@@ -32,14 +32,17 @@ const getFollowerList = async data => {
 
 // 멤버의 팔로잉 리스트 조회
 const getFollowingList = async data => {
-  const response = await JWTapiUser.get('follow/following-list', data);
+  const response = await JWTapiUser.get(
+    'follow/following-list?pageNumber=0',
+    data,
+  );
   return response.data.data;
 };
 
 // 프로필 화면 feed 부분 조회
 const getProfileFeedList = async data => {
   const response = await JWTapiUser.get('sns/profile/main-feed', data);
-  return response.data;
+  return response.data.data;
 };
 
 // 프로필 화면 scrap 부분 조회
@@ -55,9 +58,16 @@ const getProfileWishList = async data => {
 };
 
 // 멤버의 feed 전체 조회
-const getFeedList = async data => {
-  const response = await JWTapiUser.post('sns/profile/feed', data);
-  return response.data.data;
+const getAllFeedList = async pageParam => {
+  console.log(pageParam, '야야');
+  const response = await JWTapiUser.get(
+    `sns/profile/feed?pageNumber=${pageParam}`,
+  );
+  return {
+    posts: response.data.data.feedResponseList,
+    nextPage: pageParam + 1,
+    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+  };
 };
 
 // 멤버의 scrap 전체 조회
@@ -81,7 +91,7 @@ export {
   getProfileFeedList,
   getProfileScrapList,
   getProfileWishList,
-  getFeedList,
+  getAllFeedList,
   getScrapList,
   getWishList,
 };

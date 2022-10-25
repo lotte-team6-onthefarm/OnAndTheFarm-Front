@@ -45,9 +45,11 @@ const SnsFeedBlock = styled.div`
         position: relative;
         border-radius: 6px;
         overflow: hidden;
+        width: 160px;
+        height: 160px;
         img {
           border-radius: 6px;
-          width: 160px;
+          width: 100%;
           object-fit: cover;
         }
       }

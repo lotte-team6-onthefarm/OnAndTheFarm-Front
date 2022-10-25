@@ -79,7 +79,6 @@ export default function AddFeed() {
   const { mutate: uploadFeed } = useMutation(postUploadFeed, {
     onSuccess: () => {
       // 상품 리스트 페이지로 이동
-      //   queryClient.invalidateQueries('');
       navigate('/sns/mysns');
     },
     onError: () => {
