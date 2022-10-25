@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { putFeedUnScrap } from '../../apis/sns/content';
-import MainBanner from '../../components/main/main/MainBanner';
 import MainCarousel from '../../components/main/main/MainCarousel';
 import MainSns from '../../components/main/main/MainSns';
 import MainProductsPopular from '../../components/main/products/MainProductsPopular';
@@ -183,13 +181,6 @@ export default function MainMainPage() {
     }
   */
 
-  const testbtn = () => {
-    const data = {
-      feedId: 3,
-    };
-    const response = putFeedUnScrap(data);
-    console.log(response);
-  };
   return (
     <MainContentDiv>
       <MainCarousel />

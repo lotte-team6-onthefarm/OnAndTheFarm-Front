@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import React, { useState } from 'react';
+import { useMutation } from 'react-query';
 import { postCancelProduct, postRefundProduct } from '../../../apis/user/order';
 import { Button } from '../../common/Button';
 import Input from '../../common/Input';
@@ -45,14 +45,14 @@ export default function ClaimComp(props) {
       orderProductId: props.selectData,
       refundDetail: refundDetail,
     };
-    refundProduct(data)
+    refundProduct(data);
   };
   const makeCancel = () => {
     const data = {
       orderProductId: props.selectData,
       refundDetail: refundDetail,
     };
-    cancelProduct(data)
+    cancelProduct(data);
   };
 
   return (

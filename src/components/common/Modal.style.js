@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
-z-index: 10;
+  z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,9 +15,9 @@ z-index: 10;
 
 const ModalBodyBlock = styled.div`
   position: absolute;
-  width: 500px;
-  height: auto;
-  padding: 40px;
+  width: ${props => (props.width ? props.width : '500px')};
+  height: ${props => (props.height ? props.height : 'auto')};
+  padding: ${props => (props.padding ? props.padding : '40px')};
   text-align: center;
   background-color: white;
   border-radius: 8px;

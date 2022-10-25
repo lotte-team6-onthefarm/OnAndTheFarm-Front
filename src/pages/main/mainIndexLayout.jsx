@@ -5,7 +5,6 @@ import MainFooter from '../../components/main/MainFooter';
 import MainNavbar from '../../components/main/MainNavbar';
 import { StyledMainDiv } from './mainIndexLayout.style';
 import MainMainPage from './mainMainPage';
-import MainPost from './posts/mainPost';
 import MainGroupBuy from './groupbuy/mainGroupBuy';
 import MainCart from './carts/mainCart';
 import MainMypage from './mypage/mainMypage';
@@ -19,7 +18,6 @@ import SuccessPage from './successPage';
 import SnsIndexLayout from '../sns/snsIndexLayout';
 import SnsMainLayout from '../sns/main/Main';
 import FeedDetail from '../sns/feedDetail/FeedDetail';
-import AddFeed from '../../components/sns/feed/addFeed/AddFeed';
 
 export default function MainIndexLayout() {
   return (
