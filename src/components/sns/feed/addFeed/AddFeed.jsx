@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import { UserMaxWrapper } from '../../../../styles/theme';
-import { AddFeedBlock, AddFeedWrapper, TagWrapper } from './AddFeed.styled';
+import {
+  AddFeedBlock,
+  AddFeedNavbar,
+  AddFeedWrapper,
+  TagWrapper,
+} from './AddFeed.styled';
 import AddImageUpload from './AddImageUpload';
+import Logo from '../../../../assets/logo_green.png';
+import { LogoImg } from '../../../main/MainNavbar.style';
+import { Link } from 'react-router-dom';
+import { HorizontalLine } from '../../../common/HorizontalLine.style';
+import { GreenButton } from '../../../common/Button.style';
 
 export default function AddFeed() {
   const [tags, setTags] = useState([]);
@@ -20,33 +30,45 @@ export default function AddFeed() {
   };
   // ================================
 
+  // const mainUrl = () => {
+  //   navigate('/');
+  // };
   return (
-    <UserMaxWrapper>
-      <AddFeedWrapper>
-        <AddFeedBlock>
-          <AddImageUpload></AddImageUpload>
-          <textarea placeholder="피드에 대해 설명해주세요"></textarea>
-          <TagWrapper>
-            {tags.map((tag, idx) => {
-              return (
-                <div className="addTagList" key={idx}>
-                  # {tag}
-                </div>
-              );
-            })}
-            <div className="tagInput">
-              #
-              <input
-                type="text"
-                placeholder="키워드"
-                value={inputTag}
-                onChange={e => setInputTag(e.target.value)}
-                onKeyPress={onKeyPress}
-              />
-            </div>
-          </TagWrapper>
-        </AddFeedBlock>
-      </AddFeedWrapper>
-    </UserMaxWrapper>
+    <>
+      <AddFeedNavbar>
+        <Link to="/">
+          <LogoImg src={Logo} alt="onandthefarmlogo" />
+        </Link>
+        <GreenButton>올리기</GreenButton>
+      </AddFeedNavbar>
+      <UserMaxWrapper>
+        <AddFeedWrapper>
+          <AddFeedBlock>
+            <h2>피드 업로드</h2>
+            <AddImageUpload></AddImageUpload>
+            <textarea placeholder="피드에 대해 설명해주세요"></textarea>
+            <TagWrapper>
+              {tags.map((tag, idx) => {
+                return (
+                  <div className="addTagList" key={idx}>
+                    # {tag}
+                  </div>
+                );
+              })}
+              <div className="tagInput">
+                #
+                <input
+                  type="text"
+                  placeholder="키워드"
+                  value={inputTag}
+                  onChange={e => setInputTag(e.target.value)}
+                  onKeyPress={onKeyPress}
+                />
+              </div>
+            </TagWrapper>
+          </AddFeedBlock>
+        </AddFeedWrapper>
+      </UserMaxWrapper>
+    </>
   );
 }

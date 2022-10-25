@@ -39,7 +39,6 @@ export default function MainIndexLayout() {
           <Route exact path="/sns/*" element={<SnsIndexLayout />} />
           <Route path="/sns/main" element={<SnsMainLayout />} />
           <Route path="/sns/detail" element={<FeedDetail />} />
-          <Route path="/sns/add" element={<AddFeed />} />
           <Route
             exact
             path="/login/success/kakao"

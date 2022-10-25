@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import AddFeed from './components/sns/feed/addFeed/AddFeed';
 import MainIndexLayout from './pages/main/mainIndexLayout';
 import { SellerSearchId, SellerSearchPw } from './pages/seller';
 import SellerLoginPage from './pages/seller/account/login/sellerLoginPage';
@@ -17,6 +18,7 @@ function App() {
         <Route path="seller/searchId" element={<SellerSearchId />} />
         <Route path="seller/searchPw" element={<SellerSearchPw />} />
         <Route path="snstest" element={<SnsTest />} />
+        <Route path="/sns/add" element={<AddFeed />} />
       </Routes>
     </div>
   );
