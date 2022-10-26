@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 import SnsUser from '../../components/sns/userBlock/SnsUser';
 import SnsMain from '../../components/sns/main/snsMain';
 import { SnsMainWrapper, UserWrapper, WhiteWrapper } from './snsMain.style';
@@ -19,7 +19,8 @@ export default function SnsIndexLayout() {
       onError: () => {},
     },
   );
-
+  const param = useParams();
+  console.log(param, '111111111;aksgd;la;lfk');
   return (
     <>
       {!countLoading && (
@@ -29,12 +30,12 @@ export default function SnsIndexLayout() {
           </UserWrapper>
           <WhiteWrapper></WhiteWrapper>
           <Routes>
-            <Route path="/mysns" element={<SnsMain countData={countData} />} />
-            <Route path="/feed" element={<Feed />} />
-            <Route path="/like" element={<Like />} />
-            <Route path="/scrapbook" element={<Scrapbook />} />
-            <Route path="/follower" element={<Follower />} />
-            <Route path="/followee" element={<Followee />} />
+            <Route path="/mysns/:id" element={<SnsMain countData={countData} />} />
+            <Route path="/feed/:id" element={<Feed />} />
+            <Route path="/like/:id" element={<Like />} />
+            <Route path="/scrapbook/:id" element={<Scrapbook />} />
+            <Route path="/follower/:id" element={<Follower />} />
+            <Route path="/followee/:id" element={<Followee />} />
           </Routes>
         </SnsMainWrapper>
       )}

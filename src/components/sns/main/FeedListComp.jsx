@@ -41,7 +41,7 @@ import {
 export default function FeedListComp(props) {
   const navigate = useNavigate();
   const feedDetailNavigator = feedId => {
-    navigate(`/sns/detail`, { state: feedId });
+    navigate(`/sns/detail/${feedId}`);
   };
 
   const [snsList, setSnsList] = useState([]);
@@ -205,7 +205,7 @@ export default function FeedListComp(props) {
                     </span>
                     <span>{sns.feedScrapCount}</span>
                   </Link>
-                  <Link to onClick={() => feedDetailNavigator(sns.feedId)}>
+                  <Link to={`/sns/detail/${sns.feedId}`}>
                     <BiMessageAlt />
                     <span>{sns.feedCommentCount}</span>
                   </Link>
