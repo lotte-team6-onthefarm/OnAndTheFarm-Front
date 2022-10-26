@@ -27,6 +27,7 @@ import {
 import SNS_1 from '../../../assets/sns/요리1.jpg'; // 더미
 import { useLocation } from 'react-router-dom';
 import Carousel from '../../../components/common/Carousel';
+import { postAddFollow } from '../../../apis/sns/profile';
 
 export default function FeedDetail(props) {
   const inputRef = useRef([]);
@@ -73,7 +74,7 @@ export default function FeedDetail(props) {
       },
     },
   );
-
+  
   const { mutate: feedLike } = useMutation(putFeedLike, {
     onSuccess: res => {},
     onError: () => {
@@ -125,7 +126,9 @@ export default function FeedDetail(props) {
             <FeedWriter
               memberProfileImg={feedDetail.memberProfileImg}
               memberName={feedDetail.memberName}
-              followStatus={true}
+              followStatus={feedDetail.followStatus}
+              memberId={feedDetail.memberId}
+              memberRole={feedDetail.memberRole}
             />
             <FeedImageWrapper>
               <Carousel
