@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 const CarouselImgDiv = styled.div`
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
   width: ${props => props.width};
   height: ${props => props.height};
 `;

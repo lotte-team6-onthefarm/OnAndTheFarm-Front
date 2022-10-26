@@ -16,7 +16,7 @@ export default function SideButton(props) {
     share: <HiOutlineShare />,
   };
   return (
-    <SideButtonWrapper status={props.status}>
+    <SideButtonWrapper status={props.status} onClick={() => props.feedLike({feedId:props.feedId})}>
       <span>
         <span
           onClick={

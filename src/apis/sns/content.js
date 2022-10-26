@@ -48,7 +48,7 @@ const getFeedByTag = async data => {
 // 피드 좋아요
 const putFeedLike = async data => {
   console.log(data, 'putFeedLike');
-  const response = await JWTapiUser.put('sns/like', data);
+  const response = await JWTapiUser.post('sns/like', data);
   return response.data;
 };
 

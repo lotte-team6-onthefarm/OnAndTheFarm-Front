@@ -26,9 +26,13 @@ import {
 
 import SNS_1 from '../../../assets/sns/요리1.jpg'; // 더미
 import { useLocation } from 'react-router-dom';
+import Carousel from '../../../components/common/Carousel';
 
 export default function FeedDetail(props) {
   const { state } = useLocation();
+  const [feedImgIdx, setFeedImgIdx] = useState(0);
+  const [feedImageProductList, setFeedImageProductList] = useState([]);
+  const [allFeedImageProductList, setAllFeedImageProductList] = useState([]);
   const [feedId, setFeedId] = useState(state);
   const [likeStatus, setLikeStatus] = useState(false);
   const [scrapStatus, setScrapStatus] = useState(false);
@@ -40,7 +44,11 @@ export default function FeedDetail(props) {
     () => getFeedDetail(feedId),
     {
       refetchOnWindowFocus: true,
-      onSuccess: res => {},
+      onSuccess: res => {
+        setFeedImgIdx(res.feedImageList[0].feedImageId)
+        setAllFeedImageProductList(res.feedImageProductList)
+        setFeedImageProductList(res.feedImageProductList.filter(product => product.feedImageId === res.feedImageList[0].feedImageId))
+      },
       onError: () => {
         console.log('에러');
       },
@@ -91,6 +99,10 @@ export default function FeedDetail(props) {
       console.log('에러');
     },
   });
+  const changeFeedImg = (id) => {
+    setFeedImgIdx(id)
+    setFeedImageProductList(allFeedImageProductList.filter(product => product.feedImageId === id))
+  }
   return (
     <>
       {!isFeedDetailLoading && !isCommentLoading && (
@@ -98,8 +110,10 @@ export default function FeedDetail(props) {
         <FeedDetailBlock>
           <FeedWriter memberProfileImg={feedDetail.memberProfileImg} memberName={feedDetail.memberName} followStatus={true}/>
           <FeedImageWrapper>
-            <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" />
-            <div>
+            <Carousel images={feedDetail.feedImageList} changeFeedImg={changeFeedImg} width="550px"
+          height="540px"></Carousel>
+            {/* <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" /> */}
+            {/* <div>
               <svg
                 width="1em"
                 height="1em"
@@ -146,9 +160,10 @@ export default function FeedDetail(props) {
                   d="M12 16V8m-4 4h8"
                 ></path>
               </svg>
-            </div>
+            </div> */}
           </FeedImageWrapper>
-          <FeedProduct feedContent={feedDetail.feedContent} />
+          
+          <FeedProduct feedContent={feedDetail.feedContent} feedImageProductList={feedImageProductList}/>
           <FeedTag feedTag={feedDetail.feedTag} />
           <HorizontalLine color="#d7d7d7" />
           <FeedComment feedId={feedDetail.feedId} feedCommentCount={feedDetail.feedCommentCount}/>
@@ -157,64 +172,13 @@ export default function FeedDetail(props) {
         <FeedDetailSideWrapper>
           <FeedDetailStickyContainer>
             <FeedDetailSideBlock>
-              <SideButton icon="heart" count={feedDetail.feedLikeCount} />
-              <SideButton icon="scrap" count={feedDetail.feedScrapCount} />
+              <SideButton icon="heart" count={feedDetail.feedLikeCount} status={feedDetail.feedLikeStatus} feedId={feedDetail.feedId} feedLike={feedLike}/>
+              <SideButton icon="scrap" count={feedDetail.feedScrapCount} status={feedDetail.scrapStatus}/>
               <SideButton icon="comment" count={feedDetail.feedCommentCount} />
               <SideButton icon="share" count={feedDetail.feedShareCount} />
             </FeedDetailSideBlock>
           </FeedDetailStickyContainer>
         </FeedDetailSideWrapper>
-        {/* 더미 */}
-        {/* <FeedDetailBlock>
-            <FeedWriter />
-            <FeedImageWrapper>
-              <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" />
-            </FeedImageWrapper>
-            <FeedProduct feedContent={feedDetail.feedContent} />
-            <FeedTag feedTag={feedDetail.feedTag} />
-            <HorizontalLine color="#d7d7d7" />
-            <FeedComment feedId={feedDetail.feedId} comment={comment} />
-            <FeedCommentList comment={comment} />
-          </FeedDetailBlock>
-          <FeedDetailSideWrapper>
-            <FeedDetailStickyContainer>
-              <FeedDetailSideBlock>
-                <SideButton
-                  icon="heart"
-                  count={feedDetail.feedLikeCount}
-                  feedId={feedDetail.feedId}
-                  method={
-                    feedDetail.feedLikeStatus
-                      ? () => feedLike(feedDetail.feedId)
-                      : () => feedUnLike(feedDetail.feedId)
-                  }
-                  status={likeStatus}
-                  setStatus={setLikeStatus}
-                />
-                <SideButton
-                  icon="scrap"
-                  count={feedDetail.feedScrapCount}
-                  feedId={feedDetail.feedId}
-                  method={
-                    feedDetail.scrapStatus
-                      ? () => feedScrap(feedDetail.feedId)
-                      : () => feedUnScrap(feedDetail.feedId)
-                  }
-                  status={scrapStatus}
-                  setStatus={setScrapStatus}
-                />
-                <SideButton
-                  icon="comment"
-                  count={feedDetail.feedCommentCount}
-                />
-                <SideButton
-                  icon="share"
-                  count={feedDetail.feedShareCount}
-                  method={() => putUpFeedShareCount(feedDetail.feedId)}
-                />
-              </FeedDetailSideBlock>
-            </FeedDetailStickyContainer>
-          </FeedDetailSideWrapper> */}
       </FeedDetailWrapper>
     )}
     </>
