@@ -33,7 +33,6 @@ export default function SnsUser(props) {
     onError: () => {},
   });
 
-  console.log(props.countData);
   return (
     <SnsUserBlock>
       {!isLoading && !props.countLoading && (
