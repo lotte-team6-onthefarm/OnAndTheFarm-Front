@@ -28,10 +28,14 @@ export default function SnsUser(props) {
     navigate('/sns/followee');
   };
 
-  const { data, isLoading } = useQuery('profileInfo', getProfileInfo, {
-    onSuccess: () => {},
-    onError: () => {},
-  });
+  const { data, isLoading } = useQuery(
+    'profileInfo',
+    getProfileInfo({ memberId: props.id }),
+    {
+      onSuccess: () => {},
+      onError: () => {},
+    },
+  );
 
   return (
     <SnsUserBlock>
@@ -53,10 +57,14 @@ export default function SnsUser(props) {
               </Link>
               <UserInfoBottom>
                 <UserInfoFollow>
-                  <div>팔로워</div>
-                  <div onClick={followerNavigator}>{data.followerCount}</div>
-                  <div>팔로잉</div>
-                  <div onClick={followeeNavigator}>{data.followingCount}</div>
+                  <div onClick={followerNavigator}>
+                    <div>팔로워</div>
+                    <div>{data.followerCount}</div>
+                  </div>
+                  <div onClick={followeeNavigator}>
+                    <div>팔로워</div>
+                    <div>{data.followerCount}</div>
+                  </div>
                 </UserInfoFollow>
                 <UserInfoSetting>
                   <Link to="/mypage/profile">설정</Link>

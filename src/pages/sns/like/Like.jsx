@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import {
   FeedLikeWrapper,
@@ -7,14 +7,38 @@ import {
   LikeImgWrapper,
   LikeItemDescription,
 } from './Like.styled';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 import { getWishList } from '../../../apis/sns/profile';
+import { useInView } from 'react-intersection-observer';
 export default function Like() {
-  const { data, isLoading } = useQuery('getWishList', getWishList, {
-    onSuccess: () => {},
-    onError: () => {},
-  });
-  console.log(data, '바나나');
+  const { ref, inView } = useInView();
+
+  const {
+    data,
+    // refetch,
+    fetchNextPage,
+    isLoading,
+    isFetchingNextPage,
+    isPreviousData,
+  } = useInfiniteQuery(
+    ['getWishList'],
+    ({ pageParam = 0 }) => getWishList(pageParam),
+    {
+      keepPreviousData: true,
+      getNextPageParam: lastPage =>
+        !lastPage.isLast ? lastPage.nextPage : undefined,
+      onSuccess: res => {},
+    },
+  );
+
+  useEffect(() => {
+    if (inView) fetchNextPage();
+  }, [inView]);
+
+  // const { data, isLoading } = useQuery('getWishList', getWishList, {
+  //   onSuccess: () => {},
+  //   onError: () => {},
+  // });
   return (
     <>
       {!isLoading && (
@@ -47,6 +71,7 @@ export default function Like() {
               </LikeCardWrapper>
             );
           })}
+          {!isFetchingNextPage || (!isPreviousData && <div ref={ref}></div>)}
         </FeedLikeWrapper>
       )}
     </>

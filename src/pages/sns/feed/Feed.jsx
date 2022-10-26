@@ -12,38 +12,42 @@ import {
   FeedItemWrapper,
   FeedWriterWrapper,
 } from './Feed.styled';
-import { useQuery, useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { getAllFeedList } from '../../../apis/sns/profile';
-import { useState } from 'react';
 import { followStatus } from '../snsCommotFunc';
 
 export default function Feed() {
   const { ref, inView } = useInView();
-  const [page, setPage] = useState(0);
 
-  const { data, isLoading } = useQuery(
-    'allFeedList',
-    () => getAllFeedList(page),
-    {
-      onSuccess: () => {},
-    },
-  );
-  // const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+  // const { data, isLoading } = useQuery(
   //   'allFeedList',
   //   () => getAllFeedList(page),
   //   {
-  //     keepPreviousData: true,
-  //     getNextPageParam: lastPage =>
-  //       !lastPage.isLast ? lastPage.nextPage : undefined,
-  //     onSuccess: res => {
-  //       setPage(page + 1);
-  //     },
+  //     onSuccess: () => {},
   //   },
   // );
 
-  // useEffect(() => {
-  //   if (inView) fetchNextPage();
-  // }, [inView]);
+  const {
+    data,
+    // refetch,
+    fetchNextPage,
+    isLoading,
+    isFetchingNextPage,
+    isPreviousData,
+  } = useInfiniteQuery(
+    ['allFeedList'],
+    ({ pageParam = 0 }) => getAllFeedList(pageParam),
+    {
+      keepPreviousData: true,
+      getNextPageParam: lastPage =>
+        !lastPage.isLast ? lastPage.nextPage : undefined,
+      onSuccess: res => {},
+    },
+  );
+
+  useEffect(() => {
+    if (inView) fetchNextPage();
+  }, [inView]);
 
   const navigate = useNavigate();
   const feedDetailNavigator = () => {
@@ -101,7 +105,7 @@ export default function Feed() {
               </FeedItemWrapper>
             </FeedCardWrapper>
           ))}
-          {/* {isFetchingNextPage ? <Loading></Loading> : <div ref={ref}></div>} */}
+          {!isFetchingNextPage || (!isPreviousData && <div ref={ref}></div>)}
         </FeedDetailWrapper>
       )}
     </>

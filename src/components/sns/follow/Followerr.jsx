@@ -1,22 +1,47 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useInfiniteQuery, useQuery } from 'react-query';
 import { getFollowerList } from '../../../apis/sns/profile';
 import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
 import { FollowWrapper } from './follow.styled';
 import FollowUser from './FollowUser';
 
 export default function Follower() {
-  const { data: Followers, isLoading: FollowingLoading } = useQuery(
-    'getFollowerList',
-    getFollowerList,
+  // const { data: Followers, isLoading: FollowingLoading } = useQuery(
+  //   'getFollowerList',
+  //   getFollowerList,
+  //   {
+  //     onSuccess: () => {},
+  //   },
+  // );
+
+  const { ref, inView } = useInView();
+
+  const {
+    data: Followers,
+    // refetch,
+    fetchNextPage,
+    isLoading,
+    isFetchingNextPage,
+    isPreviousData,
+  } = useInfiniteQuery(
+    ['getFollowerList'],
+    ({ pageParam = 0 }) => getFollowerList(pageParam),
     {
-      onSuccess: () => {},
+      keepPreviousData: true,
+      getNextPageParam: lastPage =>
+        !lastPage.isLast ? lastPage.nextPage : undefined,
+      onSuccess: res => {},
     },
   );
 
+  useEffect(() => {
+    if (inView) fetchNextPage();
+  }, [inView]);
+
   return (
     <FeedDetailWrapper>
-      {!FollowingLoading && (
+      {!isLoading && (
         <FollowWrapper>
           <h1>팔로워</h1>
           {Followers.length === 0 ? (
@@ -30,6 +55,7 @@ export default function Follower() {
           )}
         </FollowWrapper>
       )}
+      {!isFetchingNextPage || (!isPreviousData && <div ref={ref}></div>)}
     </FeedDetailWrapper>
   );
 }
