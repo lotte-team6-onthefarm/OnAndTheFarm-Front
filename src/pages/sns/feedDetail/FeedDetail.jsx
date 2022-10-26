@@ -25,22 +25,21 @@ import {
 } from '../../../apis/sns/content';
 
 import SNS_1 from '../../../assets/sns/요리1.jpg'; // 더미
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Carousel from '../../../components/common/Carousel';
 import { postAddFollow } from '../../../apis/sns/profile';
 
 export default function FeedDetail(props) {
   const inputRef = useRef([]);
-  const { state } = useLocation();
+  const param = useParams();
   const [feedImgIdx, setFeedImgIdx] = useState(0);
   const [feedImageProductList, setFeedImageProductList] = useState([]);
   const [allFeedImageProductList, setAllFeedImageProductList] = useState([]);
-  const [feedId, setFeedId] = useState(state);
+  const [feedId, setFeedId] = useState(param.id);
   const [likeStatus, setLikeStatus] = useState(false);
   const [scrapStatus, setScrapStatus] = useState(false);
   // feedId = props.feedId
   const queryClient = useQueryClient();
-
   const { isLoading: isFeedDetailLoading, data: feedDetail } = useQuery(
     'FeedDetail',
     () => getFeedDetail(feedId),
