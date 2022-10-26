@@ -4,7 +4,7 @@ const FeedScrapWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 66.666%;
-  margin-top: 30px;
+  margin: 30px 0;
 `;
 const ScrapImgWrapper = styled.div`
   width: 240px;
@@ -15,6 +15,8 @@ const ScrapImgWrapper = styled.div`
   position: relative;
   img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: all 0.1s linear;
     cursor: pointer;
     :hover {

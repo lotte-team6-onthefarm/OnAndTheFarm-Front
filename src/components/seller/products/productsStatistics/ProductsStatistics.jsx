@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toLocaleString } from '../../../../utils/commonFunction';
 import { WhiteWrapper } from '../../common/Box.style';
 import SubTitle from '../../common/SubTitle';
 import { SellerTitle } from '../../common/Title.style';
@@ -125,7 +124,7 @@ export default function ProductsStatistics() {
                               </div>
                             </div>
                           </td>
-                          <td>{toLocaleString(product.productPrice)}원</td>
+                          <td>{product.productPrice.toLocaleString()}원</td>
                           <td className="grayBack">
                             <IconWrapper>
                               {product.reviewRate === null ? (

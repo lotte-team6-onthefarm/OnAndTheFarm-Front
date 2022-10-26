@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
 const FeedLikeWrapper = styled.div`
-  margin-top: 30px;
+  margin: 30px 0;
   width: 66.6666%;
   display: flex;
   flex-wrap: wrap;
-  margin-right: -10px;
-  margin-left: -10px;
 `;
 
 const LikeCardWrapper = styled.div`
@@ -16,7 +14,6 @@ const LikeCardWrapper = styled.div`
 const LikeImgWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 30px;
 `;
 
 const LikeImgBlock = styled.div`
@@ -26,8 +23,8 @@ const LikeImgBlock = styled.div`
   overflow: hidden;
   position: relative;
   img {
-    width: 240px;
-    height: 240px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     transition: all 0.1s linear;
     cursor: pointer;

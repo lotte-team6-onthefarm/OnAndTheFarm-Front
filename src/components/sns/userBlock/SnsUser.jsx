@@ -32,6 +32,7 @@ export default function SnsUser(props) {
     onSuccess: () => {},
     onError: () => {},
   });
+  console.log(data, '야야');
 
   return (
     <SnsUserBlock>

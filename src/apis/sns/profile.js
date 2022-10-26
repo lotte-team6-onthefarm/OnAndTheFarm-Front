@@ -75,13 +75,13 @@ const getAllFeedList = async pageParam => {
 
 // 멤버의 scrap 전체 조회
 const getScrapList = async data => {
-  const response = await JWTapiUser.get('sns/profile/scrap', data);
+  const response = await JWTapiUser.get('sns/profile/scrap?pageNumber=0', data);
   return response.data.data;
 };
 
 // 멤버의 wish 전체 조회
 const getWishList = async data => {
-  const response = await JWTapiUser.get('sns/profile/wish', data);
+  const response = await JWTapiUser.get('sns/profile/wish?pageNumber=0', data);
   return response.data.data;
 };
 export {
