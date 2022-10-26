@@ -34,7 +34,7 @@ export default function MainIndexLayout() {
           <Route exact path="/cart" element={<MainCart />} />
           <Route exact path="/order" element={<MainOrder />} />
           <Route exact path="/mypage/*" element={<MainMypage />} />
-          <Route exact path="/sns/*" element={<SnsIndexLayout />} />
+          <Route exact path="/sns/:id/*" element={<SnsIndexLayout />} />
           <Route path="/sns/main" element={<SnsMainLayout />} />
           <Route path="/sns/detail/:id" element={<FeedDetail />} />
           <Route

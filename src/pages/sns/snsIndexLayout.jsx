@@ -30,12 +30,12 @@ export default function SnsIndexLayout() {
           </UserWrapper>
           <WhiteWrapper></WhiteWrapper>
           <Routes>
-            <Route path="/mysns/:id" element={<SnsMain countData={countData} />} />
-            <Route path="/feed/:id" element={<Feed />} />
-            <Route path="/like/:id" element={<Like />} />
-            <Route path="/scrapbook/:id" element={<Scrapbook />} />
-            <Route path="/follower/:id" element={<Follower />} />
-            <Route path="/followee/:id" element={<Followee />} />
+            <Route path="/mysns" element={<SnsMain countData={countData} />} />
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/like" element={<Like />} />
+            <Route path="/scrapbook" element={<Scrapbook />} />
+            <Route path="/follower" element={<Follower />} />
+            <Route path="/followee" element={<Followee />} />
           </Routes>
         </SnsMainWrapper>
       )}
