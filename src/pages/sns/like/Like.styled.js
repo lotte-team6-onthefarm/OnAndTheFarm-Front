@@ -25,6 +25,7 @@ const LikeImgBlock = styled.div`
   img {
     width: 100%;
     height: 100%;
+    border-radius: 4px;
     object-fit: cover;
     transition: all 0.1s linear;
     cursor: pointer;
