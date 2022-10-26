@@ -26,11 +26,13 @@ import {
 import { postAddFollow } from '../../../apis/sns/profile';
 import Loading from '../../../components/common/Loading';
 import FeedListComp from '../../../components/sns/main/FeedListComp';
+import InputSearch from '../../../components/common/SearchInput';
 
 export default function SnsMainLayout() {
   const [filterList, setFilterList] = useState(0);
   const [page, setPage] = useState(0);
   const [url, setUrl] = useState('');
+  const [searchWord, setSearchWord] = useState('');
   const changeFilter = idx => {
     setFilterList(idx);
     setPage(0);
@@ -51,6 +53,14 @@ export default function SnsMainLayout() {
         <button onClick={() => changeFilter(1)}>좋아요순</button>
         <button onClick={() => changeFilter(2)}>조회수순</button>
         <button onClick={() => changeFilter(3)}>팔로우</button>
+        <InputSearch
+          id="search"
+          value={searchWord}
+          width="400px"
+          onChange={e => setSearchWord(e.target.value)}
+          placeholder="검색하고 싶은 태그명을 입력해 주세요"
+          type="text"
+        ></InputSearch>
       </SelectWrapper>
       <FeedListComp
         filterList={filterList}

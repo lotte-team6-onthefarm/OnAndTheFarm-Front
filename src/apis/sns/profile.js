@@ -62,7 +62,6 @@ const getProfileWishList = async data => {
 
 // 멤버의 feed 전체 조회
 const getAllFeedList = async pageParam => {
-  console.log(pageParam, '야야');
   const response = await JWTapiUser.get(
     `sns/profile/feed?pageNumber=${pageParam}`,
   );
