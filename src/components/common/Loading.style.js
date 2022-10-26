@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 const Background = styled.div`
+display: ${props => props.loading? "block" : "none"};
   position: absolute;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   top: 0;
   left: 0;
-  background: #ffffffb7;
+  background: rgba(0,0,0,0.1);
   z-index: 999;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;

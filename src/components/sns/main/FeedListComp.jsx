@@ -39,6 +39,7 @@ import {
 } from '../../../apis/sns/content';
 
 export default function FeedListComp(props) {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const feedDetailNavigator = feedId => {
     navigate(`/sns/detail/${feedId}`);
@@ -50,27 +51,41 @@ export default function FeedListComp(props) {
   // useQuery
   // 최신순
   const {
+    data: aaa,
     refetch: refeesdfaseras,
     fetchNextPage,
+    isLoading: getFeedLoading,
     isFetchingNextPage,
-  } = useInfiniteQuery('getFeed', () => getFeedList(props.url, props.page), {
-    keepPreviousData: true,
-    refetchOnMount: true,
-    getNextPageParam: lastPage =>
-      !lastPage.isLast ? lastPage.nextPage : undefined,
-    onSuccess: res => {
-      console.log(res);
-      if (props.page === 0) {
-        // 0페이지시 초기화후 데이터 넣기
-        setSnsList(res.pages[props.page].posts);
-        props.setPage(props.page + 1);
-      }
-      if (res.pages[props.page] !== undefined) {
-        setSnsList([...snsList, ...res.pages[props.page].posts]);
-        props.setPage(props.page + 1);
-      }
+    isPreviousData,
+  } = useInfiniteQuery(
+    ['getFeed', props.url],
+    ({ pageParam = 0 }) => getFeedList(props.url, pageParam),
+    {
+      keepPreviousData: true,
+      getNextPageParam: lastPage =>
+        !lastPage.isLast ? lastPage.nextPage : undefined,
+      onSuccess: res => {
+        // setLoading(true);
+
+        // setTimeout(() => {
+        //   setLoading(false);
+        // }, 2000);
+        // queryClient.setQueryData(['getFeed', props.url], oldProfile => {
+        //   return { oldProfile, ...res.pages[props.page].posts };
+        // });
+        // console.log(res);
+        // if (props.page === 0) {
+        //   // 0페이지시 초기화후 데이터 넣기
+        //   setSnsList(res.pages[props.page].posts);
+        //   props.setPage(props.page + 1);
+        // }
+        // if (res.pages[props.page] !== undefined) {
+        //   setSnsList([...snsList, ...res.pages[props.page].posts]);
+        //   props.setPage(props.page + 1);
+        // }
+      },
     },
-  });
+  );
 
   useEffect(() => {
     setSnsList([]);
@@ -79,6 +94,11 @@ export default function FeedListComp(props) {
     refeesdfaseras();
   }, [props.filterList]);
   useEffect(() => {
+    // setLoading(true)
+
+    // setTimeout(() => {
+    //   setLoading(false)
+    // }, 1000);
     if (inView) fetchNextPage();
   }, [inView]);
 
@@ -130,97 +150,122 @@ export default function FeedListComp(props) {
   });
 
   const feedLikeFunc = (status, data) => {
-    if (status){
-      feedUnLike(data)
+    if (status) {
+      feedUnLike(data);
     } else {
-      feedLike(data)
+      feedLike(data);
     }
   };
   const feedScrapFunc = (status, data) => {
-    if (status){
-      feedUnScrap(data)
+    if (status) {
+      feedUnScrap(data);
     } else {
-      feedScrap(data)
+      feedScrap(data);
     }
   };
-
+  console.log(aaa, 'aaa');
+  // if (loading) return <Loading></Loading>;
   return (
     <SnsMainWrapper>
-      {!isFetchingNextPage && (
+      {!getFeedLoading && (
         <FeedDetailWrapper>
-          {snsList.map((sns, idx) => (
-            <FeedCardWrapper key={idx}>
-              <FeedWriterWrapper>
-                <Link to>
-                  <img src={sns.memberProfileImg} alt="" />
-                  <span>{sns.memberName}</span>
-                </Link>
-                <span className="FeedWriterWrapperSpan" />
-                {sns.followStatus ? (
-                  <button
-                    onClick={() =>
-                      cancelFollow({
-                        followerMemberId: sns.memberId,
-                        followerMemberRole: sns.memberRole,
-                      })
-                    }
-                  >
-                    팔로잉
-                  </button>
-                ) : (
-                  <button
-                    onClick={() =>
-                      addFollow({
-                        followerMemberId: sns.memberId,
-                        followerMemberRole: sns.memberRole,
-                      })
-                    }
-                  >
-                    팔로우
-                  </button>
-                )}
-              </FeedWriterWrapper>
-              <FeedItemWrapper>
-                <FeedItemImg onClick={() => feedDetailNavigator(sns.feedId)}>
-                  <img src={sns.feedImageSrc} alt=""></img>
-                </FeedItemImg>
-                <FeedActionList>
-                  <Link to onClick={() =>feedLikeFunc(sns.feedLikeStatus,{ feedId: sns.feedId })}>
-                    <span>
-                      {sns.feedLikeStatus === true ? (
-                        <AiFillHeart color='#40AA54'/>
-                      ) : (
-                        <AiOutlineHeart />
-                      )}
-                    </span>
-                    <span>{sns.feedLikeCount}</span>
+          {aaa.pages.map((page, idx) =>
+            page.posts.map((sns, idx) => (
+              <FeedCardWrapper key={idx}>
+                <FeedWriterWrapper>
+                  <Link to>
+                    <img src={sns.memberProfileImg} alt="" />
+                    <span>{sns.memberName}</span>
                   </Link>
-                  <Link to onClick={() =>feedScrapFunc(sns.scrapStatus,{ feedId: sns.feedId })}>
-                    <span>
-                      {sns.scrapStatus === true ? (
-                        <MdBookmark color='#40AA54'/>
-                      ) : (
-                        <BiBookmark />
-                      )}
-                    </span>
-                    <span>{sns.feedScrapCount}</span>
-                  </Link>
-                  <Link to={`/sns/detail/${sns.feedId}`}>
-                    <BiMessageAlt />
-                    <span>{sns.feedCommentCount}</span>
-                  </Link>
-                </FeedActionList>
-                <FeedItemDescription>
-                  <div className="card-item-description__content">
-                    {sns.feedContent}
-                  </div>
-                </FeedItemDescription>
-              </FeedItemWrapper>
-            </FeedCardWrapper>
-          ))}
+                  <span className="FeedWriterWrapperSpan" />
+                  {sns.followStatus ? (
+                    <button
+                      onClick={() =>
+                        cancelFollow({
+                          followerMemberId: sns.memberId,
+                          followerMemberRole: sns.memberRole,
+                        })
+                      }
+                    >
+                      팔로잉
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        addFollow({
+                          followerMemberId: sns.memberId,
+                          followerMemberRole: sns.memberRole,
+                        })
+                      }
+                    >
+                      팔로우
+                    </button>
+                  )}
+                </FeedWriterWrapper>
+                <FeedItemWrapper>
+                  <FeedItemImg onClick={() => feedDetailNavigator(sns.feedId)}>
+                    <img src={sns.feedImageSrc} alt=""></img>
+                  </FeedItemImg>
+                  <FeedActionList>
+                    <Link
+                      to
+                      onClick={() =>
+                        feedLikeFunc(sns.feedLikeStatus, { feedId: sns.feedId })
+                      }
+                    >
+                      <span>
+                        {sns.feedLikeStatus === true ? (
+                          <AiFillHeart color="#40AA54" />
+                        ) : (
+                          <AiOutlineHeart />
+                        )}
+                      </span>
+                      <span>{sns.feedLikeCount}</span>
+                    </Link>
+                    <Link
+                      to
+                      onClick={() =>
+                        feedScrapFunc(sns.scrapStatus, { feedId: sns.feedId })
+                      }
+                    >
+                      <span>
+                        {sns.scrapStatus === true ? (
+                          <MdBookmark color="#40AA54" />
+                        ) : (
+                          <BiBookmark />
+                        )}
+                      </span>
+                      <span>{sns.feedScrapCount}</span>
+                    </Link>
+                    <Link to={`/sns/detail/${sns.feedId}`}>
+                      <BiMessageAlt />
+                      <span>{sns.feedCommentCount}</span>
+                    </Link>
+                  </FeedActionList>
+                  <FeedItemDescription>
+                    <div className="card-item-description__content">
+                      {sns.feedContent}
+                    </div>
+                  </FeedItemDescription>
+                </FeedItemWrapper>
+              </FeedCardWrapper>
+            )),
+          )}
         </FeedDetailWrapper>
       )}
-      {isFetchingNextPage ? <Loading></Loading> : <div ref={ref}></div>}
+      {/* {!isFetchingNextPage&&(setTimeout(() => {
+        <Loading></Loading>
+        console.log('settimeout')
+      }, 3000))}
+      <div ref={ref}></div> */}
+      {/* <div ref={ref}></div> */}
+      
+      
+      {isFetchingNextPage || isPreviousData ? (
+        <Loading loading={loading}></Loading>
+      ) : (
+        <div ref={ref}></div>
+      )}
     </SnsMainWrapper>
   );
 }
