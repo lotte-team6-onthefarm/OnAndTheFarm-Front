@@ -43,6 +43,7 @@ export default function DeliveryList() {
   // usenavigator
   const navigator = useNavigate();
   const queryClient = useQueryClient();
+
   // usestate
   const [deliveryState, setDeliveryState] = useState('activated'); // 0 : 배송처리 1 : 배송중 2 : 배송완료
   const [startDate, setStartDate] = useState('');

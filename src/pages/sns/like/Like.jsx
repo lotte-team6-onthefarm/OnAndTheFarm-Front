@@ -36,13 +36,13 @@ export default function Like() {
                     <span>{wishProduct.productOriginPlace}</span>
                     <span>{wishProduct.productPrice.toLocaleString()}원</span>
                   </span>
-                  <p className="production-item-stats">
+                  <div className="production-item-stats">
                     <div className="production-item-stats--icon">
                       <AiFillStar />
                     </div>
-                    <strong>{wishProduct.s}</strong>
-                    <span>리뷰{wishProduct.productReviewCount}</span>
-                  </p>
+                    <strong>{wishProduct.reviewRate}</strong>
+                    <span>리뷰{wishProduct.reviewCount}</span>
+                  </div>
                 </LikeItemDescription>
               </LikeCardWrapper>
             );

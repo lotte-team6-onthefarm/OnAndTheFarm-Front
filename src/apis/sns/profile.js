@@ -14,7 +14,7 @@ const putCancelFollow = async data => {
 
 // 프로필 정보(이름&프로필이미지&팔로우&팔로잉) 조회
 const getProfileInfo = async data => {
-  const response = await JWTapiUser.get('profile', data);
+  const response = await JWTapiUser.get(`profile?memberId=${data.memberId}`);
   return response.data.data;
 };
 
