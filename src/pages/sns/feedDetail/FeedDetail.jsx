@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getComment } from '../../../apis/sns/comment';
 import { getFeedDetail, putUpFeedShareCount } from '../../../apis/sns/content';
@@ -29,6 +29,7 @@ import { useLocation } from 'react-router-dom';
 import Carousel from '../../../components/common/Carousel';
 
 export default function FeedDetail(props) {
+  const inputRef = useRef([]);
   const { state } = useLocation();
   const [feedImgIdx, setFeedImgIdx] = useState(0);
   const [feedImageProductList, setFeedImageProductList] = useState([]);
@@ -45,9 +46,15 @@ export default function FeedDetail(props) {
     {
       refetchOnWindowFocus: true,
       onSuccess: res => {
-        setFeedImgIdx(res.feedImageList[0].feedImageId)
-        setAllFeedImageProductList(res.feedImageProductList)
-        setFeedImageProductList(res.feedImageProductList.filter(product => product.feedImageId === res.feedImageList[0].feedImageId))
+        setFeedImgIdx(res.feedImageList[0].feedImageId);
+        setAllFeedImageProductList(res.feedImageProductList);
+        setFeedImageProductList(
+          res.feedImageProductList.filter(
+            product => product.feedImageId === res.feedImageList[0].feedImageId,
+          ),
+        );
+        setLikeStatus(res.feedLikeStatus)
+        setScrapStatus(res.scrapStatus)
       },
       onError: () => {
         console.log('에러');
@@ -99,21 +106,36 @@ export default function FeedDetail(props) {
       console.log('에러');
     },
   });
-  const changeFeedImg = (id) => {
-    setFeedImgIdx(id)
-    setFeedImageProductList(allFeedImageProductList.filter(product => product.feedImageId === id))
-  }
+  const changeFeedImg = id => {
+    setFeedImgIdx(id);
+    setFeedImageProductList(
+      allFeedImageProductList.filter(product => product.feedImageId === id),
+    );
+  };
+  const scroll = () => {
+    const x = inputRef.current[0].offsetTop;
+    window.scrollTo({ top: x, left: 0, behavior: 'smooth' });
+  };
+
   return (
     <>
       {!isFeedDetailLoading && !isCommentLoading && (
-      <FeedDetailWrapper>
-        <FeedDetailBlock>
-          <FeedWriter memberProfileImg={feedDetail.memberProfileImg} memberName={feedDetail.memberName} followStatus={true}/>
-          <FeedImageWrapper>
-            <Carousel images={feedDetail.feedImageList} changeFeedImg={changeFeedImg} width="550px"
-          height="540px"></Carousel>
-            {/* <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" /> */}
-            {/* <div>
+        <FeedDetailWrapper>
+          <FeedDetailBlock>
+            <FeedWriter
+              memberProfileImg={feedDetail.memberProfileImg}
+              memberName={feedDetail.memberName}
+              followStatus={true}
+            />
+            <FeedImageWrapper>
+              <Carousel
+                images={feedDetail.feedImageList}
+                changeFeedImg={changeFeedImg}
+                width="550px"
+                height="540px"
+              ></Carousel>
+              {/* <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" /> */}
+              {/* <div>
               <svg
                 width="1em"
                 height="1em"
@@ -161,26 +183,53 @@ export default function FeedDetail(props) {
                 ></path>
               </svg>
             </div> */}
-          </FeedImageWrapper>
-          
-          <FeedProduct feedContent={feedDetail.feedContent} feedImageProductList={feedImageProductList}/>
-          <FeedTag feedTag={feedDetail.feedTag} />
-          <HorizontalLine color="#d7d7d7" />
-          <FeedComment feedId={feedDetail.feedId} feedCommentCount={feedDetail.feedCommentCount}/>
-          <FeedCommentList commentList={commentList}/>
-        </FeedDetailBlock>
-        <FeedDetailSideWrapper>
-          <FeedDetailStickyContainer>
-            <FeedDetailSideBlock>
-              <SideButton icon="heart" count={feedDetail.feedLikeCount} status={feedDetail.feedLikeStatus} feedId={feedDetail.feedId} feedLike={feedLike}/>
-              <SideButton icon="scrap" count={feedDetail.feedScrapCount} status={feedDetail.scrapStatus}/>
-              <SideButton icon="comment" count={feedDetail.feedCommentCount} />
-              <SideButton icon="share" count={feedDetail.feedShareCount} />
-            </FeedDetailSideBlock>
-          </FeedDetailStickyContainer>
-        </FeedDetailSideWrapper>
-      </FeedDetailWrapper>
-    )}
+            </FeedImageWrapper>
+
+            <FeedProduct
+              feedContent={feedDetail.feedContent}
+              feedImageProductList={feedImageProductList}
+            />
+            <FeedTag feedTag={feedDetail.feedTag} />
+            <HorizontalLine color="#d7d7d7" />
+            <div ref={elem => (inputRef.current[0] = elem)}></div>
+            <FeedComment
+              feedId={feedDetail.feedId}
+              feedCommentCount={feedDetail.feedCommentCount}
+            />
+            <FeedCommentList commentList={commentList} />
+          </FeedDetailBlock>
+          <FeedDetailSideWrapper>
+            <FeedDetailStickyContainer>
+              <FeedDetailSideBlock>
+                <SideButton
+                  icon="heart"
+                  count={feedDetail.feedLikeCount}
+                  status={likeStatus}
+                  setStatus={setLikeStatus}
+                  feedId={feedDetail.feedId}
+                  buttonClick={feedLike}
+                  buttonUnClick={feedUnLike}
+                />
+                <SideButton
+                  icon="scrap"
+                  count={feedDetail.feedScrapCount}
+                  status={scrapStatus}
+                  setStatus={setScrapStatus}
+                  feedId={feedDetail.feedId}
+                  buttonClick={feedScrap}
+                  buttonUnClick={feedUnScrap}
+                />
+                <SideButton
+                  icon="comment"
+                  buttonClick={scroll}
+                  count={feedDetail.feedCommentCount}
+                />
+                <SideButton icon="share" count={feedDetail.feedShareCount} />
+              </FeedDetailSideBlock>
+            </FeedDetailStickyContainer>
+          </FeedDetailSideWrapper>
+        </FeedDetailWrapper>
+      )}
     </>
   );
 }

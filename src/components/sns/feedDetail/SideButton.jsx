@@ -15,16 +15,22 @@ export default function SideButton(props) {
     comment: <BiMessageAlt />,
     share: <HiOutlineShare />,
   };
+  const buttonClick = () => {
+    if (props.status !== undefined && props.status === false) {
+      props.buttonClick({ feedId: props.feedId });
+      props.setStatus(!props.status);
+    } else if (props.status !== undefined && props.status === true) {
+      props.buttonUnClick({ feedId: props.feedId });
+      props.setStatus(!props.status);
+    }
+    if(props.icon==="comment"){
+      props.buttonClick()
+    }
+  };
   return (
-    <SideButtonWrapper status={props.status} onClick={() => props.feedLike({feedId:props.feedId})}>
+    <SideButtonWrapper status={props.status} onClick={buttonClick}>
       <span>
-        <span
-          onClick={
-            (props.method,
-            () =>
-              props.setStatus !== undefined && props.setStatus(!props.status))
-          }
-        >
+        <span>
           {props.icon === 'heart' && props.status === true ? (
             <span className="fillIcons">{icons['fillHeart']}</span>
           ) : props.icon === 'scrap' && props.status === true ? (
