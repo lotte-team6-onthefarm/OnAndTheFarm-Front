@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
 const FeedDetailWrapper = styled.div`
-  margin-top: 30px;
+  margin: 30px -10px;
   width: 66.66666666666666%;
   display: flex;
   flex-wrap: wrap;
-  margin-right: -10px;
-  margin-left: -10px;
 `;
 
 const FeedCardWrapper = styled.div`
@@ -56,7 +54,7 @@ const FeedWriterWrapper = styled.div`
     padding: 0px;
     border: none;
     background: none;
-    color: ${props => props.theme.colors.green};
+    color: ${props => (props.followStatus ? '#757575' : '#40aa54')};
     font-size: inherit;
     font-weight: 700;
     :hover {
@@ -91,13 +89,15 @@ const FeedItemDescription = styled.div`
 `;
 
 const FeedItemImg = styled.div`
+  width: 240px;
+  height: 240px;
   border-radius: 6px;
-  padding-bottom: 100%;
   position: relative;
   overflow: hidden;
   img {
     position: absolute;
     width: 100%;
+    height: 100%;
     transition: all 0.1s linear;
     cursor: pointer;
     :hover {

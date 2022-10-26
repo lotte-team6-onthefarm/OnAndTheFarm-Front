@@ -11,7 +11,6 @@ import { BiUser } from 'react-icons/bi';
 import { VscGraphLine } from 'react-icons/vsc';
 import { IconBox, IconTitleBox, IconWrapper } from '../../common/Icon.style';
 import { UpDownBox } from '../../common/sellerCommon.style';
-import { toLocaleString } from '../../../../utils/commonFunction';
 import MainBottomGraph from './mainBottom/MainBottomGraph';
 
 export default function MainUserManagement(props) {
@@ -93,7 +92,7 @@ export default function MainUserManagement(props) {
               {pricePercent <= -100 && <UpDownBox state="1">↓ -100%</UpDownBox>}
             </div>
             <GrayInnerWrapper>
-              {toLocaleString(mainData.totalPrice)}원
+              {mainData.totalPrice.toLocaleString()}원
             </GrayInnerWrapper>
           </MainUserWhiteBlock>
         </MainUserWhiteWrapper>
