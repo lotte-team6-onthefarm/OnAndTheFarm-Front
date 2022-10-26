@@ -28,10 +28,14 @@ export default function SnsUser(props) {
     navigate('/sns/followee');
   };
 
-  const { data, isLoading } = useQuery('profileInfo', getProfileInfo, {
-    onSuccess: () => {},
-    onError: () => {},
-  });
+  const { data, isLoading } = useQuery(
+    'profileInfo',
+    getProfileInfo({ memberId: props.id }),
+    {
+      onSuccess: () => {},
+      onError: () => {},
+    },
+  );
 
   return (
     <SnsUserBlock>

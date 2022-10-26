@@ -20,22 +20,22 @@ export default function SnsIndexLayout() {
     },
   );
   const param = useParams();
-  console.log(param, '111111111;aksgd;la;lfk');
+  const id = param.id;
   return (
     <>
       {!countLoading && (
         <SnsMainWrapper>
           <UserWrapper>
-            <SnsUser countData={countData}></SnsUser>
+            <SnsUser countData={countData} id={id}></SnsUser>
           </UserWrapper>
           <WhiteWrapper></WhiteWrapper>
           <Routes>
-            <Route path="/mysns/:id" element={<SnsMain countData={countData} />} />
-            <Route path="/feed/:id" element={<Feed />} />
-            <Route path="/like/:id" element={<Like />} />
-            <Route path="/scrapbook/:id" element={<Scrapbook />} />
-            <Route path="/follower/:id" element={<Follower />} />
-            <Route path="/followee/:id" element={<Followee />} />
+            <Route path="/mysns" element={<SnsMain countData={countData} />} />
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/like" element={<Like />} />
+            <Route path="/scrapbook" element={<Scrapbook />} />
+            <Route path="/follower" element={<Follower />} />
+            <Route path="/followee" element={<Followee />} />
           </Routes>
         </SnsMainWrapper>
       )}
