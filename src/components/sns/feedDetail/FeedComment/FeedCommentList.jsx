@@ -32,7 +32,7 @@ export default function FeedCommentList(props) {
   ];
   return (
     <FeedCommentListWrapper>
-      {dummy.map((comment, idx) => {
+      {props.commentList.map((comment, idx) => {
         return (
           <li key={idx}>
             <FeedListBlock>

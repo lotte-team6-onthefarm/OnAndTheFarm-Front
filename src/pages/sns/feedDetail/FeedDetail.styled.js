@@ -79,16 +79,16 @@ const SideButtonWrapper = styled.button`
   }
 `;
 const FeedImageWrapper = styled.div`
-  width: 550px;
+  /* width: 550px;
   height: 550px;
   border-radius: 4px;
   display: flex;
   justify-content: center;
-  position: relative;
-  img {
+  position: relative; */
+  /* img {
     height: 100%;
-  }
-  div {
+  } */
+  /* div {
     color: #59de47;
     cursor: pointer;
     position: absolute;
@@ -104,7 +104,7 @@ const FeedImageWrapper = styled.div`
       top: 400px;
       left: 400px;
     }
-  }
+  } */
 `;
 export {
   FeedDetailWrapper,

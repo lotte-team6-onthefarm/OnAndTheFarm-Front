@@ -6,8 +6,9 @@ import {
   useQueryClient,
 } from 'react-query';
 import { useInView } from 'react-intersection-observer';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiMessageAlt } from 'react-icons/bi';
+import { MdBookmark } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import FeedWriter from '../../../components/sns/feed/FeedWriter';
 import {
@@ -28,13 +29,19 @@ import {
   getFeedByViewCount,
   getFeedList,
 } from '../../../apis/sns/main';
-import { postAddFollow } from '../../../apis/sns/profile';
+import { postAddFollow, putCancelFollow } from '../../../apis/sns/profile';
 import Loading from '../../../components/common/Loading';
+import {
+  putFeedLike,
+  putFeedScrap,
+  putFeedUnLike,
+  putFeedUnScrap,
+} from '../../../apis/sns/content';
 
 export default function FeedListComp(props) {
   const navigate = useNavigate();
-  const feedDetailNavigator = () => {
-    navigate('/sns/detail');
+  const feedDetailNavigator = feedId => {
+    navigate(`/sns/detail`, { state: feedId });
   };
 
   const [snsList, setSnsList] = useState([]);
@@ -48,6 +55,7 @@ export default function FeedListComp(props) {
     isFetchingNextPage,
   } = useInfiniteQuery('getFeed', () => getFeedList(props.url, props.page), {
     keepPreviousData: true,
+    refetchOnMount: true,
     getNextPageParam: lastPage =>
       !lastPage.isLast ? lastPage.nextPage : undefined,
     onSuccess: res => {
@@ -78,20 +86,62 @@ export default function FeedListComp(props) {
     postAddFollow,
     {
       onSuccess: res => {
-        alert('팔로우');
+        refeesdfaseras();
       },
       onError: () => {
         console.log('에러');
       },
     },
   );
+  const { mutate: cancelFollow, isLoading: isPostCancelFollow } = useMutation(
+    putCancelFollow,
+    {
+      onSuccess: res => {
+        refeesdfaseras();
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+  const { mutate: feedLike } = useMutation(putFeedLike, {
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedUnLike } = useMutation(putFeedUnLike, {
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedScrap } = useMutation(putFeedScrap, {
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedUnScrap } = useMutation(putFeedUnScrap, {
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
+    },
+  });
 
-  const follow = (id, role) => {
-    const data = {
-      followerMemberId: id,
-      followerMemberRole: role,
-    };
-    addFollow(data);
+  const feedLikeFunc = (status, data) => {
+    if (status){
+      feedUnLike(data)
+    } else {
+      feedLike(data)
+    }
+  };
+  const feedScrapFunc = (status, data) => {
+    if (status){
+      feedUnScrap(data)
+    } else {
+      feedScrap(data)
+    }
   };
 
   return (
@@ -106,24 +156,56 @@ export default function FeedListComp(props) {
                   <span>{sns.memberName}</span>
                 </Link>
                 <span className="FeedWriterWrapperSpan" />
-                <button onClick={() => follow(sns.memberId, sns.memberRole)}>
-                  팔로우
-                </button>
+                {sns.followStatus ? (
+                  <button
+                    onClick={() =>
+                      cancelFollow({
+                        followerMemberId: sns.memberId,
+                        followerMemberRole: sns.memberRole,
+                      })
+                    }
+                  >
+                    팔로잉
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      addFollow({
+                        followerMemberId: sns.memberId,
+                        followerMemberRole: sns.memberRole,
+                      })
+                    }
+                  >
+                    팔로우
+                  </button>
+                )}
               </FeedWriterWrapper>
-              <FeedItemWrapper onClick={feedDetailNavigator}>
-                <FeedItemImg>
+              <FeedItemWrapper>
+                <FeedItemImg onClick={() => feedDetailNavigator(sns.feedId)}>
                   <img src={sns.feedImageSrc} alt=""></img>
                 </FeedItemImg>
                 <FeedActionList>
-                  <Link to>
-                    <AiOutlineHeart />
+                  <Link to onClick={() =>feedLikeFunc(sns.feedLikeStatus,{ feedId: sns.feedId })}>
+                    <span>
+                      {sns.feedLikeStatus === true ? (
+                        <AiFillHeart color='#40AA54'/>
+                      ) : (
+                        <AiOutlineHeart />
+                      )}
+                    </span>
                     <span>{sns.feedLikeCount}</span>
                   </Link>
-                  <Link to>
-                    <BiBookmark />
+                  <Link to onClick={() =>feedScrapFunc(sns.scrapStatus,{ feedId: sns.feedId })}>
+                    <span>
+                      {sns.scrapStatus === true ? (
+                        <MdBookmark color='#40AA54'/>
+                      ) : (
+                        <BiBookmark />
+                      )}
+                    </span>
                     <span>{sns.feedScrapCount}</span>
                   </Link>
-                  <Link to>
+                  <Link to onClick={() => feedDetailNavigator(sns.feedId)}>
                     <BiMessageAlt />
                     <span>{sns.feedCommentCount}</span>
                   </Link>

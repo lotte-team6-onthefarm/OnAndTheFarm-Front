@@ -7,7 +7,7 @@ const FeedProductWrapper = styled.div`
     scroll-padding: 0px;
     display: flex;
     margin: 0px;
-    overflow: hidden;
+    overflow: auto;
     list-style: none;
   }
   li {

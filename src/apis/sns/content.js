@@ -26,9 +26,7 @@ const getFeedProduct = async () => {
 
 // 피드 상세 페이지 조회
 const getFeedDetail = async data => {
-  console.log(data, 'getFeedDetail');
   const response = await JWTapiUser.get(`sns/detail?feedId=${data}`);
-  console.log(response, 'getFeedDetailresponse');
   return response.data.data;
 };
 
@@ -49,28 +47,24 @@ const getFeedByTag = async data => {
 
 // 피드 좋아요
 const putFeedLike = async data => {
-  console.log(data, 'putFeedLike');
-  const response = await JWTapiUser.put('sns/like', data);
+  const response = await JWTapiUser.post('sns/like', data);
   return response.data;
 };
 
 // 피드 좋아요 취소
 const putFeedUnLike = async data => {
-  console.log(data, 'putFeedUnLike');
   const response = await JWTapiUser.put('sns/unlike', data);
   return response.data;
 };
 
 // 피드 스크랩
 const putFeedScrap = async data => {
-  console.log(data, 'putFeedScrap');
-  const response = await JWTapiUser.put('sns/scrap', data);
+  const response = await JWTapiUser.post('sns/scrap', data);
   return response.data;
 };
 
 // 피드 스크랩 취소
 const putFeedUnScrap = async data => {
-  console.log(data, 'putFeedUnScrap');
   const response = await JWTapiUser.put('sns/unscrap', data);
   return response.data;
 };

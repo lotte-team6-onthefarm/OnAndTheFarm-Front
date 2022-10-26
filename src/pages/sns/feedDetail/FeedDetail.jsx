@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getComment } from '../../../apis/sns/comment';
 import { getFeedDetail, putUpFeedShareCount } from '../../../apis/sns/content';
@@ -25,38 +25,58 @@ import {
 } from '../../../apis/sns/content';
 
 import SNS_1 from '../../../assets/sns/요리1.jpg'; // 더미
+import { useLocation } from 'react-router-dom';
+import Carousel from '../../../components/common/Carousel';
+import { postAddFollow } from '../../../apis/sns/profile';
 
 export default function FeedDetail(props) {
-  const [feedId, setFeedId] = useState(1);
+  const inputRef = useRef([]);
+  const { state } = useLocation();
+  const [feedImgIdx, setFeedImgIdx] = useState(0);
+  const [feedImageProductList, setFeedImageProductList] = useState([]);
+  const [allFeedImageProductList, setAllFeedImageProductList] = useState([]);
+  const [feedId, setFeedId] = useState(state);
   const [likeStatus, setLikeStatus] = useState(false);
   const [scrapStatus, setScrapStatus] = useState(false);
   // feedId = props.feedId
   const queryClient = useQueryClient();
 
-  // const { isLoading: isFeedDetailLoading, data: feedDetail } = useQuery(
-  //   'FeedDetail',
-  //   () => getFeedDetail(feedId),
-  //   {
-  //     refetchOnWindowFocus: true,
-  //     onSuccess: res => {},
-  //     onError: () => {
-  //       console.log('에러');
-  //     },
-  //   },
-  // );
+  const { isLoading: isFeedDetailLoading, data: feedDetail } = useQuery(
+    'FeedDetail',
+    () => getFeedDetail(feedId),
+    {
+      refetchOnWindowFocus: true,
+      refetchOnMount: true,
+      onSuccess: res => {
+        setFeedImgIdx(res.feedImageList[0].feedImageId);
+        setAllFeedImageProductList(res.feedImageProductList);
+        setFeedImageProductList(
+          res.feedImageProductList.filter(
+            product => product.feedImageId === res.feedImageList[0].feedImageId,
+          ),
+        );
+        setLikeStatus(res.feedLikeStatus)
+        setScrapStatus(res.scrapStatus)
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
 
-  // const { isLoading: isCommentLoading, data: comment } = useQuery(
-  //   'Comment',
-  //   () => getComment(feedId),
-  //   {
-  //     refetchOnWindowFocus: true,
-  //     onSuccess: res => {},
-  //     onError: () => {
-  //       console.log('에러');
-  //     },
-  //   },
-  // );
-
+  const { isLoading: isCommentLoading, data: commentList } = useQuery(
+    'Comment',
+    () => getComment(feedId),
+    {
+      refetchOnWindowFocus: true,
+      refetchOnMount: true,
+      onSuccess: res => {},
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+  
   const { mutate: feedLike } = useMutation(putFeedLike, {
     onSuccess: res => {},
     onError: () => {
@@ -89,105 +109,99 @@ export default function FeedDetail(props) {
       console.log('에러');
     },
   });
-  const tag = [
-    { feedTagName: '저녁' },
-    { feedTagName: '신혼' },
-    { feedTagName: '신선야채' },
-    { feedTagName: '파프리카' },
-    { feedTagName: '새우스테이크' },
-    { feedTagName: '오늘한상' },
-    { feedTagName: '또띠아' },
-    { feedTagName: '갈릭디핑소스' },
-    { feedTagName: '사워크림' },
-    { feedTagName: '살사소스' },
-    { feedTagName: '나의한상' },
-  ];
-  
+  const changeFeedImg = id => {
+    setFeedImgIdx(id);
+    setFeedImageProductList(
+      allFeedImageProductList.filter(product => product.feedImageId === id),
+    );
+  };
+  const scroll = () => {
+    const x = inputRef.current[0].offsetTop;
+    window.scrollTo({ top: x, left: 0, behavior: 'smooth' });
+  };
+
   return (
     <>
-      {/* {!isFeedDetailLoading && !isCommentLoading && ( */}
-      <FeedDetailWrapper>
-        {/* 더미 */}
-        <FeedDetailBlock>
-          <FeedWriter />
-          <FeedImageWrapper>
-            <img src={SNS_1} alt="" onClick={test} />
-            <div>
-              <svg
-                width="1em"
-                height="1em"
-                viewBox="0 0 24 24"
-                className="Vfsdi jCTZa css-18se8ix"
-              >
-                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                <path
-                  stroke="#FFF"
-                  strokeLinecap="square"
-                  strokeWidth="2"
-                  d="M12 16V8m-4 4h8"
-                ></path>
-              </svg>
-            </div>
-            <div>
-              <svg
-                width="1em"
-                height="1em"
-                viewBox="0 0 24 24"
-                className="Vfsdi jCTZa css-18se8ix"
-              >
-                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                <path
-                  stroke="#FFF"
-                  strokeLinecap="square"
-                  strokeWidth="2"
-                  d="M12 16V8m-4 4h8"
-                ></path>
-              </svg>
-            </div>
-            <div>
-              <svg
-                width="1em"
-                height="1em"
-                viewBox="0 0 24 24"
-                className="Vfsdi jCTZa css-18se8ix"
-              >
-                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                <path
-                  stroke="#FFF"
-                  strokeLinecap="square"
-                  strokeWidth="2"
-                  d="M12 16V8m-4 4h8"
-                ></path>
-              </svg>
-            </div>
-          </FeedImageWrapper>
-          <FeedProduct feedContent="너무 맛있는 스테이크와 야채볶음~ 오늘 저녁도 맛있게 먹어보아요💛🧡" />
-          <FeedTag feedTag={tag} />
-          <HorizontalLine color="#d7d7d7" />
-          <FeedComment />
-          <FeedCommentList />
-        </FeedDetailBlock>
-        <FeedDetailSideWrapper>
-          <FeedDetailStickyContainer>
-            <FeedDetailSideBlock>
-              <SideButton icon="heart" count={312} />
-              <SideButton icon="scrap" count={157} />
-              <SideButton icon="comment" count={135} />
-              <SideButton icon="share" count={57} />
-            </FeedDetailSideBlock>
-          </FeedDetailStickyContainer>
-        </FeedDetailSideWrapper>
-        {/* 더미 */}
-        {/* <FeedDetailBlock>
-            <FeedWriter />
+      {!isFeedDetailLoading && !isCommentLoading && (
+        <FeedDetailWrapper>
+          <FeedDetailBlock>
+            <FeedWriter
+              memberProfileImg={feedDetail.memberProfileImg}
+              memberName={feedDetail.memberName}
+              followStatus={feedDetail.followStatus}
+              memberId={feedDetail.memberId}
+              memberRole={feedDetail.memberRole}
+            />
             <FeedImageWrapper>
-              <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" />
+              <Carousel
+                images={feedDetail.feedImageList}
+                changeFeedImg={changeFeedImg}
+                width="550px"
+                height="540px"
+              ></Carousel>
+              {/* <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" /> */}
+              {/* <div>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                className="Vfsdi jCTZa css-18se8ix"
+              >
+                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
+                <path
+                  stroke="#FFF"
+                  strokeLinecap="square"
+                  strokeWidth="2"
+                  d="M12 16V8m-4 4h8"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                className="Vfsdi jCTZa css-18se8ix"
+              >
+                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
+                <path
+                  stroke="#FFF"
+                  strokeLinecap="square"
+                  strokeWidth="2"
+                  d="M12 16V8m-4 4h8"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                className="Vfsdi jCTZa css-18se8ix"
+              >
+                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
+                <path
+                  stroke="#FFF"
+                  strokeLinecap="square"
+                  strokeWidth="2"
+                  d="M12 16V8m-4 4h8"
+                ></path>
+              </svg>
+            </div> */}
             </FeedImageWrapper>
-            <FeedProduct feedContent={feedDetail.feedContent} />
+
+            <FeedProduct
+              feedContent={feedDetail.feedContent}
+              feedImageProductList={feedImageProductList}
+            />
             <FeedTag feedTag={feedDetail.feedTag} />
             <HorizontalLine color="#d7d7d7" />
-            <FeedComment feedId={feedDetail.feedId} comment={comment} />
-            <FeedCommentList comment={comment} />
+            <div ref={elem => (inputRef.current[0] = elem)}></div>
+            <FeedComment
+              feedId={feedDetail.feedId}
+              feedCommentCount={feedDetail.feedCommentCount}
+            />
+            <FeedCommentList commentList={commentList} />
           </FeedDetailBlock>
           <FeedDetailSideWrapper>
             <FeedDetailStickyContainer>
@@ -195,41 +209,32 @@ export default function FeedDetail(props) {
                 <SideButton
                   icon="heart"
                   count={feedDetail.feedLikeCount}
-                  feedId={feedDetail.feedId}
-                  method={
-                    feedDetail.feedLikeStatus
-                      ? () => feedLike(feedDetail.feedId)
-                      : () => feedUnLike(feedDetail.feedId)
-                  }
                   status={likeStatus}
                   setStatus={setLikeStatus}
+                  feedId={feedDetail.feedId}
+                  buttonClick={feedLike}
+                  buttonUnClick={feedUnLike}
                 />
                 <SideButton
                   icon="scrap"
                   count={feedDetail.feedScrapCount}
-                  feedId={feedDetail.feedId}
-                  method={
-                    feedDetail.scrapStatus
-                      ? () => feedScrap(feedDetail.feedId)
-                      : () => feedUnScrap(feedDetail.feedId)
-                  }
                   status={scrapStatus}
                   setStatus={setScrapStatus}
+                  feedId={feedDetail.feedId}
+                  buttonClick={feedScrap}
+                  buttonUnClick={feedUnScrap}
                 />
                 <SideButton
                   icon="comment"
+                  buttonClick={scroll}
                   count={feedDetail.feedCommentCount}
                 />
-                <SideButton
-                  icon="share"
-                  count={feedDetail.feedShareCount}
-                  method={() => putUpFeedShareCount(feedDetail.feedId)}
-                />
+                <SideButton icon="share" count={feedDetail.feedShareCount} />
               </FeedDetailSideBlock>
             </FeedDetailStickyContainer>
-          </FeedDetailSideWrapper> */}
-      </FeedDetailWrapper>
-      {/* )} */}
+          </FeedDetailSideWrapper>
+        </FeedDetailWrapper>
+      )}
     </>
   );
 }
