@@ -19,7 +19,7 @@ import { BiBookmark, BiImages } from 'react-icons/bi';
 import { useQuery } from 'react-query';
 import { getProfileInfo } from '../../../apis/sns/profile';
 
-export default function SnsUser() {
+export default function SnsUser(props) {
   const navigate = useNavigate();
   const followerNavigator = () => {
     navigate('/sns/follower');
@@ -32,10 +32,11 @@ export default function SnsUser() {
     onSuccess: () => {},
     onError: () => {},
   });
-  console.log(data);
+  console.log(data, '야야');
+
   return (
     <SnsUserBlock>
-      {!isLoading && (
+      {!isLoading && !props.countLoading && (
         <>
           <ShareIconBlock>
             <HiOutlineShare />
@@ -48,7 +49,9 @@ export default function SnsUser() {
               />
             </UserDetailImgBlock>
             <UserInfoBlock>
-              <UserInfoNickName>{data.memberName}</UserInfoNickName>
+              <Link to="/sns/mysns">
+                <UserInfoNickName>{data.memberName}</UserInfoNickName>
+              </Link>
               <UserInfoBottom>
                 <UserInfoFollow>
                   <div>팔로워</div>
@@ -57,32 +60,32 @@ export default function SnsUser() {
                   <div onClick={followeeNavigator}>{data.followingCount}</div>
                 </UserInfoFollow>
                 <UserInfoSetting>
-                  <Link to="/users/1462582/edit">설정</Link>
+                  <Link to="/mypage/profile">설정</Link>
                 </UserInfoSetting>
               </UserInfoBottom>
             </UserInfoBlock>
           </UserDetailBlock>
           <UserButtonBlock>
-            <Link to>
+            <Link to="/sns/feed">
               <div>
                 <BiImages />
               </div>
               <div>사진</div>
-              <div>{data.memberName}</div>
+              <div>{props.countData.photoCount}</div>
             </Link>
-            <Link to>
+            <Link to="/sns/like">
               <div>
                 <AiOutlineHeart />
               </div>
               <div>위시 리스트</div>
-              <div>{data.memberName}</div>
+              <div>{props.countData.wishCount}</div>
             </Link>
-            <Link to>
+            <Link to="/sns/scrapbook">
               <div>
                 <BiBookmark />
               </div>
               <div>스크랩북</div>
-              <div>{data.memberName}</div>
+              <div>{props.countData.scrapCount}</div>
             </Link>
           </UserButtonBlock>
         </>

@@ -8,21 +8,36 @@ import Follower from '../../components/sns/follow/Followerr';
 import Feed from './feed/Feed';
 import Like from './like/Like';
 import Scrapbook from './scrapbook/Scrapbook';
+import { useQuery } from 'react-query';
+import { getScrapLikeCount } from '../../apis/sns/profile';
 export default function SnsIndexLayout() {
+  const { data: countData, isLoading: countLoading } = useQuery(
+    'scrapLikeCount',
+    getScrapLikeCount,
+    {
+      onSuccess: () => {},
+      onError: () => {},
+    },
+  );
+
   return (
-    <SnsMainWrapper>
-      <UserWrapper>
-        <SnsUser></SnsUser>
-      </UserWrapper>
-      <WhiteWrapper></WhiteWrapper>
-      <Routes>
-        <Route path="/mysns" element={<SnsMain />} />
-        <Route path="/feed" element={<Feed />} />
-        <Route path="/like" element={<Like />} />
-        <Route path="/scrapbook" element={<Scrapbook />} />
-        <Route path="/follower" element={<Follower />} />
-        <Route path="/followee" element={<Followee />} />
-      </Routes>
-    </SnsMainWrapper>
+    <>
+      {!countLoading && (
+        <SnsMainWrapper>
+          <UserWrapper>
+            <SnsUser countData={countData}></SnsUser>
+          </UserWrapper>
+          <WhiteWrapper></WhiteWrapper>
+          <Routes>
+            <Route path="/mysns" element={<SnsMain countData={countData} />} />
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/like" element={<Like />} />
+            <Route path="/scrapbook" element={<Scrapbook />} />
+            <Route path="/follower" element={<Follower />} />
+            <Route path="/followee" element={<Followee />} />
+          </Routes>
+        </SnsMainWrapper>
+      )}
+    </>
   );
 }
