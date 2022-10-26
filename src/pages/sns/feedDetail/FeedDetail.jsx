@@ -46,6 +46,7 @@ export default function FeedDetail(props) {
     () => getFeedDetail(feedId),
     {
       refetchOnWindowFocus: true,
+      refetchOnMount: true,
       onSuccess: res => {
         setFeedImgIdx(res.feedImageList[0].feedImageId);
         setAllFeedImageProductList(res.feedImageProductList);
@@ -68,6 +69,7 @@ export default function FeedDetail(props) {
     () => getComment(feedId),
     {
       refetchOnWindowFocus: true,
+      refetchOnMount: true,
       onSuccess: res => {},
       onError: () => {
         console.log('에러');

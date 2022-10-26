@@ -10,7 +10,7 @@ export default function FeedProduct(props) {
           return (
             <li key={idx}>
               <div>
-                <Link to="">
+                <Link to={"/products/detail/"+img.productId}>
                   <div
                     style={{
                       display: 'flex',
