@@ -29,7 +29,7 @@ export default function MainScrap(props) {
               ''
             ) : (
               <div>
-                <Link to="/sns/scrapbook">전체보기</Link>
+                <Link to={`/sns/${id}/scrapbook`}>전체보기</Link>
               </div>
             )}
           </div>

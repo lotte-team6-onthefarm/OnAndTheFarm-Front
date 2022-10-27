@@ -30,7 +30,7 @@ export default function MainMyFeed(props) {
               ''
             ) : (
               <div>
-                <Link to="/sns/feed">전체보기</Link>
+                <Link to={`/sns/${id}/feed`}>전체보기</Link>
               </div>
             )}
           </div>

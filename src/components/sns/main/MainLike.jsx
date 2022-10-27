@@ -30,7 +30,7 @@ export default function MainLike(props) {
               ''
             ) : (
               <div>
-                <Link to="/sns/like">전체보기</Link>
+                <Link to={`/sns/${id}/like`}>전체보기</Link>
               </div>
             )}
           </div>

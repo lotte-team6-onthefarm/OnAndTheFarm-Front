@@ -14,19 +14,13 @@ import {
 } from './Feed.styled';
 import { useInfiniteQuery } from 'react-query';
 import { getAllFeedList } from '../../../apis/sns/profile';
-import { followStatus } from '../snsCommotFunc';
+import { useRecoilState } from 'recoil';
+import { snsNowId } from '../../../recoil';
+import { followStatus } from '../../../utils/sns/snsFunction';
 
 export default function Feed() {
+  const [id, setId] = useRecoilState(snsNowId);
   const { ref, inView } = useInView();
-
-  // const { data, isLoading } = useQuery(
-  //   'allFeedList',
-  //   () => getAllFeedList(page),
-  //   {
-  //     onSuccess: () => {},
-  //   },
-  // );
-
   const {
     data,
     // refetch,
@@ -35,8 +29,8 @@ export default function Feed() {
     isFetchingNextPage,
     isPreviousData,
   } = useInfiniteQuery(
-    ['allFeedList'],
-    ({ pageParam = 0 }) => getAllFeedList(pageParam),
+    ['allFeedList', id],
+    ({ pageParam = 0 }) => getAllFeedList(pageParam, id),
     {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
@@ -58,53 +52,55 @@ export default function Feed() {
       {!isLoading && (
         <FeedDetailWrapper>
           {/* 작성자 */}
-          {data.posts.map((post, idx) => (
-            <FeedCardWrapper key={idx}>
-              {/* 작성자 */}
-              <FeedWriterWrapper followStatus={post.followStatus}>
-                <Link to>
-                  <img
-                    src="https://cdn-icons-png.flaticon.com/512/6192/6192662.png"
-                    alt=""
-                  />
-                  <span>{post.memberName}</span>
-                </Link>
-                {post.isModifiable ? (
-                  ''
-                ) : (
-                  <span className="FeedWriterWrapperSpan" />
-                )}
-                <button>
-                  {followStatus(post.followStatus, post.isModifiable)}
-                </button>
-              </FeedWriterWrapper>
-              {/* 컨텐츠 */}
-              <FeedItemWrapper onClick={feedDetailNavigator}>
-                <FeedItemImg>
-                  <img src={post.feedImageSrc} alt=""></img>
-                </FeedItemImg>
-                <FeedActionList>
+          {data.pages.map((page, idx) =>
+            page.posts.map((post, idx) => (
+              <FeedCardWrapper key={idx}>
+                {/* 작성자 */}
+                <FeedWriterWrapper followStatus={post.followStatus}>
                   <Link to>
-                    <AiOutlineHeart />
-                    <span>{post.feedLikeCount}</span>
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/6192/6192662.png"
+                      alt=""
+                    />
+                    <span>{post.memberName}</span>
                   </Link>
-                  <Link to>
-                    <BiBookmark />
-                    <span>{post.feedScrapCount}</span>
-                  </Link>
-                  <Link to>
-                    <BiMessageAlt />
-                    <span>{post.feedShareCount}</span>
-                  </Link>
-                </FeedActionList>
-                <FeedItemDescription>
-                  <div className="card-item-description__content">
-                    {post.feedContent}
-                  </div>
-                </FeedItemDescription>
-              </FeedItemWrapper>
-            </FeedCardWrapper>
-          ))}
+                  {post.isModifiable ? (
+                    ''
+                  ) : (
+                    <span className="FeedWriterWrapperSpan" />
+                  )}
+                  <button>
+                    {followStatus(post.followStatus, post.isModifiable)}
+                  </button>
+                </FeedWriterWrapper>
+                {/* 컨텐츠 */}
+                <FeedItemWrapper onClick={feedDetailNavigator}>
+                  <FeedItemImg>
+                    <img src={post.feedImageSrc} alt=""></img>
+                  </FeedItemImg>
+                  <FeedActionList>
+                    <Link to>
+                      <AiOutlineHeart />
+                      <span>{post.feedLikeCount}</span>
+                    </Link>
+                    <Link to>
+                      <BiBookmark />
+                      <span>{post.feedScrapCount}</span>
+                    </Link>
+                    <Link to>
+                      <BiMessageAlt />
+                      <span>{post.feedShareCount}</span>
+                    </Link>
+                  </FeedActionList>
+                  <FeedItemDescription>
+                    <div className="card-item-description__content">
+                      {post.feedContent}
+                    </div>
+                  </FeedItemDescription>
+                </FeedItemWrapper>
+              </FeedCardWrapper>
+            )),
+          )}
           {!isFetchingNextPage || (!isPreviousData && <div ref={ref}></div>)}
         </FeedDetailWrapper>
       )}

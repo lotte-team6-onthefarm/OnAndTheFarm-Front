@@ -52,7 +52,7 @@ export default function Follower() {
           ) : (
             <>
               {Followers.pages.map((page, idx) =>
-                page.map((follow, idx) => (
+                page.posts.map((follow, idx) => (
                   <FollowUser follow={follow} key={idx} />
                 )),
               )}

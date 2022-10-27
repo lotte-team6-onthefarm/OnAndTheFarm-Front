@@ -29,7 +29,6 @@ export default function Followee() {
       onSuccess: res => {},
     },
   );
-  console.log(Followings);
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView]);
@@ -44,7 +43,7 @@ export default function Followee() {
           ) : (
             <>
               {Followings.pages.map((page, idx) =>
-                page.map((followee, idx) => (
+                page.posts.map((followee, idx) => (
                   <FollowUser follow={followee} key={idx} />
                 )),
               )}

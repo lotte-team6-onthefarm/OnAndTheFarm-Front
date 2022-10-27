@@ -46,33 +46,43 @@ const getScrapLikeCount = async memberId => {
 // 멤버의 팔로워 리스트 조회
 const getFollowerList = async (pageParam, memberId) => {
   const memberRole = getRole();
+  let response = {};
   if (memberId === '0') {
     // 나 자신일 때
-    const response = await JWTapiUser.get(
+    response = await JWTapiUser.get(
       `follow/follower-list?pageNumber=${pageParam}`,
     );
-    return response.data.data.memberFollowListResponseList;
+  } else {
+    response = await JWTapiUser.get(
+      `follow/follower-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
+    );
   }
-  const response = await JWTapiUser.get(
-    `follow/follower-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
-  );
-  return response.data.data.memberFollowListResponseList;
+  return {
+    posts: response.data.data.memberFollowListResponseList,
+    nextPage: pageParam + 1,
+    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+  };
 };
 
 // 멤버의 팔로잉 리스트 조회
 const getFollowingList = async (pageParam, memberId) => {
   const memberRole = getRole();
+  let response = {};
   if (memberId === '0') {
     // 나 자신일 때
-    const response = await JWTapiUser.get(
+    response = await JWTapiUser.get(
       `follow/following-list?pageNumber=${pageParam}`,
     );
-    return response.data.data.memberFollowListResponseList;
+  } else {
+    response = await JWTapiUser.get(
+      `follow/following-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
+    );
   }
-  const response = await JWTapiUser.get(
-    `follow/following-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
-  );
-  return response.data.data.memberFollowListResponseList;
+  return {
+    posts: response.data.data.memberFollowListResponseList,
+    nextPage: pageParam + 1,
+    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+  };
 };
 
 // 프로필 화면 feed 부분 조회
@@ -118,10 +128,15 @@ const getProfileWishList = async data => {
 };
 
 // 멤버의 feed 전체 조회
-const getAllFeedList = async pageParam => {
-  const response = await JWTapiUser.get(
-    `sns/profile/feed?pageNumber=${pageParam}`,
-  );
+const getAllFeedList = async (pageParam, memberId) => {
+  let response = {};
+  if (memberId === '0') {
+    response = await JWTapiUser.get(`sns/profile/feed?pageNumber=${pageParam}`);
+  } else {
+    response = await JWTapiUser.get(
+      `sns/profile/feed?pageNumber=${pageParam}&memberId=${memberId}`,
+    );
+  }
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
@@ -130,17 +145,39 @@ const getAllFeedList = async pageParam => {
 };
 
 // 멤버의 scrap 전체 조회
-const getScrapList = async data => {
-  const response = await JWTapiUser.get('sns/profile/scrap?pageNumber=0', data);
-  return response.data.data;
+const getScrapList = async (pageParam, memberId) => {
+  let response = {};
+  if (memberId === '0') {
+    response = await JWTapiUser.get(
+      `sns/profile/scrap?pageNumber=${pageParam}`,
+    );
+  } else {
+    response = await JWTapiUser.get(
+      `sns/profile/scrap?pageNumber=${pageParam}&memberId=${memberId}`,
+    );
+  }
+  return {
+    posts: response.data.data.feedResponseList,
+    nextPage: pageParam + 1,
+    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+  };
 };
 
 // 멤버의 wish 전체 조회
-const getWishList = async pageParam => {
-  const response = await JWTapiUser.get(
-    `sns/profile/wish?pageNumber=${pageParam}`,
-  );
-  return response.data.data;
+const getWishList = async (pageParam, memberId) => {
+  let response = {};
+  if (memberId === '0') {
+    response = await JWTapiUser.get(`sns/profile/wish?pageNumber=${pageParam}`);
+  } else {
+    response = await JWTapiUser.get(
+      `sns/profile/wish?pageNumber=${pageParam}&memberId=${memberId}`,
+    );
+  }
+  return {
+    posts: response.data.data.wishProductListResponse,
+    nextPage: pageParam + 1,
+    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+  };
 };
 export {
   postAddFollow,
