@@ -24,7 +24,6 @@ import {
   putFeedUnScrap,
 } from '../../../apis/sns/content';
 
-import SNS_1 from '../../../assets/sns/요리1.jpg'; // 더미
 import { useLocation, useParams } from 'react-router-dom';
 import Carousel from '../../../components/common/Carousel';
 import { postAddFollow } from '../../../apis/sns/profile';

@@ -3,7 +3,7 @@ import { useQuery, useMutation, useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiMessageAlt } from 'react-icons/bi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import FeedWriter from '../../../components/sns/feed/FeedWriter';
 import {
   SnsMainWrapper,
@@ -34,18 +34,38 @@ export default function SnsMainLayout() {
   const [page, setPage] = useState(0);
   const [url, setUrl] = useState('');
   const [searchWord, setSearchWord] = useState('');
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get('search')!==null){
+      setSearchWord(searchParams.get('search'))
+      setFilterList(4)
+      setUrl('/search');
+    }
+  }, []);
+
   const changeFilter = idx => {
     setFilterList(idx);
     setPage(0);
     if (idx === 0) {
+      navigate(`/sns/main`);
+      setSearchWord('')
       setUrl('');
     } else if (idx === 1) {
+      navigate(`/sns/main`);
+      setSearchWord('')
       setUrl('/like');
     } else if (idx === 2) {
+      navigate(`/sns/main`);
+      setSearchWord('')
       setUrl('/view-count');
     } else if (idx === 3) {
+      navigate(`/sns/main`);
+      setSearchWord('')
       setUrl('/follow');
     } else if (idx === 4) {
+      navigate(`/sns/main?search=${searchWord}`);
       setUrl('/search');
     }
   };
