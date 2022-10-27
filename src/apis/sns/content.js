@@ -88,6 +88,7 @@ export {
   putDeleteFeed,
   getFeedProduct,
   getFeedDetail,
+  getFeedList,
   putUpFeedShareCount,
   getFeedByTag,
   putFeedLike,

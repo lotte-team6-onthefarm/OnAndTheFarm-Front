@@ -242,7 +242,7 @@ export default function FeedDetail(props) {
                   buttonClick={scroll}
                   count={feedDetail.feedCommentCount}
                 />
-                <SideButton icon="share" count={feedDetail.feedShareCount} />
+                <SideButton id={feedDetail.feedId} icon="share" count={feedDetail.feedShareCount} getFeedDetailRefetch={getFeedDetailRefetch}/>
               </FeedDetailSideBlock>
             </FeedDetailStickyContainer>
           </FeedDetailSideWrapper>
