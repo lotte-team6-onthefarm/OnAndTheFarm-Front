@@ -39,6 +39,7 @@ export default function FeedDetail(props) {
   const [scrapStatus, setScrapStatus] = useState(false);
   // feedId = props.feedId
   const queryClient = useQueryClient();
+
   const {
     isLoading: isFeedDetailLoading,
     data: feedDetail,
@@ -56,6 +57,7 @@ export default function FeedDetail(props) {
       );
       setLikeStatus(res.feedLikeStatus);
       setScrapStatus(res.scrapStatus);
+
     },
     onError: () => {
       console.log('에러');

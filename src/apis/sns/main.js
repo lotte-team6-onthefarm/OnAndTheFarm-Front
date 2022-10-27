@@ -1,6 +1,7 @@
 import { JWTapiUser } from '../user/index';
 
 // 피드 조회
+
 const getFeedList = async (data, pageParam) => {
   let response = {};
   console.log(data,'data')

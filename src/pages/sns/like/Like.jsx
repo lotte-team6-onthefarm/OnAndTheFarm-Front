@@ -10,7 +10,11 @@ import {
 import { useInfiniteQuery } from 'react-query';
 import { getWishList } from '../../../apis/sns/profile';
 import { useInView } from 'react-intersection-observer';
+import { useRecoilState } from 'recoil';
+import { snsNowId } from '../../../recoil';
+import { useNavigate } from 'react-router-dom';
 export default function Like() {
+  const [id, setId] = useRecoilState(snsNowId);
   const { ref, inView } = useInView();
   const {
     data,
@@ -20,8 +24,8 @@ export default function Like() {
     isFetchingNextPage,
     isPreviousData,
   } = useInfiniteQuery(
-    ['getWishList'],
-    ({ pageParam = 0 }) => getWishList(pageParam),
+    ['getWishList', id],
+    ({ pageParam = 0 }) => getWishList(pageParam, id),
     {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
@@ -29,47 +33,54 @@ export default function Like() {
       onSuccess: res => {},
     },
   );
-
+  console.log(data, '데이터터');
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView]);
 
-  // const { data, isLoading } = useQuery('getWishList', getWishList, {
-  //   onSuccess: () => {},
-  //   onError: () => {},
-  // });
+  const navigate = useNavigate();
+  const productDetailNavigator = feedId => {
+    navigate(`/products/detail/${feedId}`);
+  };
+
   return (
     <>
       {!isLoading && (
         <FeedLikeWrapper>
-          {data.wishProductListResponse.map((wishProduct, idx) => {
-            return (
-              <LikeCardWrapper key={idx}>
+          {data.pages.map((page, idx) =>
+            page.posts.map((post, idx) => (
+              <LikeCardWrapper
+                key={idx}
+                onClick={() => {
+                  productDetailNavigator(post.productId);
+                }}
+              >
                 <LikeImgWrapper>
                   <LikeImgBlock>
-                    <img src={wishProduct.productMainImgSrc} alt="" />
+                    <img src={post.productMainImgSrc} alt="" />
                   </LikeImgBlock>
                 </LikeImgWrapper>
                 <LikeItemDescription>
                   <h1>
-                    <span>{wishProduct.sellerName}</span>
-                    <span>{wishProduct.productName}</span>
+                    <span>{post.sellerName}</span>
+                    <span>{post.productName}</span>
                   </h1>
                   <span className="production-item-price">
-                    <span>{wishProduct.productOriginPlace}</span>
-                    <span>{wishProduct.productPrice.toLocaleString()}원</span>
+                    <span>{post.productOriginPlace}</span>
+                    <span>{post.productPrice.toLocaleString()}원</span>
                   </span>
                   <div className="production-item-stats">
                     <div className="production-item-stats--icon">
                       <AiFillStar />
                     </div>
-                    <strong>{wishProduct.reviewRate}</strong>
-                    <span>리뷰{wishProduct.reviewCount}</span>
+                    <strong>{post.reviewRate}</strong>
+                    <span>리뷰{post.reviewCount}</span>
                   </div>
                 </LikeItemDescription>
               </LikeCardWrapper>
-            );
-          })}
+            )),
+          )}
+
           {!isFetchingNextPage || (!isPreviousData && <div ref={ref}></div>)}
         </FeedLikeWrapper>
       )}

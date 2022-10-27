@@ -1,21 +1,16 @@
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
 import { getFollowingList } from '../../../apis/sns/profile';
 import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
+import { snsNowId } from '../../../recoil';
 import { FollowWrapper } from './follow.styled';
 import FollowUser from './FollowUser';
 
 export default function Followee() {
-  // const { data: Followings, isLoading: FollowingLoading } = useQuery(
-  //   'getFollowingList',
-  //   getFollowingList,
-  //   {
-  //     onSuccess: () => {},
-  //   },
-  // );
-
   const { ref, inView } = useInView();
+  const [id, setId] = useRecoilState(snsNowId); // client 전역
 
   const {
     data: Followings,
@@ -25,8 +20,8 @@ export default function Followee() {
     isFetchingNextPage,
     isPreviousData,
   } = useInfiniteQuery(
-    ['getFollowingList'],
-    ({ pageParam = 0 }) => getFollowingList(pageParam),
+    ['getFollowingList', id],
+    ({ pageParam = 0 }) => getFollowingList(pageParam, id),
     {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
@@ -34,7 +29,6 @@ export default function Followee() {
       onSuccess: res => {},
     },
   );
-
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView]);
@@ -44,13 +38,15 @@ export default function Followee() {
       {!isLoading && (
         <FollowWrapper>
           <h1>팔로잉</h1>
-          {Followings.length === 0 ? (
+          {Followings.pages[0].length === 0 ? (
             <div>팔로잉 하는 유저가 없습니다.</div>
           ) : (
             <>
-              {Followings.map((followee, idx) => {
-                return <FollowUser follow={followee} key={idx} />;
-              })}
+              {Followings.pages.map((page, idx) =>
+                page.posts.map((followee, idx) => (
+                  <FollowUser follow={followee} key={idx} />
+                )),
+              )}
             </>
           )}
         </FollowWrapper>

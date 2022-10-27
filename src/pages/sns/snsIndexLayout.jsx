@@ -10,17 +10,23 @@ import Like from './like/Like';
 import Scrapbook from './scrapbook/Scrapbook';
 import { useQuery } from 'react-query';
 import { getScrapLikeCount } from '../../apis/sns/profile';
+import { snsNowId } from '../../recoil';
+import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
 export default function SnsIndexLayout() {
+  const [id, setId] = useRecoilState(snsNowId); // client 전역
+  const param = useParams();
   const { data: countData, isLoading: countLoading } = useQuery(
-    'scrapLikeCount',
-    getScrapLikeCount,
+    ['scrapLikeCount', id],
+    () => getScrapLikeCount(id),
     {
       onSuccess: () => {},
       onError: () => {},
     },
   );
-  const param = useParams();
-  const id = param.id;
+  useEffect(() => {
+    setId(param.id);
+  }, [param]);
   return (
     <>
       {!countLoading && (

@@ -1,6 +1,6 @@
 import { JWTapiUser } from '.';
 
-// 카트 추가
+// 주문서 생성
 const postMakeOrder = async data => {
   const response = await JWTapiUser.post('orders', data);
   return response.data;
@@ -13,6 +13,7 @@ const getMyOrderList = async data => {
   });
   return response.data.data;
 };
+
 // 취소/반품 불러오기
 const getCancelOrderList = async data => {
   const response = await JWTapiUser.post(`orders/claim/list`, {
