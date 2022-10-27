@@ -27,6 +27,7 @@ import { postAddFollow } from '../../../apis/sns/profile';
 import Loading from '../../../components/common/Loading';
 import FeedListComp from '../../../components/sns/main/FeedListComp';
 import InputSearch from '../../../components/common/SearchInput';
+import { getFeedByTag } from '../../../apis/sns/content';
 
 export default function SnsMainLayout() {
   const [filterList, setFilterList] = useState(0);
@@ -44,8 +45,51 @@ export default function SnsMainLayout() {
       setUrl('/view-count');
     } else if (idx === 3) {
       setUrl('/follow');
+    } else if (idx === 4) {
+      setUrl('/search');
     }
   };
+  // const {
+  //   data: searchData,
+  //   refetch: refeesdfaseras,
+  //   fetchNextPage,
+  //   isLoading: getFeedLoading,
+  //   isFetchingNextPage,
+  //   isPreviousData,
+  // } = useInfiniteQuery(
+  //   ['getFeedByTag', searchWord],
+  //   ({ pageParam = 0 }) => getFeedByTag(searchWord, pageParam),
+  //   {
+  //     keepPreviousData: true,
+  //     getNextPageParam: lastPage =>
+  //       !lastPage.isLast ? lastPage.nextPage : undefined,
+  //     onSuccess: res => {
+  //       console.log(res,'resssss')
+  //       // setLoading(true);
+
+  //       // setTimeout(() => {
+  //       //   setLoading(false);
+  //       // }, 2000);
+  //       // queryClient.setQueryData(['getFeed', props.url], oldProfile => {
+  //       //   return { oldProfile, ...res.pages[props.page].posts };
+  //       // });
+  //       // console.log(res);
+  //       // if (props.page === 0) {
+  //       //   // 0페이지시 초기화후 데이터 넣기
+  //       //   setSnsList(res.pages[props.page].posts);
+  //       //   props.setPage(props.page + 1);
+  //       // }
+  //       // if (res.pages[props.page] !== undefined) {
+  //       //   setSnsList([...snsList, ...res.pages[props.page].posts]);
+  //       //   props.setPage(props.page + 1);
+  //       // }
+  //     },
+  //   },
+  // );
+
+  const search = () => {
+    changeFilter(4)
+  }
   return (
     <SnsMainWrapper>
       <SelectWrapper>
@@ -60,10 +104,12 @@ export default function SnsMainLayout() {
           onChange={e => setSearchWord(e.target.value)}
           placeholder="검색하고 싶은 태그명을 입력해 주세요"
           type="text"
+          search={search}
         ></InputSearch>
       </SelectWrapper>
       <FeedListComp
         filterList={filterList}
+        searchWord={searchWord}
         page={page}
         setPage={setPage}
         url={url}

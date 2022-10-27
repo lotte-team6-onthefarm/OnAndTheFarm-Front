@@ -59,7 +59,7 @@ export default function FeedListComp(props) {
     isPreviousData,
   } = useInfiniteQuery(
     ['getFeed', props.url],
-    ({ pageParam = 0 }) => getFeedList(props.url, pageParam),
+    ({ pageParam = 0 }) => getFeedList({url:props.url,searchWord:props.searchWord}, pageParam),
     {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
@@ -90,7 +90,6 @@ export default function FeedListComp(props) {
   useEffect(() => {
     setSnsList([]);
     queryClient.removeQueries('getFeed');
-    console.log(props.filterList, 'filterlist');
     refeesdfaseras();
   }, [props.filterList]);
   useEffect(() => {
@@ -163,7 +162,6 @@ export default function FeedListComp(props) {
       feedScrap(data);
     }
   };
-  console.log(aaa, 'aaa');
   // if (loading) return <Loading></Loading>;
   return (
     <SnsMainWrapper>
@@ -262,7 +260,7 @@ export default function FeedListComp(props) {
       
       
       {isFetchingNextPage || isPreviousData ? (
-        <Loading loading={loading}></Loading>
+        <Loading></Loading>
       ) : (
         <div ref={ref}></div>
       )}
