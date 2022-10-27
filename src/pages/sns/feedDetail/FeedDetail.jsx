@@ -53,8 +53,8 @@ export default function FeedDetail(props) {
             product => product.feedImageId === res.feedImageList[0].feedImageId,
           ),
         );
-        setLikeStatus(res.feedLikeStatus)
-        setScrapStatus(res.scrapStatus)
+        setLikeStatus(res.feedLikeStatus);
+        setScrapStatus(res.scrapStatus);
       },
       onError: () => {
         console.log('에러');
@@ -74,7 +74,7 @@ export default function FeedDetail(props) {
       },
     },
   );
-  
+
   const { mutate: feedLike } = useMutation(putFeedLike, {
     onSuccess: res => {},
     onError: () => {

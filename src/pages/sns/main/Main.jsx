@@ -113,10 +113,10 @@ export default function SnsMainLayout() {
   return (
     <SnsMainWrapper>
       <SelectWrapper>
-        <button onClick={() => changeFilter(0)}>최신순</button>
-        <button onClick={() => changeFilter(1)}>좋아요순</button>
-        <button onClick={() => changeFilter(2)}>조회수순</button>
-        <button onClick={() => changeFilter(3)}>팔로우</button>
+        <button onClick={() => changeFilter(0)} className={filterList===0?'selected':''}>최신순</button>
+        <button onClick={() => changeFilter(1)} className={filterList===1?'selected':''}>좋아요순</button>
+        <button onClick={() => changeFilter(2)} className={filterList===2?'selected':''}>조회수순</button>
+        <button onClick={() => changeFilter(3)} className={filterList===3?'selected':''}>팔로우</button>
         <InputSearch
           id="search"
           value={searchWord}

@@ -4,15 +4,18 @@ import { FeedTagWrapper } from './FeedTag.styled';
 
 export default function FeedTag(props) {
   const navigate = useNavigate();
-  const clickTag = (e) => {
-    console.log(e.target.id)
+  const clickTag = e => {
+    console.log(e.target.id);
     navigate(`/sns/main?search=${e.target.id}`);
-  }
+  };
   return (
     <FeedTagWrapper>
-      {props.feedTag.map((tagData, idx) => (
-        <button key={idx} id={tagData.feedTagName} onClick={clickTag}>#{tagData.feedTagName}</button>
-      ))}
+      {props.feedTag !== null &&
+        props.feedTag.map((tagData, idx) => (
+          <button key={idx} id={tagData.feedTagName} onClick={clickTag}>
+            #{tagData.feedTagName}
+          </button>
+        ))}
     </FeedTagWrapper>
   );
 }
