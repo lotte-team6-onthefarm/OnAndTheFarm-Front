@@ -19,8 +19,8 @@ export default function FeedComment(props) {
 
   const { mutate: uploadComment } = useMutation(postUploadComment, {
     onSuccess: () => {
-      queryClient.invalidateQueries('Comment');
-      setComment('');
+      props.getCommentRefetch()
+      props.getFeedDetailRefetch()
     },
     onError: () => {
       console.log('에러');

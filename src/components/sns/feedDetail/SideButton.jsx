@@ -18,13 +18,11 @@ export default function SideButton(props) {
   const buttonClick = () => {
     if (props.status !== undefined && props.status === false) {
       props.buttonClick({ feedId: props.feedId });
-      props.setStatus(!props.status);
     } else if (props.status !== undefined && props.status === true) {
       props.buttonUnClick({ feedId: props.feedId });
-      props.setStatus(!props.status);
     }
-    if(props.icon==="comment"){
-      props.buttonClick()
+    if (props.icon === 'comment') {
+      props.buttonClick();
     }
   };
   return (
