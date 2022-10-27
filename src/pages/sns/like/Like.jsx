@@ -7,12 +7,11 @@ import {
   LikeImgWrapper,
   LikeItemDescription,
 } from './Like.styled';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { getWishList } from '../../../apis/sns/profile';
 import { useInView } from 'react-intersection-observer';
 export default function Like() {
   const { ref, inView } = useInView();
-
   const {
     data,
     // refetch,

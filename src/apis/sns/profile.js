@@ -1,4 +1,4 @@
-import { JWTapiUser } from '../user/index';
+import { ApiUser, JWTapiUser } from '../user/index';
 
 // 팔로우 기능
 const postAddFollow = async data => {
@@ -14,7 +14,15 @@ const putCancelFollow = async data => {
 
 // 프로필 정보(이름&프로필이미지&팔로우&팔로잉) 조회
 const getProfileInfo = async data => {
-  const response = await JWTapiUser.get(`profile?memberId=${data.memberId}`);
+  console.log(data);
+  let response = {};
+  if (data.memberId === '0') {  // 내 정보 받아오기
+    response = await JWTapiUser.get(`profile`);
+  } else {
+    response = await JWTapiUser.get(  // 상대 프로필 정보 받아오기
+      `profile?memberId=${data.memberId}&memberRole=user`,
+    );
+  }
   return response.data.data;
 };
 
@@ -79,8 +87,10 @@ const getScrapList = async data => {
 };
 
 // 멤버의 wish 전체 조회
-const getWishList = async data => {
-  const response = await JWTapiUser.get('sns/profile/wish?pageNumber=0', data);
+const getWishList = async pageParam => {
+  const response = await JWTapiUser.get(
+    `sns/profile/wish?pageNumber=${pageParam}`,
+  );
   return response.data.data;
 };
 export {
