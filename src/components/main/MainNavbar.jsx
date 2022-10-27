@@ -41,7 +41,7 @@ export default function MainNavbar(props) {
     },
     {
       title: '나의 한상',
-      url: '/sns/mysns',
+      url: '/sns/0/mysns',
     },
   ];
   const MenuIcons = [

@@ -30,9 +30,11 @@ export default function SnsUser(props) {
 
   const { data, isLoading } = useQuery(
     'profileInfo',
-    getProfileInfo({ memberId: props.id }),
+    () => getProfileInfo({ memberId: props.id }),
     {
-      onSuccess: () => {},
+      onSuccess: res => {
+        console.log(res, 'ress');
+      },
       onError: () => {},
     },
   );
