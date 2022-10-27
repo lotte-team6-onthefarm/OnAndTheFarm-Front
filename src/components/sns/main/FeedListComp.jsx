@@ -66,7 +66,6 @@ export default function FeedListComp(props) {
         !lastPage.isLast ? lastPage.nextPage : undefined,
       onSuccess: res => {
         // setLoading(true);
-
         // setTimeout(() => {
         //   setLoading(false);
         // }, 2000);
@@ -163,7 +162,6 @@ export default function FeedListComp(props) {
       feedScrap(data);
     }
   };
-  console.log(aaa, 'aaa');
   // if (loading) return <Loading></Loading>;
   return (
     <SnsMainWrapper>
@@ -259,8 +257,7 @@ export default function FeedListComp(props) {
       }, 3000))}
       <div ref={ref}></div> */}
       {/* <div ref={ref}></div> */}
-      
-      
+
       {isFetchingNextPage || isPreviousData ? (
         <Loading loading={loading}></Loading>
       ) : (

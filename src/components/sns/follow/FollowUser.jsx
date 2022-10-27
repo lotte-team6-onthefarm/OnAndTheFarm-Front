@@ -15,7 +15,7 @@ export default function FollowUser(props) {
   return (
     <FollowBlock>
       <FollowerBlock>
-        <Link to>
+        <Link to={`/sns/${follow.memberId}/mysns`}>
           <FollowImageWrapper>
             <img src={follow.memberImg} alt="" />
           </FollowImageWrapper>

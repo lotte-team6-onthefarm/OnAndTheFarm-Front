@@ -20,7 +20,7 @@ export default function Followee() {
     isFetchingNextPage,
     isPreviousData,
   } = useInfiniteQuery(
-    ['getFollowingList'],
+    ['getFollowingList', id],
     ({ pageParam = 0 }) => getFollowingList(pageParam, id),
     {
       keepPreviousData: true,

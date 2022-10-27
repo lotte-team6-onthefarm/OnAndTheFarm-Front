@@ -28,7 +28,7 @@ export default function Follower() {
     isFetchingNextPage,
     isPreviousData,
   } = useInfiniteQuery(
-    ['getFollowerList'],
+    ['getFollowerList', id],
     ({ pageParam = 0 }) => getFollowerList(pageParam, id),
     {
       keepPreviousData: true,

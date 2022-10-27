@@ -26,7 +26,7 @@ export default function SnsIndexLayout() {
   );
   useEffect(() => {
     setId(param.id);
-  }, []);
+  }, [param]);
   return (
     <>
       {!countLoading && (
