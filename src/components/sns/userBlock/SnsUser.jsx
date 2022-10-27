@@ -22,14 +22,14 @@ import { getProfileInfo } from '../../../apis/sns/profile';
 export default function SnsUser(props) {
   const navigate = useNavigate();
   const followerNavigator = () => {
-    navigate('/sns/follower');
+    navigate(`/sns/${props.id}/follower`);
   };
   const followeeNavigator = () => {
-    navigate('/sns/followee');
+    navigate(`/sns/${props.id}/followee`);
   };
 
   const { data, isLoading } = useQuery(
-    'profileInfo',
+    ['profileInfo', props.id],
     () => getProfileInfo({ memberId: props.id }),
     {
       onSuccess: res => {
@@ -54,18 +54,18 @@ export default function SnsUser(props) {
               />
             </UserDetailImgBlock>
             <UserInfoBlock>
-              <Link to="/sns/mysns">
+              <Link to={`/sns/${props.id}/mysns`}>
                 <UserInfoNickName>{data.memberName}</UserInfoNickName>
               </Link>
               <UserInfoBottom>
                 <UserInfoFollow>
-                  <div onClick={followerNavigator}>
+                  <div onClick={followerNavigator} className="infoFollowButton">
                     <div>팔로워</div>
                     <div>{data.followerCount}</div>
                   </div>
-                  <div onClick={followeeNavigator}>
-                    <div>팔로워</div>
-                    <div>{data.followerCount}</div>
+                  <div onClick={followeeNavigator} className="infoFollowButton">
+                    <div>팔로잉</div>
+                    <div>{data.followingCount}</div>
                   </div>
                 </UserInfoFollow>
                 <UserInfoSetting>
@@ -75,21 +75,21 @@ export default function SnsUser(props) {
             </UserInfoBlock>
           </UserDetailBlock>
           <UserButtonBlock>
-            <Link to="/sns/feed">
+            <Link to={`/sns/${props.id}/feed`}>
               <div>
                 <BiImages />
               </div>
               <div>사진</div>
               <div>{props.countData.photoCount}</div>
             </Link>
-            <Link to="/sns/like">
+            <Link to={`/sns/${props.id}/like`}>
               <div>
                 <AiOutlineHeart />
               </div>
               <div>위시 리스트</div>
               <div>{props.countData.wishCount}</div>
             </Link>
-            <Link to="/sns/scrapbook">
+            <Link to={`/sns/${props.id}/scrapbook`}>
               <div>
                 <BiBookmark />
               </div>

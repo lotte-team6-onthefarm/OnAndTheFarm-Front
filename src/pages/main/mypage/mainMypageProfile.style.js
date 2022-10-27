@@ -3,7 +3,6 @@ import styled from 'styled-components';
 const UserDetailBlock = styled.div`
   min-height: 120px;
   margin: 0 0 20px;
-  
 `;
 
 const UserDetailImgBlock = styled.div`
@@ -13,6 +12,7 @@ const UserDetailImgBlock = styled.div`
 `;
 
 const UserDetailImg = styled.img`
+  border-radius: 60px;
   width: 100%;
   border: 0;
 `;

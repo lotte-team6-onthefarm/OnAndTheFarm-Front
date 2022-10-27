@@ -1,14 +1,17 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { getProfileScrapList } from '../../../apis/sns/profile';
+import { snsNowId } from '../../../recoil';
 import NoneFeed from './NoneFeed';
 import { ScrapSection } from './SnsFeed.styled';
 
 export default function MainScrap(props) {
+  const [id, setId] = useRecoilState(snsNowId); // client 전역
   const { data: scrapListData, isLoading: scrapListLoading } = useQuery(
-    'profileScrapList',
-    getProfileScrapList,
+    ['profileScrapList', id],
+    () => getProfileScrapList({ memberId: id }),
     {
       onSuccess: () => {},
       onError: () => {},

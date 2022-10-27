@@ -24,7 +24,6 @@ import {
   putFeedUnScrap,
 } from '../../../apis/sns/content';
 
-import SNS_1 from '../../../assets/sns/요리1.jpg'; // 더미
 import { useLocation, useParams } from 'react-router-dom';
 import Carousel from '../../../components/common/Carousel';
 import { postAddFollow } from '../../../apis/sns/profile';
@@ -54,8 +53,8 @@ export default function FeedDetail(props) {
             product => product.feedImageId === res.feedImageList[0].feedImageId,
           ),
         );
-        setLikeStatus(res.feedLikeStatus)
-        setScrapStatus(res.scrapStatus)
+        setLikeStatus(res.feedLikeStatus);
+        setScrapStatus(res.scrapStatus);
       },
       onError: () => {
         console.log('에러');
@@ -75,7 +74,7 @@ export default function FeedDetail(props) {
       },
     },
   );
-  
+
   const { mutate: feedLike } = useMutation(putFeedLike, {
     onSuccess: res => {},
     onError: () => {

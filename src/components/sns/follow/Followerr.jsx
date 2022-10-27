@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteQuery, useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
 import { getFollowerList } from '../../../apis/sns/profile';
 import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
+import { snsNowId } from '../../../recoil';
 import { FollowWrapper } from './follow.styled';
 import FollowUser from './FollowUser';
 
@@ -16,6 +18,7 @@ export default function Follower() {
   // );
 
   const { ref, inView } = useInView();
+  const [id, setId] = useRecoilState(snsNowId); // client 전역
 
   const {
     data: Followers,
@@ -26,7 +29,7 @@ export default function Follower() {
     isPreviousData,
   } = useInfiniteQuery(
     ['getFollowerList'],
-    ({ pageParam = 0 }) => getFollowerList(pageParam),
+    ({ pageParam = 0 }) => getFollowerList(pageParam, id),
     {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
@@ -44,13 +47,15 @@ export default function Follower() {
       {!isLoading && (
         <FollowWrapper>
           <h1>팔로워</h1>
-          {Followers.length === 0 ? (
+          {Followers.pages[0].length === 0 ? (
             <div>팔로워가 없습니다.</div>
           ) : (
             <>
-              {Followers.map((follow, idx) => {
-                return <FollowUser follow={follow} key={idx} />;
-              })}
+              {Followers.pages.map((page, idx) =>
+                page.map((follow, idx) => (
+                  <FollowUser follow={follow} key={idx} />
+                )),
+              )}
             </>
           )}
         </FollowWrapper>

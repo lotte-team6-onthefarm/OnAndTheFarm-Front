@@ -7,9 +7,9 @@ import {
   CarouselImgDiv,
   CarouselImg,
 } from './MainCarousel.style';
-import goguma from '../../../assets/imgs/banner_고구마.jpg';
-import shine from '../../../assets/imgs/banner_샤인머스캣.jpg';
-import onion from '../../../assets/imgs/banner_양파.jpg';
+// import goguma from '../../../assets/imgs/banner_고구마.jpg';
+// import shine from '../../../assets/imgs/banner_샤인머스캣.jpg';
+// import onion from '../../../assets/imgs/banner_양파.jpg';
 
 export default function MainCarousel(props) {
   const settings = {
@@ -23,18 +23,18 @@ export default function MainCarousel(props) {
   };
 
   const items = [
-    {
-      id: 1,
-      url: goguma,
-    },
-    {
-      id: 2,
-      url: shine,
-    },
-    {
-      id: 3,
-      url: onion,
-    },
+    // {
+    //   id: 1,
+    //   url: goguma,
+    // },
+    // {
+    //   id: 2,
+    //   url: shine,
+    // },
+    // {
+    //   id: 3,
+    //   url: onion,
+    // },
   ];
 
   return (

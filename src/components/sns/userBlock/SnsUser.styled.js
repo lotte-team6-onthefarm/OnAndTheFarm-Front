@@ -66,6 +66,7 @@ const UserDetailImgBlock = styled.div`
 const UserDetailImg = styled.img`
   position: absolute;
   width: 100%;
+  border-radius: 60px;
   border: 0;
 `;
 
@@ -95,26 +96,29 @@ const UserInfoFollow = styled.div`
   font-weight: 400;
   line-height: 19px;
   color: #828c94;
-  div {
-    :nth-child(2n + 1) {
-      margin-right: 5px;
+  .infoFollowButton {
+    font-weight: bold;
+    color: #525b61;
+    cursor: pointer;
+    :hover {
+      color: #d7d7d7;
     }
-    :nth-child(2n) {
-      margin-right: 10px;
-      font-weight: bold;
-      color: #525b61;
-      cursor: pointer;
-      :hover {
-        color: #d7d7d7;
-      }
-    }
-    :nth-child(2):not(:last-child):after {
+    :nth-child(1):not(:last-child):after {
       content: '';
       display: inline-block;
       width: 1px;
-      height: 9px;
+      height: 20px;
       margin-left: 10px;
       background-color: #dadce0;
+    }
+  }
+  div {
+    display: flex;
+    div:nth-child(1) {
+      margin-right: 5px;
+    }
+    :nth-child(1) {
+      margin-right: 10px;
     }
   }
 `;

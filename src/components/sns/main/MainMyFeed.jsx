@@ -1,14 +1,17 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { getProfileFeedList } from '../../../apis/sns/profile';
+import { snsNowId } from '../../../recoil';
 import NoneFeed from './NoneFeed';
 import { MyFeedSection } from './SnsFeed.styled';
 
 export default function MainMyFeed(props) {
+  const [id, setId] = useRecoilState(snsNowId); // client 전역
   const { data: feedListData, isLoading: feedListLoading } = useQuery(
-    'profileFeedList',
-    getProfileFeedList,
+    ['profileFeedList', id],
+    () => getProfileFeedList({ memberId: id }),
     {
       refetchOnMount: true,
       onSuccess: () => {},
