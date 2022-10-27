@@ -1,8 +1,10 @@
 import { JWTapiUser } from '../user/index';
 
 // 피드 조회
-const getFeedList = async (url,pageParam) => {
-  const response = await JWTapiUser.get(`sns/list${url}?pageNumber=${pageParam}`);
+const getFeedList = async (url, pageParam) => {
+  const response = await JWTapiUser.get(
+    `sns/list${url}?pageNumber=${pageParam}`,
+  );
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
