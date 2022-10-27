@@ -8,6 +8,7 @@ const FeedLikeWrapper = styled.div`
 `;
 
 const LikeCardWrapper = styled.div`
+  cursor: pointer;
   margin: 0px 5px 10px 5px;
 `;
 

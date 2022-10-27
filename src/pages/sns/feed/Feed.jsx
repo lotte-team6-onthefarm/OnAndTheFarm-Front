@@ -44,8 +44,8 @@ export default function Feed() {
   }, [inView]);
 
   const navigate = useNavigate();
-  const feedDetailNavigator = () => {
-    navigate('/sns/detail');
+  const feedDetailNavigator = feedId => {
+    navigate(`/sns/detail/${feedId}`);
   };
   return (
     <>
@@ -57,11 +57,8 @@ export default function Feed() {
               <FeedCardWrapper key={idx}>
                 {/* 작성자 */}
                 <FeedWriterWrapper followStatus={post.followStatus}>
-                  <Link to>
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/6192/6192662.png"
-                      alt=""
-                    />
+                  <Link to={`/sns/${post.memberId}/mysns`}>
+                    <img src={post.memberProfileImg} alt="" />
                     <span>{post.memberName}</span>
                   </Link>
                   {post.isModifiable ? (
@@ -74,8 +71,8 @@ export default function Feed() {
                   </button>
                 </FeedWriterWrapper>
                 {/* 컨텐츠 */}
-                <FeedItemWrapper onClick={feedDetailNavigator}>
-                  <FeedItemImg>
+                <FeedItemWrapper>
+                  <FeedItemImg onClick={() => feedDetailNavigator(post.feedId)}>
                     <img src={post.feedImageSrc} alt=""></img>
                   </FeedItemImg>
                   <FeedActionList>

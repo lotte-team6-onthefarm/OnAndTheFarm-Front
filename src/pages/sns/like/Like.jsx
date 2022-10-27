@@ -12,6 +12,7 @@ import { getWishList } from '../../../apis/sns/profile';
 import { useInView } from 'react-intersection-observer';
 import { useRecoilState } from 'recoil';
 import { snsNowId } from '../../../recoil';
+import { useNavigate } from 'react-router-dom';
 export default function Like() {
   const [id, setId] = useRecoilState(snsNowId);
   const { ref, inView } = useInView();
@@ -37,13 +38,23 @@ export default function Like() {
     if (inView) fetchNextPage();
   }, [inView]);
 
+  const navigate = useNavigate();
+  const productDetailNavigator = feedId => {
+    navigate(`/products/detail/${feedId}`);
+  };
+
   return (
     <>
       {!isLoading && (
         <FeedLikeWrapper>
           {data.pages.map((page, idx) =>
             page.posts.map((post, idx) => (
-              <LikeCardWrapper key={idx}>
+              <LikeCardWrapper
+                key={idx}
+                onClick={() => {
+                  productDetailNavigator(post.productId);
+                }}
+              >
                 <LikeImgWrapper>
                   <LikeImgBlock>
                     <img src={post.productMainImgSrc} alt="" />

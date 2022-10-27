@@ -5,6 +5,7 @@ import { getScrapList } from '../../../apis/sns/profile';
 import { useRecoilState } from 'recoil';
 import { snsNowId } from '../../../recoil';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom';
 
 export default function Scrapbook() {
   const [id, setId] = useRecoilState(snsNowId);
@@ -32,13 +33,22 @@ export default function Scrapbook() {
     if (inView) fetchNextPage();
   }, [inView]);
 
+  const navigate = useNavigate();
+  const feedDetailNavigator = feedId => {
+    navigate(`/sns/detail/${feedId}`);
+  };
   return (
     <>
       {!isLoading && (
         <FeedScrapWrapper>
           {data.pages.map((page, idx) =>
             page.posts.map((feedResponse, idx) => (
-              <ScrapImgWrapper key={idx}>
+              <ScrapImgWrapper
+                key={idx}
+                onClick={() => {
+                  feedDetailNavigator(feedResponse.feedId);
+                }}
+              >
                 <img src={feedResponse.feedImageSrc} alt="" />
                 <div>@ {feedResponse.memberName}</div>
               </ScrapImgWrapper>

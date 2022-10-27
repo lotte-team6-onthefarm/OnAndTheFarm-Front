@@ -43,9 +43,7 @@ export default function SnsUser(props) {
     <SnsUserBlock>
       {!isLoading && !props.countLoading && (
         <>
-          <ShareIconBlock>
-            <HiOutlineShare />
-          </ShareIconBlock>
+          <ShareIconBlock>{/* <HiOutlineShare /> */}뭐넣ㅈ;</ShareIconBlock>
           <UserDetailBlock>
             <UserDetailImgBlock>
               <UserDetailImg

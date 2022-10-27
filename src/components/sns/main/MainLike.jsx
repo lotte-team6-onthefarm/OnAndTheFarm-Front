@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { getProfileWishList } from '../../../apis/sns/profile';
 import { snsNowId } from '../../../recoil';
@@ -17,7 +17,6 @@ export default function MainLike(props) {
       onError: () => {},
     },
   );
-
   return (
     <>
       {!wishListLoading && (
@@ -43,16 +42,16 @@ export default function MainLike(props) {
               {wishListData.map((wishData, idx) => {
                 return (
                   <div key={idx}>
-                    <a
+                    <Link
+                      to={`/products/detail/${wishData.productId}`}
                       className="css-gi86zd e1qgexi82"
-                      href="/contents/card_collections/16854578"
                     >
                       <img
                         className="css-1n0kzcr e1qgexi81"
                         alt=""
                         src={wishData.productImgSrc}
                       />
-                    </a>
+                    </Link>
                   </div>
                 );
               })}
