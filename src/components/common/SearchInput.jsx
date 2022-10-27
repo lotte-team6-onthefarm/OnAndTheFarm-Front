@@ -5,9 +5,6 @@ import {
 } from 'react-icons/ai';
 
 export default function InputSearch(props) {
-  const test = () => {
-    alert('검색하기')
-  };
   return (
     <SearchInputDiv width={props.width}>
       <SearchInput
@@ -18,7 +15,7 @@ export default function InputSearch(props) {
         placeholder={props.placeholder}
         type={props.type}
       ></SearchInput>
-      <AiOutlineSearch onClick={test} />
+      <AiOutlineSearch onClick={props.search} />
       
     </SearchInputDiv>
   );
