@@ -33,3 +33,10 @@ const getRole = () => {
 };
 
 export { followStatus, followStatusButton, getRole };
+
+const getRole = () => {
+  const sellerToken = localStorage.getItem('sellerToken');
+  const userToken = localStorage.getItem('token');
+};
+
+export { getRole };

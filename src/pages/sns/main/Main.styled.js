@@ -12,6 +12,10 @@ const SelectWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  .selected {
+    color: #ffffff;
+    background: #40aa54;
+  }
   button {
     width: 90px;
     height: 40px;

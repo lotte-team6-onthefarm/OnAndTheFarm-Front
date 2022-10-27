@@ -37,12 +37,25 @@ const putUpFeedShareCount = async data => {
 };
 
 // 태그 별 피드 조회
-const getFeedByTag = async data => {
+const getFeedByTag = async (searchWord,pageParam) => {
   const response = await JWTapiUser.get(
-    `sns/list/tag?feedTagName=${data.feedTageName}&pageNumber=${data.pageNumber}`,
+    `sns/list/tag?feedTagName=${searchWord}&pageNumber=${pageParam}`,
   );
   console.log(response, 'sdf');
-  return response.data;
+  return {
+    posts: response.data.data.feedResponseList,
+    nextPage: pageParam + 1,
+    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+  };
+};
+
+const getFeedList = async (url,pageParam) => {
+  const response = await JWTapiUser.get(`sns/list${url}?pageNumber=${pageParam}`);
+  return {
+    posts: response.data.data.feedResponseList,
+    nextPage: pageParam + 1,
+    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+  };
 };
 
 // 피드 좋아요
@@ -75,6 +88,7 @@ export {
   putDeleteFeed,
   getFeedProduct,
   getFeedDetail,
+  getFeedList,
   putUpFeedShareCount,
   getFeedByTag,
   putFeedLike,

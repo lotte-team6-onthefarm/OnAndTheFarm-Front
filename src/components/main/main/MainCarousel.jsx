@@ -22,26 +22,27 @@ export default function MainCarousel(props) {
     slidesToScroll: 1,
   };
 
-  const items = [
-    // {
-    //   id: 1,
-    //   url: goguma,
-    // },
-    // {
-    //   id: 2,
-    //   url: shine,
-    // },
-    // {
-    //   id: 3,
-    //   url: onion,
-    // },
-  ];
+
+  // const items = [
+  //   {
+  //     id: 1,
+  //     url: goguma,
+  //   },
+  //   {
+  //     id: 2,
+  //     url: shine,
+  //   },
+  //   {
+  //     id: 3,
+  //     url: onion,
+  //   },
+  // ];
 
   return (
     <MainCarouselDiv>
       {/* <h2>농산물 큐레이팅</h2> */}
       <MainCarouselSlider {...settings}>
-        {items.map(item => {
+        {/* {items.map(item => {
           return (
             <div key={item.id}>
               <CarouselImgDiv>
@@ -49,7 +50,7 @@ export default function MainCarousel(props) {
               </CarouselImgDiv>
             </div>
           );
-        })}
+        })} */}
       </MainCarouselSlider>
     </MainCarouselDiv>
   );

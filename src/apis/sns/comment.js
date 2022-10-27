@@ -13,7 +13,7 @@ const putModifyComment = async data => {
 };
 
 // 댓글 삭제 기능
-const deleteComment = async data => {
+const putDeleteComment = async data => {
   const response = await JWTapiUser.put('sns/comment/delete', data);
   return response.data;
 };
@@ -24,4 +24,4 @@ const getComment = async data => {
   return response.data.data;
 };
 
-export { postUploadComment, putModifyComment, deleteComment, getComment };
+export { postUploadComment, putModifyComment, putDeleteComment, getComment };

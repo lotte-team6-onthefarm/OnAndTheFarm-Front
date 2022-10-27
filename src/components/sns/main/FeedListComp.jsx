@@ -52,14 +52,15 @@ export default function FeedListComp(props) {
   // 최신순
   const {
     data: aaa,
-    refetch: refeesdfaseras,
+    refetch: getFeedListRefetch,
     fetchNextPage,
     isLoading: getFeedLoading,
     isFetchingNextPage,
     isPreviousData,
   } = useInfiniteQuery(
     ['getFeed', props.url],
-    ({ pageParam = 0 }) => getFeedList(props.url, pageParam),
+    ({ pageParam = 0 }) =>
+      getFeedList({ url: props.url, searchWord: props.searchWord }, pageParam),
     {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
@@ -89,8 +90,7 @@ export default function FeedListComp(props) {
   useEffect(() => {
     setSnsList([]);
     queryClient.removeQueries('getFeed');
-    console.log(props.filterList, 'filterlist');
-    refeesdfaseras();
+    getFeedListRefetch();
   }, [props.filterList]);
   useEffect(() => {
     // setLoading(true)
@@ -105,7 +105,8 @@ export default function FeedListComp(props) {
     postAddFollow,
     {
       onSuccess: res => {
-        refeesdfaseras();
+        alert('팔로우 성공')
+        getFeedListRefetch();
       },
       onError: () => {
         console.log('에러');
@@ -116,7 +117,8 @@ export default function FeedListComp(props) {
     putCancelFollow,
     {
       onSuccess: res => {
-        refeesdfaseras();
+        alert('팔로우 취소')
+        getFeedListRefetch();
       },
       onError: () => {
         console.log('에러');
@@ -124,25 +126,37 @@ export default function FeedListComp(props) {
     },
   );
   const { mutate: feedLike } = useMutation(putFeedLike, {
-    onSuccess: res => {},
+    onSuccess: res => {
+      alert('좋아요 성공')
+      getFeedListRefetch();
+    },
     onError: () => {
       console.log('에러');
     },
   });
   const { mutate: feedUnLike } = useMutation(putFeedUnLike, {
-    onSuccess: res => {},
+    onSuccess: res => {
+      alert('좋아요 취소')
+      getFeedListRefetch();
+    },
     onError: () => {
       console.log('에러');
     },
   });
   const { mutate: feedScrap } = useMutation(putFeedScrap, {
-    onSuccess: res => {},
+    onSuccess: res => {
+      alert('스크랩 성공')
+      getFeedListRefetch();
+    },
     onError: () => {
       console.log('에러');
     },
   });
   const { mutate: feedUnScrap } = useMutation(putFeedUnScrap, {
-    onSuccess: res => {},
+    onSuccess: res => {
+      alert('스크랩 취소')
+      getFeedListRefetch();
+    },
     onError: () => {
       console.log('에러');
     },
@@ -259,7 +273,7 @@ export default function FeedListComp(props) {
       {/* <div ref={ref}></div> */}
 
       {isFetchingNextPage || isPreviousData ? (
-        <Loading loading={loading}></Loading>
+        <Loading></Loading>
       ) : (
         <div ref={ref}></div>
       )}

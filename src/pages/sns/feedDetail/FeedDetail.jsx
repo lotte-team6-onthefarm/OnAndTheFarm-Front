@@ -39,30 +39,32 @@ export default function FeedDetail(props) {
   const [scrapStatus, setScrapStatus] = useState(false);
   // feedId = props.feedId
   const queryClient = useQueryClient();
-  const { isLoading: isFeedDetailLoading, data: feedDetail } = useQuery(
-    'FeedDetail',
-    () => getFeedDetail(feedId),
-    {
-      refetchOnWindowFocus: true,
-      refetchOnMount: true,
-      onSuccess: res => {
-        setFeedImgIdx(res.feedImageList[0].feedImageId);
-        setAllFeedImageProductList(res.feedImageProductList);
-        setFeedImageProductList(
-          res.feedImageProductList.filter(
-            product => product.feedImageId === res.feedImageList[0].feedImageId,
-          ),
-        );
-        setLikeStatus(res.feedLikeStatus);
-        setScrapStatus(res.scrapStatus);
-      },
-      onError: () => {
-        console.log('에러');
-      },
-    },
-  );
 
-  const { isLoading: isCommentLoading, data: commentList } = useQuery(
+  const {
+    isLoading: isFeedDetailLoading,
+    data: feedDetail,
+    refetch: getFeedDetailRefetch,
+  } = useQuery('FeedDetail', () => getFeedDetail(feedId), {
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    onSuccess: res => {
+      setFeedImgIdx(res.feedImageList[0].feedImageId);
+      setAllFeedImageProductList(res.feedImageProductList);
+      setFeedImageProductList(
+        res.feedImageProductList.filter(
+          product => product.feedImageId === res.feedImageList[0].feedImageId,
+        ),
+      );
+      setLikeStatus(res.feedLikeStatus);
+      setScrapStatus(res.scrapStatus);
+
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+
+  const { isLoading: isCommentLoading, data: commentList, refetch: getCommentRefetch, } = useQuery(
     'Comment',
     () => getComment(feedId),
     {
@@ -76,25 +78,37 @@ export default function FeedDetail(props) {
   );
 
   const { mutate: feedLike } = useMutation(putFeedLike, {
-    onSuccess: res => {},
+    onSuccess: res => {
+      alert('피드 좋아요');
+      getFeedDetailRefetch();
+    },
     onError: () => {
       console.log('에러');
     },
   });
   const { mutate: feedUnLike } = useMutation(putFeedUnLike, {
-    onSuccess: res => {},
+    onSuccess: res => {
+      alert('피드 좋아요 취소');
+      getFeedDetailRefetch();
+    },
     onError: () => {
       console.log('에러');
     },
   });
   const { mutate: feedScrap } = useMutation(putFeedScrap, {
-    onSuccess: res => {},
+    onSuccess: res => {
+      alert('피드 스크랩');
+      getFeedDetailRefetch();
+    },
     onError: () => {
       console.log('에러');
     },
   });
   const { mutate: feedUnScrap } = useMutation(putFeedUnScrap, {
-    onSuccess: res => {},
+    onSuccess: res => {
+      alert('피드 스크랩 취소');
+      getFeedDetailRefetch();
+    },
     onError: () => {
       console.log('에러');
     },
@@ -127,6 +141,7 @@ export default function FeedDetail(props) {
               memberProfileImg={feedDetail.memberProfileImg}
               memberName={feedDetail.memberName}
               followStatus={feedDetail.followStatus}
+              getFeedDetailRefetch={getFeedDetailRefetch}
               memberId={feedDetail.memberId}
               memberRole={feedDetail.memberRole}
             />
@@ -198,6 +213,8 @@ export default function FeedDetail(props) {
             <FeedComment
               feedId={feedDetail.feedId}
               feedCommentCount={feedDetail.feedCommentCount}
+              getCommentRefetch={getCommentRefetch}
+              getFeedDetailRefetch={getFeedDetailRefetch}
             />
             <FeedCommentList commentList={commentList} />
           </FeedDetailBlock>
@@ -227,7 +244,7 @@ export default function FeedDetail(props) {
                   buttonClick={scroll}
                   count={feedDetail.feedCommentCount}
                 />
-                <SideButton icon="share" count={feedDetail.feedShareCount} />
+                <SideButton id={feedDetail.feedId} icon="share" count={feedDetail.feedShareCount} getFeedDetailRefetch={getFeedDetailRefetch}/>
               </FeedDetailSideBlock>
             </FeedDetailStickyContainer>
           </FeedDetailSideWrapper>

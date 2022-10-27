@@ -1,10 +1,19 @@
 import { JWTapiUser } from '../user/index';
 
 // 피드 조회
-const getFeedList = async (url, pageParam) => {
-  const response = await JWTapiUser.get(
-    `sns/list${url}?pageNumber=${pageParam}`,
-  );
+
+const getFeedList = async (data, pageParam) => {
+  let response = {};
+  console.log(data,'data')
+  if (data.url === '/search') {
+    response = await JWTapiUser.get(
+      `sns/list/tag?feedTagName=${data.searchWord}&pageNumber=${pageParam}`,
+    );
+  } else {
+    response = await JWTapiUser.get(
+      `sns/list${data.url}?pageNumber=${pageParam}`,
+    );
+  }
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,

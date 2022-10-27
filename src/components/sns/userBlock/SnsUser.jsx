@@ -32,7 +32,9 @@ export default function SnsUser(props) {
     ['profileInfo', props.id],
     () => getProfileInfo({ memberId: props.id }),
     {
-      onSuccess: () => {},
+      onSuccess: res => {
+        console.log(res, 'ress');
+      },
       onError: () => {},
     },
   );
