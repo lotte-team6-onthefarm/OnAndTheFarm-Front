@@ -3,7 +3,8 @@ import styled from 'styled-components';
 const SearchInputDiv = styled.div`
   position: relative;
   width: ${props => (props.width ? props.width : '100%')};
-  margin: 20px auto;
+  /* margin: 20px auto; */
+  margin-left: auto;
   display: flex;
   align-items: center;
   text-align: start;

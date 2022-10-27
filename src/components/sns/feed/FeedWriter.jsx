@@ -9,7 +9,8 @@ export default function FeedWriter(props) {
     postAddFollow,
     {
       onSuccess: res => {
-        alert('팔로우');
+        alert('팔로우 성공')
+        props.getFeedDetailRefetch()
       },
       onError: () => {
         console.log('에러');
@@ -21,6 +22,7 @@ export default function FeedWriter(props) {
     {
       onSuccess: res => {
         alert('팔로우 취소');
+        props.getFeedDetailRefetch()
       },
       onError: () => {
         console.log('에러');
