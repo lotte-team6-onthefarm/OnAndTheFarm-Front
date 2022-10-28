@@ -12,7 +12,6 @@ import {
   UserInfoNickName,
   UserInfoSetting,
 } from './SnsUser.styled';
-import { HiOutlineShare } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiImages } from 'react-icons/bi';
@@ -32,13 +31,12 @@ export default function SnsUser(props) {
     ['profileInfo', props.id],
     () => getProfileInfo({ memberId: props.id }),
     {
-      onSuccess: res => {
-        console.log(res, 'ress');
-      },
+      onSuccess: () => {},
       onError: () => {},
     },
   );
 
+  console.log(data);
   return (
     <SnsUserBlock>
       {!isLoading && !props.countLoading && (

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiMessageAlt } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
@@ -12,18 +12,34 @@ import {
   FeedItemWrapper,
   FeedWriterWrapper,
 } from './Feed.styled';
-import { useInfiniteQuery } from 'react-query';
-import { getAllFeedList } from '../../../apis/sns/profile';
-import { useRecoilState } from 'recoil';
+import { useInfiniteQuery, useMutation } from 'react-query';
+import {
+  getAllFeedList,
+  postAddFollow,
+  putCancelFollow,
+} from '../../../apis/sns/profile';
+import { useRecoilValue } from 'recoil';
 import { snsNowId } from '../../../recoil';
 import { followStatus } from '../../../utils/sns/snsFunction';
+import {
+  putFeedLike,
+  putFeedScrap,
+  putFeedUnLike,
+  putFeedUnScrap,
+} from '../../../apis/sns/content';
+import { MdBookmark } from 'react-icons/md';
 
 export default function Feed() {
-  const [id, setId] = useRecoilState(snsNowId);
+  const id = useRecoilValue(snsNowId);
   const { ref, inView } = useInView();
+  const navigate = useNavigate();
+  const feedDetailNavigator = feedId => {
+    navigate(`/sns/detail/${feedId}`);
+  };
+
   const {
     data,
-    // refetch,
+    refetch: getAllFeedListRefetch,
     fetchNextPage,
     isLoading,
     isFetchingNextPage,
@@ -32,6 +48,7 @@ export default function Feed() {
     ['allFeedList', id],
     ({ pageParam = 0 }) => getAllFeedList(pageParam, id),
     {
+      refetchOnMount: true,
       keepPreviousData: true,
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
@@ -43,9 +60,80 @@ export default function Feed() {
     if (inView) fetchNextPage();
   }, [inView]);
 
-  const navigate = useNavigate();
-  const feedDetailNavigator = feedId => {
-    navigate(`/sns/detail/${feedId}`);
+  const { mutate: addFollow, isLoading: isPostAddFollow } = useMutation(
+    postAddFollow,
+    {
+      onSuccess: res => {
+        alert('팔로우 성공');
+        getAllFeedListRefetch();
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+  const { mutate: cancelFollow, isLoading: isPostCancelFollow } = useMutation(
+    putCancelFollow,
+    {
+      onSuccess: res => {
+        alert('팔로우 취소');
+        getAllFeedListRefetch();
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+  const { mutate: feedLike } = useMutation(putFeedLike, {
+    onSuccess: res => {
+      alert('좋아요 성공');
+      getAllFeedListRefetch();
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedUnLike } = useMutation(putFeedUnLike, {
+    onSuccess: res => {
+      alert('좋아요 취소');
+      getAllFeedListRefetch();
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedScrap } = useMutation(putFeedScrap, {
+    onSuccess: res => {
+      alert('스크랩 성공');
+      getAllFeedListRefetch();
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedUnScrap } = useMutation(putFeedUnScrap, {
+    onSuccess: res => {
+      alert('스크랩 취소');
+      getAllFeedListRefetch();
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+
+  const feedLikeFunc = (status, data) => {
+    if (status) {
+      feedUnLike(data);
+    } else {
+      feedLike(data);
+    }
+  };
+  const feedScrapFunc = (status, data) => {
+    if (status) {
+      feedUnScrap(data);
+    } else {
+      feedScrap(data);
+    }
   };
   return (
     <>
@@ -76,15 +164,35 @@ export default function Feed() {
                     <img src={post.feedImageSrc} alt=""></img>
                   </FeedItemImg>
                   <FeedActionList>
-                    <Link to>
-                      <AiOutlineHeart />
+                    <Link
+                      to
+                      onClick={() =>
+                        feedLikeFunc(post.feedLikeStatus, {
+                          feedId: post.feedId,
+                        })
+                      }
+                    >
+                      {post.feedLikeStatus === true ? (
+                        <AiFillHeart color="#16B51E" />
+                      ) : (
+                        <AiOutlineHeart />
+                      )}
                       <span>{post.feedLikeCount}</span>
                     </Link>
-                    <Link to>
-                      <BiBookmark />
+                    <Link
+                      to
+                      onClick={() =>
+                        feedScrapFunc(post.scrapStatus, { feedId: post.feedId })
+                      }
+                    >
+                      {post.scrapStatus === true ? (
+                        <MdBookmark color="#16B51E" />
+                      ) : (
+                        <BiBookmark />
+                      )}
                       <span>{post.feedScrapCount}</span>
                     </Link>
-                    <Link to>
+                    <Link to={`/sns/detail/${post.feedId}`}>
                       <BiMessageAlt />
                       <span>{post.feedShareCount}</span>
                     </Link>
@@ -98,7 +206,7 @@ export default function Feed() {
               </FeedCardWrapper>
             )),
           )}
-          {!isFetchingNextPage || (!isPreviousData && <div ref={ref}></div>)}
+          {(!isFetchingNextPage || !isPreviousData) && <div ref={ref}></div>}
         </FeedDetailWrapper>
       )}
     </>

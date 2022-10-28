@@ -19,15 +19,9 @@ const getUserInfo = async () => {
 };
 
 // 유저 정보수정
-const postUserInfo= async data => {
+const postUserInfo = async data => {
   const response = await JWTapiUser.put('update', data);
   return response.data;
 };
 
-
-export {
-  postUserlogin,
-  postUserSignup,
-  getUserInfo,
-  postUserInfo,
-};
+export { postUserlogin, postUserSignup, getUserInfo, postUserInfo };

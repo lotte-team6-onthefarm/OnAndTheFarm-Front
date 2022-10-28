@@ -1,18 +1,19 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { Link, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { getProfileWishList } from '../../../apis/sns/profile';
 import { snsNowId } from '../../../recoil';
 import NoneFeed from './NoneFeed';
 import { LikeSection } from './SnsFeed.styled';
 
 export default function MainLike(props) {
-  const [id, setId] = useRecoilState(snsNowId); // client 전역
+  const id = useRecoilValue(snsNowId);
   const { data: wishListData, isLoading: wishListLoading } = useQuery(
     ['profileWishList', id],
     () => getProfileWishList({ memberId: id }),
     {
+      refetchOnMount: true,
       onSuccess: () => {},
       onError: () => {},
     },

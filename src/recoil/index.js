@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
-// import { recoilPersist } from 'recoil-persist';
+import { recoilPersist } from 'recoil-persist';
 
-// const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist();
 
 // 셀러 navbar 상태 관리
 export const sellerNavState = atom({
@@ -17,4 +17,5 @@ export const isLoginState = atom({
 export const snsNowId = atom({
   key: 'snsNowId',
   default: 0,
+  effects_UNSTABLE: [persistAtom],
 });

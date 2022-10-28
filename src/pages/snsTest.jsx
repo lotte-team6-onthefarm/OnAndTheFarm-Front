@@ -14,7 +14,6 @@ export default function SnsTest() {
   const [nowImageIdx, setNowImageIdx] = useState(0);
 
   const [modal, setModal] = useState(false);
-
   // 이미지 전송을 위한 FormData
   let formData = new FormData();
 
