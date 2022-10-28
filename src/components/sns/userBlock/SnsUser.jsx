@@ -22,8 +22,12 @@ import {
   putCancelFollow,
 } from '../../../apis/sns/profile';
 import { FollowButton, FollowingButton } from '../follow/follow.styled';
+import { useRecoilValue } from 'recoil';
+import { snsNowRole } from '../../../recoil';
 
 export default function SnsUser(props) {
+  const role = useRecoilValue(snsNowRole);
+  console.log(role,'usenaaa')
   const navigate = useNavigate();
   const { state } = useLocation();
   const memberRole = state;
@@ -35,10 +39,10 @@ export default function SnsUser(props) {
   };
   const { data, isLoading, refetch } = useQuery(
     ['profileInfo', props.id],
-    () => getProfileInfo({ memberId: props.id }),
+    () => getProfileInfo({ memberId: props.id, memberRole: (memberRole === null?role:memberRole) }),
     {
       refetchOnMount: true,
-      onSuccess: () => {},
+      onSuccess: (res) => {console.log(res)},
       onError: () => {},
     },
   );
@@ -61,7 +65,7 @@ export default function SnsUser(props) {
     },
   });
   const mysnsUrl = () => {
-    navigate(`/sns/${props.id}/mysns`, { state: memberRole });
+    navigate(`/sns/${props.id}/mysns`, { state: data.memberRole });
   };
   return (
     <SnsUserBlock>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { postAddFollow, putCancelFollow } from '../../../apis/sns/profile';
 import {
   FollowBlock,
@@ -14,6 +14,7 @@ import {
 export default function FollowUser(props) {
   const follow = props.follow;
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { mutate: addFollow, isLoading: isPostAddFollow } = useMutation(
     postAddFollow,
@@ -41,21 +42,22 @@ export default function FollowUser(props) {
       },
     },
   );
-
+  const mysnsUrl = () => {
+    navigate(`/sns/${follow.memberId}/mysns`, { state: follow.memberRole });
+  };
   return (
     <FollowBlock>
       <FollowerBlock>
-        <Link to={`/sns/${follow.memberId}/mysns`}>
+        <div onClick={mysnsUrl}>
           <FollowImageWrapper>
             <img src={follow.memberImg} alt="" />
           </FollowImageWrapper>
           <FollowNameWrapper>
             <div>
               {follow.memberName}
-              {follow.memberRole}
             </div>
           </FollowNameWrapper>
-        </Link>
+        </div>
         {follow.isModifiable ? (
           ''
         ) : follow.followStatus ? (

@@ -19,3 +19,9 @@ export const snsNowId = atom({
   default: 0,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const snsNowRole = atom({
+  key: 'snsNowRole',
+  default: 0,
+  effects_UNSTABLE: [persistAtom],
+});
