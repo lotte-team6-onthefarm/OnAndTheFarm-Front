@@ -14,6 +14,7 @@ export default function Followee() {
   const role = useRecoilValue(snsNowRole);
   const { ref, inView } = useInView();
   const id = useRecoilValue(snsNowId);
+  const role = useRecoilValue(snsNowRole);
 
   const {
     data: Followings,
@@ -24,7 +25,7 @@ export default function Followee() {
     isPreviousData,
   } = useInfiniteQuery(
     ['getFollowingList', id],
-    ({ pageParam = 0 }) => getFollowingList(pageParam, id, 'user'),
+    ({ pageParam = 0 }) => getFollowingList(pageParam, id, role),
     {
       refetchOnMount: true,
       getNextPageParam: lastPage =>

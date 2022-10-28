@@ -1,33 +1,40 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { AiFillStar } from 'react-icons/ai';
+import { useInView } from 'react-intersection-observer';
+import { useInfiniteQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import {
+  getSellerMyProduct,
+  getSellerProduct,
+} from '../../../apis/seller/product';
+import { getWishList } from '../../../apis/sns/profile';
+import { snsNowId } from '../../../recoil';
 import {
   FeedLikeWrapper,
   LikeCardWrapper,
   LikeImgBlock,
   LikeImgWrapper,
   LikeItemDescription,
-} from './Like.styled';
-import { useInfiniteQuery, useQueryClient } from 'react-query';
-import { getWishList } from '../../../apis/sns/profile';
-import { useInView } from 'react-intersection-observer';
-import { useRecoilValue } from 'recoil';
-import { snsNowId } from '../../../recoil';
-import { useNavigate } from 'react-router-dom';
-export default function Like() {
-  const myRef = useRef();
+} from '../like/Like.styled';
+
+export default function Products() {
   const id = useRecoilValue(snsNowId);
-  const queryClient = useQueryClient();
   const { ref, inView } = useInView();
   const {
     data,
-    refetch,
+    // refetch,
     fetchNextPage,
     isLoading,
     isFetchingNextPage,
     isPreviousData,
   } = useInfiniteQuery(
-    ['getWishList', id],
-    ({ pageParam = 0 }) => getWishList(pageParam, id),
+    ['snsSellerProductList', id],
+
+    id === '0'
+      ? ({ pageParam = 0 }) => getSellerMyProduct(pageParam, id)
+      : ({ pageParam = 0 }) => getSellerProduct(pageParam, id),
+
     {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
@@ -35,13 +42,10 @@ export default function Like() {
       onSuccess: res => {},
     },
   );
+  console.log(data, 'ssd;al21312321s');
   useEffect(() => {
-    queryClient.removeQueries('getWishList');
-  }, []);
-  useEffect(() => {
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
-      fetchNextPage();
-  }, [inView, isFetchingNextPage])
+    if (inView) fetchNextPage();
+  }, [inView]);
   const navigate = useNavigate();
   const productDetailNavigator = feedId => {
     navigate(`/products/detail/${feedId}`);
@@ -49,9 +53,9 @@ export default function Like() {
 
   return (
     <>
-      <FeedLikeWrapper>
-        {!isLoading &&
-          data.pages.map((page, idx) =>
+      {!isLoading && (
+        <FeedLikeWrapper>
+          {data.pages.map((page, idx) =>
             page.posts.map((post, idx) => (
               <LikeCardWrapper
                 key={idx}
@@ -78,18 +82,15 @@ export default function Like() {
                       <AiFillStar />
                     </div>
                     <strong>{post.reviewRate}</strong>
-                    <span>리뷰{post.reviewCount}</span>
+                    <span>리뷰{post.productReviewCount}</span>
                   </div>
                 </LikeItemDescription>
               </LikeCardWrapper>
             )),
           )}
-        {(!isFetchingNextPage || !isPreviousData) && (
-          <div ref={ref}>
-            <div ref={myRef}></div>
-          </div>
-        )}
-      </FeedLikeWrapper>
+          {(!isFetchingNextPage || !isPreviousData) && <div ref={ref}></div>}
+        </FeedLikeWrapper>
+      )}
     </>
   );
 }

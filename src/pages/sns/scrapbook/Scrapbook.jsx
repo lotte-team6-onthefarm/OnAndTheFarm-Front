@@ -17,7 +17,6 @@ export default function Scrapbook() {
       ['getScrapList', id],
       ({ pageParam = 0 }) => getScrapList(pageParam, id),
       {
-        refetchOnMount: true,
         keepPreviousData: true,
         getNextPageParam: lastPage =>
           !lastPage.isLast ? lastPage.nextPage : undefined,

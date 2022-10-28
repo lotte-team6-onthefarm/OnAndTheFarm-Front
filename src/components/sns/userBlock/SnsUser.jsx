@@ -14,7 +14,7 @@ import {
 } from './SnsUser.styled';
 import { GiGroundSprout } from 'react-icons/gi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiOutlineShop } from 'react-icons/ai';
 import { BiBookmark, BiImages } from 'react-icons/bi';
 import { useMutation, useQuery } from 'react-query';
 import {
@@ -28,7 +28,6 @@ import { snsNowRole } from '../../../recoil';
 
 export default function SnsUser(props) {
   const role = useRecoilValue(snsNowRole);
-  console.log(role,'usenaaa')
   const navigate = useNavigate();
   const { state } = useLocation();
   const memberRole = state;
@@ -43,7 +42,9 @@ export default function SnsUser(props) {
     () => getProfileInfo({ memberId: props.id, memberRole: (memberRole === null?role:memberRole) }),
     {
       refetchOnMount: true,
-      onSuccess: (res) => {console.log(res)},
+      onSuccess: res => {
+        console.log(res);
+      },
       onError: () => {},
     },
   );
@@ -135,13 +136,24 @@ export default function SnsUser(props) {
               <div>사진</div>
               <div>{props.countData.photoCount}</div>
             </Link>
-            <Link to={`/sns/${props.id}/like`}>
-              <div>
-                <AiOutlineHeart />
-              </div>
-              <div>위시 리스트</div>
-              <div>{props.countData.wishCount}</div>
-            </Link>
+            {data.memberRole === 'user' ? (
+              <Link to={`/sns/${props.id}/like`}>
+                <div>
+                  <AiOutlineHeart />
+                </div>
+                <div>위시 리스트</div>
+                <div>{props.countData.wishCount}</div>
+              </Link>
+            ) : (
+              <Link to={`/sns/${props.id}/like`}>
+                <div>
+                  <AiOutlineShop />
+                </div>
+                <div>판매 상품</div>
+                <div>{props.countData.wishCount}</div>
+              </Link>
+            )}
+
             <Link to={`/sns/${props.id}/scrapbook`}>
               <div>
                 <BiBookmark />

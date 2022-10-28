@@ -13,7 +13,6 @@ export default function MainScrap(props) {
     ['profileScrapList', id],
     () => getProfileScrapList({ memberId: id }),
     {
-      refetchOnMount: true,
       onSuccess: () => {},
       onError: () => {},
     },
