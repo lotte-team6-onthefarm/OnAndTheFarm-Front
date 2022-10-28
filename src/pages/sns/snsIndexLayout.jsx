@@ -21,7 +21,7 @@ export default function SnsIndexLayout() {
   const memberRole = state;
   const { data: countData, isLoading: countLoading } = useQuery(
     ['scrapLikeCount', id],
-    () => getScrapLikeCount({ memberId: id, memberRole: memberRole }),
+    () => getScrapLikeCount({ memberId: id, memberRole: role }),
     {
       refetchOnMount: true,
       onSuccess: () => {},
@@ -30,7 +30,9 @@ export default function SnsIndexLayout() {
   );
 console.log(state,role,'=========')
   useEffect(() => {
-    setRole(state);
+    if (state !== null){
+      setRole(state);
+    }
     setId(param.id);
   }, [param]);
   return (
@@ -38,7 +40,7 @@ console.log(state,role,'=========')
       {!countLoading && (
         <SnsMainWrapper>
           <UserWrapper>
-            <SnsUser countData={countData} id={id}></SnsUser>
+            <SnsUser countData={countData} id={id} role={role}></SnsUser>
           </UserWrapper>
           <WhiteWrapper></WhiteWrapper>
           <Routes>
