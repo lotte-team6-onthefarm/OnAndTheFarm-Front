@@ -10,7 +10,7 @@ export default function InputSearch(props) {
       <SearchInput
         id={props.id}
         value={props.value}
-        
+        onKeyPress={props.onKeyPress}
         onChange={props.onChange}
         placeholder={props.placeholder}
         type={props.type}

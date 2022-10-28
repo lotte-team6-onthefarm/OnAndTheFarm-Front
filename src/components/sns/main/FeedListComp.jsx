@@ -1,12 +1,41 @@
-import React, { useEffect } from 'react';
-import { useInfiniteQuery, useQueryClient } from 'react-query';
+import React, { useEffect, useState, useRef } from 'react';
+import {
+  useQuery,
+  useMutation,
+  useInfiniteQuery,
+  useQueryClient,
+} from 'react-query';
 import { useInView } from 'react-intersection-observer';
-import { SnsMainWrapper, FeedDetailWrapper } from './FeedListComp.styled';
-import { getFeedList } from '../../../apis/sns/main';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { BiBookmark, BiMessageAlt } from 'react-icons/bi';
+import { MdBookmark } from 'react-icons/md';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import FeedWriter from '../../../components/sns/feed/FeedWriter';
+import {
+  SnsMainWrapper,
+  SelectWrapper,
+  FeedActionList,
+  FeedCardWrapper,
+  FeedDetailWrapper,
+  FeedItemDescription,
+  FeedItemImg,
+  FeedItemWrapper,
+  FeedWriterWrapper,
+} from './FeedListComp.styled';
+import {
+  getFeedByFollow,
+  getFeedByLike,
+  getFeedByRecent,
+  getFeedByViewCount,
+  getFeedList,
+} from '../../../apis/sns/main';
+import { postAddFollow, putCancelFollow } from '../../../apis/sns/profile';
 import Loading from '../../../components/common/Loading';
 import FeedComp from '../feed/FeedComp';
 
 export default function FeedListComp(props) {
+  const myRef = useRef();
+  const param = useParams();
   const { ref, inView } = useInView();
   const queryClient = useQueryClient();
   // useQuery
@@ -33,10 +62,10 @@ export default function FeedListComp(props) {
   useEffect(() => {
     queryClient.removeQueries('getFeed');
     getFeedListRefetch();
-  }, [props.filterList]);
+  }, [props.filterList,props.searchWord]);
   useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView]);
+    if (inView||myRef.current.offsetTop<document.body.offsetHeight) fetchNextPage();
+  }, [inView,getFeedLoading]);
   return (
     <SnsMainWrapper>
       {!getFeedLoading && (
@@ -59,6 +88,7 @@ export default function FeedListComp(props) {
       ) : (
         <div ref={ref}></div>
       )}
+      <div ref={myRef}></div>
     </SnsMainWrapper>
   );
 }

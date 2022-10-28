@@ -144,6 +144,7 @@ export default function FeedDetail(props) {
               getFeedDetailRefetch={getFeedDetailRefetch}
               memberId={feedDetail.memberId}
               memberRole={feedDetail.memberRole}
+              isModifiable={feedDetail.isModifiable}
             />
             <FeedImageWrapper>
               <Carousel
@@ -201,6 +202,22 @@ export default function FeedDetail(props) {
                 ></path>
               </svg>
             </div> */}
+            <div>
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+                className="Vfsdi jCTZa css-18se8ix"
+              >
+                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
+                <path
+                  stroke="#FFF"
+                  strokeLinecap="square"
+                  strokeWidth="2"
+                  d="M12 16V8m-4 4h8"
+                ></path>
+              </svg>
+            </div>
             </FeedImageWrapper>
 
             <FeedProduct

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation } from 'react-query';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { postAddFollow, putCancelFollow } from '../../../apis/sns/profile';
 import { FeedWriterWrapper } from '../../../pages/sns/feed/Feed.styled';
 
@@ -9,8 +9,8 @@ export default function FeedWriter(props) {
     postAddFollow,
     {
       onSuccess: res => {
-        alert('팔로우 성공')
-        props.getFeedDetailRefetch()
+        alert('팔로우 성공');
+        props.getFeedDetailRefetch();
       },
       onError: () => {
         console.log('에러');
@@ -22,7 +22,7 @@ export default function FeedWriter(props) {
     {
       onSuccess: res => {
         alert('팔로우 취소');
-        props.getFeedDetailRefetch()
+        props.getFeedDetailRefetch();
       },
       onError: () => {
         console.log('에러');
@@ -31,12 +31,14 @@ export default function FeedWriter(props) {
   );
   return (
     <FeedWriterWrapper>
-      <Link to>
+      <Link to={`/sns/${props.memberId}/mysns`}>
         <img src={props.memberProfileImg} alt="프로필이미지" />
         <span>{props.memberName}</span>
       </Link>
-      <span className="FeedWriterWrapperSpan" />
-      {props.followStatus ? (
+
+      {props.isModifiable ? (
+        <></>
+      ) : props.followStatus ? (
         <button
           onClick={() =>
             cancelFollow({
@@ -45,7 +47,7 @@ export default function FeedWriter(props) {
             })
           }
         >
-          팔로잉
+          &nbsp;&nbsp;팔로잉
         </button>
       ) : (
         <button
@@ -56,7 +58,7 @@ export default function FeedWriter(props) {
             })
           }
         >
-          팔로우
+          &nbsp;&nbsp;팔로우
         </button>
       )}
     </FeedWriterWrapper>

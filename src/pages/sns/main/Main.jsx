@@ -34,6 +34,7 @@ export default function SnsMainLayout() {
   const [page, setPage] = useState(0);
   const [url, setUrl] = useState('');
   const [searchWord, setSearchWord] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -66,6 +67,7 @@ export default function SnsMainLayout() {
       setUrl('/follow');
     } else if (idx === 4) {
       navigate(`/sns/main?search=${searchWord}`);
+      setSearchWord(searchWord)
       setUrl('/search');
     }
   };
@@ -108,7 +110,13 @@ export default function SnsMainLayout() {
   // );
 
   const search = () => {
+    setSearchValue(searchWord)
     changeFilter(4)
+  }
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      search();
+    }
   }
   return (
     <SnsMainWrapper>
@@ -121,6 +129,7 @@ export default function SnsMainLayout() {
           id="search"
           value={searchWord}
           width="400px"
+          onKeyPress={onKeyPress}
           onChange={e => setSearchWord(e.target.value)}
           placeholder="검색하고 싶은 태그명을 입력해 주세요"
           type="text"
@@ -129,7 +138,7 @@ export default function SnsMainLayout() {
       </SelectWrapper>
       <FeedListComp
         filterList={filterList}
-        searchWord={searchWord}
+        searchWord={searchValue}
         page={page}
         setPage={setPage}
         url={url}
