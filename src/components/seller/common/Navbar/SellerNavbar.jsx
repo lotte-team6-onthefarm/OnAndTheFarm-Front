@@ -70,7 +70,6 @@ export default function SellerNavbar() {
   useEffect(() => {
     const token = localStorage.getItem('sellerToken');
     if (token === null) {
-      console.log('asdasdasdad');
       navigate('/seller/login');
     } else {
       // console.log(token);

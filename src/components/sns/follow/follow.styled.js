@@ -62,7 +62,7 @@ const FollowNameWrapper = styled.div`
 `;
 
 const FollowingButton = styled.button`
-  margin-left: 10px;
+  width: ${props => props.width};
   padding-left: 8px;
   padding-right: 8px;
   font-size: 14px;
@@ -80,7 +80,7 @@ const FollowingButton = styled.button`
 `;
 
 const FollowButton = styled.button`
-  margin-left: 10px;
+  width: ${props => props.width};
   padding-left: 8px;
   padding-right: 8px;
   font-size: 14px;
@@ -94,8 +94,8 @@ const FollowButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   :hover {
-    background-color: #009ecf;
-    border: solid 1px #009ecf;
+    background-color: #06bd06;
+    border: solid 1px #06bd06;
   }
 `;
 

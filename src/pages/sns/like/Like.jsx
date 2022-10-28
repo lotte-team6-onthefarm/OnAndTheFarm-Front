@@ -14,7 +14,7 @@ import { useRecoilValue } from 'recoil';
 import { snsNowId } from '../../../recoil';
 import { useNavigate } from 'react-router-dom';
 export default function Like() {
-  const [id] = useRecoilValue(snsNowId);
+  const id = useRecoilValue(snsNowId);
   const { ref, inView } = useInView();
   const {
     data,
