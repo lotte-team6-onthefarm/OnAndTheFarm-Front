@@ -72,7 +72,7 @@ export default function SnsUser(props) {
     <SnsUserBlock>
       {!isLoading && !props.countLoading && (
         <>
-          <ShareIconBlock>{/* <HiOutlineShare /> */}{role==='seller' &&<GiGroundSprout color='#e6d719'></GiGroundSprout>}</ShareIconBlock>
+          <ShareIconBlock>{/* <HiOutlineShare /> */}{role==='seller' &&<GiGroundSprout color='#40AA54'></GiGroundSprout>}</ShareIconBlock>
           <UserDetailBlock>
             <UserDetailImgBlock>
               <UserDetailImg
