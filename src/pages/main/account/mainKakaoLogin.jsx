@@ -3,9 +3,11 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { postUserlogin } from '../../../apis/user/account';
-import { isLoginState } from '../../../recoil';
+import Loading from '../../../components/common/Loading';
+import { isLoginState, snsNowId } from '../../../recoil';
 
 export default function MainKakaoLogin() {
+  const [id, setId] = useRecoilState(snsNowId);
   const [isLogin, setisLogin] = useRecoilState(isLoginState);
   // useeffect
   useEffect(() => {
@@ -25,13 +27,21 @@ export default function MainKakaoLogin() {
     postUserlogin,
     {
       onSuccess: res => {
-        localStorage.setItem('token',res.data.token.token )
+        setId(res.data.userId);
+        if (localStorage.getItem('sellerToken') !== undefined) {
+          // 유저 로그인 시 셀러 정보 있으면 셀러 토큰 제거
+          localStorage.removeItem('sellerToken');
+        }
+        localStorage.setItem('token', res.data.token.token);
         if (res.data.needRegister) {
-          setisLogin(true)
+          setisLogin(true);
           navigate(`/signup`, { state: res.data.email });
-          document.location.href= '/signup';
+          document.location.href = '/signup';
         } else {
-          document.location.href= '/';
+          setTimeout(() => {
+            // 1초동안 로딩
+            document.location.href = '/';
+          }, [1000]);
         }
       },
       onError: () => {
@@ -39,5 +49,5 @@ export default function MainKakaoLogin() {
       },
     },
   );
-  return <div>카카오로그인 성공</div>;
+  return <Loading />;
 }

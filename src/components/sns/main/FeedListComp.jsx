@@ -105,7 +105,7 @@ export default function FeedListComp(props) {
     postAddFollow,
     {
       onSuccess: res => {
-        alert('팔로우 성공')
+        alert('팔로우 성공');
         getFeedListRefetch();
       },
       onError: () => {
@@ -117,7 +117,7 @@ export default function FeedListComp(props) {
     putCancelFollow,
     {
       onSuccess: res => {
-        alert('팔로우 취소')
+        alert('팔로우 취소');
         getFeedListRefetch();
       },
       onError: () => {
@@ -127,7 +127,7 @@ export default function FeedListComp(props) {
   );
   const { mutate: feedLike } = useMutation(putFeedLike, {
     onSuccess: res => {
-      alert('좋아요 성공')
+      alert('좋아요 성공');
       getFeedListRefetch();
     },
     onError: () => {
@@ -136,7 +136,7 @@ export default function FeedListComp(props) {
   });
   const { mutate: feedUnLike } = useMutation(putFeedUnLike, {
     onSuccess: res => {
-      alert('좋아요 취소')
+      alert('좋아요 취소');
       getFeedListRefetch();
     },
     onError: () => {
@@ -145,7 +145,7 @@ export default function FeedListComp(props) {
   });
   const { mutate: feedScrap } = useMutation(putFeedScrap, {
     onSuccess: res => {
-      alert('스크랩 성공')
+      alert('스크랩 성공');
       getFeedListRefetch();
     },
     onError: () => {
@@ -154,7 +154,7 @@ export default function FeedListComp(props) {
   });
   const { mutate: feedUnScrap } = useMutation(putFeedUnScrap, {
     onSuccess: res => {
-      alert('스크랩 취소')
+      alert('스크랩 취소');
       getFeedListRefetch();
     },
     onError: () => {
@@ -227,7 +227,7 @@ export default function FeedListComp(props) {
                     >
                       <span>
                         {sns.feedLikeStatus === true ? (
-                          <AiFillHeart color="#40AA54" />
+                          <AiFillHeart color="#16B51E" />
                         ) : (
                           <AiOutlineHeart />
                         )}
@@ -242,7 +242,7 @@ export default function FeedListComp(props) {
                     >
                       <span>
                         {sns.scrapStatus === true ? (
-                          <MdBookmark color="#40AA54" />
+                          <MdBookmark color="#16B51E" />
                         ) : (
                           <BiBookmark />
                         )}

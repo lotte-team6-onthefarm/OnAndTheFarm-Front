@@ -49,7 +49,6 @@ export default function AddFeed() {
   };
 
   const uploadFeedBtn = () => {
-    console.log(images, content, tags, productList);
     if (validataionCheck) {
       // Feed Image 데이터 추가
       for (let i = 0; i < images.length; i++) {
@@ -60,7 +59,6 @@ export default function AddFeed() {
         'data',
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
-      console.log(submitData, 'submitData');
 
       formData.append(
         'productData',
@@ -68,7 +66,6 @@ export default function AddFeed() {
           type: 'application/json',
         }),
       );
-      console.log(productList, 'productList');
 
       // 상품 추가 API
       uploadFeed(formData);
@@ -79,7 +76,7 @@ export default function AddFeed() {
   const { mutate: uploadFeed } = useMutation(postUploadFeed, {
     onSuccess: () => {
       // 상품 리스트 페이지로 이동
-      navigate('/sns/mysns');
+      navigate(`/sns/0/mysns`);
     },
     onError: () => {
       console.log('에러');
@@ -94,7 +91,8 @@ export default function AddFeed() {
     }
     URL.revokeObjectURL(images);
     setPreImages([]); // 초기화
-    for (let i = 0; i < e.target.files.length; i++) {
+    for (let i = e.target.files.length - 1; i >= 0; i--) {
+      console.log(e.target.files[i].name, '파일 순서 : ', i);
       const url = URL.createObjectURL(e.target.files[i]);
       setPreImages(preImages => [url, ...preImages]);
     }
@@ -164,7 +162,7 @@ export default function AddFeed() {
                 #
                 <input
                   type="text"
-                  placeholder="키워드"
+                  placeholder="키워드(Enter)"
                   value={inputTag}
                   onChange={e => setInputTag(e.target.value)}
                   onKeyPress={onKeyPress}

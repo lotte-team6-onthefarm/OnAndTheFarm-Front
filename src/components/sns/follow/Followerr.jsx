@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useInfiniteQuery, useQuery } from 'react-query';
-import { useRecoilState } from 'recoil';
+import { useInfiniteQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
 import { getFollowerList } from '../../../apis/sns/profile';
 import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
 import { snsNowId } from '../../../recoil';
@@ -18,8 +18,7 @@ export default function Follower() {
   // );
 
   const { ref, inView } = useInView();
-  const [id, setId] = useRecoilState(snsNowId); // client 전역
-
+  const id = useRecoilValue(snsNowId);
   const {
     data: Followers,
     // refetch,

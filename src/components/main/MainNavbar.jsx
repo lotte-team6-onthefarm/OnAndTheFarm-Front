@@ -61,6 +61,7 @@ export default function MainNavbar(props) {
   // hook
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('recoil-persist'); // 전역 member_id 삭제
     document.location.href = '/';
   };
 

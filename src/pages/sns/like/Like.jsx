@@ -10,11 +10,11 @@ import {
 import { useInfiniteQuery } from 'react-query';
 import { getWishList } from '../../../apis/sns/profile';
 import { useInView } from 'react-intersection-observer';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { snsNowId } from '../../../recoil';
 import { useNavigate } from 'react-router-dom';
 export default function Like() {
-  const [id, setId] = useRecoilState(snsNowId);
+  const [id] = useRecoilValue(snsNowId);
   const { ref, inView } = useInView();
   const {
     data,
@@ -27,13 +27,13 @@ export default function Like() {
     ['getWishList', id],
     ({ pageParam = 0 }) => getWishList(pageParam, id),
     {
+      refetchOnMount: true,
       keepPreviousData: true,
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
       onSuccess: res => {},
     },
   );
-  console.log(data, '데이터터');
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView]);
@@ -80,8 +80,7 @@ export default function Like() {
               </LikeCardWrapper>
             )),
           )}
-
-          {!isFetchingNextPage || (!isPreviousData && <div ref={ref}></div>)}
+          {(!isFetchingNextPage || !isPreviousData) && <div ref={ref}></div>}
         </FeedLikeWrapper>
       )}
     </>

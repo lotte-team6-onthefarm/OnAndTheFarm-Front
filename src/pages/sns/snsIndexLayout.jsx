@@ -20,12 +20,14 @@ export default function SnsIndexLayout() {
     ['scrapLikeCount', id],
     () => getScrapLikeCount(id),
     {
+      refetchOnMount: true,
       onSuccess: () => {},
       onError: () => {},
     },
   );
   useEffect(() => {
     setId(param.id);
+    console.log(param.id, '파람아이디');
   }, [param]);
   return (
     <>
