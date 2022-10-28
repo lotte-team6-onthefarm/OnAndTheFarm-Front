@@ -13,7 +13,7 @@ const JWTapiSeller = axios.create({
   },
 });
 
-const JWPapiSellertoUser = axios.create({
+const JWTapiSellertoUser = axios.create({
   baseURL: USER_BASE_URL,
   headers: {
     contentType: 'application/json',
@@ -35,10 +35,39 @@ const BaseApi = axios.create({
   },
 });
 
+const CommonJWTapi = () => {
+  // seller user 둘 다 필요한 API
+  const sellerToken = localStorage.getItem('sellerToken');
+  const userToken = localStorage.getItem('token');
+  if (sellerToken !== null) {
+    return axios.create({
+      baseURL: SELLER_BASE_URL,
+      headers: {
+        contentType: 'application/json',
+        Authorization: ACCESS_TOKEN,
+      },
+    });
+  } else if (userToken !== null) {
+    return axios.create({
+      baseURL: USER_BASE_URL,
+      headers: {
+        contentType: 'application/json',
+        Authorization: ACCESS_TOKEN,
+      },
+    });
+  }
+};
+
 // 상품상세정보 이 미지
 const getProductDetailImg = async data => {
   const response = await BaseApi.get(data);
   return response.data;
 };
 
-export { JWTapiSeller, ApiSeller, JWPapiSellertoUser, getProductDetailImg};
+export {
+  JWTapiSeller,
+  ApiSeller,
+  JWTapiSellertoUser,
+  CommonJWTapi,
+  getProductDetailImg,
+};

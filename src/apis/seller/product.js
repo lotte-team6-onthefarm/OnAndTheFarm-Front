@@ -1,4 +1,4 @@
-import { JWPapiSellertoUser, JWTapiSeller } from '..';
+import { JWPapiSellertoUser, JWTapiSeller, JWTapiSellertoUser } from '..';
 
 // 상품등록
 const postSellerProduct = async formData => {
@@ -31,7 +31,7 @@ const getSellerProduct = async pageNo => {
 // 상품 단건조회
 const getProductSeller = async data => {
   console.log('들어와요 상품 단건조회?');
-  const response = await JWPapiSellertoUser.get(`product/${data}`);
+  const response = await JWTapiSellertoUser.get(`product/${data}`);
   return response.data.data;
 };
 
