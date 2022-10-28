@@ -25,7 +25,7 @@ const FollowerBlock = styled.div`
   justify-content: space-between;
   padding: 10px 0px;
   color: rgb(41, 41, 41);
-  a {
+  div {
     flex: 0 1 auto;
     min-width: 0px;
     display: flex;
