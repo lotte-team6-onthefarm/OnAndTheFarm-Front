@@ -27,13 +27,13 @@ export default function Followee() {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
-      onSuccess: res => {
-      },
+      onSuccess: res => {},
     },
   );
   useEffect(() => {
-    if (inView||myRef.current.offsetTop<document.body.offsetHeight) fetchNextPage();
-  }, [inView,isLoading]);
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight)
+      fetchNextPage();
+  }, [inView, isLoading]);
 
   return (
     <FeedDetailWrapper>
@@ -53,7 +53,11 @@ export default function Followee() {
           )}
         </FollowWrapper>
       )}
-      {(!isFetchingNextPage || !isPreviousData) && <div ref={ref}><div ref={myRef}></div></div>}
+      {(!isFetchingNextPage || !isPreviousData) && (
+        <div ref={ref}>
+          <div ref={myRef}></div>
+        </div>
+      )}
     </FeedDetailWrapper>
   );
 }

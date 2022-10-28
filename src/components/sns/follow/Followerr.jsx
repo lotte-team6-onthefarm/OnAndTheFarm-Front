@@ -28,14 +28,15 @@ export default function Follower() {
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
       onSuccess: res => {
-        console.log(res)
+        console.log(res);
       },
     },
   );
 
   useEffect(() => {
-    if (inView||myRef.current.offsetTop<document.body.offsetHeight) fetchNextPage();
-  }, [inView,isLoading]);
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight)
+      fetchNextPage();
+  }, [inView, isLoading]);
 
   return (
     <FeedDetailWrapper>
@@ -48,14 +49,18 @@ export default function Follower() {
             <>
               {Followers.pages.map((page, idx) =>
                 page.posts.map((follow, idx) => (
-                  <FollowUser follow={follow} key={idx} refetch={refetch}/>
+                  <FollowUser follow={follow} key={idx} refetch={refetch} />
                 )),
               )}
             </>
           )}
         </FollowWrapper>
       )}
-      {(!isFetchingNextPage || !isPreviousData) && <div ref={ref}><div ref={myRef}></div></div>}
+      {(!isFetchingNextPage || !isPreviousData) && (
+        <div ref={ref}>
+          <div ref={myRef}></div>
+        </div>
+      )}
     </FeedDetailWrapper>
   );
 }
