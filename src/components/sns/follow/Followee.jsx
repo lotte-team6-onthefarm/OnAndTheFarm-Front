@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { getFollowingList } from '../../../apis/sns/profile';
 import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
@@ -10,6 +10,8 @@ import FollowUser from './FollowUser';
 
 export default function Followee() {
   const myRef = useRef();
+  const queryClient = useQueryClient();
+  const role = useRecoilValue(snsNowRole);
   const { ref, inView } = useInView();
   const id = useRecoilValue(snsNowId);
   const role = useRecoilValue(snsNowRole);
@@ -25,16 +27,21 @@ export default function Followee() {
     ['getFollowingList', id],
     ({ pageParam = 0 }) => getFollowingList(pageParam, id, role),
     {
-      keepPreviousData: true,
+      refetchOnMount: true,
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
-      onSuccess: res => {},
+      onSuccess: res => {
+        console.log(res, 'ressssss');
+      },
     },
   );
   useEffect(() => {
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight)
+    queryClient.removeQueries('getFollowingList');
+  }, []);
+  useEffect(() => {
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
       fetchNextPage();
-  }, [inView, isLoading]);
+  }, [inView, isFetchingNextPage]);
 
   return (
     <FeedDetailWrapper>

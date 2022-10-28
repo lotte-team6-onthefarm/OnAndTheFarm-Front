@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import {
   FeedLikeWrapper,
@@ -7,18 +7,20 @@ import {
   LikeImgWrapper,
   LikeItemDescription,
 } from './Like.styled';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { getWishList } from '../../../apis/sns/profile';
 import { useInView } from 'react-intersection-observer';
 import { useRecoilValue } from 'recoil';
 import { snsNowId } from '../../../recoil';
 import { useNavigate } from 'react-router-dom';
 export default function Like() {
+  const myRef = useRef();
   const id = useRecoilValue(snsNowId);
+  const queryClient = useQueryClient();
   const { ref, inView } = useInView();
   const {
     data,
-    // refetch,
+    refetch,
     fetchNextPage,
     isLoading,
     isFetchingNextPage,
@@ -34,8 +36,12 @@ export default function Like() {
     },
   );
   useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView]);
+    queryClient.removeQueries('getWishList');
+  }, []);
+  useEffect(() => {
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
+      fetchNextPage();
+  }, [inView, isFetchingNextPage])
   const navigate = useNavigate();
   const productDetailNavigator = feedId => {
     navigate(`/products/detail/${feedId}`);
@@ -43,9 +49,9 @@ export default function Like() {
 
   return (
     <>
-      {!isLoading && (
-        <FeedLikeWrapper>
-          {data.pages.map((page, idx) =>
+      <FeedLikeWrapper>
+        {!isLoading &&
+          data.pages.map((page, idx) =>
             page.posts.map((post, idx) => (
               <LikeCardWrapper
                 key={idx}
@@ -78,9 +84,12 @@ export default function Like() {
               </LikeCardWrapper>
             )),
           )}
-          {(!isFetchingNextPage || !isPreviousData) && <div ref={ref}></div>}
-        </FeedLikeWrapper>
-      )}
+        {(!isFetchingNextPage || !isPreviousData) && (
+          <div ref={ref}>
+            <div ref={myRef}></div>
+          </div>
+        )}
+      </FeedLikeWrapper>
     </>
   );
 }

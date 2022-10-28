@@ -32,6 +32,9 @@ export default function SnsIndexLayout() {
     if (state !== null) {
       setRole(state);
     }
+    if(param.id === '0'){
+      setRole(localStorage.getItem('role'));
+    }
     setId(param.id);
   }, [param]);
   return (
