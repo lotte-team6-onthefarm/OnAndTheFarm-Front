@@ -39,7 +39,7 @@ export default function SnsUser(props) {
   };
   const { data, isLoading, refetch } = useQuery(
     ['profileInfo', props.id],
-    () => getProfileInfo({ memberId: props.id, memberRole: (memberRole === null?role:memberRole) }),
+    () => getProfileInfo({ memberId: props.id, memberRole: props.role }),
     {
       refetchOnMount: true,
       onSuccess: (res) => {console.log(res)},
