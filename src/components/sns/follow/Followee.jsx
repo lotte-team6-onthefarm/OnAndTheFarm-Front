@@ -4,7 +4,7 @@ import { useInfiniteQuery } from 'react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { getFollowingList } from '../../../apis/sns/profile';
 import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
-import { snsNowId } from '../../../recoil';
+import { snsNowId, snsNowRole } from '../../../recoil';
 import { FollowWrapper } from './follow.styled';
 import FollowUser from './FollowUser';
 
@@ -12,6 +12,7 @@ export default function Followee() {
   const myRef = useRef();
   const { ref, inView } = useInView();
   const id = useRecoilValue(snsNowId);
+  const role = useRecoilValue(snsNowRole);
 
   const {
     data: Followings,
@@ -22,7 +23,7 @@ export default function Followee() {
     isPreviousData,
   } = useInfiniteQuery(
     ['getFollowingList', id],
-    ({ pageParam = 0 }) => getFollowingList(pageParam, id),
+    ({ pageParam = 0 }) => getFollowingList(pageParam, id, role),
     {
       keepPreviousData: true,
       getNextPageParam: lastPage =>

@@ -28,7 +28,6 @@ const getSellerOrderClaimList = async (
   pageNo,
   orderState,
 ) => {
-  console.log(orderState);
   const response = await JWTapiSeller.get(
     `orders/claim/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}&ordersStatus=${orderState}`,
   );

@@ -13,12 +13,12 @@ import { getScrapLikeCount } from '../../apis/sns/profile';
 import { snsNowId, snsNowRole } from '../../recoil';
 import { useRecoilState } from 'recoil';
 import { useEffect } from 'react';
+import Products from './seller/Products';
 export default function SnsIndexLayout() {
   const [id, setId] = useRecoilState(snsNowId); // client 전역
   const [role, setRole] = useRecoilState(snsNowRole); // client 전역
   const param = useParams();
   const { state } = useLocation();
-  const memberRole = state;
   const { data: countData, isLoading: countLoading } = useQuery(
     ['scrapLikeCount', id],
     () => getScrapLikeCount({ memberId: id, memberRole: role }),
@@ -28,9 +28,8 @@ export default function SnsIndexLayout() {
       onError: () => {},
     },
   );
-console.log(state,role,'=========')
   useEffect(() => {
-    if (state !== null){
+    if (state !== null) {
       setRole(state);
     }
     setId(param.id);
@@ -47,6 +46,7 @@ console.log(state,role,'=========')
             <Route path="/mysns" element={<SnsMain countData={countData} />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/like" element={<Like />} />
+            <Route path="/product" element={<Products />} />
             <Route path="/scrapbook" element={<Scrapbook />} />
             <Route path="/follower" element={<Follower />} />
             <Route path="/followee" element={<Followee />} />

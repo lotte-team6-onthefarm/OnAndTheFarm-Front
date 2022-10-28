@@ -8,7 +8,7 @@ import { ProductStatisticsTable } from './ProductsStatistics.style';
 import { AiTwotoneHeart, AiTwotoneStar } from 'react-icons/ai';
 import { IconBox, IconWrapper } from '../../common/Icon.style';
 import { useQuery } from 'react-query';
-import { getSellerProduct } from '../../../../apis/seller/product';
+import { getSellerMyProduct } from '../../../../apis/seller/product';
 import { useState } from 'react';
 import { EmptyTable } from '../../main/popularProducts/MainPopularProducts.style';
 import { GreenRedStatusButton } from '../../common/ColorStatusButton';
@@ -18,7 +18,7 @@ export default function ProductsStatistics() {
   const [productCnt, setProductCnt] = useState(0);
   const { isLoading: sellerProductLoading, data: products } = useQuery(
     'sellerProducts',
-    () => getSellerProduct(pageNo),
+    () => getSellerMyProduct(pageNo),
     {
       refetchOnMount: true,
       refetchOnWindowFcous: true,
