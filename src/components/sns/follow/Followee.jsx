@@ -38,7 +38,7 @@ export default function Followee() {
     queryClient.removeQueries('getFollowingList');
   }, []);
   useEffect(() => {
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight)
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
       fetchNextPage();
   }, [inView, isFetchingNextPage]);
 

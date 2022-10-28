@@ -36,9 +36,7 @@ export default function Feed() {
     queryClient.removeQueries('allFeedList');
   }, []);
   useEffect(() => {
-    console.log(myRef.current.offsetTop, '111');
-    console.log(document.body.offsetHeight, '222');
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight)
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
       fetchNextPage();
   }, [inView, isFetchingNextPage]);
 

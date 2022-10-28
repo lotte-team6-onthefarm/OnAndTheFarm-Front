@@ -38,7 +38,7 @@ export default function Follower() {
     queryClient.removeQueries('getFollowerList');
   }, []);
   useEffect(() => {
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight)
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
       fetchNextPage();
   }, [inView, isFetchingNextPage]);
 

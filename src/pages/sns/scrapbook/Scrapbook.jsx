@@ -29,7 +29,7 @@ export default function Scrapbook() {
     queryClient.removeQueries('getScrapList');
   }, []);
   useEffect(() => {
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight)
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
       fetchNextPage();
   }, [inView, isFetchingNextPage]);
 

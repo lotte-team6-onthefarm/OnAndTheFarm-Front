@@ -40,7 +40,7 @@ export default function Like() {
     queryClient.removeQueries('getWishList');
   }, []);
   useEffect(() => {
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight)
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
       fetchNextPage();
   }, [inView, isFetchingNextPage]);
 
