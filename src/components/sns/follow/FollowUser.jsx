@@ -1,8 +1,6 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
-import { postAddFollow, putCancelFollow } from '../../../apis/sns/profile';
-import { followStatusButton } from '../../../pages/sns/snsCommotFunc';
 import {
   FollowBlock,
   FollowButton,

@@ -6,9 +6,9 @@ import {
 const followStatus = (followStatus, isModifiable) => {
   if (isModifiable) {
     return '';
-  } else if (followStatus) {
-    return '팔로우';
   } else if (!followStatus) {
+    return '팔로우';
+  } else if (followStatus) {
     return '팔로잉';
   }
 };

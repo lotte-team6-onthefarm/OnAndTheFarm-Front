@@ -12,7 +12,7 @@ export default function Follower() {
   const myRef = useRef();
   const { ref, inView } = useInView();
   const id = useRecoilValue(snsNowId);
-  
+
   const {
     data: Followers,
     refetch,

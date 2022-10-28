@@ -1,5 +1,6 @@
+import { CommonJWTapi } from '..';
 import { getRole } from '../../utils/sns/snsFunction';
-import { ApiUser, JWTapiUser } from '../user/index';
+import { JWTapiUser } from '../user/index';
 
 // 팔로우 기능
 const postAddFollow = async data => {

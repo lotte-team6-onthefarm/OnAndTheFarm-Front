@@ -31,30 +31,17 @@ import {
 } from '../../../apis/sns/main';
 import { postAddFollow, putCancelFollow } from '../../../apis/sns/profile';
 import Loading from '../../../components/common/Loading';
-import {
-  putFeedLike,
-  putFeedScrap,
-  putFeedUnLike,
-  putFeedUnScrap,
-} from '../../../apis/sns/content';
+import FeedComp from '../feed/FeedComp';
 
 export default function FeedListComp(props) {
   const myRef = useRef();
   const param = useParams();
-  const searchValue = param.search;
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const feedDetailNavigator = feedId => {
-    navigate(`/sns/detail/${feedId}`);
-  };
-
-  const [snsList, setSnsList] = useState([]);
   const { ref, inView } = useInView();
   const queryClient = useQueryClient();
   // useQuery
   // 최신순
   const {
-    data: aaa,
+    data,
     refetch: getFeedListRefetch,
     fetchNextPage,
     isLoading: getFeedLoading,
@@ -68,207 +55,33 @@ export default function FeedListComp(props) {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
-      onSuccess: res => {
-        // setLoading(true);
-        // setTimeout(() => {
-        //   setLoading(false);
-        // }, 2000);
-        // queryClient.setQueryData(['getFeed', props.url], oldProfile => {
-        //   return { oldProfile, ...res.pages[props.page].posts };
-        // });
-        // console.log(res);
-        // if (props.page === 0) {
-        //   // 0페이지시 초기화후 데이터 넣기
-        //   setSnsList(res.pages[props.page].posts);
-        //   props.setPage(props.page + 1);
-        // }
-        // if (res.pages[props.page] !== undefined) {
-        //   setSnsList([...snsList, ...res.pages[props.page].posts]);
-        //   props.setPage(props.page + 1);
-        // }
-      },
+      onSuccess: () => {},
     },
   );
 
   useEffect(() => {
-    setSnsList([]);
     queryClient.removeQueries('getFeed');
     getFeedListRefetch();
   }, [props.filterList,props.searchWord]);
   useEffect(() => {
     if (inView||myRef.current.offsetTop<document.body.offsetHeight) fetchNextPage();
   }, [inView,getFeedLoading]);
-
-  const { mutate: addFollow, isLoading: isPostAddFollow } = useMutation(
-    postAddFollow,
-    {
-      onSuccess: res => {
-        alert('팔로우 성공');
-        getFeedListRefetch();
-      },
-      onError: () => {
-        console.log('에러');
-      },
-    },
-  );
-  const { mutate: cancelFollow, isLoading: isPostCancelFollow } = useMutation(
-    putCancelFollow,
-    {
-      onSuccess: res => {
-        alert('팔로우 취소');
-        getFeedListRefetch();
-      },
-      onError: () => {
-        console.log('에러');
-      },
-    },
-  );
-  const { mutate: feedLike } = useMutation(putFeedLike, {
-    onSuccess: res => {
-      alert('좋아요 성공');
-      getFeedListRefetch();
-    },
-    onError: () => {
-      console.log('에러');
-    },
-  });
-  const { mutate: feedUnLike } = useMutation(putFeedUnLike, {
-    onSuccess: res => {
-      alert('좋아요 취소');
-      getFeedListRefetch();
-    },
-    onError: () => {
-      console.log('에러');
-    },
-  });
-  const { mutate: feedScrap } = useMutation(putFeedScrap, {
-    onSuccess: res => {
-      alert('스크랩 성공');
-      getFeedListRefetch();
-    },
-    onError: () => {
-      console.log('에러');
-    },
-  });
-  const { mutate: feedUnScrap } = useMutation(putFeedUnScrap, {
-    onSuccess: res => {
-      alert('스크랩 취소');
-      getFeedListRefetch();
-    },
-    onError: () => {
-      console.log('에러');
-    },
-  });
-
-  const feedLikeFunc = (status, data) => {
-    if (status) {
-      feedUnLike(data);
-    } else {
-      feedLike(data);
-    }
-  };
-  const feedScrapFunc = (status, data) => {
-    if (status) {
-      feedUnScrap(data);
-    } else {
-      feedScrap(data);
-    }
-  };
-  // if (loading) return <Loading></Loading>;
   return (
     <SnsMainWrapper>
       {!getFeedLoading && (
         <FeedDetailWrapper>
-          {aaa.pages.map((page, idx) =>
-            page.posts.map((sns, idx) => (
-              <FeedCardWrapper key={idx}>
-                <FeedWriterWrapper>
-                  <Link to>
-                    <img src={sns.memberProfileImg} alt="" />
-                    <span>{sns.memberName}</span>
-                  </Link>
-                  <span className="FeedWriterWrapperSpan" />
-                  {sns.followStatus ? (
-                    <button
-                      onClick={() =>
-                        cancelFollow({
-                          followerMemberId: sns.memberId,
-                          followerMemberRole: sns.memberRole,
-                        })
-                      }
-                    >
-                      팔로잉
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() =>
-                        addFollow({
-                          followerMemberId: sns.memberId,
-                          followerMemberRole: sns.memberRole,
-                        })
-                      }
-                    >
-                      팔로우
-                    </button>
-                  )}
-                </FeedWriterWrapper>
-                <FeedItemWrapper>
-                  <FeedItemImg onClick={() => feedDetailNavigator(sns.feedId)}>
-                    <img src={sns.feedImageSrc} alt=""></img>
-                  </FeedItemImg>
-                  <FeedActionList>
-                    <Link
-                      to
-                      onClick={() =>
-                        feedLikeFunc(sns.feedLikeStatus, { feedId: sns.feedId })
-                      }
-                    >
-                      <span>
-                        {sns.feedLikeStatus === true ? (
-                          <AiFillHeart color="#16B51E" />
-                        ) : (
-                          <AiOutlineHeart />
-                        )}
-                      </span>
-                      <span>{sns.feedLikeCount}</span>
-                    </Link>
-                    <Link
-                      to
-                      onClick={() =>
-                        feedScrapFunc(sns.scrapStatus, { feedId: sns.feedId })
-                      }
-                    >
-                      <span>
-                        {sns.scrapStatus === true ? (
-                          <MdBookmark color="#16B51E" />
-                        ) : (
-                          <BiBookmark />
-                        )}
-                      </span>
-                      <span>{sns.feedScrapCount}</span>
-                    </Link>
-                    <Link to={`/sns/detail/${sns.feedId}`}>
-                      <BiMessageAlt />
-                      <span>{sns.feedCommentCount}</span>
-                    </Link>
-                  </FeedActionList>
-                  <FeedItemDescription>
-                    <div className="card-item-description__content">
-                      {sns.feedContent}
-                    </div>
-                  </FeedItemDescription>
-                </FeedItemWrapper>
-              </FeedCardWrapper>
+          {data.pages.map((page, idx) =>
+            page.posts.map((post, idx) => (
+              <FeedComp
+                post={post}
+                Refetch={getFeedListRefetch}
+                parent="FeedList"
+                key={idx}
+              />
             )),
           )}
         </FeedDetailWrapper>
       )}
-      {/* {!isFetchingNextPage&&(setTimeout(() => {
-        <Loading></Loading>
-        console.log('settimeout')
-      }, 3000))}
-      <div ref={ref}></div> */}
-      {/* <div ref={ref}></div> */}
 
       {isFetchingNextPage || isPreviousData ? (
         <Loading></Loading>

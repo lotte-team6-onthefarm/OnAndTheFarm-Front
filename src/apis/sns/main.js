@@ -4,7 +4,6 @@ import { JWTapiUser } from '../user/index';
 
 const getFeedList = async (data, pageParam) => {
   let response = {};
-  console.log(data,'data')
   if (data.url === '/search') {
     response = await JWTapiUser.get(
       `sns/list/tag?feedTagName=${data.searchWord}&pageNumber=${pageParam}`,
