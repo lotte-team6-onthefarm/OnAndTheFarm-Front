@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { FeedDetailWrapper } from './Feed.styled';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { getAllFeedList } from '../../../apis/sns/profile';
 import { useRecoilValue } from 'recoil';
 import { snsNowId } from '../../../recoil';
 import FeedComp from '../../../components/sns/feed/FeedComp';
 
 export default function Feed() {
+  const myRef = useRef();
+  const queryClient = useQueryClient();
   const id = useRecoilValue(snsNowId);
   const { ref, inView } = useInView();
 
@@ -31,14 +33,18 @@ export default function Feed() {
   );
 
   useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView]);
+    queryClient.removeQueries('allFeedList');
+  }, []);
+  useEffect(() => {
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
+      fetchNextPage();
+  }, [inView, isFetchingNextPage]);
 
   return (
     <>
-      {!isLoading && (
-        <FeedDetailWrapper>
-          {data.pages.map((page, idx) =>
+      <FeedDetailWrapper>
+        {!isLoading &&
+          data.pages.map((page, idx) =>
             page.posts.map((post, idx) => (
               <FeedComp
                 post={post}
@@ -48,9 +54,12 @@ export default function Feed() {
               />
             )),
           )}
-          {(!isFetchingNextPage || !isPreviousData) && <div ref={ref}></div>}
-        </FeedDetailWrapper>
-      )}
+        {(!isFetchingNextPage || !isPreviousData) && (
+          <div ref={ref}>
+            <div ref={myRef}></div>
+          </div>
+        )}
+      </FeedDetailWrapper>
     </>
   );
 }
