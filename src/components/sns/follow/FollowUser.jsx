@@ -1,6 +1,7 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+import { postAddFollow, putCancelFollow } from '../../../apis/sns/profile';
 import {
   FollowBlock,
   FollowButton,
@@ -55,7 +56,9 @@ export default function FollowUser(props) {
             </div>
           </FollowNameWrapper>
         </Link>
-        {follow.followStatus ? (
+        {follow.isModifiable ? (
+          ''
+        ) : follow.followStatus ? (
           <FollowingButton
             onClick={() =>
               cancelFollow({

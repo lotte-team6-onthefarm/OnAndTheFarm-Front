@@ -33,12 +33,11 @@ export default function SnsUser(props) {
   const followeeNavigator = () => {
     navigate(`/sns/${props.id}/followee`);
   };
-
   const { data, isLoading, refetch } = useQuery(
     ['profileInfo', props.id],
     () => getProfileInfo({ memberId: props.id }),
     {
-      refetchOnMount:true,
+      refetchOnMount: true,
       onSuccess: () => {},
       onError: () => {},
     },
@@ -61,6 +60,9 @@ export default function SnsUser(props) {
       console.log('에러');
     },
   });
+  const mysnsUrl = () => {
+    navigate(`/sns/${props.id}/mysns`, { state: memberRole });
+  };
   return (
     <SnsUserBlock>
       {!isLoading && !props.countLoading && (
@@ -74,9 +76,9 @@ export default function SnsUser(props) {
               />
             </UserDetailImgBlock>
             <UserInfoBlock>
-              <Link to={`/sns/${props.id}/mysns`}>
+              <div onClick={mysnsUrl}>
                 <UserInfoNickName>{data.memberName}</UserInfoNickName>
-              </Link>
+              </div>
               <UserInfoBottom>
                 <UserInfoFollow>
                   <div onClick={followerNavigator} className="infoFollowButton">

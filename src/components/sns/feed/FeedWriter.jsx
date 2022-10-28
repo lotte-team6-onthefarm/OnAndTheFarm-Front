@@ -5,6 +5,7 @@ import { postAddFollow, putCancelFollow } from '../../../apis/sns/profile';
 import { FeedWriterWrapper } from '../../../pages/sns/feed/Feed.styled';
 
 export default function FeedWriter(props) {
+  const navigate = useNavigate();
   const { mutate: addFollow, isLoading: isPostAddFollow } = useMutation(
     postAddFollow,
     {
@@ -29,12 +30,15 @@ export default function FeedWriter(props) {
       },
     },
   );
+  const mysnsUrl = () => {
+    navigate(`/sns/${props.memberId}/mysns`, { state: props.memberRole });
+  };
   return (
     <FeedWriterWrapper>
-      <Link to={`/sns/${props.memberId}/mysns`}>
+      <div onClick={mysnsUrl}>
         <img src={props.memberProfileImg} alt="프로필이미지" />
         <span>{props.memberName}</span>
-      </Link>
+      </div>
 
       {props.isModifiable ? (
         <></>

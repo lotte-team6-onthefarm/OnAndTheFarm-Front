@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const FeedDetailWrapper = styled.div`
   margin: 30px -10px;
   width: 66.66666666666666%;
-  display: block;
+  display: flex;
   flex-wrap: wrap;
 `;
 
@@ -15,7 +15,7 @@ const FeedWriterWrapper = styled.div`
   position: relative;
   min-height: 36px;
   margin: 0px 0px 16px;
-  a {
+  div {
     flex: 0 1 auto;
     transition: opacity 0.1s ease 0s;
     display: inline-block;

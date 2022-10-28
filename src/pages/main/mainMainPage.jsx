@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getProfileInfo } from '../../apis/sns/profile';
 import MainCarousel from '../../components/main/main/MainCarousel';
 import MainSns from '../../components/main/main/MainSns';
 import MainProductsPopular from '../../components/main/products/MainProductsPopular';
 import { MainContentDiv } from './mainMainPage.style';
 
 export default function MainMainPage() {
+  const a = getProfileInfo({ memberId: '0' });
+  console.log(a, 'wqdasd');
   //main.js
   /*
     * getFeedByRecent
