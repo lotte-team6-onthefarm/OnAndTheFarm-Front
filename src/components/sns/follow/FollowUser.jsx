@@ -22,7 +22,6 @@ export default function FollowUser(props) {
       onSuccess: res => {
         alert('팔로우 성공');
         props.refetch();
-
         queryClient.invalidateQueries('profileInfo');
       },
       onError: () => {
@@ -36,6 +35,7 @@ export default function FollowUser(props) {
       onSuccess: res => {
         alert('팔로우 취소');
         props.refetch();
+        queryClient.invalidateQueries('profileInfo');
       },
       onError: () => {
         console.log('에러');
@@ -53,9 +53,7 @@ export default function FollowUser(props) {
             <img src={follow.memberImg} alt="" />
           </FollowImageWrapper>
           <FollowNameWrapper>
-            <div>
-              {follow.memberName}
-            </div>
+            <div>{follow.memberName}</div>
           </FollowNameWrapper>
         </div>
         {follow.isModifiable ? (
