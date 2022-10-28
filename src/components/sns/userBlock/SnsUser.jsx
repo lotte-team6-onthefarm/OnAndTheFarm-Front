@@ -31,12 +31,11 @@ export default function SnsUser(props) {
     ['profileInfo', props.id],
     () => getProfileInfo({ memberId: props.id }),
     {
+      refetchOnMount:true,
       onSuccess: () => {},
       onError: () => {},
     },
   );
-
-  console.log(data);
   return (
     <SnsUserBlock>
       {!isLoading && !props.countLoading && (

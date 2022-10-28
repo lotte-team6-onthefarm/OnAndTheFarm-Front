@@ -144,6 +144,7 @@ export default function FeedDetail(props) {
               getFeedDetailRefetch={getFeedDetailRefetch}
               memberId={feedDetail.memberId}
               memberRole={feedDetail.memberRole}
+              isModifiable={feedDetail.isModifiable}
             />
             <FeedImageWrapper>
               <Carousel

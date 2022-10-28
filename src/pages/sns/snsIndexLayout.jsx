@@ -27,7 +27,6 @@ export default function SnsIndexLayout() {
   );
   useEffect(() => {
     setId(param.id);
-    console.log(param.id, '파람아이디');
   }, [param]);
   return (
     <>

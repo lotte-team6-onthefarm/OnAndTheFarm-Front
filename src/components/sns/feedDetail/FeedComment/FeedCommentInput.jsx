@@ -21,11 +21,20 @@ export default function FeedComment(props) {
     onSuccess: () => {
       props.getCommentRefetch()
       props.getFeedDetailRefetch()
+      setComment('')
     },
     onError: () => {
       console.log('에러');
     },
   });
+  const onKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      uploadComment({
+        feedId: props.feedId,
+        feedCommentContent: comment,
+      })
+    }
+  }
   return (
     <FeedCommentInputWrapper>
       <section>
@@ -49,6 +58,7 @@ export default function FeedComment(props) {
               <input
                 placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"
                 value={comment}
+                onKeyPress={onKeyPress}
                 onChange={commentHadler}
               ></input>
               <div>
