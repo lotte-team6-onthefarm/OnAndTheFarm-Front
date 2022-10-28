@@ -1,4 +1,3 @@
-import { getRole } from '../../utils/sns/snsFunction';
 import { ApiUser, JWTapiUser } from '../user/index';
 
 // 팔로우 기능
@@ -15,7 +14,6 @@ const putCancelFollow = async data => {
 
 // 프로필 정보(이름&프로필이미지&팔로우&팔로잉) 조회
 const getProfileInfo = async data => {
-  const memberRole = getRole();
   if (data.memberId === '0') {
     // 나 자신일 때
     const response = await JWTapiUser.get(`profile`);
@@ -23,29 +21,27 @@ const getProfileInfo = async data => {
   } else {
     const response = await JWTapiUser.get(
       // 상대 프로필 정보 받아오기
-      `profile?memberId=${data.memberId}&memberRole=${memberRole}`,
+      `profile?memberId=${data.memberId}&memberRole=${data.memberRole}`,
     );
     return response.data.data;
   }
 };
 
 // 스크랩&좋아요 수 조회
-const getScrapLikeCount = async memberId => {
-  const memberRole = getRole();
-  if (memberId === '0') {
+const getScrapLikeCount = async data => {
+  if (data.memberId === '0') {
     // 나 자신일 때
     const response = await JWTapiUser.get(`sns/profile/count`);
     return response.data.data;
   }
   const response = await JWTapiUser.get(
-    `sns/profile/count?memberId=${memberId}&memberRole=${memberRole}`,
+    `sns/profile/count?memberId=${data.memberId}&memberRole=${data.memberRole}`,
   );
   return response.data.data;
 };
 
 // 멤버의 팔로워 리스트 조회
-const getFollowerList = async (pageParam, memberId) => {
-  const memberRole = getRole();
+const getFollowerList = async (pageParam, memberId, memberRole) => {
   let response = {};
   if (memberId === '0') {
     // 나 자신일 때
@@ -65,8 +61,7 @@ const getFollowerList = async (pageParam, memberId) => {
 };
 
 // 멤버의 팔로잉 리스트 조회
-const getFollowingList = async (pageParam, memberId) => {
-  const memberRole = getRole();
+const getFollowingList = async (pageParam, memberId, memberRole) => {
   let response = {};
   if (memberId === '0') {
     // 나 자신일 때
