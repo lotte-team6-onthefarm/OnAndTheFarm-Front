@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useInfiniteQuery } from 'react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -9,12 +9,13 @@ import { FollowWrapper } from './follow.styled';
 import FollowUser from './FollowUser';
 
 export default function Followee() {
+  const myRef = useRef();
   const { ref, inView } = useInView();
   const id = useRecoilValue(snsNowId);
 
   const {
     data: Followings,
-    // refetch,
+    refetch,
     fetchNextPage,
     isLoading,
     isFetchingNextPage,
@@ -26,12 +27,13 @@ export default function Followee() {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
-      onSuccess: res => {},
+      onSuccess: res => {
+      },
     },
   );
   useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView]);
+    if (inView||myRef.current.offsetTop<document.body.offsetHeight) fetchNextPage();
+  }, [inView,isLoading]);
 
   return (
     <FeedDetailWrapper>
@@ -44,14 +46,14 @@ export default function Followee() {
             <>
               {Followings.pages.map((page, idx) =>
                 page.posts.map((followee, idx) => (
-                  <FollowUser follow={followee} key={idx} />
+                  <FollowUser follow={followee} key={idx} refetch={refetch} />
                 )),
               )}
             </>
           )}
         </FollowWrapper>
       )}
-      {!isFetchingNextPage || (!isPreviousData && <div ref={ref}></div>)}
+      {(!isFetchingNextPage || !isPreviousData) && <div ref={ref}><div ref={myRef}></div></div>}
     </FeedDetailWrapper>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   useQuery,
   useMutation,
@@ -9,7 +9,7 @@ import { useInView } from 'react-intersection-observer';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiMessageAlt } from 'react-icons/bi';
 import { MdBookmark } from 'react-icons/md';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import FeedWriter from '../../../components/sns/feed/FeedWriter';
 import {
   SnsMainWrapper,
@@ -39,6 +39,9 @@ import {
 } from '../../../apis/sns/content';
 
 export default function FeedListComp(props) {
+  const myRef = useRef();
+  const param = useParams();
+  const searchValue = param.search;
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const feedDetailNavigator = feedId => {
@@ -91,15 +94,10 @@ export default function FeedListComp(props) {
     setSnsList([]);
     queryClient.removeQueries('getFeed');
     getFeedListRefetch();
-  }, [props.filterList]);
+  }, [props.filterList,props.searchWord]);
   useEffect(() => {
-    // setLoading(true)
-
-    // setTimeout(() => {
-    //   setLoading(false)
-    // }, 1000);
-    if (inView) fetchNextPage();
-  }, [inView]);
+    if (inView||myRef.current.offsetTop<document.body.offsetHeight) fetchNextPage();
+  }, [inView,getFeedLoading]);
 
   const { mutate: addFollow, isLoading: isPostAddFollow } = useMutation(
     postAddFollow,
@@ -277,6 +275,7 @@ export default function FeedListComp(props) {
       ) : (
         <div ref={ref}></div>
       )}
+      <div ref={myRef}></div>
     </SnsMainWrapper>
   );
 }

@@ -8,7 +8,7 @@ import NoneFeed from './NoneFeed';
 import { ScrapSection } from './SnsFeed.styled';
 
 export default function MainScrap(props) {
-  const [id] = useRecoilValue(snsNowId);
+  const id = useRecoilValue(snsNowId);
   const { data: scrapListData, isLoading: scrapListLoading } = useQuery(
     ['profileScrapList', id],
     () => getProfileScrapList({ memberId: id }),

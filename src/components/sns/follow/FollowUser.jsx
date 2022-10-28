@@ -1,5 +1,7 @@
 import React from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
+import { postAddFollow, putCancelFollow } from '../../../apis/sns/profile';
 import { followStatusButton } from '../../../pages/sns/snsCommotFunc';
 import {
   FollowBlock,
@@ -12,6 +14,35 @@ import {
 
 export default function FollowUser(props) {
   const follow = props.follow;
+  const queryClient = useQueryClient();
+
+  const { mutate: addFollow, isLoading: isPostAddFollow } = useMutation(
+    postAddFollow,
+    {
+      onSuccess: res => {
+        alert('팔로우 성공');
+        props.refetch();
+
+        queryClient.invalidateQueries('profileInfo');
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+  const { mutate: cancelFollow, isLoading: isPostCancelFollow } = useMutation(
+    putCancelFollow,
+    {
+      onSuccess: res => {
+        alert('팔로우 취소');
+        props.refetch();
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+
   return (
     <FollowBlock>
       <FollowerBlock>
@@ -20,13 +51,34 @@ export default function FollowUser(props) {
             <img src={follow.memberImg} alt="" />
           </FollowImageWrapper>
           <FollowNameWrapper>
-            <div>{follow.memberName}</div>
+            <div>
+              {follow.memberName}
+              {follow.memberRole}
+            </div>
           </FollowNameWrapper>
         </Link>
         {follow.followStatus ? (
-          <FollowingButton>팔로잉</FollowingButton>
+          <FollowingButton
+            onClick={() =>
+              cancelFollow({
+                followerMemberId: follow.memberId,
+                followerMemberRole: follow.memberRole,
+              })
+            }
+          >
+            팔로우 취소
+          </FollowingButton>
         ) : (
-          <FollowButton>팔로우</FollowButton>
+          <FollowButton
+            onClick={() =>
+              addFollow({
+                followerMemberId: follow.memberId,
+                followerMemberRole: follow.memberRole,
+              })
+            }
+          >
+            팔로우
+          </FollowButton>
         )}
       </FollowerBlock>
     </FollowBlock>
