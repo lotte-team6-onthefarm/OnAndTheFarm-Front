@@ -12,6 +12,7 @@ import {
   UserInfoNickName,
   UserInfoSetting,
 } from './SnsUser.styled';
+import { GiGroundSprout } from 'react-icons/gi';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiImages } from 'react-icons/bi';
@@ -39,7 +40,7 @@ export default function SnsUser(props) {
   };
   const { data, isLoading, refetch } = useQuery(
     ['profileInfo', props.id],
-    () => getProfileInfo({ memberId: props.id, memberRole: props.role }),
+    () => getProfileInfo({ memberId: props.id, memberRole: (memberRole === null?role:memberRole) }),
     {
       refetchOnMount: true,
       onSuccess: (res) => {console.log(res)},
@@ -71,7 +72,7 @@ export default function SnsUser(props) {
     <SnsUserBlock>
       {!isLoading && !props.countLoading && (
         <>
-          <ShareIconBlock>{/* <HiOutlineShare /> */}뭐넣ㅈ;</ShareIconBlock>
+          <ShareIconBlock>{/* <HiOutlineShare /> */}{role==='seller' &&<GiGroundSprout color='#e6d719'></GiGroundSprout>}</ShareIconBlock>
           <UserDetailBlock>
             <UserDetailImgBlock>
               <UserDetailImg

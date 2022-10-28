@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { getFollowerList } from '../../../apis/sns/profile';
 import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
@@ -10,6 +10,7 @@ import FollowUser from './FollowUser';
 
 export default function Follower() {
   const myRef = useRef();
+  const queryClient = useQueryClient();
   const { ref, inView } = useInView();
   const id = useRecoilValue(snsNowId);
 
@@ -34,9 +35,12 @@ export default function Follower() {
   );
 
   useEffect(() => {
+    queryClient.removeQueries('getFollowerList');
+  }, []);
+  useEffect(() => {
     if (inView || myRef.current.offsetTop < document.body.offsetHeight)
       fetchNextPage();
-  }, [inView, isLoading]);
+  }, [inView, isFetchingNextPage]);
 
   return (
     <FeedDetailWrapper>

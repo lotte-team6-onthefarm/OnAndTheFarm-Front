@@ -38,7 +38,7 @@ export default function FeedListComp(props) {
   useEffect(() => {
     if (inView || myRef.current.offsetTop < document.body.offsetHeight)
       fetchNextPage();
-  }, [inView, getFeedLoading]);
+  }, [inView, isFetchingNextPage]);
   return (
     <SnsMainWrapper>
       {!getFeedLoading && (
