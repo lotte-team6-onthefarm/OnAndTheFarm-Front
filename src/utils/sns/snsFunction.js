@@ -22,14 +22,4 @@ const followStatusButton = (followStatus, isModifiable) => {
   }
 };
 
-const getRole = () => {
-  const sellerToken = localStorage.getItem('sellerToken');
-  const userToken = localStorage.getItem('token');
-  if (sellerToken !== null) {
-    return 'seller';
-  } else if (userToken !== null) {
-    return 'user';
-  }
-};
-
-export { followStatus, followStatusButton, getRole };
+export { followStatus, followStatusButton };

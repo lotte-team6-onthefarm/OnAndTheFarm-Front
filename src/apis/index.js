@@ -4,7 +4,7 @@ import axios from 'axios';
 const SELLER_BASE_URL = process.env.REACT_APP_SELLER_BASE_URL;
 const USER_BASE_URL = process.env.REACT_APP_USER_BASE_URL;
 
-const ACCESS_TOKEN = localStorage.getItem('sellerToken');
+const ACCESS_TOKEN = localStorage.getItem('token');
 const JWTapiSeller = axios.create({
   baseURL: SELLER_BASE_URL,
   headers: {
