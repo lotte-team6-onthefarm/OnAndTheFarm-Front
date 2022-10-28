@@ -28,11 +28,13 @@ export default function MainKakaoLogin() {
     {
       onSuccess: res => {
         setId(res.data.userId);
-        if (localStorage.getItem('sellerToken') !== undefined) {
+        if (localStorage.getItem('token') !== undefined) {
           // 유저 로그인 시 셀러 정보 있으면 셀러 토큰 제거
-          localStorage.removeItem('sellerToken');
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
         }
         localStorage.setItem('token', res.data.token.token);
+        localStorage.setItem('role', 'user');
         if (res.data.needRegister) {
           setisLogin(true);
           navigate(`/signup`, { state: res.data.email });

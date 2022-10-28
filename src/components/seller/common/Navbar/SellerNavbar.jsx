@@ -63,7 +63,7 @@ export default function SellerNavbar() {
 
   // 토큰 확인
   useEffect(() => {
-    const token = localStorage.getItem('sellerToken');
+    const token = localStorage.getItem('token');
     if (token === null) {
       navigate('/seller/login');
     } else {
@@ -72,7 +72,8 @@ export default function SellerNavbar() {
   }, [navigate]);
 
   const logoutBtn = () => {
-    localStorage.removeItem('sellerToken');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
     document.location.href = '/seller';
   };
   return (
