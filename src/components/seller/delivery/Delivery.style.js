@@ -44,6 +44,19 @@ const DeliveryButtonWrapper = styled.div`
       font-weight: ${props => props.state === 'refundRequest' && 600};
     }
   }
+  .productStateButton {
+    font-size: 18px;
+    cursor: pointer;
+    margin: auto;
+    :nth-child(1) {
+      color: ${props => props.state === 'selling' && 'black'};
+      font-weight: ${props => props.state === 'selling' && 600};
+    }
+    :nth-child(2) {
+      color: ${props => props.state === 'pause' && 'black'};
+      font-weight: ${props => props.state === 'pause' && 600};
+    }
+  }
 `;
 const DeliveryDateWrapper = styled.div`
   display: flex;

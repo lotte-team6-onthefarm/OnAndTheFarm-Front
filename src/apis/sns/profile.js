@@ -53,6 +53,7 @@ const getFollowerList = async (pageParam, memberId, memberRole) => {
       `follow/follower-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
     );
   }
+  console.log(response, '응답값');
   return {
     posts: response.data.data.memberFollowListResponseList,
     nextPage: pageParam + 1,

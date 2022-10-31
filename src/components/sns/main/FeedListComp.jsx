@@ -36,7 +36,7 @@ export default function FeedListComp(props) {
     getFeedListRefetch();
   }, [props.filterList, props.searchWord]);
   useEffect(() => {
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight - 650)
       fetchNextPage();
   }, [inView, isFetchingNextPage]);
   return (

@@ -4,13 +4,14 @@ import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { getFollowerList } from '../../../apis/sns/profile';
 import { FeedDetailWrapper } from '../../../pages/sns/feed/Feed.styled';
-import { snsNowId } from '../../../recoil';
+import { snsNowId, snsNowRole } from '../../../recoil';
 import { FollowWrapper } from './follow.styled';
 import FollowUser from './FollowUser';
 
 export default function Follower() {
   const myRef = useRef();
   const queryClient = useQueryClient();
+  const role = useRecoilValue(snsNowRole);
   const { ref, inView } = useInView();
   const id = useRecoilValue(snsNowId);
 
@@ -23,14 +24,12 @@ export default function Follower() {
     isPreviousData,
   } = useInfiniteQuery(
     ['getFollowerList', id],
-    ({ pageParam = 0 }) => getFollowerList(pageParam, id),
+    ({ pageParam = 0 }) => getFollowerList(pageParam, id, role),
     {
-      keepPreviousData: true,
+      // keepPreviousData: true,
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
-      onSuccess: res => {
-        console.log(res);
-      },
+      onSuccess: res => {},
     },
   );
 
@@ -38,7 +37,7 @@ export default function Follower() {
     queryClient.removeQueries('getFollowerList');
   }, []);
   useEffect(() => {
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight - 650)
       fetchNextPage();
   }, [inView, isFetchingNextPage]);
 
