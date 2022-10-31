@@ -14,7 +14,6 @@ export default function Followee() {
   const role = useRecoilValue(snsNowRole);
   const { ref, inView } = useInView();
   const id = useRecoilValue(snsNowId);
-  const role = useRecoilValue(snsNowRole);
 
   const {
     data: Followings,
@@ -27,19 +26,16 @@ export default function Followee() {
     ['getFollowingList', id],
     ({ pageParam = 0 }) => getFollowingList(pageParam, id, role),
     {
-      refetchOnMount: true,
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
-      onSuccess: res => {
-        console.log(res, 'ressssss');
-      },
+      onSuccess: res => {},
     },
   );
   useEffect(() => {
     queryClient.removeQueries('getFollowingList');
   }, []);
   useEffect(() => {
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight-650)
+    if (inView || myRef.current.offsetTop < document.body.offsetHeight - 650)
       fetchNextPage();
   }, [inView, isFetchingNextPage]);
 
