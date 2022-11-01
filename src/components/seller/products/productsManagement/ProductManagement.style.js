@@ -48,6 +48,13 @@ const ProductImageWrapper = styled.div`
     height: 280px;
     object-fit: contain;
   }
+  .deleteImage {
+    color: red;
+    :hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
 `;
 
 const ProductCategoryWrapper = styled.div`

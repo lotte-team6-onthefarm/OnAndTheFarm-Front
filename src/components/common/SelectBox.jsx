@@ -6,7 +6,7 @@ export default function SelectBox(props) {
     props.setSelectData(e.target.value);
   };
   return (
-    <SelectWrapper onChange={handleChange}>
+    <SelectWrapper onChange={handleChange} defaultValue={props.defaultValue}>
       {props.options.map(option => (
         <option key={option.value} value={option.value}>
           {option.name}

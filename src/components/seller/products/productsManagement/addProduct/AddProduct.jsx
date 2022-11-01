@@ -16,7 +16,7 @@ import TitleDescription from '../title&description/TitleDescription';
 
 export default function AddProduct() {
   const [productName, setProductName] = useState('');
-  const [productPrice, setProductPrice] = useState(0);
+  const [productPrice, setProductPrice] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [productTotalStock, setProductTotalStock] = useState('');
   const [productDetail, setProductDetail] = useState('');
@@ -83,7 +83,7 @@ export default function AddProduct() {
       alert('상품 한줄 설명을 입력해주세요');
     } else if (productDetail === '') {
       alert('상품 상세정보를 입력해주세요');
-    } else if (productPrice === 0) {
+    } else if (productPrice === '') {
       alert('가격을 입력해주세요');
     } else if (productTotalStock === '') {
       alert('상품 재고를 입력해주세요');
@@ -104,6 +104,10 @@ export default function AddProduct() {
   };
 
   const addProductBtn = () => {
+    if (productStatus === 'soldout') {
+      // 판매상태가 soldout이면 재고 0으로 수정
+      setProductTotalStock(0);
+    }
     // 상품 등록 버튼
     const isValidation = validataionCheck();
     if (isValidation) {
@@ -119,8 +123,6 @@ export default function AddProduct() {
       );
       // 상품 추가 API
       addProduct(formData);
-      console.log('외부');
-      // navigate('/seller/products');
     }
   };
 

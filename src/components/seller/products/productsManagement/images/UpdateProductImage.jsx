@@ -2,10 +2,13 @@ import React, { useRef, useState } from 'react';
 import { ProductImageWrapper } from '../ProductManagement.style';
 import { FiUpload } from 'react-icons/fi';
 import { IconBox, IconWrapper } from '../../../common/Icon.style';
-import ImagesView from './ImagesView';
 import { useEffect } from 'react';
 import UpdateImagesView from './UpdateImagesView';
-import { useQueryClient } from 'react-query';
+import { MainCarouselSlider } from '../../../../main/main/MainCarousel.style';
+import {
+  AddFeedCarouselImg,
+  AddFeedCarouselImgDiv,
+} from '../../../../sns/feed/addFeed/AddFeed.styled';
 
 export default function UpdateProductImage(props) {
   const [detailImagesUrl, setDetailImagesUrl] = useState([]);
@@ -15,15 +18,18 @@ export default function UpdateProductImage(props) {
   const fileUploadHandler = () => {
     fileInput.current.click();
   };
-
   useEffect(() => {
-    if (props.upNowMainImage !== undefined) {
-      setDetailImagesUrl([props.upNowMainImage, ...detailImagesUrl]);
+    if (props.productMainImages !== undefined) {
+      setDetailImagesUrl([props.productMainImages]);
     } else if (
       props.productImages !== undefined &&
       props.productImages.length > 0
     ) {
-      setDetailImagesUrl(props.productImages);
+      setDetailImagesUrl(
+        props.productImages.map(productImage => {
+          return productImage.productImgSrc;
+        }),
+      );
     }
   }, []);
 
@@ -36,19 +42,46 @@ export default function UpdateProductImage(props) {
     }
     setImages(e.target.files);
   };
-
+  console.log(props.productMainImages, 'sad');
   // dddd
-  const deleteImg = idx => {
+  const deleteImg = () => {
+    props.setImages('');
+    setDetailImagesUrl([]);
     // let temp = [...detailImagesUrl];
-    // props.setProductImages(
-    //   props.productImages.filter(product => product.productImgId !== idx),
+  };
+  const deleteDetailImg = idx => {
+    // props.setImages(
+    //   props.productImages.filter(
+    //     productImage => productImage.productImgId !== idx,
+    //   ),
     // );
-    console.log(idx, 'aateastae');
+    props.setImages('');
+    setDetailImagesUrl([]);
+    // let temp = [...detailImagesUrl];
+    // props.setDelImageId([...props.delImageId, idx]);
+    // console.log(idx, 'deleteDetailImg');
+  };
+
+  // Carousel setting
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 1500,
+    draggable: false,
+    // autoplay: true,
+    autoplaySpeed: 5000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
 
   return (
     <ProductImageWrapper>
-      <div className="title">{props.title}</div>
+      <div>
+        <div className="title">{props.title}</div>
+        <div className="deleteImage" onClick={deleteImg}>
+          모든 이미지 삭제하기
+        </div>
+      </div>
       <div className="image">
         {detailImagesUrl.length === 0 ? (
           <button
@@ -65,18 +98,28 @@ export default function UpdateProductImage(props) {
           </button>
         ) : (
           <>
-            {props.upNowMainImage !== undefined ? (
+            {props.productMainImages !== undefined ? (
               <UpdateImagesView
                 images={[
                   { productImgId: 0, productImgSrc: detailImagesUrl[0] },
                 ]}
                 deleteImg={deleteImg}
               />
-            ) : (
+            ) : detailImagesUrl.length === 1 ? (
               <UpdateImagesView
-                images={detailImagesUrl}
+                images={[{ productImgSrc: detailImagesUrl[0] }]}
                 deleteImg={deleteImg}
               />
+            ) : (
+              <MainCarouselSlider {...settings} style={{ width: '300px' }}>
+                {detailImagesUrl.map((image, idx) => {
+                  return (
+                    <AddFeedCarouselImgDiv height="260px" key={idx}>
+                      <AddFeedCarouselImg src={image} alt="" />
+                    </AddFeedCarouselImgDiv>
+                  );
+                })}
+              </MainCarouselSlider>
             )}
           </>
         )}

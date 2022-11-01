@@ -17,7 +17,6 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false, // 윈도우에 focus가 되면 데이터를 다시 가져오는 것
-      // refetchOnMount: false, // DOM에 컴포넌트가 처음 생성되었을 때 데이터를 가져오는 것
     },
   },
 });

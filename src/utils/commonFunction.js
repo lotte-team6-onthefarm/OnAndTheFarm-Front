@@ -78,7 +78,6 @@ const getOrderNumber = number => {
 
 // 주문,배송상태 변경
 const changeStatusName = status => {
-  console.log(status);
   if (status === 'activated') {
     return '배송 대기중';
   } else if (status === 'deliveryProgress') {

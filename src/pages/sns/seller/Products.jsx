@@ -32,8 +32,16 @@ export default function Products() {
     ['snsSellerProductList', id],
 
     id === '0'
-      ? ({ pageParam = 0 }) => getSellerMyProduct(pageParam, id)
-      : ({ pageParam = 0 }) => getSellerProduct(pageParam, id),
+      ? ({ pageParam = 0 }) =>
+          getSellerMyProduct(
+            { sellerId: pageParam, pageNo: id },
+            'InfiniteQuery',
+          )
+      : ({ pageParam = 0 }) =>
+          getSellerProduct(
+            { sellerId: pageParam, pageNo: id },
+            'InfiniteQuery',
+          ),
 
     {
       keepPreviousData: true,
@@ -42,7 +50,6 @@ export default function Products() {
       onSuccess: res => {},
     },
   );
-  console.log(data, 'ssd;al21312321s');
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView]);

@@ -5,14 +5,21 @@ import { ProductCategoryWrapper } from '../ProductManagement.style';
 import ProductInput from '../ProductInput';
 import CaetgoryList from './CaetgoryList';
 import { HorizontalLine } from '../../../../common/HorizontalLine.style';
+import { useEffect, useState } from 'react';
 export default function CategoryEtc(props) {
-  const categoryId = props.categoryId;
   const productCategory = props.productCategory;
   const productOriginPlace = props.productOriginPlace;
-  // const productDeliveryCompany = props.productDeliveryCompany;
   const setCategoryId = props.setCategoryId;
   const setProductOriginPlace = props.setProductOriginPlace;
-  // const setProductDeliveryCompany = props.setProductDeliveryCompany;
+  const [categoryList, setCategoryList] = useState('과일류');
+  // Id : ~25 과일, ~33 곡물, ~64 야채
+  useEffect(() => {
+    if (props.categoryId > 25 && props.categoryId <= 33) {
+      setCategoryList('곡물류');
+    } else if (props.categoryId > 33) {
+      setCategoryList('채소류');
+    }
+  }, []);
 
   return (
     <WhiteWrapper width="100%" marginBottom="10px">
@@ -20,10 +27,16 @@ export default function CategoryEtc(props) {
       <ProductCategoryWrapper>
         <div className="title">카테고리</div>
         <CaetgoryList
-          categoryId={categoryId}
+          categoryId={props.categoryId}
+          categoryList={categoryList}
           productCategory={productCategory}
           setCategoryId={setCategoryId}
         />
+        {/* <UpdateCategoryList
+          categoryId={categoryId}
+          productCategory={productCategory}
+          setCategoryId={setCategoryId}
+        /> */}
       </ProductCategoryWrapper>
       <HorizontalLine color="#F2F2F2" />
       <ProductInput
@@ -33,16 +46,6 @@ export default function CategoryEtc(props) {
         }
         setFunction={setProductOriginPlace}
       ></ProductInput>
-      {/* <HorizontalLine color="#F2F2F2" /> */}
-      {/* <ProductInput
-        title="배송 업체"
-        placeholder={
-          productDeliveryCompany !== ''
-            ? productDeliveryCompany
-            : '배송 업체 입력'
-        }
-        setFunction={setProductDeliveryCompany}
-      ></ProductInput> */}
     </WhiteWrapper>
   );
 }
