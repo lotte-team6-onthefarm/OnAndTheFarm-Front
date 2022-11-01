@@ -11,7 +11,6 @@ import {
 
 export default function Pagination(props) {
   const [pager, setPager] = useState([]);
-
   const clickPage = page => {
     if (page < 0 || page > props.totalPage - 1) {
       return;
@@ -19,12 +18,12 @@ export default function Pagination(props) {
     props.setPage(page);
     let temp = [];
     let tempTen = parseInt(page / 10);
-    let tempLowerOne = parseInt(page % 10);
     let tempOne = parseInt(props.totalPage % 10);
     if (props.totalPage < 10) {
-      for (let index = 1; index < tempLowerOne + 1; index++) {
+      for (let index = 1; index < props.totalPage + 1; index++) {
         temp.push(index);
       }
+      setPager(temp);
     } else if (parseInt(page / 10) !== parseInt(props.totalPage / 10)) {
       for (let index = 1; index < 10 + 1; index++) {
         temp.push(tempTen * 10 + index);
