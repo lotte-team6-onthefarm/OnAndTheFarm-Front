@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { getProducts } from '../../../apis/user/product';
+import { getMainProduct, getProducts } from '../../../apis/user/product';
 import { Button } from '../../common/Button';
 import Product from '../../common/Product';
 import {
@@ -11,27 +11,19 @@ import {
 } from './MainProductsPopular.style';
 
 export default function MainProductsPopular(props) {
-  const [productList, setProductList] = useState([]);
   const navigate = useNavigate();
-  useEffect(() => {
-    let data = {
-      url: 'orderby/soldcount/',
-      page: 0,
-    };
-    getProduct(data);
-  }, []);
 
-  const { mutate: getProduct, isLoading: isGetProduct } = useMutation(
-    getProducts,
-    {
-      onSuccess: res => {
-        setProductList(res.data);
-      },
-      onError: () => {
-        console.log('에러');
-      },
+  const {
+    isLoading: isGetMainProduct,
+    refetch: getMainProductRefetch,
+    data: productList,
+  } = useQuery('getMainProduct', getMainProduct, {
+    refetchOnWindowFocus: true,
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
     },
-  );
+  });
 
   const productsUrl = () => {
     navigate('products');
@@ -49,11 +41,12 @@ export default function MainProductsPopular(props) {
         ></Button>
       </MainProductsSubjectDiv>
       <PopularProductsDiv>
-        {productList.map((product, index) => {
+        {!isGetMainProduct && (productList.productSelectionResponses.map((product, index) => {
           return (
             <Product key={index} product={product} padding="0 5px"></Product>
           );
-        })}
+        }))}
+        
       </PopularProductsDiv>
     </MainProductsDiv>
   );

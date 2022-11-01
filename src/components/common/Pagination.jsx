@@ -1,50 +1,81 @@
 import React, { useEffect, useState } from 'react';
-import { CounterButton, CounterDiv, CounterNumber } from './Pagination.style';
+import {
+  CounterButton,
+  CounterDiv,
+  CounterNumber,
+  PaginationA,
+  PaginationDiv,
+  PaginationLi,
+  PaginationUl,
+} from './Pagination.style';
 
 export default function Pagination(props) {
-  const [number, setNumber] = useState(props.value);
+  const [pager, setPager] = useState([]);
 
-  // function
-  const minus = e => {
-    if (Number(number) - 1 < 1) {
-      alert('숫자는 정수만 입력해주세요');
-      setNumber(1);
+  const clickPage = page => {
+    if (page < 0 || page > props.totalPage - 1) {
       return;
     }
-    setNumber(Number(number) - 1);
-  };
-  const plus = e => {
-    setNumber(Number(number) + 1);
-  };
-  const change = e => {
-    // 숫자만 입력받기위한 정규식
-    let number = Number(e.target.value.replace(/[^0-9]/g, ''));
-    // 정수가 아닐경우
-    if (e.target.value < 1) {
-      alert('숫자는 정수만 입력해주세요');
-      setNumber(1);
-      return;
+    props.setPage(page);
+    let temp = [];
+    let tempTen = parseInt(page / 10);
+    let tempLowerOne = parseInt(page % 10);
+    let tempOne = parseInt(props.totalPage % 10);
+    if (props.totalPage < 10) {
+      for (let index = 1; index < tempLowerOne + 1; index++) {
+        temp.push(index);
+      }
+    } else if (parseInt(page / 10) !== parseInt(props.totalPage / 10)) {
+      for (let index = 1; index < 10 + 1; index++) {
+        temp.push(tempTen * 10 + index);
+      }
+      setPager(temp);
+    } else if (parseInt(page / 10) === parseInt(props.totalPage / 10)) {
+      for (let index = 1; index < tempOne + 1; index++) {
+        temp.push(tempTen * 10 + index);
+      }
+      setPager(temp);
     }
-    setNumber(number);
   };
-
-  // 숫자 변경시 올려주기
   useEffect(() => {
-    props.setPage(number);
-  }, [number, props]);
+    clickPage(0);
+  }, [props.selectedCategory, props.selectedFilter]);
   return (
-    <CounterDiv>
-      <CounterButton onClick={minus}>
-        <span>◀</span>
-      </CounterButton>
-      <CounterNumber value={1} onChange={change} />
-      <CounterNumber value={2} onChange={change} />
-      <CounterNumber value={3} onChange={change} />
-      <CounterNumber value={4} onChange={change} />
-      <CounterNumber value={5} onChange={change} />
-      <CounterButton onClick={plus}>
-        <span>▶</span>
-      </CounterButton>
-    </CounterDiv>
+    <PaginationDiv>
+      <PaginationUl>
+        <PaginationLi className={props.nowPage === 1 ? 'disabled' : ''}>
+          <PaginationA onClick={() => clickPage(0)}>맨 앞으로</PaginationA>
+        </PaginationLi>
+        <PaginationLi className={props.nowPage === 1 ? 'disabled' : ''}>
+          <PaginationA onClick={() => clickPage(props.nowPage - 2)}>
+            앞으로
+          </PaginationA>
+        </PaginationLi>
+        {pager.map((page, index) => (
+          <PaginationLi
+            key={index}
+            className={props.nowPage === page ? 'active' : 'nomal'}
+          >
+            <PaginationA onClick={() => clickPage(page - 1)}>
+              {page}
+            </PaginationA>
+          </PaginationLi>
+        ))}
+        <PaginationLi
+          className={props.nowPage === props.totalPage ? 'disabled' : ''}
+        >
+          <PaginationA onClick={() => clickPage(props.nowPage)}>
+            뒤로
+          </PaginationA>
+        </PaginationLi>
+        <PaginationLi
+          className={props.nowPage === props.totalPage ? 'disabled' : ''}
+        >
+          <PaginationA onClick={() => clickPage(props.totalPage - 1)}>
+            맨 뒤로
+          </PaginationA>
+        </PaginationLi>
+      </PaginationUl>
+    </PaginationDiv>
   );
 }

@@ -2,13 +2,19 @@ import { JWTapiUser, ApiUser } from '.';
 
 // 상품 불러오기
 const getProducts = async data => {
-  const response = await ApiUser.get(`product/list/${data.url}${data.page}`);
-  return response.data;
+  console.log(data)
+  const response = await ApiUser.get(`product/list${data.url}/${data.page}`);
+  return response.data.data;
 };
 
 // 상품 단건조회
 const getProduct = async data => {
   const response = await ApiUser.get(`product/${data}`);
+  return response.data.data;
+};
+// 메인페이지 상품 10개 조회
+const getMainProduct = async data => {
+  const response = await ApiUser.get(`product/list/main`);
   return response.data.data;
 };
 
@@ -24,4 +30,4 @@ const deleteWishList = async data => {
   return response.data;
 };
 
-export { getProducts, postAddWish, getProduct, deleteWishList };
+export { getProducts, postAddWish, getMainProduct, getProduct, deleteWishList };
