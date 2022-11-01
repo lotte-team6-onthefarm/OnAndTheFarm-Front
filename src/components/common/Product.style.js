@@ -30,10 +30,10 @@ const ProductImgIcons = styled.div`
   svg:nth-child(2) {
     margin: 0 3px;
     border: 2px solid
-      ${props => (props.productWishStatus ? '#40AA54' : 'lightgray')};
+      ${props => (props.productCartStatus ? '#40AA54' : 'lightgray')};
     border-radius: 100px;
     background-color: ${props =>
-      props.productWishStatus ? '#40AA54' : 'lightgray'};
+      props.productCartStatus ? '#40AA54' : 'lightgray'};
     cursor: pointer;
   }
   path {

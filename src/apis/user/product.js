@@ -2,8 +2,13 @@ import { JWTapiUser, ApiUser } from '.';
 
 // 상품 불러오기
 const getProducts = async data => {
-  console.log(data)
-  const response = await ApiUser.get(`product/list${data.url}/${data.page}`);
+  let response;
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(`product/list${data.url}/${data.page}`);
+  } else {
+    response = await ApiUser.get(`product/list${data.url}/${data.page}`);
+  }
+  console.log(response.data.data)
   return response.data.data;
 };
 
