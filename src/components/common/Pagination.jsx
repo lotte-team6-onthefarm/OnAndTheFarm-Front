@@ -38,7 +38,7 @@ export default function Pagination(props) {
   };
   useEffect(() => {
     clickPage(0);
-  }, [props.selectedCategory, props.selectedFilter]);
+  }, [props.selectedCategory, props.selectedFilter, props.totalPage]);
   return (
     <PaginationDiv>
       <PaginationUl>
