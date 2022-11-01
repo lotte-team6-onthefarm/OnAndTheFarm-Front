@@ -83,7 +83,7 @@ export default function AddFeed() {
     },
   });
 
-  // 상품 미리보기
+  // SNS 이미지 미리보기
   const handleChange = e => {
     if (e.target.files.length > 10) {
       alert('파일의 최대 개수는 10장입니다');

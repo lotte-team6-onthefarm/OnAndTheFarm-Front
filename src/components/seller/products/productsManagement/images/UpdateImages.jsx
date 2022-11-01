@@ -11,6 +11,7 @@ export default function UpdateImages(props) {
         title="메인 이미지"
         type="main"
         upNowMainImage={props.upNowMainImage}
+        setUpNowMainImage={props.setUpNowMainImage}
         productMainImages={props.productMainImages}
         setImages={props.setProductMainImages}
       />
@@ -19,7 +20,9 @@ export default function UpdateImages(props) {
         title="상품 설명 이미지"
         type="product"
         productImages={props.productImages}
-        setProductImages={props.setProductImages}
+        setImages={props.setProductImages}
+        delImageId={props.delImageId}
+        setDelImageId={props.setDelImageId}
       />
     </WhiteWrapper>
   );

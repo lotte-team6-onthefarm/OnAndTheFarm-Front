@@ -5,14 +5,14 @@ import { AddFeedCarouselImg, AddFeedCarouselImgDiv } from './AddFeed.styled';
 
 export default function AddFeedCarousel(props) {
   const [logoPos, setlogoPos] = useState([
-    { id:0, x: 100, y: 0 },
-    { id:1, x: 200, y: 100 },
+    { id: 0, x: 100, y: 0 },
+    { id: 1, x: 200, y: 100 },
   ]);
   const [initPlus, setInitPlus] = useState([
-    { id:0, x: 100, y: 0 },
-    { id:1, x: 200, y: 100 },
+    { id: 0, x: 100, y: 0 },
+    { id: 1, x: 200, y: 100 },
   ]);
-  
+
   const bindLogoPos = useDrag((params, temp) => {
     console.log(params);
     // console.log(temp)
@@ -27,17 +27,23 @@ export default function AddFeedCarousel(props) {
     //     }
     //   })
     // )
-    let temlogoPosX = logoPos[params.args[0]].x
-    let templogoPosY = logoPos[params.args[0]].y
-    let tempX = initPlus[params.args[0]].x
-    let tempY = initPlus[params.args[0]].y
-    setlogoPos(logoPos.map(
-      item => item.id === params.args[0]
-      ? {...item, x: (params.movement[0]+tempX), y: (params.movement[1]+tempY)}
-      : item
-    ))
-    params.offset=[0,0]
-    params.movement=[0,0]
+    let temlogoPosX = logoPos[params.args[0]].x;
+    let templogoPosY = logoPos[params.args[0]].y;
+    let tempX = initPlus[params.args[0]].x;
+    let tempY = initPlus[params.args[0]].y;
+    setlogoPos(
+      logoPos.map(item =>
+        item.id === params.args[0]
+          ? {
+              ...item,
+              x: params.movement[0] + tempX,
+              y: params.movement[1] + tempY,
+            }
+          : item,
+      ),
+    );
+    params.offset = [0, 0];
+    params.movement = [0, 0];
     // setInitPlus(initPlus.map(
     //   item => item.id === params.args[0]
     //   ? {...item, x: (logoPos[params.args[0]].x), y: (logoPos[params.args[0]].y)}

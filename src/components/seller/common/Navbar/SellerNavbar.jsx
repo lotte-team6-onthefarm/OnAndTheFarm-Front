@@ -39,7 +39,7 @@ export default function SellerNavbar() {
     },
     { icons: <TbTruckDelivery />, title: '주문 관리', url: '/seller/delivery' },
     { icons: <RiBillLine />, title: '취소/반품 관리', url: '/seller/order' },
-    { icons: <BsGraphUp />, title: '통계 수치', url: '/seller/statistics' },
+    // { icons: <BsGraphUp />, title: '통계 수치', url: '/seller/statistics' },
     {
       icons: <AiOutlineGlobal />,
       title: 'SNS 이동',

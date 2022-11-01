@@ -35,7 +35,7 @@ export default function ProductStatus(props) {
             statusHandler(1);
           }}
         >
-          판매일시중지
+          재고없음
         </div>
         <div
           className={productStatus === 'pause' ? 'statusBtnactive' : ''}

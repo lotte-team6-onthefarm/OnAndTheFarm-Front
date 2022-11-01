@@ -38,7 +38,6 @@ export default function AddImageUpload(props) {
         </>
       ) : (
         <div>
-
           <AddFeedCarousel
             images={props.preImages}
             productSelect={props.productSelect}
@@ -47,7 +46,6 @@ export default function AddImageUpload(props) {
             setModal={setModal}
           ></AddFeedCarousel>
         </div>
-        
       )}
 
       {/* modal */}

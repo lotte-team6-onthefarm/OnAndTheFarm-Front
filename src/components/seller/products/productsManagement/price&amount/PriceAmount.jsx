@@ -16,7 +16,7 @@ export default function PriceAmount(props) {
       <SubTitle color="#B1E5FC" title="가격 및 수량" />
       <ProductInput
         title="상품 가격"
-        placeholder={productPrice !== 0 ? productPrice : '가격을 입력해주세요'}
+        placeholder={productPrice !== '' ? productPrice : '가격을 입력해주세요'}
         setFunction={setProductPrice}
       ></ProductInput>
       <HorizontalLine color="#F2F2F2" />

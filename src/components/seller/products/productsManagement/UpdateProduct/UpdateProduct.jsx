@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { PageCol, PageRow, WhiteWrapper } from '../../../common/Box.style';
+import { PageCol, PageRow } from '../../../common/Box.style';
 import { SellerTitle } from '../../../common/Title.style';
-import Images from '../images/Images';
 import PriceAmount from '../price&amount/PriceAmount';
 import TitleDescription from '../title&description/TitleDescription';
 import CategoryEtc from '../category&etc/CategoryEtc';
@@ -15,7 +14,7 @@ import {
   getProductSeller,
   putSellerProduct,
 } from '../../../../../apis/seller/product';
-import { BlueButton, GreenButton } from '../../../../common/Button.style';
+import { GreenButton } from '../../../../common/Button.style';
 import UpdateImages from '../images/UpdateImages';
 import { useEffect } from 'react';
 
@@ -25,26 +24,25 @@ export default function UpdateProduct() {
   const id = param.id;
 
   const [productName, setProductName] = useState('');
-  const [productPrice, setProductPrice] = useState(0);
+  const [productPrice, setProductPrice] = useState('');
   const [productCategory, setProductCategory] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [categoryId, setCategoryId] = useState(0);
   const [productTotalStock, setProductTotalStock] = useState('');
   const [productDetail, setProductDetail] = useState('');
   const [productDetailShort, setProductDetailShort] = useState('');
   const [productOriginPlace, setProductOriginPlace] = useState('');
   const [productStatus, setProductStatus] = useState('');
-  const [productMainImages, setProductMainImages] = useState(''); // 바뀐 메인 이미지
+  const [uploadMainImages, setUploadMainImages] = useState(''); // 바뀐 메인 이미지
   const [productImages, setProductImages] = useState([]); // 상품 상세 이미지
   const [delImageId, setDelImageId] = useState([]); // 삭제 리스트
-  const [upNowMainImage, setUpNowMainImage] = useState(''); // 현재 메인 이미지
-
+  const [s3ImageId, setS3ImageId] = useState([]); // 바뀐 디테일 이미지
+  const [serverMainImage, setServerMainImage] = useState(''); // 현재 메인 이미지
   // useQuery
   const { isLoading: getProductSellerLoading, data: products } = useQuery(
-    'productSeller',
+    ['productSeller', id],
     () => getProductSeller(id),
     {
-      cacheTime: 10,
-      refetchOnMount: 'always',
+      refetchOnMount: true,
       onSuccess: res => {
         setProductName(res.productName);
         setProductPrice(res.productPrice);
@@ -55,12 +53,26 @@ export default function UpdateProduct() {
         setProductDetailShort(res.productDetailShort);
         setProductOriginPlace(res.productOriginPlace);
         setProductStatus(res.productStatus);
-        setUpNowMainImage(res.productMainImgSrc);
+        setUploadMainImages(res.productMainImgSrc);
+        setServerMainImage(res.productMainImgSrc);
         setProductImages(res.productImageList);
+        setS3ImageId(
+          res.productImageList.map(image => {
+            return image.productImgId;
+          }),
+        );
       },
       onError: {},
     },
   );
+  useEffect(() => {
+    // 상품재고 상태 바뀔 때 마다 데이터 처리해주기
+    if (productStatus === 'soldout') {
+      setProductTotalStock(0);
+    } else if (productStatus === 'selling') {
+      setProductTotalStock(products.productTotalStock);
+    }
+  }, [productStatus]);
   // useMutation
   const { mutate: updateProduct } = useMutation(putSellerProduct, {
     onSuccess: () => {
@@ -88,13 +100,6 @@ export default function UpdateProduct() {
       productStatus={productStatus}
       setProductStatus={setProductStatus}
     />,
-    <UpdateImages
-      upNowMainImage={upNowMainImage}
-      productMainImages={productMainImages}
-      setProductMainImages={setProductMainImages}
-      productImages={productImages}
-      setProductImages={setProductImages}
-    />,
     <CategoryEtc
       categoryId={categoryId}
       setCategoryId={setCategoryId}
@@ -102,6 +107,16 @@ export default function UpdateProduct() {
       setProductCategory={setProductCategory}
       productOriginPlace={productOriginPlace}
       setProductOriginPlace={setProductOriginPlace}
+    />,
+    <UpdateImages
+      upNowMainImage={serverMainImage} // 서버 이미지
+      setUpNowMainImage={setServerMainImage} // 서버 이미지
+      productMainImages={uploadMainImages} // 업로드 할 이미지
+      setProductMainImages={setUploadMainImages} // 업로드 할 이미지
+      productImages={productImages} // 상품 상세 이미지
+      setProductImages={setProductImages} // 상품 상세 이미지
+      delImageId={delImageId} // 상품 상세 삭제 리스트
+      setDelImageId={setDelImageId} // 상품 상세 삭제 리스트
     />,
   ];
 
@@ -128,17 +143,17 @@ export default function UpdateProduct() {
       alert('상품 한줄 설명을 입력해주세요');
     } else if (productDetail === '') {
       alert('상품 상세정보를 입력해주세요');
-    } else if (productPrice === 0) {
+    } else if (productPrice === '') {
       alert('가격을 입력해주세요');
     } else if (productTotalStock === '') {
       alert('상품 재고를 입력해주세요');
     } else if (productStatus === '') {
       alert('판매상태를 선택해주세요');
-    } else if (productMainImages === '') {
+    } else if (uploadMainImages.length === 0) {
       alert('상품 메인 이미지를 등록해주세요');
     } else if (productImages.length === 0) {
       alert('상품 상세 이미지를 선택해주세요');
-    } else if (categoryId === '') {
+    } else if (categoryId === 0) {
       alert('상품 카테고리를 선택해주세요');
     } else if (productOriginPlace === '') {
       alert('원산지를 입력해주세요');
@@ -148,17 +163,18 @@ export default function UpdateProduct() {
     return false;
   };
 
-  const updatePreviewBtn = () => {};
   const updateProductBtn = () => {
     // 상품 등록 버튼
     const isValidation = validataionCheck();
     if (isValidation) {
       // 상품 image 데이터 추가
-      formData.append('images', productMainImages);
+      if (uploadMainImages !== serverMainImage) {
+        // 메인 이미지가 바꼈으면 추가
+        formData.append('mainImage', uploadMainImages);
+      }
       for (let i = 0; i < productImages.length; i++) {
         formData.append('images', productImages[i]);
       }
-      console.log(productMainImages, productImages, submitData, '갈 데이터들');
       // 상품 데이터 추가
       formData.append(
         'data',
@@ -184,66 +200,11 @@ export default function UpdateProduct() {
               </PageRow>
             );
           })}
-          {/* <PageRow>
-            <PageCol width="100%">
-              <ProductManagementWrapper>
-                <TitleDescription
-                  productName={productName}
-                  setProductName={setProductName}
-                  productDetail={productDetail}
-                  setProductDetail={setProductDetail}
-                  productDetailShort={productDetailShort}
-                  setProductDetailShort={setProductDetailShort}
-                />
-              </ProductManagementWrapper>
-            </PageCol>
-          </PageRow>
-          <PageRow>
-            <PageCol width="100%">
-              <ProductManagementWrapper>
-                <PriceAmount
-                  productPrice={productPrice}
-                  setProductPrice={setProductPrice}
-                  productTotalStock={productTotalStock}
-                  setProductTotalStock={setProductTotalStock}
-                  productStatus={productStatus}
-                  setProductStatus={setProductStatus}
-                />
-              </ProductManagementWrapper>
-            </PageCol>
-          </PageRow>
-          <PageRow>
-            <PageCol width="100%">
-              <ProductManagementWrapper>
-                <UpdateImages
-                  upNowMainImage={products.productMainImgSrc}
-                  productMainImages={productMainImages}
-                  setProductMainImages={setProductMainImages}
-                  productImages={products.productImageList}
-                  setProductImages={setProductImages}
-                />
-              </ProductManagementWrapper>
-            </PageCol>
-          </PageRow>
-          <PageRow>
-            <PageCol width="100%">
-              <ProductManagementWrapper>
-                <CategoryEtc
-                  categoryId={categoryId}
-                  setCategoryId={setCategoryId}
-                  productCategory={productCategory}
-                  setProductCategory={setProductCategory}
-                  productOriginPlace={productOriginPlace}
-                  setProductOriginPlace={setProductOriginPlace}
-                />
-              </ProductManagementWrapper>
-            </PageCol>
-          </PageRow> */}
           <AddProductBtnWrapper>
             <div>
-              <BlueButton onClick={updatePreviewBtn} width="120px">
+              {/* <BlueButton onClick={updatePreviewBtn} width="120px">
                 미리보기
-              </BlueButton>
+              </BlueButton> */}
               <GreenButton onClick={updateProductBtn} width="120px">
                 상품수정
               </GreenButton>

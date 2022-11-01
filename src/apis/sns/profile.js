@@ -120,7 +120,6 @@ const getProfileWishList = async data => {
     `sns/profile/main-wish?memberId=${data.memberId}`,
     data,
   );
-  console.log(response.data.data, 'asdas');
   return response.data.data;
 };
 

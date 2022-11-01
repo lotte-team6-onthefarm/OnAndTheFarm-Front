@@ -35,7 +35,7 @@ const getSellerProduct = async (data, status) => {
   return response.data.data;
 };
 
-// 셀러가 등록한 내 상품 조회
+// 셀러가 등록한 내 상품 조회 -> 내 토큰으로 확인하는 것
 const getSellerMyProduct = async (pageNo, status) => {
   const response = await JWTapiSeller.get(
     `product/list/selling-product/by-seller/${pageNo}`,
@@ -47,12 +47,19 @@ const getSellerMyProduct = async (pageNo, status) => {
       isLast: Boolean(response.data.data.totalPage - 1 === pageNo),
     };
   }
-  return response.data.data;
+  return response.data.data.productSelectionResponses;
+};
+
+// 셀러가 일시정지 한 내 상품 조회
+const getSellerPauseProduct = async pageNo => {
+  const response = await JWTapiSeller.get(
+    `product/list/pause-product/by-seller/${pageNo}`,
+  );
+  return response.data.data.productSelectionResponses;
 };
 
 // 상품 단건조회
 const getProductSeller = async data => {
-  console.log('들어와요 상품 단건조회?');
   const response = await JWTapiSellertoUser.get(`product/${data}`);
   return response.data.data;
 };
@@ -63,5 +70,6 @@ export {
   getSellerNewestProduct,
   getSellerProduct,
   getProductSeller,
+  getSellerPauseProduct,
   getSellerMyProduct,
 };

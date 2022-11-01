@@ -4,14 +4,31 @@ import { FiUpload } from 'react-icons/fi';
 import { IconBox, IconWrapper } from '../../../common/Icon.style';
 import ImagesView from './ImagesView';
 import { useEffect } from 'react';
+import { MainCarouselSlider } from '../../../../main/main/MainCarousel.style';
+import {
+  AddFeedCarouselImg,
+  AddFeedCarouselImgDiv,
+} from '../../../../sns/feed/addFeed/AddFeed.styled';
 
 export default function ProductImage(props) {
   const [detailImagesUrl, setDetailImagesUrl] = useState([]);
   const type = props.type;
   const setImages = props.setImages;
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 1500,
+    draggable: false,
+    // autoplay: true,
+    autoplaySpeed: 5000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   const fileInput = useRef();
   const fileUploadHandler = () => {
+    alert('이미지는 이름 순서대로 올라갑니다');
     fileInput.current.click();
   };
 
@@ -23,8 +40,12 @@ export default function ProductImage(props) {
 
   // 상품 미리보기
   const handleChange = e => {
+    if (e.target.files.length > 10) {
+      alert('파일의 최대 개수는 10장입니다');
+      return;
+    }
     URL.revokeObjectURL(detailImagesUrl);
-    for (let i = 0; i < e.target.files.length; i++) {
+    for (let i = e.target.files.length - 1; i >= 0; i--) {
       const url = URL.createObjectURL(e.target.files[i]);
       setDetailImagesUrl(detailImagesUrl => [url, ...detailImagesUrl]);
     }
@@ -49,11 +70,20 @@ export default function ProductImage(props) {
           </button>
         ) : (
           <>
-            {props.upNowMainImage !== undefined ? (
-              // <UpdateImageView upNowMainImage={props.upNowMainImage} />
+            {props.productMainImages !== undefined ? (
+              <ImagesView images={detailImagesUrl} />
+            ) : detailImagesUrl.length === 1 ? (
               <ImagesView images={detailImagesUrl} />
             ) : (
-              <ImagesView images={detailImagesUrl} />
+              <MainCarouselSlider {...settings} style={{ width: '550px' }}>
+                {detailImagesUrl.map((image, idx) => {
+                  return (
+                    <AddFeedCarouselImgDiv width="50px" height="50px" key={idx}>
+                      <AddFeedCarouselImg src={image} alt="" />
+                    </AddFeedCarouselImgDiv>
+                  );
+                })}
+              </MainCarouselSlider>
             )}
           </>
         )}

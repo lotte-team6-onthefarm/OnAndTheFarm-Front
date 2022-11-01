@@ -162,13 +162,13 @@ const AddFeedProductListWrapper = styled.div`
 `;
 
 const AddFeedCarouselImgDiv = styled.div`
-position: relative;
+  position: relative;
   width: ${props => props.width};
   height: ${props => props.height};
   display: flex;
   align-items: center;
   justify-content: center;
-  div{
+  div {
     position: absolute;
   }
 `;
