@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import React from 'react';
+import { useQuery } from 'react-query';
 import { useState } from 'react';
-import CartItemComp from '../../../components/main/cart/CartItem';
-import { Button } from '../../../components/common/Button';
 import {
   CartContentDiv,
   CartListDiv,
@@ -13,7 +11,6 @@ import {
   ProductListDiv,
 } from './mainProductList.style';
 import Product from '../../../components/common/Product';
-import InputSearch from '../../../components/common/SearchInput';
 import { getProducts } from '../../../apis/user/product';
 import Pagination from '../../../components/common/Pagination';
 
@@ -49,19 +46,24 @@ export default function MainProductList() {
     isLoading: isGetProductList,
     refetch: getProductListRefetch,
     data: productList,
-  } = useQuery(['getProducts',selectedCategory, selectedFilter, nowPage], () => getProducts({
-    url: `${CATEGORY[selectedCategory].value}${filterList[selectedFilter].value}`,
-    page: nowPage,
-  }), {
-    refetchOnWindowFocus: true,
-    onSuccess: res => {
-      setNowPage(res.pageVo.nowPage)
-      setTotalPage(res.pageVo.totalPage)
+  } = useQuery(
+    ['getProducts', selectedCategory, selectedFilter, nowPage],
+    () =>
+      getProducts({
+        url: `${CATEGORY[selectedCategory].value}${filterList[selectedFilter].value}`,
+        page: nowPage,
+      }),
+    {
+      refetchOnWindowFocus: true,
+      onSuccess: res => {
+        setNowPage(res.pageVo.nowPage);
+        setTotalPage(res.pageVo.totalPage);
+      },
+      onError: () => {
+        console.log('에러');
+      },
     },
-    onError: () => {
-      console.log('에러');
-    },
-  });
+  );
 
   const test = () => {
     console.log(selectedCategory);
@@ -72,7 +74,6 @@ export default function MainProductList() {
     <CartContentDiv>
       <ProductCategoryDiv>
         <CartPriceHeader>
-          <button onClick={test}>test</button>
           <h2>카테고리</h2>
         </CartPriceHeader>
         {CATEGORY.map((item, index) => {
@@ -84,7 +85,7 @@ export default function MainProductList() {
               onClick={() => {
                 setSelectedFilter(0);
                 setSelectedCategory(index);
-                setNowPage(0)
+                setNowPage(0);
               }}
             >
               {item.name}
@@ -128,7 +129,16 @@ export default function MainProductList() {
               );
             })}
         </ProductListDiv>
-        {totalPage!==0 && <Pagination nowPage={nowPage+1} totalPage={totalPage} selectedCategory={selectedCategory} selectedFilter={selectedFilter} productList={productList} setPage={setNowPage}></Pagination>}
+        {totalPage !== 0 && (
+          <Pagination
+            nowPage={nowPage + 1}
+            totalPage={totalPage}
+            selectedCategory={selectedCategory}
+            selectedFilter={selectedFilter}
+            productList={productList}
+            setPage={setNowPage}
+          ></Pagination>
+        )}
       </CartListDiv>
     </CartContentDiv>
   );
