@@ -36,18 +36,22 @@ export default function SellerLoginPage() {
   };
   const { mutate: sellerLogin } = useMutation(postSellerlogin, {
     onSuccess: res => {
-      if (localStorage.getItem('token') !== undefined) {
-        // 셀러 로그인 시 유저 정보 있으면 셀러 토큰 제거
-        localStorage.removeItem('token');
-        localStorage.removeItem('role');
+      if (email === 'admin@admin.com') {
+        document.location.href = '/admin';
+      } else {
+        if (localStorage.getItem('token') !== undefined) {
+          // 셀러 로그인 시 유저 정보 있으면 셀러 토큰 제거
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
+        }
+        if (localStorage.getItem('recoil-persist') !== undefined) {
+          // 셀러 로그인 시 유저 정보가 있으면 제거
+          localStorage.removeItem('recoil-persist');
+        }
+        localStorage.setItem('token', res.data.token.token);
+        localStorage.setItem('role', 'seller');
+        document.location.href = '/seller';
       }
-      if (localStorage.getItem('recoil-persist') !== undefined) {
-        // 셀러 로그인 시 유저 정보가 있으면 제거
-        localStorage.removeItem('recoil-persist');
-      }
-      localStorage.setItem('token', res.data.token.token);
-      localStorage.setItem('role', 'seller');
-      document.location.href = '/seller';
     },
     onError: () => {
       alert('아이디 또는 비밀번호가 일치하지 않습니다.');
