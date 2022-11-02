@@ -35,16 +35,10 @@ export default function MainKakaoLogin() {
         }
         localStorage.setItem('token', res.data.token.token);
         localStorage.setItem('role', 'user');
-        if (res.data.needRegister) {
+        setTimeout(() => {
           setisLogin(true);
-          navigate(`/signup`, { state: res.data.email });
-          document.location.href = '/signup';
-        } else {
-          setTimeout(() => {
-            // 1초동안 로딩
-            document.location.href = '/';
-          }, [1000]);
-        }
+          document.location.href = '/';
+        }, [1000]);
       },
       onError: () => {
         console.log('에러');
