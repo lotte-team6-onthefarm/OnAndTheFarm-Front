@@ -122,6 +122,7 @@ export default function UpdateProduct() {
 
   const submitData = {
     // 상품 정보 데이터 객체화
+    productId: id,
     productName: productName,
     productPrice: productPrice,
     categoryId: categoryId,
@@ -169,8 +170,9 @@ export default function UpdateProduct() {
     if (isValidation) {
       // 상품 image 데이터 추가
       if (uploadMainImages !== serverMainImage) {
+        console.log(uploadMainImages, '로 들어간다이');
         // 메인 이미지가 바꼈으면 추가
-        formData.append('mainImage', uploadMainImages);
+        formData.append('mainImage', uploadMainImages[0]);
       }
       for (let i = 0; i < productImages.length; i++) {
         formData.append('images', productImages[i]);

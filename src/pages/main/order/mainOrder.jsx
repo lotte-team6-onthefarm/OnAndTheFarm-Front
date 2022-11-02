@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useLocation, useNavigate } from 'react-router';
 import { Button } from '../../../components/common/Button';
 import {
@@ -16,6 +16,7 @@ import {
 import ProductListComp from '../../../components/main/products/ProductList';
 import Input from '../../../components/common/Input';
 import { postMakeOrder } from '../../../apis/user/order';
+import { getUserInfo } from '../../../apis/user/account';
 
 export default function MainOrder() {
   const { state } = useLocation();
@@ -26,6 +27,28 @@ export default function MainOrder() {
   const [recieverAddress, setRecieverAddress] = useState('');
   const [recieverPhone, setRecieverPhone] = useState('');
   const [recieverRequest, setRecieverRequest] = useState('');
+
+  const {
+    isLoading: isgetUserInfo,
+    // refetch: getUserInfoRefetch,
+    // data: userInfo,
+  } = useQuery('userInfo', () => getUserInfo(), {
+    refetchOnWindowFocus: true,
+    onSuccess: res => {
+      if (res.userName) {
+        setRecieverName(res.userName);
+      }
+      if (res.userPhone) {
+        setRecieverPhone(res.userPhone);
+      }
+      if (res.userAddress) {
+        setRecieverAddress(res.userAddress + res.userAddressDetail);
+      }
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
 
   const test = () => {
     let productList = [];

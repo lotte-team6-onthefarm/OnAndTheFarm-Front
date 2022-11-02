@@ -51,7 +51,8 @@ const ProductReviewsTable = styled.table`
       padding-left: 20px;
     }
     img {
-      width: 80px;
+      width: 90px;
+      border-radius: 8px;
     }
   }
 `;

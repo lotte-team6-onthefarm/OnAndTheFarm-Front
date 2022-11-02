@@ -124,14 +124,15 @@ const ProductDetailDiv = styled.div`
   align-items: center;
   padding: 10px 0;
   img {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
+    border-radius: 8px;
   }
   :nth-child(n + 2) {
     border-top: solid 1px ${props => props.theme.colors.gray};
   }
   div {
-    padding-left: 20px;
+    padding-left: 10px;
     div {
       font-size: 13px;
       color: gray;
