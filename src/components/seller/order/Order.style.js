@@ -31,7 +31,6 @@ const OrderDateWrapper = styled.div`
 
 const OrderTableWrapper = styled.table`
   width: 100%;
-  cursor: pointer;
   font-size: 14px;
   margin-top: 20px;
   border-collapse: collapse;
@@ -48,8 +47,9 @@ const OrderTableWrapper = styled.table`
     border-bottom: solid 1px ${props => props.theme.colors.gray};
     vertical-align: top;
   }
-  tbody {
+  .refundTBody {
     :hover {
+      cursor: pointer;
       background-color: ${props => props.theme.colors.gray};
     }
   }
@@ -61,7 +61,10 @@ const OrderTableWrapper = styled.table`
       padding-left: 20px;
     }
     img {
-      width: 80px;
+      width: 90px;
+      height: 90px;
+      border-radius: 8px;
+      object-fit: cover;
     }
   }
   .content {

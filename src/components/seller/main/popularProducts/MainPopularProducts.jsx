@@ -12,6 +12,7 @@ import {
 
 export default function MainPopularProducts(props) {
   const products = props.products;
+  console.log(products, '야야양');
 
   // hook
   const navigate = useNavigate();
@@ -46,10 +47,7 @@ export default function MainPopularProducts(props) {
                 return (
                   <tr key={idx}>
                     <td>
-                      <img
-                        src={require('../../../../assets/products/거봉.png')}
-                        alt=""
-                      />
+                      <img src={product.productMainImgSrc} alt="" />
                       <div className="title">{product.productName}</div>
                     </td>
                     <td>

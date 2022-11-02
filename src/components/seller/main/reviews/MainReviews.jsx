@@ -8,33 +8,6 @@ import { EmptyTable } from '../popularProducts/MainPopularProducts.style';
 
 export default function MainReviews(props) {
   const reviews = props.reviews;
-  const products = [
-    {
-      title: '달콤 샤인 머스캣',
-      review: '빠른배송 너무 좋아요! 샤인 머스캣 맨날 먹고 싶어요!',
-      reviewRate: 5,
-      img: '../../../../assets/products/머스캣.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      review: '빠른배송 너무 좋아요! 거봉 맨날 먹고 싶어요!',
-      reviewRate: 3,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      review: '빠른배송 너무 좋아요! 거봉 맨날 먹고 싶어요!',
-      reviewRate: 1,
-      img: '../../../../assets/products/거봉.png',
-    },
-    {
-      title: '국내산 프리미엄 거봉포도 900g',
-      review: '빠른배송 너무 좋아요! 거봉 맨날 먹고 싶어요!',
-      reviewRate: 4,
-      img: '../../../../assets/products/거봉.png',
-    },
-  ];
-
   // hook
   const navigate = useNavigate();
 
@@ -56,9 +29,10 @@ export default function MainReviews(props) {
             return (
               <div key={idx} style={{ display: 'flex', width: '100%' }}>
                 <img
-                  src={require('../../../../assets/products/머스캣.png')}
+                  src={review.productImg}
                   alt=""
                   style={{
+                    borderRadius: '8px',
                     marginRight: '10px',
                     width: '95px',
                     cursor: 'pointer',

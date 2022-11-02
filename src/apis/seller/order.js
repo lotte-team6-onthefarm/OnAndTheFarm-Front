@@ -58,20 +58,6 @@ const postSellerDeliveryDone = async data => {
   return response.data;
 };
 
-// // 셀러 주문내역 조회
-// const postSellerOrderList = async data => {
-//   const response = await JWTapiSeller.post('orders/list', data);
-//   console.log(response);
-//   return response.data;
-// };
-
-// // 셀러 주문내역 조회
-// const postSellerOrderList = async data => {
-//   const response = await JWTapiSeller.post('orders/list', data);
-//   console.log(response);
-//   return response.data;
-// };
-
 export {
   getSellerOrderList,
   getSellerOrderListDetail,

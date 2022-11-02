@@ -31,7 +31,7 @@ export default function MainProduct(props) {
             <h1>
               판매 상품 <span>{props.wishCount}</span>
             </h1>
-            {productListData.length === 0 ? (
+            {productListData.posts.productSelectionResponses.length === 0 ? (
               ''
             ) : (
               <div>
@@ -45,22 +45,24 @@ export default function MainProduct(props) {
             </Link>
           ) : (
             <div className="FeedContents">
-              {productListData.map((productData, idx) => {
-                return (
-                  <div key={idx}>
-                    <Link
-                      to={`/products/detail/${productData.productId}`}
-                      className="css-gi86zd e1qgexi82"
-                    >
-                      <img
-                        className="css-1n0kzcr e1qgexi81"
-                        alt=""
-                        src={productData.productMainImgSrc}
-                      />
-                    </Link>
-                  </div>
-                );
-              })}
+              {productListData.posts.productSelectionResponses.map(
+                (productData, idx) => {
+                  return (
+                    <div key={idx}>
+                      <Link
+                        to={`/products/detail/${productData.productId}`}
+                        className="css-gi86zd e1qgexi82"
+                      >
+                        <img
+                          className="css-1n0kzcr e1qgexi81"
+                          alt=""
+                          src={productData.productMainImgSrc}
+                        />
+                      </Link>
+                    </div>
+                  );
+                },
+              )}
             </div>
           )}
         </LikeSection>
