@@ -38,7 +38,6 @@ export default function MainLikes() {
       keepPreviousData: true,
       onSuccess: res => {
         setNowPage(res.currentPageNum);
-        console.log(res);
         setTotalPage(res.totalPageNum);
       },
       onError: () => {

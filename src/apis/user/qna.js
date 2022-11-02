@@ -8,7 +8,7 @@ const postAddQna = async data => {
 
 // 질문 불러오기
 const getQnaList = async data => {
-  const response = await JWTapiUser.get(`product/QnA/${data}`);
+  const response = await JWTapiUser.get(`product/QnA/${data.productId}?pageNumber=${data.page}`);
   return response.data.data;
 };
 
