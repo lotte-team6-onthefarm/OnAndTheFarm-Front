@@ -154,7 +154,7 @@ export default function MainLikes() {
         <LikeItems>
           {!isGetLikeList && (
             <>
-              {likeList.map((like, index) => {
+              {likeList.productWishResponseList.map((like, index) => {
                 return (
                   <LikeItemComp
                     key={index}

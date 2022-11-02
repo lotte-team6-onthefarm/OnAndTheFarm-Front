@@ -83,7 +83,6 @@ const ReviewBlock = styled.div`
     margin-right: 10px;
   }
   .productQnAsdiv {
-    width: 650px;
     div:nth-child(1) {
       margin-bottom: 10px;
     }
