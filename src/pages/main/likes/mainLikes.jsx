@@ -62,7 +62,7 @@ export default function MainLikes() {
 
     selectedItems[id] = quantity;
 
-    if (likeList.length === checkedItems.size) {
+    if (likeList.productWishResponseList.length === checkedItems.size) {
       setAllChecked(true);
       setIsAllChecked(true);
     } else {
@@ -73,7 +73,7 @@ export default function MainLikes() {
 
   const allCheckedHandler = isChecked => {
     if (isChecked) {
-      setCheckedItems(new Set(likeList.map((like, idx) => String(idx))));
+      setCheckedItems(new Set(likeList.productWishResponseList.map((like, idx) => String(idx))));
       setIsAllChecked(true);
     } else {
       checkedItems.clear();
@@ -94,7 +94,7 @@ export default function MainLikes() {
     }
     for (const item of checkedItems) {
       cartList.push({
-        productId: likeList[item].productId,
+        productId: likeList.productWishResponseList[item].productId,
         cartQty: selectedItems[item],
       });
     }
@@ -107,7 +107,7 @@ export default function MainLikes() {
       return;
     }
     for (const item of checkedItems) {
-      wishId.push(likeList[item].wistId);
+      wishId.push(likeList.productWishResponseList[item].wistId);
     }
     deleteWish({ wishId: wishId });
   };
@@ -179,7 +179,7 @@ export default function MainLikes() {
                     price={like.productPrice}
                     checkedItemHandler={checkedItemHandler}
                     checkedItems={checkedItems}
-                    likeListSize={likeList.length}
+                    likeListSize={likeList.productWishResponseList.length}
                     changeCount={changeCount}
                     isAllChecked={isAllChecked}
                   ></LikeItemComp>
