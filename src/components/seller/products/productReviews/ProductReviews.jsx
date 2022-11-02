@@ -11,26 +11,6 @@ import { EmptyTable } from '../../main/popularProducts/MainPopularProducts.style
 import { ProductReviewsTable, ReviewBlock } from './ProductReviews.style';
 
 export default function ProductReviews() {
-  // const datas = [
-  //   {
-  //     name: '손은성',
-  //     review:
-  //       '과일이 정말 신선하네요! 믿고 구매할 수 있는 상품이라 마음에 들어요 ㅎㅎ',
-  //     productName: '경북 청도 천도복숭아 2kg/1box',
-  //   },
-  //   {
-  //     name: '김명자',
-  //     review:
-  //       '포도 씨알도 크고 산지직송이라 신선함이 살아있어요! 달달하니 맛있네요',
-  //     productName: '국내산 프리미엄 거봉포도 900g',
-  //   },
-  //   {
-  //     name: '박철순',
-  //     review:
-  //       '과일이 정말 신선하네요! 믿고 구매할 수 있는 상품이라 마음에 들어요 ㅎㅎ',
-  //     productName: '경북 청도 천도복숭아 2kg/1box',
-  //   },
-  // ];
   const [pageNo, setPageNo] = useState(0);
 
   const {
@@ -72,7 +52,7 @@ export default function ProductReviews() {
                           <td>
                             <ReviewBlock>
                               <UserImgWrapper
-                                src={require('../../../../assets/구데타마.png')}
+                                src={review.userProfileImg}
                                 alt=""
                                 width="50px"
                                 className="productReviewsImg"
@@ -89,10 +69,7 @@ export default function ProductReviews() {
                             </ReviewBlock>
                           </td>
                           <td className="title">
-                            <img
-                              src={require('../../../../assets/products/복숭아.png')}
-                              alt=""
-                            />
+                            <img src={review.productMainImgSrc} alt="" />
                             <div>{review.productName}</div>
                           </td>
                         </tr>

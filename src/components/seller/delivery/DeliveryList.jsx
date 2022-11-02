@@ -223,7 +223,7 @@ export default function DeliveryList() {
                               }}
                             >
                               <UserImgWrapper
-                                src={require('../../../assets/구데타마.png')}
+                                src={order.userProfile}
                                 alt=""
                                 width="30px"
                               ></UserImgWrapper>

@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { getSellerOrderClaimList } from '../../../apis/seller/order';
 import {
   addDays,
-  getDate,
   getDateDotFormat,
   getDateFormat,
 } from '../../../utils/commonFunction';
@@ -16,6 +15,7 @@ import { UserImgWrapper } from '../common/sellerCommon.style';
 import SubTitle from '../common/SubTitle';
 import { DeliveryButtonWrapper } from '../delivery/Delivery.style';
 import { EmptyTable } from '../main/popularProducts/MainPopularProducts.style';
+import CancleList from './CancleList';
 
 import {
   OrderButtonWrapper,
@@ -93,6 +93,8 @@ export default function OrderList() {
     },
   );
 
+  console.log(orderClaimListData, 'asdsad');
+
   // useeffect
   useEffect(() => {
     const today = new Date();
@@ -118,7 +120,7 @@ export default function OrderList() {
             orderStateHandler('canceled');
           }}
         >
-          주문 내역
+          취소 내역
         </div>
         <div
           className="orderStateButton"
@@ -157,20 +159,20 @@ export default function OrderList() {
                 </thead>
 
                 {orderClaimListData.map((data, idx) => {
-                  return (
+                  return orderState === 'canceled' ? (
+                    <CancleList data={data} />
+                  ) : (
                     <tbody
                       key={idx}
                       onClick={() => {
                         setSelectData(data);
                         setModal(!modal);
                       }}
+                      className="refundTBody"
                     >
                       <tr>
                         <td className="title">
-                          <img
-                            src={require('../../../assets/products/복숭아.png')}
-                            alt=""
-                          />
+                          <img src={data.orderProductMainImg} alt="" />
                           <div>{data.title}</div>
                           {data.orderProductName} / ({data.orderProductQty}EA)
                         </td>
@@ -206,7 +208,7 @@ export default function OrderList() {
                             }}
                           >
                             <UserImgWrapper
-                              src={require('../../../assets/구데타마.png')}
+                              src={data.userProfile}
                               alt=""
                               width="30px"
                             ></UserImgWrapper>
