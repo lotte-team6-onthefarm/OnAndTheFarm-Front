@@ -8,6 +8,7 @@ import {
   SellerPromotion,
   SellerStatistics,
 } from '.';
+import AddModule from '../../components/display/AddModule';
 import { MainWrapper } from '../../components/seller/common/Box.style';
 import SellerNavbar from '../../components/seller/common/navbar/SellerNavbar';
 import SnsIndexLayout from '../sns/snsIndexLayout';
@@ -24,6 +25,7 @@ export default function SellerIndexLayout() {
         <Route path="/delivery/*" element={<SellerDelivery />} />
         <Route path="/statistics" element={<SellerStatistics />} />
         <Route path="/sns/*" element={<SnsIndexLayout />} />
+        <Route path="/module/add" element={<AddModule />} />
       </Routes>
     </MainWrapper>
   );
