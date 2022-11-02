@@ -8,7 +8,6 @@ const getProducts = async data => {
   } else {
     response = await ApiUser.get(`product/list${data.url}/${data.page}`);
   }
-  console.log(response.data.data)
   return response.data.data;
 };
 
