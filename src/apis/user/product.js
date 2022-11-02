@@ -8,13 +8,13 @@ const getProducts = async data => {
   } else {
     response = await ApiUser.get(`product/list${data.url}/${data.page}`);
   }
-  console.log(response.data.data)
+  console.log(response.data.data);
   return response.data.data;
 };
 
 // 상품 단건조회
 const getProduct = async data => {
-  const response = await ApiUser.get(`product/${data}`);
+  const response = await ApiUser.get(`product/detail/${data}`);
   return response.data.data;
 };
 // 메인페이지 상품 10개 조회

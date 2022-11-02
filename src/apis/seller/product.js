@@ -60,7 +60,7 @@ const getSellerPauseProduct = async pageNo => {
 
 // 상품 단건조회
 const getProductSeller = async data => {
-  const response = await JWTapiSellertoUser.get(`product/${data}`);
+  const response = await JWTapiSellertoUser.get(`product/detail/${data}`);
   return response.data.data;
 };
 
