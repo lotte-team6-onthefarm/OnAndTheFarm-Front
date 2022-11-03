@@ -4,7 +4,7 @@ const LikeContentDiv = styled.div`
   width: 1130px;
   padding: 20px 30px;
   margin: 100px auto;
-  display: flex;
+  display: block;
 `;
 
 const LikeListDiv = styled.div`

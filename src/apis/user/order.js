@@ -8,17 +8,13 @@ const postMakeOrder = async data => {
 
 // 나의 주문내역 불러오기
 const getMyOrderList = async data => {
-  const response = await JWTapiUser.post(`orders/list`, {
-    pageNumber: data,
-  });
+  const response = await JWTapiUser.get(`orders/list?pageNumber=${data.page}`);
   return response.data.data;
 };
 
 // 취소/반품 불러오기
 const getCancelOrderList = async data => {
-  const response = await JWTapiUser.post(`orders/claim/list`, {
-    pageNumber: data,
-  });
+  const response = await JWTapiUser.get(`orders/claim/list?pageNumber=${data.page}`);
   return response.data.data;
 };
 
