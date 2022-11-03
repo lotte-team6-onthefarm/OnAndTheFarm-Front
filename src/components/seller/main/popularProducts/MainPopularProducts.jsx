@@ -20,6 +20,9 @@ export default function MainPopularProducts(props) {
   const productUrl = () => {
     navigate('/seller/products');
   };
+  const productDetailUrl = productId => {
+    navigate(`/products/detail/${productId}`);
+  };
   return (
     <WhiteWrapper
       width="100%"
@@ -45,7 +48,11 @@ export default function MainPopularProducts(props) {
               {products.map((product, idx) => {
                 return (
                   <tr key={idx}>
-                    <td>
+                    <td
+                      onClick={() => {
+                        productDetailUrl(product.productId);
+                      }}
+                    >
                       <img src={product.productMainImgSrc} alt="" />
                       <div className="title">{product.productName}</div>
                     </td>

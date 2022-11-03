@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-const DeliveryWrapper = styled.div``;
+const DeliveryWrapper = styled.div`
+  min-height: 60vh;
+`;
 
 // activated : 주문완료
 // canceled : 주문취소
