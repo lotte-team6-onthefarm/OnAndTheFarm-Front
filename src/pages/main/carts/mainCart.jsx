@@ -15,6 +15,7 @@ import {
 } from './mainCart.style';
 import { deleteCartList, getCartList } from '../../../apis/user/cart';
 import { useNavigate } from 'react-router-dom';
+import Pagination from '../../../components/common/Pagination';
 
 export default function MainCart() {
   // const [cartList, setCartList] = useState([]);
@@ -24,21 +25,31 @@ export default function MainCart() {
   const [selectedItems, setSelectedItems] = useState({});
   const [changeChecked, setChangeChecked] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
   const {
     isLoading: isGetCartList,
-    // refetch: getCartistRefetch,
+    refetch: getCartistRefetch,
     data: cartList,
-  } = useQuery(['getCartList'], () => getCartList(), {
-    refetchOnWindowFocus: true,
-    refetchOnMount: true,
-    onSuccess: res => {
-      // setCartList(res.data);
+  } = useQuery(
+    ['getCartList', nowPage],
+    () =>
+    getCartList({
+        page: nowPage,
+      }),
+    {
+      refetchOnWindowFocus: true,
+      keepPreviousData: true,
+      onSuccess: res => {
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
+      },
+      onError: () => {
+        console.log('에러');
+      },
     },
-    onError: () => {
-      console.log('에러');
-    },
-  });
+  );
 
   const deleteWishClick = () => {
     let cartId = [];
@@ -158,7 +169,7 @@ export default function MainCart() {
         <CartItems>
           {!isGetCartList && (
             <>
-              {cartList.map((cart, index) => {
+              {cartList.cartResponseList.map((cart, index) => {
                 return (
                   <CartItemComp
                     key={index}
@@ -178,6 +189,13 @@ export default function MainCart() {
             </>
           )}
         </CartItems>
+        {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
+      )}
       </CartListDiv>
       <CartPriceDiv>
         <CartPriceHeader>결제예정금액</CartPriceHeader>
