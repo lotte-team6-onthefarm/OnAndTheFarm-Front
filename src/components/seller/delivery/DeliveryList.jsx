@@ -263,11 +263,11 @@ export default function DeliveryList() {
                                         {orderSerialResponse.orderProductName}
                                       </div>
                                       <div>
-                                        수량 :{' '}
+                                        수량 :
                                         {orderSerialResponse.orderProductQty} EA
                                       </div>
                                       <div>
-                                        가격 :{' '}
+                                        가격 :
                                         {orderSerialResponse.orderProductQty *
                                           orderSerialResponse.orderProductPrice}
                                         원

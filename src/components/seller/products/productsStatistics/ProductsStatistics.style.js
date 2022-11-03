@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const ProductStatisticsTable = styled.table`
+  min-height: 60vh;
   margin-top: 20px;
   border-collapse: collapse;
   th {
