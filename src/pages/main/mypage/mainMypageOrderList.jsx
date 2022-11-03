@@ -8,22 +8,40 @@ import { getMyOrderList } from '../../../apis/user/order';
 import OrderItemComp from '../../../components/main/mypage/OrderItem';
 import { useNavigate } from 'react-router-dom';
 import { changeStatusName, getNoSecDate } from '../../../utils/commonFunction';
+import Pagination from '../../../components/common/Pagination';
 
 export default function MainMypageOrderList() {
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+
   const menuTab = [
     { title: '주문내역', url: '/mypage/orders/list' },
     { title: '주문취소/반품 내역', url: '/mypage/orders/cancel' },
   ];
+
   const {
-    isLoading: MyOrderListLoading,
-    // refetch: getMyOrderListRefetch,
-    data: orders,
-  } = useQuery('MyOrderList', () => getMyOrderList(0), {
-    onError: () => {
-      console.log('error');
+    isLoading: isGetMyOrderList,
+    refetch: getMyOrderListRefetch,
+    data: orderList,
+  } = useQuery(
+    ['getMyOrderList', nowPage],
+    () =>
+      getMyOrderList({
+        page: nowPage,
+      }),
+    {
+      refetchOnWindowFocus: true,
+      keepPreviousData: true,
+      onSuccess: res => {
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
+      },
+      onError: () => {
+        console.log('에러');
+      },
     },
-  });
-  // hook
+  );
+
   const navigate = useNavigate();
   const moveDetail = id => {
     navigate(`/mypage/orders/detail`, { state: id });
@@ -33,9 +51,9 @@ export default function MainMypageOrderList() {
     <div>
       <MenuTabComp menuTab={menuTab}></MenuTabComp>
       <ReviewContentDiv>
-        {!MyOrderListLoading && (
+        {!isGetMyOrderList && (
           <>
-            {orders.responses.length === 0 ? (
+            {orderList.responses.length === 0 ? (
               <EmptyTable height="60vh">
                 <h3>주문 내역이 없습니다.</h3>
               </EmptyTable>
@@ -52,7 +70,7 @@ export default function MainMypageOrderList() {
                       <th width="55%">상품리스트</th>
                     </tr>
                   </thead>
-                  {orders.responses.map((data, idx) => {
+                  {orderList.responses.map((data, idx) => {
                     return (
                       <tbody key={idx}>
                         <tr onClick={() => moveDetail(data.ordersSerial)}>
@@ -88,6 +106,13 @@ export default function MainMypageOrderList() {
             )}
           </>
         )}
+        {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
+      )}
       </ReviewContentDiv>
     </div>
   );

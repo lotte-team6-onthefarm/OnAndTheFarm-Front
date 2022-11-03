@@ -12,6 +12,7 @@ import { getLikeList } from '../../../apis/user/users';
 import LikeItemComp from '../../../components/main/like/LikeItem';
 import { postAddCart } from '../../../apis/user/cart';
 import { deleteWishList } from '../../../apis/user/product';
+import Pagination from '../../../components/common/Pagination';
 
 export default function MainLikes() {
   // const [likeList, setLikeList] = useState([]);
@@ -19,14 +20,26 @@ export default function MainLikes() {
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [allChecked, setAllChecked] = useState(false);
   const [selectedItems, setSelectedItems] = useState({});
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
-  const { isLoading: isGetLikeList, data: likeList } = useQuery(
-    'getLikeList',
-    () => getLikeList(),
+  const {
+    isLoading: isGetLikeList,
+    refetch: getLikeListRefetch,
+    data: likeList,
+  } = useQuery(
+    ['getLikeList', nowPage],
+    () =>
+      getLikeList({
+        page: nowPage,
+      }),
     {
       refetchOnWindowFocus: true,
-      refetchOnMount: true,
-      onSuccess: res => {},
+      keepPreviousData: true,
+      onSuccess: res => {
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
+      },
       onError: () => {
         console.log('에러');
       },
@@ -48,7 +61,7 @@ export default function MainLikes() {
 
     selectedItems[id] = quantity;
 
-    if (likeList.length === checkedItems.size) {
+    if (likeList.productWishResponseList.length === checkedItems.size) {
       setAllChecked(true);
       setIsAllChecked(true);
     } else {
@@ -59,7 +72,7 @@ export default function MainLikes() {
 
   const allCheckedHandler = isChecked => {
     if (isChecked) {
-      setCheckedItems(new Set(likeList.map((like, idx) => String(idx))));
+      setCheckedItems(new Set(likeList.productWishResponseList.map((like, idx) => String(idx))));
       setIsAllChecked(true);
     } else {
       checkedItems.clear();
@@ -80,7 +93,7 @@ export default function MainLikes() {
     }
     for (const item of checkedItems) {
       cartList.push({
-        productId: likeList[item].productId,
+        productId: likeList.productWishResponseList[item].productId,
         cartQty: selectedItems[item],
       });
     }
@@ -93,7 +106,7 @@ export default function MainLikes() {
       return;
     }
     for (const item of checkedItems) {
-      wishId.push(likeList[item].wistId);
+      wishId.push(likeList.productWishResponseList[item].wistId);
     }
     deleteWish({ wishId: wishId });
   };
@@ -154,7 +167,7 @@ export default function MainLikes() {
         <LikeItems>
           {!isGetLikeList && (
             <>
-              {likeList.map((like, index) => {
+              {likeList.productWishResponseList.map((like, index) => {
                 return (
                   <LikeItemComp
                     key={index}
@@ -165,7 +178,7 @@ export default function MainLikes() {
                     price={like.productPrice}
                     checkedItemHandler={checkedItemHandler}
                     checkedItems={checkedItems}
-                    likeListSize={likeList.length}
+                    likeListSize={likeList.productWishResponseList.length}
                     changeCount={changeCount}
                     isAllChecked={isAllChecked}
                   ></LikeItemComp>
@@ -175,6 +188,13 @@ export default function MainLikes() {
           )}
         </LikeItems>
       </LikeListDiv>
+      {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
+      )}
     </LikeContentDiv>
   );
 }
