@@ -14,8 +14,8 @@ const getQnaList = async data => {
 
 // 나의질문 불러오기
 const getMyQnaList = async data => {
-  const response = await JWTapiUser.get(`mypage/QnA/${data}`);
-  return response.data.data.responses;
+  const response = await JWTapiUser.get(`mypage/QnA/${data.page}`);
+  return response.data.data;
 };
 
 // 질문 수정

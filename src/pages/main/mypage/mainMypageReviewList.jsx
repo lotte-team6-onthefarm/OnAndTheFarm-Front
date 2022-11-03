@@ -11,6 +11,7 @@ import {
 } from '../../../components/seller/products/productReviews/ProductReviews.style';
 import { ReviewContentDiv, AnswerDiv } from './mainMypageReview.style';
 import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
+import Pagination from '../../../components/common/Pagination';
 
 export default function MainMypageReviewList() {
   const menuTab = [
@@ -18,15 +19,32 @@ export default function MainMypageReviewList() {
     { title: '내가 작성한 리뷰', url: '/mypage/review/myreview' },
     { title: '문의사항', url: '/mypage/review/qna' },
   ];
+
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+
   const {
     isLoading: MyReviewListLoading,
-    // refetch: getMyReviewListRefetch,
+    refetch: getMyReviewListRefetch,
     data: reviews,
-  } = useQuery('MyReviewList', () => getMyReviewList(0), {
-    onError: () => {
-      console.log('error');
+  } = useQuery(
+    ['MyReviewList', nowPage],
+    () =>
+    getMyReviewList({
+        page: nowPage,
+      }),
+    {
+      refetchOnWindowFocus: true,
+      keepPreviousData: true,
+      onSuccess: res => {
+        setNowPage(res.pageVo.nowPage);
+        setTotalPage(res.pageVo.totalPage);
+      },
+      onError: () => {
+        console.log('에러');
+      },
     },
-  });
+  );
 
 
   return (
@@ -35,7 +53,7 @@ export default function MainMypageReviewList() {
       <ReviewContentDiv>
         {!MyReviewListLoading && (
           <>
-            {reviews.length === 0 ? (
+            {reviews.reviewSelectionResponses.length === 0 ? (
               <EmptyTable height="60vh">
                 <h3>등록된 리뷰가 없습니다.</h3>
               </EmptyTable>
@@ -51,7 +69,7 @@ export default function MainMypageReviewList() {
                       <th width="50%">리뷰내용</th>
                     </tr>
                   </thead>
-                  {reviews.map((data, idx) => {
+                  {reviews.reviewSelectionResponses.map((data, idx) => {
                     return (
                       <tbody
                         key={idx}
@@ -89,6 +107,13 @@ export default function MainMypageReviewList() {
             )}
           </>
         )}
+        {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
+      )}
       </ReviewContentDiv>
     </div>
   );

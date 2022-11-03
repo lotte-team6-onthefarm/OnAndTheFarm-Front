@@ -62,7 +62,7 @@ export default function ReviewItemComp(props) {
         <RatingInputComp rate={props.rate}/>
         
           <p>{props.date} 일전</p>
-          <p  onClick={reviewLike}><AiFillHeart color={isAvailableUp?'lightgray':'red'} />  좋아요 {props.like} 개</p>
+          <p  onClick={reviewLike}><AiFillHeart color={props.isAvailableUp?'lightgray':'red'} />  좋아요 {props.like} 개</p>
         </ReviewItemPrice>
       </ReviewItemContent>
     </ReviewItem>

@@ -13,6 +13,7 @@ import { ReviewContentDiv, AnswerDiv } from './mainMypageReview.style';
 import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
 import { getMyQnaList } from '../../../apis/user/qna';
 import QnaEditInput from '../../../components/main/mypage/QnaEditInput';
+import Pagination from '../../../components/common/Pagination';
 
 export default function MainMypageQna() {
   const menuTab = [
@@ -20,15 +21,32 @@ export default function MainMypageQna() {
     { title: '내가 작성한 리뷰', url: '/mypage/review/myreview' },
     { title: '문의사항', url: '/mypage/review/qna' },
   ];
+
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+
   const {
     isLoading: MyQnaListLoading,
-    // refetch: getMyQnaListRefetch,
+    refetch: getMyQnaListRefetch,
     data: qnaList,
-  } = useQuery('MyQnaList',()=> getMyQnaList(0), {
-    onError: () => {
-      console.log('error');
+  } = useQuery(
+    ['MyQnaList', nowPage],
+    () =>
+    getMyQnaList({
+        page: nowPage,
+      }),
+    {
+      refetchOnWindowFocus: true,
+      keepPreviousData: true,
+      onSuccess: res => {
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
+      },
+      onError: () => {
+        console.log('에러');
+      },
     },
-  });
+  );
 
   return (
     <div>
@@ -36,7 +54,7 @@ export default function MainMypageQna() {
       <ReviewContentDiv>
         {!MyQnaListLoading && (
           <>
-            {qnaList.length === 0 ? (
+            {qnaList.responses.length === 0 ? (
               <EmptyTable height="60vh">
                 <h3>등록된 질문이 없습니다</h3>
               </EmptyTable>
@@ -52,7 +70,7 @@ export default function MainMypageQna() {
                       <th width="50%">질문</th>
                     </tr>
                   </thead>
-                  {qnaList.map((data, idx) => {
+                  {qnaList.responses.map((data, idx) => {
                     return (
                       <tbody key={idx}>
                         <tr>
@@ -85,6 +103,13 @@ export default function MainMypageQna() {
             )}
           </>
         )}
+        {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
+      )}
       </ReviewContentDiv>
     </div>
   );
