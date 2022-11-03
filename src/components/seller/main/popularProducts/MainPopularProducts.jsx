@@ -12,7 +12,6 @@ import {
 
 export default function MainPopularProducts(props) {
   const products = props.products;
-  console.log(products, '야야양');
 
   // hook
   const navigate = useNavigate();

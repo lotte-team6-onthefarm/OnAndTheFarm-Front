@@ -1,8 +1,8 @@
 import { JWTapiSeller } from '..';
 
 // 셀러 전체 질의 조회
-const getSellerQna = async () => {
-  const response = await JWTapiSeller.get('QnA');
+const getSellerQna = async pageNo => {
+  const response = await JWTapiSeller.get(`QnA?pageNumber=${pageNo}`);
   return response.data.data;
 };
 

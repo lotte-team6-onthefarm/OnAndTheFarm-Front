@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { getSellerReview } from '../../../../apis/seller/review';
+import Pagination from '../../../common/Pagination';
 import { WhiteWrapper } from '../../common/Box.style';
 import ReviewStar from '../../common/reviewStar/ReviewStar';
 import { UserImgWrapper } from '../../common/sellerCommon.style';
@@ -11,13 +12,18 @@ import { EmptyTable } from '../../main/popularProducts/MainPopularProducts.style
 import { ProductReviewsTable, ReviewBlock } from './ProductReviews.style';
 
 export default function ProductReviews() {
-  const [pageNo, setPageNo] = useState(0);
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
   const {
     isLoading: sellerReviewLoading,
     // refetch: sellerReviewProduct,
     data: reviews,
-  } = useQuery('sellerReview', () => getSellerReview(pageNo), {
+  } = useQuery(['sellerReview', nowPage], () => getSellerReview(nowPage), {
+    keepPreviousData: true,
+    onSuccess: res => {
+      console.log(res);
+    },
     onError: () => {
       console.log('error');
     },
@@ -80,6 +86,13 @@ export default function ProductReviews() {
               </div>
             )}
           </>
+        )}
+        {totalPage !== 0 && (
+          <Pagination
+            nowPage={nowPage + 1}
+            totalPage={totalPage}
+            setPage={setNowPage}
+          ></Pagination>
         )}
       </WhiteWrapper>
     </>
