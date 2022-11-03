@@ -7,8 +7,8 @@ const postAddCart = async (data) => {
 };
 
 // 카트 불러오기
-const getCartList = async () => {
-  const response = await JWTapiUser.get(`cart`);
+const getCartList = async (data) => {
+  const response = await JWTapiUser.get(`cart?pageNumber=${data.page}`);
   return response.data.data;
 };
 
