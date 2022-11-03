@@ -50,7 +50,7 @@ export default function MainPopularProducts(props) {
                   <tr key={idx}>
                     <td
                       onClick={() => {
-                        productDetailUrl();
+                        productDetailUrl(product.productId);
                       }}
                     >
                       <img src={product.productMainImgSrc} alt="" />

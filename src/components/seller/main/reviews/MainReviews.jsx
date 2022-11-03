@@ -34,7 +34,7 @@ export default function MainReviews(props) {
                 key={idx}
                 style={{ display: 'flex', width: '100%' }}
                 onClick={() => {
-                  productDetailUrl();
+                  productDetailUrl(review.productId);
                 }}
               >
                 <img
