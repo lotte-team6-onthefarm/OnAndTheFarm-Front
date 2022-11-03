@@ -124,11 +124,13 @@ export default function ProductQnAs() {
             )}
           </>
         )}
-        <Pagination
-          nowPage={nowPage + 1}
-          totalPage={totalPage}
-          setPage={setNowPage}
-        ></Pagination>
+        {totalPage !== 0 && (
+          <Pagination
+            nowPage={nowPage + 1}
+            totalPage={totalPage}
+            setPage={setNowPage}
+          ></Pagination>
+        )}
       </WhiteWrapper>
     </>
   );

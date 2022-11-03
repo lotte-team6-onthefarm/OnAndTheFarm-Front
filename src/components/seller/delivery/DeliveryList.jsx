@@ -32,6 +32,7 @@ import DeliveryDetail from './deliveryDetail/DeliveryDetail';
 import { DELIVERY_COMPANY } from './DeliveryCompanyList';
 import { EmptyTable } from '../main/popularProducts/MainPopularProducts.style';
 import useDidMountEffect from '../../common/useDidMountEffect';
+import Pagination from '../../common/Pagination';
 export default function DeliveryList() {
   const param = useParams();
   const id = param.id;
@@ -50,11 +51,13 @@ export default function DeliveryList() {
   const [endDate, setEndDate] = useState('');
   const [today, setToday] = useState('');
   const [endDay, setEndDay] = useState('');
-  const [pageNo, setPageNo] = useState(0);
   const [selectData, setSelectData] = useState([]);
   const [deliveryCompany, setDeliveryCompany] = useState('롯데택배');
   const [waybillNumber, setWaybillNumber] = useState('');
   const [modal, setModal] = useState(false);
+  // pagenation
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
   // useeffect
   useEffect(() => {
@@ -116,11 +119,17 @@ export default function DeliveryList() {
       getSellerOrderList(
         getDateDotFormat(startDate),
         getDateDotFormat(endDate),
-        pageNo,
+        nowPage,
         deliveryState,
       ),
     {
       refetchOnMount: true,
+      keepPreviousData: true,
+      onSuccess: res => {
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
+        console.log(res);
+      },
       enabled: startDate !== '' && endDate !== '',
     },
   );
@@ -192,7 +201,7 @@ export default function DeliveryList() {
         </DeliveryDateWrapper>
         {!isOrderListLoading && startDate !== '' && endDate !== '' && (
           <>
-            {orderList.length === 0 ? (
+            {orderList.responses.length === 0 ? (
               <EmptyTable height="50vh">
                 <h3>처리 할 주문 내역이 없습니다</h3>
               </EmptyTable>
@@ -206,7 +215,7 @@ export default function DeliveryList() {
                     <th width="10%">배송처리</th>
                   </tr>
                 </thead>
-                {orderList.map((list, idx) => {
+                {orderList.responses.map((list, idx) => {
                   const order = list.orderSellerResponses[0];
                   const orderSellerResponses = list.orderSellerResponses;
                   return (
@@ -341,6 +350,13 @@ export default function DeliveryList() {
             orderSellerResponses={selectData}
           />
         </Modal>
+      )}
+      {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
       )}
     </WhiteWrapper>
   );

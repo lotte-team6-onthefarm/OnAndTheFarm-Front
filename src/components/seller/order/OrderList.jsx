@@ -8,6 +8,7 @@ import {
   getDateFormat,
 } from '../../../utils/commonFunction';
 import Modal from '../../common/Modal';
+import Pagination from '../../common/Pagination';
 import useDidMountEffect from '../../common/useDidMountEffect';
 import { WhiteWrapper } from '../common/Box.style';
 import { GreenPurpleStatusButton } from '../common/ColorStatusButton';
@@ -36,7 +37,6 @@ export default function OrderList() {
     if (id !== undefined) {
       setOrderState(id);
     }
-    console.log(id, 'id');
   }, [id]);
 
   // usestate
@@ -45,7 +45,8 @@ export default function OrderList() {
   const [orderState, setOrderState] = useState('canceled');
   const [modal, setModal] = useState(false);
   const [selectData, setSelectData] = useState({});
-  const [pageNo, setPageNo] = useState(0);
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
   // function
   const orderStateHandler = num => {
@@ -79,21 +80,24 @@ export default function OrderList() {
     isLoading: isOrderClaimListLoading,
     refetch: orderClaimListRefetch,
   } = useQuery(
-    'orderClaimList',
+    ['orderClaimList', nowPage],
     () =>
       getSellerOrderClaimList(
         getDateDotFormat(startDate),
         getDateDotFormat(endDate),
-        pageNo,
+        nowPage,
         orderState,
       ),
     {
+      keepPreviousData: true,
       refetchOnMount: true,
       enabled: startDate !== '' && endDate !== '',
+      onSuccess: res => {
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
+      },
     },
   );
-
-  console.log(orderClaimListData, 'asdsad');
 
   // useeffect
   useEffect(() => {
@@ -143,7 +147,7 @@ export default function OrderList() {
         </OrderDateWrapper>
         {!isOrderClaimListLoading && startDate !== '' && endDate !== '' && (
           <>
-            {orderClaimListData.length === 0 ? (
+            {orderClaimListData.responses.length === 0 ? (
               <EmptyTable height="50vh">
                 <h3>신청된 취소/반품 내역이 없습니다</h3>
               </EmptyTable>
@@ -158,9 +162,9 @@ export default function OrderList() {
                   </tr>
                 </thead>
 
-                {orderClaimListData.map((data, idx) => {
+                {orderClaimListData.responses.map((data, idx) => {
                   return orderState === 'canceled' ? (
-                    <CancleList data={data} />
+                    <CancleList data={data} key={idx} />
                   ) : (
                     <tbody
                       key={idx}
@@ -235,6 +239,13 @@ export default function OrderList() {
             closeModal={() => setModal(!modal)}
           />
         </Modal>
+      )}
+      {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
       )}
     </WhiteWrapper>
   );

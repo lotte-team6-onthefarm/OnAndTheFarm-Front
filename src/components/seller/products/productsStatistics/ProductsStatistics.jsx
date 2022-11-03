@@ -17,12 +17,14 @@ import { EmptyTable } from '../../main/popularProducts/MainPopularProducts.style
 import { GreenRedStatusButton } from '../../common/ColorStatusButton';
 import { DeliveryButtonWrapper } from '../../delivery/Delivery.style';
 import useDidMountEffect from '../../../common/useDidMountEffect';
+import Pagination from '../../../common/Pagination';
 
 // selling : 판매중
 // soldout : 재고가 부족(모든 옵션의 재고가 부족한 경우)
 // pause : 판매자가 판매를 일시 정지
 export default function ProductsStatistics() {
-  const [pageNo, setPageNo] = useState(0);
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
   const [productCnt, setProductCnt] = useState(0);
   const [productState, setProductState] = useState('selling');
 
@@ -35,14 +37,17 @@ export default function ProductsStatistics() {
     data: products,
     refetch: sellerProductListRefetch,
   } = useQuery(
-    'sellerProducts',
+    ['sellerProducts', nowPage],
     productState === 'selling'
-      ? () => getSellerMyProduct(pageNo)
-      : () => getSellerPauseProduct(pageNo),
+      ? () => getSellerMyProduct(nowPage)
+      : () => getSellerPauseProduct(nowPage),
     {
       refetchOnWindowFcous: true,
+      keepPreviousData: true,
       onSuccess: res => {
-        setProductCnt(res.length);
+        setNowPage(res.pageVo.nowPage);
+        setTotalPage(res.pageVo.totalPage);
+        setProductCnt(res.pageVo.totalElement);
       },
       onError: {},
     },
@@ -117,7 +122,7 @@ export default function ProductsStatistics() {
         </DeliveryButtonWrapper>
         {!sellerProductLoading && (
           <>
-            {products.length === 0 ? (
+            {products.productSelectionResponses.length === 0 ? (
               <EmptyTable height="60vh">
                 {productState === 'selling' ? (
                   <h3>현재 등록된 상품이 없습니다</h3>
@@ -139,21 +144,18 @@ export default function ProductsStatistics() {
                       <th width="12.5%">판매량</th>
                     </tr>
                   </thead>
-                  {products.map((product, idx) => {
+                  {products.productSelectionResponses.map((product, idx) => {
                     return (
                       <tbody key={idx}>
                         <tr>
-                          <td>{idx + 1}</td>
+                          <td>{16 * nowPage + idx + 1}</td>
                           <td
                             className="title"
                             onClick={() => {
                               productDetailUrl(product.productId);
                             }}
                           >
-                            <img
-                              src={product.productMainImgSrc}
-                              alt={require('../../../../assets/products/복숭아.png')}
-                            />
+                            <img src={product.productMainImgSrc} alt={''} />
                             <div>{product.productName}</div>
                           </td>
                           <td>
@@ -207,6 +209,21 @@ export default function ProductsStatistics() {
             )}
           </>
         )}
+        {productState === 'selling'
+          ? totalPage !== 0 && (
+              <Pagination
+                nowPage={nowPage + 1}
+                totalPage={totalPage}
+                setPage={setNowPage}
+              ></Pagination>
+            )
+          : totalPage !== 0 && (
+              <Pagination
+                nowPage={nowPage + 1}
+                totalPage={totalPage}
+                setPage={setNowPage}
+              ></Pagination>
+            )}
       </WhiteWrapper>
     </>
   );
