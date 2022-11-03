@@ -11,7 +11,6 @@ export default function MenuTabComp(props) {
     setDeliveryState(num);
   };
 
-  console.log('delive', deliveryState);
 
   return (
     <MenuTabDiv>

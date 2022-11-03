@@ -22,13 +22,14 @@ const getProductReviewCount = async data => {
 
 // 작성가능한 리뷰 불러오기
 const getAddReviewList = async data => {
-  const response = await JWTapiUser.get(`mypage/review`);
+  const response = await JWTapiUser.get(`mypage/review?pageNumber=${data.page}`);
   return response.data.data;
 };
 
 // 나의 리뷰 불러오기
 const getMyReviewList = async data => {
-  const response = await JWTapiUser.get(`review/list/my-review/${data}`);
+  console.log(data)
+  const response = await JWTapiUser.get(`review/list/my-review/${data.page}`);
   return response.data.data;
 };
 
