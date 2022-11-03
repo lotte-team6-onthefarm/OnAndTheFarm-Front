@@ -15,6 +15,9 @@ export default function MainReviews(props) {
   const reviewUrl = () => {
     navigate('/seller/products/reviews');
   };
+  const productDetailUrl = productId => {
+    navigate(`/products/detail/${productId}`);
+  };
 
   return (
     <WhiteWrapper width="100%" height="650px">
@@ -27,7 +30,13 @@ export default function MainReviews(props) {
         <div style={{ minHeight: '480px' }}>
           {reviews.map((review, idx) => {
             return (
-              <div key={idx} style={{ display: 'flex', width: '100%' }}>
+              <div
+                key={idx}
+                style={{ display: 'flex', width: '100%' }}
+                onClick={() => {
+                  productDetailUrl();
+                }}
+              >
                 <img
                   src={review.productImg}
                   alt=""
