@@ -30,7 +30,7 @@ export default function TitleDescription(props) {
       ></ProductInput>
       <HorizontalLine color="#F2F2F2" />
       <ProductContentWrapper>
-        <div className="title">상품 상세 설명</div>
+        <div className="managementProductTitle">상품 상세 설명</div>
         <div className="content">
           <textarea
             placeholder={

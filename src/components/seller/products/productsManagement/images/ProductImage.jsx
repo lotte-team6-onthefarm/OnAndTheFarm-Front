@@ -53,7 +53,7 @@ export default function ProductImage(props) {
   };
   return (
     <ProductImageWrapper>
-      <div className="title">{props.title}</div>
+      <div className="managementProductTitle">{props.title}</div>
       <div className="image">
         {detailImagesUrl.length === 0 ? (
           <button
