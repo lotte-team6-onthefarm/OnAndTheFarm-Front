@@ -73,16 +73,7 @@ export default function ModuleList() {
   };
 
   const productStatusCheck = productStatus => {
-    // selling : 판매중
-    // soldout : 재고가 부족(모든 옵션의 재고가 부족한 경우)
-    // pause : 판매자가 판매를 일시 정지
-    if (productStatus === 'selling') {
-      return '판매중';
-    } else if (productStatus === 'soldout') {
-      return '재고부족';
-    } else if (productStatus === 'pause') {
-      return '판매정지';
-    }
+    return '사용가능'
   };
 
   const productStatusStyleCheck = productStatus => {
@@ -110,7 +101,7 @@ export default function ModuleList() {
 
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
-      <SellerTitle>상품 관리</SellerTitle>
+      <SellerTitle>모듈 관리</SellerTitle>
       <WhiteWrapper width="100%" marginBottom="10px" minHeight="80vh">
         <SubTitle color="#FFBC99" title={title} />
         {/* <DeliveryButtonWrapper state={productState}>
