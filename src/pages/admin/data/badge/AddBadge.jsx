@@ -10,11 +10,11 @@ import { SellerTitle } from '../../../../components/seller/common/Title.style';
 import ProductImage from '../../../../components/seller/products/productsManagement/images/ProductImage';
 import ProductInput from '../../../../components/seller/products/productsManagement/ProductInput';
 import { AddProductBtnWrapper } from '../../../../components/seller/products/productsManagement/ProductManagement.style';
-
-export default function AddModule() {
-  const [moduleName, setModuleName] = useState('');
-  const [moduleDetail, setModuleDetail] = useState('');
-  const [moduleImages, setModuleImages] = useState('');
+export default function AddBadge() {
+  const [badgeName, setBadgeName] = useState('');
+  const [badgeDetail, setBadgeDetail] = useState('');
+  const [badgeUrl, setBadgeUrl] = useState('');
+  const [badgeImages, setBadgeImages] = useState('');
 
   const queryClient = useQueryClient();
 
@@ -22,19 +22,22 @@ export default function AddModule() {
   let formData = new FormData();
 
   const submitData = {
-    // 모듈 정보 데이터 객체화
-    moduleName: moduleName,
-    moduleDetail: moduleDetail,
+    // 뱃지 정보 데이터 객체화
+    badgeName: badgeName,
+    badgeDetail: badgeDetail,
+    badgeUrl: badgeUrl,
   };
 
   const validataionCheck = () => {
     // 유효성 체크
-    if (moduleName === '') {
-      alert('모듈 이름을 입력해주세요');
-    } else if (moduleDetail === '') {
-      alert('모듈 설명을 입력해주세요');
-    } else if (moduleImages === '') {
-      alert('모듈 예시 이미지를 등록해주세요');
+    if (badgeName === '') {
+      alert('뱃지 이름을 입력해주세요');
+    } else if (badgeDetail === '') {
+      alert('뱃지 설명을 입력해주세요');
+    } else if (badgeUrl === '') {
+      alert('연결 주소를 입력해주세요');
+    } else if (badgeImages === '') {
+      alert('뱃지 예시 이미지를 등록해주세요');
     } else {
       return true;
     }
@@ -46,7 +49,7 @@ export default function AddModule() {
     const isValidation = validataionCheck();
     if (isValidation) {
       // 상품 image 데이터 추가
-      formData.append('images', moduleImages[0]);
+      formData.append('images', badgeImages[0]);
       // 상품 데이터 추가
       formData.append(
         'data',
@@ -67,36 +70,43 @@ export default function AddModule() {
 
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
-      <SellerTitle>모듈 등록</SellerTitle>
+      <SellerTitle>뱃지 등록</SellerTitle>
       <WhiteWrapper width="100%" marginBottom="10px">
-        <SubTitle color="#FFBC99" title="모듈 정보" />
+        <SubTitle color="#FFBC99" title="뱃지 정보" />
         <ProductInput
-          title="모듈 이름"
-          placeholder={moduleName !== '' ? moduleName : '모듈 이름 입력'}
-          setFunction={setModuleName}
+          title="뱃지 이름"
+          placeholder={badgeName !== '' ? badgeName : '뱃지 이름 입력'}
+          setFunction={setBadgeName}
         ></ProductInput>
         <HorizontalLine color="#F2F2F2" />
         <ProductInput
-          title="모듈 간단 설명"
+          title="뱃지 설명"
           placeholder={
-            moduleDetail !== '' ? moduleDetail : '모둘 간단 설명 입력'
+            badgeDetail !== '' ? badgeDetail : '뱃지 설명 입력'
           }
-          setFunction={setModuleDetail}
+          setFunction={setBadgeDetail}
+        ></ProductInput>
+        <ProductInput
+          title="뱃지 연결 주소"
+          placeholder={
+            badgeDetail !== '' ? badgeDetail : '연결 주소 입력'
+          }
+          setFunction={setBadgeDetail}
         ></ProductInput>
       </WhiteWrapper>
       <WhiteWrapper width="100%" marginBottom="10px">
-        <SubTitle color="#CABDFF" title="모듈 예시 이미지" />
+        <SubTitle color="#CABDFF" title="뱃지 이미지" />
         <ProductImage
-          title="메인 이미지"
+          title="뱃지 이미지"
           type="main"
-          productMainImages={moduleImages}
-          setImages={setModuleImages}
+          productMainImages={badgeImages}
+          setImages={setBadgeImages}
         />
       </WhiteWrapper>
       <AddProductBtnWrapper>
         <div>
           <GreenButton onClick={addProductBtn} width="120px">
-            상품등록
+            뱃지등록
           </GreenButton>
         </div>
       </AddProductBtnWrapper>
