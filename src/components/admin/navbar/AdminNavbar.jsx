@@ -9,11 +9,11 @@ import { RiArrowDownSLine } from 'react-icons/ri';
 import { useState } from 'react';
 import { Head, Image, ListWrapper, SubListWrapper } from './AdminNavbar.style';
 import { useRecoilState } from 'recoil';
-
+import { MdDesktopWindows, MdGridView, MdOutlineTune } from 'react-icons/md';
 export default function AdminNavbar() {
   const menus = [
     {
-      icons: <AiOutlineShop />,
+      icons: <MdOutlineTune />,
       title: '전시 구좌 관리',
       // url: '/admin',
     },
@@ -27,14 +27,14 @@ export default function AdminNavbar() {
       title: '전시구좌 등록',
       url: 'account/add',
     },
-    { icons: <AiOutlineHome />, title: '모듈 관리' },
+    { icons: <MdGridView />, title: '모듈 관리' },
     { icons: <AiOutlineHome />, title: '모듈 등록', url: 'module/add' },
     { icons: <AiOutlineHome />, title: '모듈 목록', url: 'module' },
     { icons: <AiOutlineHome />, title: '데이터 관리' },
     { icons: <AiOutlineHome />, title: '배너 등록', url: 'data/banner/add' },
     { icons: <AiOutlineHome />, title: '배지 등록', url: 'data/badge/add' },
     {
-      icons: <AiOutlineHome />,
+      icons: <MdDesktopWindows />,
       title: '메인페이지 등록',
       url: 'pageLayout/add',
     },

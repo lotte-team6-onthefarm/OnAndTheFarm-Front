@@ -19,7 +19,7 @@ export default function ProductStatus(props) {
   };
   return (
     <ProductStatusWrapper>
-      <div className="title">판매 상태</div>
+      <div className="managementProductTitle">판매 상태</div>
       <div className="statusBtn">
         <div
           className={productStatus === 'selling' ? 'statusBtnactive' : ''}
