@@ -20,23 +20,36 @@ import {
   getReviewList,
 } from '../../../apis/user/review';
 import NoneFeed from '../../sns/main/NoneFeed';
+import Pagination from '../../common/Pagination';
 
 export default function ProductReviewComp(props) {
   const filterList = ['최신순', '좋아요순'];
   const [selectedFilter, setSelectedFilter] = useState('최신순');
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
-  let data = { filter: 'newest', productId: props.productDetailId, page: 0 };
+  let data = {
+    filter: 'newest',
+    productId: props.productDetailId,
+    page: nowPage,
+  };
+
   const {
     isLoading: isGetReviewList,
     refetch: getReviewListRefetch,
     data: reviewList,
-  } = useQuery('reviewList', () => getReviewList(data), {
+  } = useQuery(['reviewList', nowPage], () => getReviewList(data), {
     refetchOnWindowFocus: true,
-    onSuccess: res => {},
+    keepPreviousData: true,
+    onSuccess: res => {
+      setNowPage(res.pageVo.nowPage);
+      setTotalPage(res.pageVo.totalPage);
+    },
     onError: () => {
       console.log('에러');
     },
   });
+
   const {
     isLoading: isProductReviewCount,
     refetch: getProductReviewCountRefetch,
@@ -88,7 +101,10 @@ export default function ProductReviewComp(props) {
           <hr />
           <ReviewStatisticsDiv>
             <ReviewTotalDiv>
-              <RatingInputComp rate={productReviewCount.reviewRate} font="13px" />
+              <RatingInputComp
+                rate={productReviewCount.reviewRate}
+                font="13px"
+              />
               <span>{productReviewCount.reviewRate}</span>
             </ReviewTotalDiv>
             <ReviewCountListDiv>
@@ -96,7 +112,15 @@ export default function ProductReviewComp(props) {
                 <span>5점</span>
                 <RateDiv>
                   <div></div>
-                  <div style={{ width: `${productReviewCount.reviewFiveCount/productReviewCount.reviewCount*100}%` }}></div>
+                  <div
+                    style={{
+                      width: `${
+                        (productReviewCount.reviewFiveCount /
+                          productReviewCount.reviewCount) *
+                        100
+                      }%`,
+                    }}
+                  ></div>
                 </RateDiv>
                 <span>{productReviewCount.reviewFiveCount}</span>
               </ReviewCountDiv>
@@ -104,7 +128,15 @@ export default function ProductReviewComp(props) {
                 <span>4점</span>
                 <RateDiv>
                   <div></div>
-                  <div style={{ width: `${productReviewCount.reviewFourCount/productReviewCount.reviewCount*100}%` }}></div>
+                  <div
+                    style={{
+                      width: `${
+                        (productReviewCount.reviewFourCount /
+                          productReviewCount.reviewCount) *
+                        100
+                      }%`,
+                    }}
+                  ></div>
                 </RateDiv>
                 <span>{productReviewCount.reviewFourCount}</span>
               </ReviewCountDiv>
@@ -112,7 +144,15 @@ export default function ProductReviewComp(props) {
                 <span>3점</span>
                 <RateDiv>
                   <div></div>
-                  <div style={{ width: `${productReviewCount.reviewThreeCount/productReviewCount.reviewCount*100}%` }}></div>
+                  <div
+                    style={{
+                      width: `${
+                        (productReviewCount.reviewThreeCount /
+                          productReviewCount.reviewCount) *
+                        100
+                      }%`,
+                    }}
+                  ></div>
                 </RateDiv>
                 <span>{productReviewCount.reviewThreeCount}</span>
               </ReviewCountDiv>
@@ -120,7 +160,15 @@ export default function ProductReviewComp(props) {
                 <span>2점</span>
                 <RateDiv>
                   <div></div>
-                  <div style={{ width: `${productReviewCount.reviewTwoCount/productReviewCount.reviewCount*100}%` }}></div>
+                  <div
+                    style={{
+                      width: `${
+                        (productReviewCount.reviewTwoCount /
+                          productReviewCount.reviewCount) *
+                        100
+                      }%`,
+                    }}
+                  ></div>
                 </RateDiv>
                 <span>{productReviewCount.reviewTwoCount}</span>
               </ReviewCountDiv>
@@ -128,7 +176,15 @@ export default function ProductReviewComp(props) {
                 <span>1점&nbsp;</span>
                 <RateDiv>
                   <div></div>
-                  <div style={{ width: `${productReviewCount.reviewOneCount/productReviewCount.reviewCount*100}%` }}></div>
+                  <div
+                    style={{
+                      width: `${
+                        (productReviewCount.reviewOneCount /
+                          productReviewCount.reviewCount) *
+                        100
+                      }%`,
+                    }}
+                  ></div>
                 </RateDiv>
                 <span>{productReviewCount.reviewOneCount}</span>
               </ReviewCountDiv>
@@ -164,7 +220,7 @@ export default function ProductReviewComp(props) {
           <NoneFeed text="리뷰가 없습니다" />
         ) : (
           <ReviewListDiv>
-            {reviewList.map((item, index) => {
+            {reviewList.reviewSelectionResponses.map((item, index) => {
               return (
                 <ReviewItemComp
                   key={index}
@@ -181,6 +237,13 @@ export default function ProductReviewComp(props) {
             })}
           </ReviewListDiv>
         ))}
+      {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
+      )}
     </ReviewDiv>
   );
 }

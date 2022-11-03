@@ -30,9 +30,8 @@ export default function ProductQnaComp(props) {
       refetchOnWindowFocus: true,
       keepPreviousData: true,
       onSuccess: res => {
-        // setNowPage(res.currentPageNum);
-        console.log(res);
-        // setTotalPage(res.totalPageNum);
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
       },
       onError: () => {
         console.log('에러');

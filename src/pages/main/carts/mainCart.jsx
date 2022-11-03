@@ -58,7 +58,7 @@ export default function MainCart() {
       return;
     }
     for (const item of checkedItems) {
-      cartId.push(cartList[item].cartId);
+      cartId.push(cartList.cartResponseList[item].cartId);
     }
     deleteCart({ cartList: cartId });
   };
@@ -93,7 +93,7 @@ export default function MainCart() {
 
     selectedItems[id] = quantity;
     setSelectedItems(selectedItems);
-    if (cartList.length === checkedItems.size) {
+    if (cartList.cartResponseList.length === checkedItems.size) {
       setAllChecked(true);
       setIsAllChecked(true);
     } else {
@@ -105,7 +105,7 @@ export default function MainCart() {
 
   const allCheckedHandler = isChecked => {
     if (isChecked) {
-      setCheckedItems(new Set(cartList.map((like, idx) => String(idx))));
+      setCheckedItems(new Set(cartList.cartResponseList.map((like, idx) => String(idx))));
       setIsAllChecked(true);
     } else {
       checkedItems.clear();
@@ -125,8 +125,8 @@ export default function MainCart() {
   const orderCart = () => {
     let tempCartItems = [];
     for (const item of checkedItems) {
-      cartList[item].cartQty = selectedItems[item];
-      tempCartItems.push(cartList[item]);
+      cartList.cartResponseList[item].cartQty = selectedItems[item];
+      tempCartItems.push(cartList.cartResponseList[item]);
     }
     console.log(tempCartItems);
     deleteWishClick();
@@ -136,7 +136,7 @@ export default function MainCart() {
   useEffect(() => {
     let tempPrice = 0;
     for (const item of checkedItems) {
-      tempPrice = tempPrice + cartList[item].productPrice * selectedItems[item];
+      tempPrice = tempPrice + cartList.cartResponseList[item].productPrice * selectedItems[item];
     }
     setTotalPrice(tempPrice);
   }, [changeChecked]);
@@ -180,7 +180,7 @@ export default function MainCart() {
                     price={cart.productPrice}
                     checkedItemHandler={checkedItemHandler}
                     checkedItems={checkedItems}
-                    likeListSize={cartList.length}
+                    likeListSize={cartList.cartResponseList.length}
                     changeCount={changeCount}
                     isAllChecked={isAllChecked}
                   ></CartItemComp>
