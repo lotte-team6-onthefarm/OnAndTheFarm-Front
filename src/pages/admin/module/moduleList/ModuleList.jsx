@@ -22,7 +22,7 @@ import {
 } from '../../../../components/seller/common/Icon.style';
 import Pagination from '../../../../components/common/Pagination';
 import Modal from '../../../../components/common/Modal';
-import { getModuleList } from '../../../../apis/exhibition/module';
+import { getAllModuleList, getModuleList } from '../../../../apis/exhibition/module';
 // selling : 판매중
 // soldout : 재고가 부족(모든 옵션의 재고가 부족한 경우)
 // pause : 판매자가 판매를 일시 정지
@@ -42,6 +42,22 @@ export default function ModuleList() {
     refetchOnWindowFcous: true,
     keepPreviousData: true,
     onSuccess: res => {
+      setNowPage(res.pageVo.nowPage);
+      setTotalPage(res.pageVo.totalPage);
+      setModuleCnt(res.pageVo.totalElement);
+    },
+    onError: {},
+  });
+  
+  const {
+    isLoading: getAllModuleListLoading,
+    data: test,
+    refetch: getAllModuleListRefetch,
+  } = useQuery(['getAllModuleList', nowPage], getAllModuleList, {
+    refetchOnWindowFcous: true,
+    keepPreviousData: true,
+    onSuccess: res => {
+      console.log(res)
       setNowPage(res.pageVo.nowPage);
       setTotalPage(res.pageVo.totalPage);
       setModuleCnt(res.pageVo.totalElement);
