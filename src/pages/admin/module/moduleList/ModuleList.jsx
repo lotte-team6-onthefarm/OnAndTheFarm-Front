@@ -22,115 +22,83 @@ import {
 } from '../../../../components/seller/common/Icon.style';
 import Pagination from '../../../../components/common/Pagination';
 import Modal from '../../../../components/common/Modal';
+import { getAllModuleList, getModuleList } from '../../../../apis/exhibition/module';
 // selling : 판매중
 // soldout : 재고가 부족(모든 옵션의 재고가 부족한 경우)
 // pause : 판매자가 판매를 일시 정지
 export default function ModuleList() {
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-  const [productCnt, setProductCnt] = useState(0);
-  const [productState, setProductState] = useState('selling');
+  const [moduleCnt, setModuleCnt] = useState(0);
+  const [moduleState, setModuleState] = useState('selling');
   const [modal, setModal] = useState(false);
   const [selectedImg, setSelectedImg] = useState('');
 
-
-  // function
-  const productStateHandler = num => {
-    setProductState(num);
-  };
   const {
-    isLoading: sellerProductLoading,
-    data: products,
-    refetch: sellerProductListRefetch,
-  } = useQuery(
-    ['sellerProducts', nowPage],
-    productState === 'selling'
-      ? () => getSellerMyProduct(nowPage)
-      : () => getSellerPauseProduct(nowPage),
-    {
-      refetchOnWindowFcous: true,
-      keepPreviousData: true,
-      onSuccess: res => {
-        setNowPage(res.pageVo.nowPage);
-        setTotalPage(res.pageVo.totalPage);
-        setProductCnt(res.pageVo.totalElement);
-      },
-      onError: {},
+    isLoading: getModuleListLoading,
+    data: moduleList,
+    refetch: getModuleListRefetch,
+  } = useQuery(['getModuleList', nowPage], () => getModuleList({ page: nowPage }), {
+    refetchOnWindowFcous: true,
+    keepPreviousData: true,
+    onSuccess: res => {
+      setNowPage(res.pageVo.nowPage);
+      setTotalPage(res.pageVo.totalPage);
+      setModuleCnt(res.pageVo.totalElement);
     },
-  );
+    onError: {},
+  });
+  
+  const {
+    isLoading: getAllModuleListLoading,
+    data: test,
+    refetch: getAllModuleListRefetch,
+  } = useQuery(['getAllModuleList', nowPage], getAllModuleList, {
+    refetchOnWindowFcous: true,
+    keepPreviousData: true,
+    onSuccess: res => {
+      console.log(res)
+      setNowPage(res.pageVo.nowPage);
+      setTotalPage(res.pageVo.totalPage);
+      setModuleCnt(res.pageVo.totalElement);
+    },
+    onError: {},
+  });
 
-  const title = `전체 상품 (총 ${productCnt}개)`;
-  // hook
-  const navigate = useNavigate();
+  const title = `전체 모듈 (총 ${moduleCnt}개)`;
 
-  //function
-  const updateUrl = id => {
-    navigate(`/seller/products/update/${id}`);
+  const moduleStatusCheck = moduleStatus => {
+    return '사용가능';
   };
 
-  const productDetailUrl = id => {
-    navigate(`/products/detail/${id}`);
-  };
-
-  const productStatusCheck = productStatus => {
-    return '사용가능'
-  };
-
-  const productStatusStyleCheck = productStatus => {
+  const moduleStatusStyleCheck = moduleStatus => {
     // selling : 판매중   1
     // soldout : 재고가 부족(모든 옵션의 재고가 부족한 경우)  2
     // pause : 판매자가 판매를 일시 정지  3
-    if (productStatus === 'selling') {
+    if (moduleStatus === 'selling') {
       return 1;
-    } else if (productStatus === 'soldout') {
+    } else if (moduleStatus === 'soldout') {
       return 2;
-    } else if (productStatus === 'pause') {
+    } else if (moduleStatus === 'pause') {
       return 3;
     }
   };
 
-  useDidMountEffect(() => {
-    //요일이 바뀔때 마다 refetch
-    sellerProductListRefetch();
-  }, [productState]);
-
-  const zoomIn = (imgSrc) => {
-    setSelectedImg(imgSrc)
-    setModal(!modal)
-  }
+  const zoomIn = imgSrc => {
+    setSelectedImg(imgSrc);
+    setModal(!modal);
+  };
 
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
       <SellerTitle>모듈 관리</SellerTitle>
       <WhiteWrapper width="100%" marginBottom="10px" minHeight="80vh">
         <SubTitle color="#FFBC99" title={title} />
-        {/* <DeliveryButtonWrapper state={productState}>
-          <div
-            className="productStateButton"
-            onClick={() => {
-              productStateHandler('selling');
-            }}
-          >
-            판매 중
-          </div>
-          <div
-            className="productStateButton"
-            onClick={() => {
-              productStateHandler('pause');
-            }}
-          >
-            판매 중지
-          </div>
-        </DeliveryButtonWrapper> */}
-        {!sellerProductLoading && (
+        {!getModuleListLoading && (
           <>
-            {products.productSelectionResponses.length === 0 ? (
+            {moduleList.moduleListResponses.length === 0 ? (
               <EmptyTable height="60vh">
-                {productState === 'selling' ? (
-                  <h3>현재 등록된 상품이 없습니다</h3>
-                ) : (
-                  <h3>일시정지 중인 상품이 없습니다</h3>
-                )}
+                <h3>현재 등록된 모듈이 없습니다</h3>
               </EmptyTable>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -145,38 +113,40 @@ export default function ModuleList() {
                       <th width="20%">모듈생성 날짜</th>
                     </tr>
                   </thead>
-                  {products.productSelectionResponses.map((product, idx) => {
+                  {moduleList.moduleListResponses.map((module, idx) => {
                     return (
                       <tbody key={idx}>
                         <tr>
                           <td>{16 * nowPage + idx + 1}</td>
                           <td className="title">
-                            <img src={product.productMainImgSrc} alt={''} onClick={() => zoomIn(product.productMainImgSrc)}/>
+                            <img
+                              src={module.moduleImgSrc}
+                              alt={''}
+                              onClick={() => zoomIn(module.moduleImgSrc)}
+                            />
                           </td>
-                          <td>{product.productName}</td>
+                          <td>{module.moduleName}</td>
                           <td>
-                            {product.productName}
-                            {product.productName}
-                            {product.productName}원
+                            {module.moduleContent}
                           </td>
                           <td>
                             <GreenRedStatusButton
                               fontSize="12px"
-                              status={productStatusStyleCheck(
-                                product.productStatus,
+                              status={moduleStatusStyleCheck(
+                                module.moduleUsableStatus,
                               )}
-                              text={productStatusCheck(product.productStatus)}
+                              text={moduleStatusCheck(module.moduleUsableStatus)}
                             />
                           </td>
 
                           <td className="grayBack">
                             <IconWrapper>
-                              {product.reviewRate === null ? (
+                              {module.reviewRate === null ? (
                                 <div className="IconWrapper_none_review">
-                                  등록된 리뷰가 없습니다
+                                  등록된 모듈이 없습니다
                                 </div>
                               ) : (
-                                <>{product.productRegisterDate}</>
+                                <>{module.moduleCreatedAt}</>
                               )}
                             </IconWrapper>
                           </td>
@@ -189,7 +159,7 @@ export default function ModuleList() {
             )}
           </>
         )}
-        {productState === 'selling'
+        {moduleState === 'selling'
           ? totalPage !== 0 && (
               <Pagination
                 nowPage={nowPage + 1}
@@ -207,7 +177,7 @@ export default function ModuleList() {
         {/* modal */}
         {modal && (
           <Modal closeModal={() => setModal(!modal)}>
-            <img src={selectedImg} alt={''}/>
+            <img src={selectedImg} alt={''} />
           </Modal>
         )}
       </WhiteWrapper>
