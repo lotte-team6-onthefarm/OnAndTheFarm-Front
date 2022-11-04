@@ -2,11 +2,20 @@ import axios from 'axios';
 
 // const BASE_URL = process.env.REACT_APP_BASE_URL;
 const SELLER_BASE_URL = process.env.REACT_APP_SELLER_BASE_URL;
+const ADMIN_BASE_URL = process.env.REACT_APP_ADMIN_BASE_URL;
 const USER_BASE_URL = process.env.REACT_APP_USER_BASE_URL;
 
 const ACCESS_TOKEN = localStorage.getItem('token');
 const JWTapiSeller = axios.create({
   baseURL: SELLER_BASE_URL,
+  headers: {
+    contentType: 'application/json',
+    Authorization: ACCESS_TOKEN,
+  },
+});
+
+const JWTapiAdmin = axios.create({
+  baseURL: ADMIN_BASE_URL,
   headers: {
     contentType: 'application/json',
     Authorization: ACCESS_TOKEN,
@@ -67,6 +76,7 @@ const getProductDetailImg = async data => {
 export {
   JWTapiSeller,
   ApiSeller,
+  JWTapiAdmin,
   JWTapiSellertoUser,
   CommonJWTapi,
   getProductDetailImg,
