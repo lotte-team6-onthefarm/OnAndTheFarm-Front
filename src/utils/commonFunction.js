@@ -16,6 +16,22 @@ const addDays = (date, days) => {
   return clone;
 };
 
+const arrayDays = (date, days, status) => {
+  // 날짜 배열로 반환 (날짜, 기간, 이전or이후[before,after])
+  const arrayDays = [getDateFormat(date)];
+  if (status === 'before') {
+    for (let i = 1; i < days; i++) {
+      arrayDays.unshift(getDateFormat(addDays(date, -i)));
+    }
+  } else if (status === 'after') {
+    for (let i = 1; i < days; i++) {
+      arrayDays.push(getDateFormat(addDays(date, i)));
+    }
+  }
+  console.log(arrayDays, '다다');
+  return arrayDays;
+};
+
 const getDateFormat = date => {
   //날짜포맷 변경 (YYYY-MM-DD)
   let year = date.getFullYear();
@@ -33,7 +49,7 @@ const getDateDotFormat = date => {
   return replaced_str;
 };
 
-// 날짜 시간 자르기
+// 날짜 자르기
 const getNoTimeDate = date => {
   //2022.10.14
   return date.substr(0, 10);
@@ -97,6 +113,7 @@ const changeStatusName = status => {
 export {
   toLocaleString,
   getDate,
+  arrayDays,
   addDays,
   getDateFormat,
   getNoTimeDate,
