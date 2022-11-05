@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { postSellerProduct } from '../../../../apis/seller/product';
+import { postModuleAdd } from '../../../../apis/exhibition/module';
 import { GreenButton } from '../../../../components/common/Button.style';
 import { HorizontalLine } from '../../../../components/common/HorizontalLine.style';
 import { WhiteWrapper } from '../../../../components/seller/common/Box.style';
@@ -13,10 +13,10 @@ import { AddProductBtnWrapper } from '../../../../components/seller/products/pro
 
 export default function AddModule() {
   const [moduleName, setModuleName] = useState('');
-  const [moduleDetail, setModuleDetail] = useState('');
+  const [moduleContent, setModuleContent] = useState('');
   const [moduleImages, setModuleImages] = useState('');
-
-  const queryClient = useQueryClient();
+  
+  const navigate = useNavigate();
 
   // 이미지 전송을 위한 FormData
   let formData = new FormData();
@@ -24,14 +24,14 @@ export default function AddModule() {
   const submitData = {
     // 모듈 정보 데이터 객체화
     moduleName: moduleName,
-    moduleDetail: moduleDetail,
+    moduleContent: moduleContent,
   };
 
   const validataionCheck = () => {
     // 유효성 체크
     if (moduleName === '') {
       alert('모듈 이름을 입력해주세요');
-    } else if (moduleDetail === '') {
+    } else if (moduleContent === '') {
       alert('모듈 설명을 입력해주세요');
     } else if (moduleImages === '') {
       alert('모듈 예시 이미지를 등록해주세요');
@@ -41,24 +41,25 @@ export default function AddModule() {
     return false;
   };
 
-  const addProductBtn = () => {
-    // 상품 등록 버튼
+  const addModuletBtn = () => {
+    // 모듈 등록 버튼
     const isValidation = validataionCheck();
     if (isValidation) {
-      // 상품 image 데이터 추가
-      formData.append('images', moduleImages[0]);
-      // 상품 데이터 추가
+      // 모듈 image 데이터 추가
+      formData.append('image', moduleImages[0]);
+      // 모듈 데이터 추가
       formData.append(
         'data',
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
     }
-    console.log(formData)
-    // addProduct(formData);
+    addModule(formData);
   };
 
-  const { mutate: addProduct } = useMutation(postSellerProduct, {
-    onSuccess: () => {
+  const { mutate: addModule } = useMutation(postModuleAdd, {
+    onSuccess: (res) => {
+      alert('모듈이 등록되었습니다.')
+      navigate(`/admin/module`);
     },
     onError: () => {
       console.log('에러');
@@ -79,9 +80,9 @@ export default function AddModule() {
         <ProductInput
           title="모듈 간단 설명"
           placeholder={
-            moduleDetail !== '' ? moduleDetail : '모둘 간단 설명 입력'
+            moduleContent !== '' ? moduleContent : '모둘 간단 설명 입력'
           }
-          setFunction={setModuleDetail}
+          setFunction={setModuleContent}
         ></ProductInput>
       </WhiteWrapper>
       <WhiteWrapper width="100%" marginBottom="10px">
@@ -95,8 +96,8 @@ export default function AddModule() {
       </WhiteWrapper>
       <AddProductBtnWrapper>
         <div>
-          <GreenButton onClick={addProductBtn} width="120px">
-            상품등록
+          <GreenButton onClick={addModuletBtn} width="120px">
+            모듈등록
           </GreenButton>
         </div>
       </AddProductBtnWrapper>
