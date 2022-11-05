@@ -7,6 +7,7 @@ import {
   PageRow,
   RightWrapper,
 } from '../../components/seller/common/Box.style';
+import AccountDetail from './account/accountDetail/AccountDetail';
 import AccountList from './account/accountList/AccountList';
 import AddAccount from './account/addAccount/AddAccount';
 import AddBadge from './data/badge/AddBadge';
@@ -25,10 +26,11 @@ export default function AdminIndexLayout() {
             <Routes>
               <Route path="/" element={<AccountList />} />
               <Route path="/account/add" element={<AddAccount />} />
+              <Route path="/account/detail/:id" element={<AccountDetail />} />
               <Route path="/module" element={<ModuleList />} />
               <Route path="/module/add" element={<AddModule />} />
-        <Route path="/data/badge/add" element={<AddBadge />} />
-        <Route path="/data/banner/add" element={<AddBanner />} />
+              <Route path="/data/badge/add" element={<AddBadge />} />
+              <Route path="/data/banner/add" element={<AddBanner />} />
               <Route path="/pageLayout/add" element={<PageLayout />} />
             </Routes>
           </PageCol>

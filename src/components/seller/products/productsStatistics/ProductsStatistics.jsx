@@ -131,7 +131,13 @@ export default function ProductsStatistics() {
                 )}
               </EmptyTable>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  minHeight: '60vh',
+                }}
+              >
                 <ProductStatisticsTable>
                   <thead>
                     <tr style={{ fontSize: '13px' }}>

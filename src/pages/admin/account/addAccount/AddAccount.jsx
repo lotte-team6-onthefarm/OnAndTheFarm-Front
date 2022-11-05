@@ -18,7 +18,6 @@ export default function AddAccount() {
   const [endTime, setEndTime] = useState('');
   const [dataCount, setDataCount] = useState('');
   const [dataGroupCount, setDataGroupCount] = useState('');
-
   const [dataVisible, setDataVisible] = useState(false);
 
   const visibleDataBtn = () => {
