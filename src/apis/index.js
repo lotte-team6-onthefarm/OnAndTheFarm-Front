@@ -12,7 +12,6 @@ const JWTapiSeller = axios.create({
     Authorization: ACCESS_TOKEN,
   },
 });
-
 const JWTapiSellertoUser = axios.create({
   baseURL: USER_BASE_URL,
   headers: {
