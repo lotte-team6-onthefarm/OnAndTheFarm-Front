@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getProfileInfo } from '../../apis/sns/profile';
+import MainCategory from '../../components/main/category/MainCategory';
+import MainBanner from '../../components/main/main/MainBanner';
 import MainCarousel from '../../components/main/main/MainCarousel';
 import MainSns from '../../components/main/main/MainSns';
+import MainSnsCarousel from '../../components/main/main/MainSnsCarousel';
 import MainProductsPopular from '../../components/main/products/MainProductsPopular';
 import { MainContentDiv } from './mainMainPage.style';
 
@@ -186,7 +189,10 @@ export default function MainMainPage() {
   return (
     <MainContentDiv>
       <MainCarousel />
+      <MainCategory />
       <MainProductsPopular />
+      <MainBanner />
+      <MainSnsCarousel />
       <MainSns />
       <div style={{ margin: '100px 0' }}>
         <Link to="snstest">등록</Link>
