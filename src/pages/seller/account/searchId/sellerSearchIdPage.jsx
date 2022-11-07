@@ -8,11 +8,41 @@ import {
 } from '../login/sellerLoginPage.style';
 import StoreLogo from '../../../../assets/storeLogo.png';
 import { StoreLogoImg } from '../signup/sellerSignupPage.style';
+import { useMutation } from 'react-query';
+import { postSellerSearchId } from '../../../../apis/seller/account';
+import { useNavigate } from 'react-router-dom';
 
 export default function SellerSearchIdPage() {
   const [userName, setUserName] = useState('');
   const [userPhone, setUserPhone] = useState('');
 
+  const navigate = useNavigate();
+
+  const { mutate: sellerSearchId } = useMutation(
+    'postSellerSearchId',
+    postSellerSearchId,
+    {
+      onSuccess: res => {
+        console.log(res);
+        alert(`아이디는 ${res.data} 입니다`);
+        navigate('/seller/login');
+      },
+      onError: res => {
+        console.log(res);
+      },
+    },
+  );
+
+  const searchIdButton = () => {
+    if (userName === '') {
+      alert('이름을 입력해주세요');
+      return;
+    } else if (userPhone === '') {
+      alert('전화번호를 입력해주세요');
+      return;
+    }
+    sellerSearchId({ name: userName, phone: userPhone });
+  };
   return (
     <StyledBoxWrapper>
       <StyledBoxDiv>
@@ -35,7 +65,12 @@ export default function SellerSearchIdPage() {
           type="text"
         />
         <StyledRowDiv position="center" style={{ display: 'flex' }}>
-          <Button text="아이디 찾기" color="#3288E5" width="130px"></Button>
+          <Button
+            text="아이디 찾기"
+            color="#3288E5"
+            width="130px"
+            onClick={searchIdButton}
+          ></Button>
         </StyledRowDiv>
       </StyledBoxDiv>
     </StyledBoxWrapper>

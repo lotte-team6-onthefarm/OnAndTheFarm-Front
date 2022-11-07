@@ -12,9 +12,21 @@ const postSellerlogin = async data => {
   return response.data;
 };
 
+// 아이디 찾기
+const postSellerSearchId = async data => {
+  const response = await ApiSeller.post('search/id', data);
+  return response.data;
+};
+
+// 비밀번호 찾기
+const postSellerSearchPw = async data => {
+  const response = await ApiSeller.post('search/passwd', data);
+  return response.data;
+};
+
 // 비밀번호 변경
 const postSellerPasswd = async data => {
-  const response = await JWTapiSeller.post('passwd', data);
+  const response = await ApiSeller.post('passwd', data);
   return response.data;
 };
 
@@ -61,6 +73,8 @@ const getSellerCondition = async data => {
 export {
   postSellerSignup,
   postSellerlogin,
+  postSellerSearchId,
+  postSellerSearchPw,
   postSellerPasswd,
   postSellerEmail,
   getSellerInfo,
