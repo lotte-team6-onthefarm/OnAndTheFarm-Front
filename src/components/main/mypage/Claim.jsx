@@ -21,6 +21,7 @@ export default function ClaimComp(props) {
     {
       onSuccess: res => {
         alert('성공');
+        window.location.reload();
       },
       onError: () => {
         console.log('에러');
@@ -33,6 +34,7 @@ export default function ClaimComp(props) {
     {
       onSuccess: res => {
         alert('성공');
+        window.location.reload();
       },
       onError: () => {
         console.log('에러');

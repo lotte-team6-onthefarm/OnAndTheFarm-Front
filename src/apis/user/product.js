@@ -13,12 +13,22 @@ const getProducts = async data => {
 
 // 상품 단건조회
 const getProduct = async data => {
-  const response = await ApiUser.get(`product/${data}`);
+  let response;
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(`product/${data}`);
+  } else {
+    response = await ApiUser.get(`product/${data}`);
+  }
   return response.data.data;
 };
 // 메인페이지 상품 10개 조회
 const getMainProduct = async data => {
-  const response = await ApiUser.get(`product/list/main`);
+  let response;
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(`product/list/main`);
+  } else {
+    response = await ApiUser.get(`product/list/main`);
+  }
   return response.data.data;
 };
 
