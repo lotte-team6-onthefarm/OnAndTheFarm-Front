@@ -14,6 +14,7 @@ const MypageNavbarDiv = styled.div`
 `;
 
 const MypageContentDiv = styled.div`
+  width: 1130px;
   padding: 30px;
   border-radius: 5px;
 `;

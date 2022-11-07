@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { getAddReviewList, getMyReviewList } from '../../../apis/user/review';
-import { Button } from '../../../components/common/Button';
-import ReviewInput from '../../../components/main/mypage/ReviewInput';
-import MenuTabComp from '../../../components/main/mypage/MenuTabComp';
-import { EmptyTable } from '../../../components/seller/main/popularProducts/MainPopularProducts.style';
-import {
-  ProductReviewsTable,
-  ReviewBlock,
-} from '../../../components/seller/products/productReviews/ProductReviews.style';
-import { ReviewContentDiv, AnswerDiv } from './mainMypageReview.style';
-import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
-import Pagination from '../../../components/common/Pagination';
+import { getAddReviewList } from '../../../../apis/user/review';
+import { ReviewContentDiv } from './mainMypageReview.style';
+import ReviewInput from '../../../../components/main/mypage/ReviewInput';
+import { EmptyTable } from '../../../../components/seller/main/popularProducts/MainPopularProducts.style';
+import { ProductReviewsTable, ReviewBlock } from '../../../../components/seller/products/productReviews/ProductReviews.style';
+import Pagination from '../../../../components/common/Pagination';
 
-export default function MainMypageReviewList() {
+export default function MainMypageReview() {
   const menuTab = [
     { title: '작성 가능한 리뷰', url: '/mypage/review/addlist' },
     { title: '내가 작성한 리뷰', url: '/mypage/review/myreview' },
@@ -24,21 +18,21 @@ export default function MainMypageReviewList() {
   const [totalPage, setTotalPage] = useState(0);
 
   const {
-    isLoading: MyReviewListLoading,
-    refetch: getMyReviewListRefetch,
-    data: reviews,
+    isLoading: AddReviewListLoading,
+    refetch: getAddReviewListRefetch,
+    data: reviewList,
   } = useQuery(
-    ['MyReviewList', nowPage],
+    ['AddReviewList', nowPage],
     () =>
-    getMyReviewList({
+    getAddReviewList({
         page: nowPage,
       }),
     {
       refetchOnWindowFocus: true,
       keepPreviousData: true,
       onSuccess: res => {
-        setNowPage(res.pageVo.nowPage);
-        setTotalPage(res.pageVo.totalPage);
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
       },
       onError: () => {
         console.log('에러');
@@ -49,13 +43,12 @@ export default function MainMypageReviewList() {
 
   return (
     <div>
-      <MenuTabComp menuTab={menuTab}></MenuTabComp>
       <ReviewContentDiv>
-        {!MyReviewListLoading && (
+        {!AddReviewListLoading && (
           <>
-            {reviews.reviewSelectionResponses.length === 0 ? (
+            {reviewList.productReviewResponseList.length === 0 ? (
               <EmptyTable height="60vh">
-                <h3>등록된 리뷰가 없습니다.</h3>
+                <h3>현재 등록가능한 리뷰가 없습니다.</h3>
               </EmptyTable>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -65,11 +58,11 @@ export default function MainMypageReviewList() {
                       <th width="5%">NO.</th>
                       <th width="10%">상품이미지</th>
                       <th width="25%">상품이름</th>
-                      <th width="10%">작성날짜</th>
-                      <th width="50%">리뷰내용</th>
+                      <th width="10%">주문날짜</th>
+                      <th width="50%">리뷰작성</th>
                     </tr>
                   </thead>
-                  {reviews.reviewSelectionResponses.map((data, idx) => {
+                  {reviewList.productReviewResponseList.map((data, idx) => {
                     return (
                       <tbody
                         key={idx}
@@ -86,15 +79,12 @@ export default function MainMypageReviewList() {
                               </div>
                             </ReviewBlock>
                           </td>
-                          <td>{data.reviewCreatedAt}</td>
+                          <td>{data.ordersDate}</td>
                           <td style={{display:"flex"}}>
-                            <ReviewEditInput
+                            <ReviewInput
                               placeholder="나의리뷰"
-                              id={data.reviewId}
+                              id="review"
                               type="text"
-                              reviewContent={data.reviewContent}
-                              reviewRate={data.reviewRate}
-                              reviewLikeCount={data.reviewLikeCount}
                               orderProductId={data.orderProductId}
                             />
                           </td>

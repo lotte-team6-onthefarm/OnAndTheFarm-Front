@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import MenuTabComp from '../../../components/main/mypage/MenuTabComp';
-import { EmptyTable } from '../../../components/seller/main/popularProducts/MainPopularProducts.style';
-import { ProductReviewsTable } from '../../../components/seller/products/productReviews/ProductReviews.style';
-import { ReviewContentDiv } from './mainMypageReview.style';
-import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
-import { getCancelOrderList, getMyOrderList } from '../../../apis/user/order';
-import OrderItemComp from '../../../components/main/mypage/OrderItem';
 import { useNavigate } from 'react-router-dom';
-import { changeStatusName, getNoSecDate } from '../../../utils/commonFunction';
-import Pagination from '../../../components/common/Pagination';
+import { changeStatusName, getNoSecDate } from '../../../../utils/commonFunction';
+import Pagination from '../../../../components/common/Pagination';
+import MenuTabComp from '../../../../components/main/mypage/MenuTabComp';
+import { ReviewContentDiv } from './mainMypageOrderDetail.style';
+import { EmptyTable } from '../../../../components/seller/main/popularProducts/MainPopularProducts.style';
+import { ProductReviewsTable } from '../../../../components/seller/products/productReviews/ProductReviews.style';
+import { getCancelOrderList } from '../../../../apis/user/order';
 
 export default function MainMypageOrderCancel() {
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
 
-  const menuTab = [
-    { title: '주문내역', url: '/mypage/orders/list' },
-    { title: '주문취소/반품 내역', url: '/mypage/orders/cancel' },
-  ];
 
   const {
     isLoading: cancelOrderListLoading,
@@ -52,7 +46,6 @@ export default function MainMypageOrderCancel() {
 
   return (
     <div>
-      <MenuTabComp menuTab={menuTab}></MenuTabComp>
       <ReviewContentDiv>
         {!cancelOrderListLoading && (
           <>

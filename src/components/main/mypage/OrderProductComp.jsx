@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Button } from '../../common/Button';
-import Counter from '../../common/Counter';
+import { changeStatusName } from '../../../utils/commonFunction';
 import {
   CartItem,
   CartItemImg,
@@ -31,7 +31,7 @@ export default function OrderProductComp(props) {
           <p>{props.price}</p>
         </CartItemPrice>
         <CartItemPrice>
-          <p>{props.status}</p>
+          <p>{changeStatusName(props.status)}</p>
         </CartItemPrice>
         <CartItemPrice>
         {props.status === 'deliveryCompleted' &&
