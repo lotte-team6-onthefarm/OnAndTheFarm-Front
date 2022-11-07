@@ -15,11 +15,14 @@ import {
 } from '../../../../apis/seller/account';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../../../../components/common/Modal';
+import DaumPostApi from '../../../../components/common/DaumPostApi';
 
 export default function SellerSignupPage() {
   const [Email, setEmail] = useState('');
   const [Code, setCode] = useState('');
-  const [EmailCode, setEmailCode] = useState(true);
+  const [EmailCode, setEmailCode] = useState(false);
+  const [EmailSend, setEmailSend] = useState(false);
   const [Password, setPassword] = useState('');
   const [PasswordConfirm, setPasswordconfirm] = useState('');
   const [Name, setName] = useState('');
@@ -29,6 +32,7 @@ export default function SellerSignupPage() {
   const [DetailAddress, setDetailAddress] = useState('');
   const [ShopName, setShopName] = useState('');
   const [BusinessNumber, setBusinessNumber] = useState('');
+  const [modal, setModal] = useState(false);
 
   // hook
   const navigate = useNavigate();
@@ -71,6 +75,7 @@ export default function SellerSignupPage() {
 
   // 이메일 인증 요청
   const sendEmail = () => {
+    setEmailSend(true);
     if (EmailCode) {
       alert('이미 인증이 완료되었습니다');
     } else {
@@ -80,6 +85,10 @@ export default function SellerSignupPage() {
 
   // 이메일 인증 확인
   const emailConfirm = (email, key) => {
+    if (!EmailSend) {
+      alert('이메일 인증 버튼을 클릭해주세요');
+      return;
+    }
     sellerEmailConfirm({ email, key });
   };
   const { mutate: sellerSignup } = useMutation(postSellerSignup, {
@@ -201,6 +210,9 @@ export default function SellerSignupPage() {
             color="#3288E5"
             margin="auto auto 20px"
             width="150px"
+            onClick={() => {
+              setModal(!modal);
+            }}
           ></Button>
         </StyledRowDiv>
         <Input
@@ -242,6 +254,15 @@ export default function SellerSignupPage() {
           onClick={signUpBtn}
         ></Button>
       </StyledBoxDiv>
+      {modal && (
+        <Modal closeModal={() => setModal(!modal)}>
+          <DaumPostApi
+            setModal={setModal}
+            setAddress={setAddress}
+            setPostCode={setPostCode}
+          />
+        </Modal>
+      )}
     </StyledBoxWrapper>
   );
 }
