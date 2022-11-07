@@ -3,7 +3,7 @@ import { AiOutlineHome, AiOutlineShop } from 'react-icons/ai';
 import { BiSubdirectoryRight } from 'react-icons/bi';
 import { TbLogout } from 'react-icons/tb';
 import { Link, useNavigate } from 'react-router-dom';
-import onandthefarmlogo from '../../../assets/logo.png';
+import onandthefarmlogo from '../../../assets/adminLogo.JPG';
 import { sellerNavState } from '../../../recoil';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { useState } from 'react';

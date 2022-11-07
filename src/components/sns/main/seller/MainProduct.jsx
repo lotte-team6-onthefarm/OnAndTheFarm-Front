@@ -39,9 +39,9 @@ export default function MainProduct(props) {
               </div>
             )}
           </div>
-          {productListData.length === 0 ? (
-            <Link to="/products">
-              <NoneFeed text="첫번째 좋아요를 눌러보세요" />
+          {productListData.posts.productSelectionResponses.length === 0 ? (
+            <Link to="/seller/products/add">
+              <NoneFeed text="첫번째 상품을 등록해보세요" />
             </Link>
           ) : (
             <div className="FeedContents">
