@@ -1,4 +1,4 @@
-import { JWTapiUser } from '.';
+import { JWTapiUser, ApiUser } from '.';
 
 // 질문 추가
 const postAddQna = async data => {
@@ -8,7 +8,12 @@ const postAddQna = async data => {
 
 // 질문 불러오기
 const getQnaList = async data => {
-  const response = await JWTapiUser.get(`product/QnA/${data.productId}?pageNumber=${data.page}`);
+  let response;
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(`product/QnA/${data.productId}?pageNumber=${data.page}`);
+  } else {
+    response = await ApiUser.get(`product/QnA/${data.productId}?pageNumber=${data.page}`);
+  }
   return response.data.data;
 };
 

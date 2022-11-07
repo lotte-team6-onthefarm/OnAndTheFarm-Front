@@ -8,15 +8,23 @@ const postAddReview = async data => {
 
 // 리뷰 불러오기
 const getReviewList = async data => {
-  const response = await JWTapiUser.get(
-    `review/list/orderby/${data.filter}/${data.productId}/${data.page}`,
-  );
+  let response;
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(`review/list/orderby/${data.filter}/${data.productId}/${data.page}`);
+  } else {
+    response = await ApiUser.get(`review/list/orderby/${data.filter}/${data.productId}/${data.page}`);
+  }
   return response.data.data;
 };
 
 // 상품 리뷰카운트 불러오기
 const getProductReviewCount = async data => {
-  const response = await JWTapiUser.get(`review/info?productId=${data}`);
+  let response;
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(`review/info?productId=${data}`);
+  } else {
+    response = await ApiUser.get(`review/info?productId=${data}`);
+  }
   return response.data.data;
 };
 
