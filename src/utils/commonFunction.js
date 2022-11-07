@@ -28,7 +28,6 @@ const arrayDays = (date, days, status) => {
       arrayDays.push(getDateFormat(addDays(date, i)));
     }
   }
-  console.log(arrayDays, '다다');
   return arrayDays;
 };
 

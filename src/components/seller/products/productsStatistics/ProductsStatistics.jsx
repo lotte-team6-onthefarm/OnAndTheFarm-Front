@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { WhiteWrapper } from '../../common/Box.style';
 import SubTitle from '../../common/SubTitle';
 import { SellerTitle } from '../../common/Title.style';
@@ -18,16 +18,21 @@ import { GreenRedStatusButton } from '../../common/ColorStatusButton';
 import { DeliveryButtonWrapper } from '../../delivery/Delivery.style';
 import useDidMountEffect from '../../../common/useDidMountEffect';
 import Pagination from '../../../common/Pagination';
+import { useEffect } from 'react';
 
 // selling : 판매중
 // soldout : 재고가 부족(모든 옵션의 재고가 부족한 경우)
 // pause : 판매자가 판매를 일시 정지
 export default function ProductsStatistics() {
+  // 초기 orderState 설정(셀러메인->취소/반품내역)
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const [productCnt, setProductCnt] = useState(0);
   const [productState, setProductState] = useState('selling');
-
+  const { state } = useLocation();
+  useEffect(() => {
+    if (state !== null) setProductState(state);
+  }, [state]);
   // function
   const productStateHandler = num => {
     setProductState(num);
