@@ -12,6 +12,8 @@ import {
   UserInfoSetting,
 } from './mainMypageProfile.style';
 import { StyledBoxDiv, StyledRowDiv } from '../account/mainSignupPage.style';
+import DaumPostApi from '../../../components/common/DaumPostApi';
+import Modal from '../../../components/common/Modal';
 
 export default function MainMypageProfile() {
   const [userImg, setUserImg] = useState('');
@@ -25,6 +27,7 @@ export default function MainMypageProfile() {
   const [userBirthday, setUserBirthday] = useState('');
   const [profileImages, setProfileImages] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [modal, setModal] = useState(false);
 
   // 이미지 전송을 위한 FormData
   let formData = new FormData();
@@ -88,10 +91,11 @@ export default function MainMypageProfile() {
       userPhone: userPhone,
       userAddress: userAddress,
       userAddressDetail: userDetailAddress,
-      userZipCode: userPostCode,
+      userZipcode: userPostCode,
       userSex: userGender,
       userBirthday: userBirthday,
     };
+    console.log(data)
     formData.append('images', profileImages[0]);
     // 상품 데이터 추가
     formData.append(
@@ -197,6 +201,9 @@ export default function MainMypageProfile() {
               color="#3288E5"
               margin="auto auto 20px"
               width="150px"
+              onClick={() => {
+                setModal(!modal);
+              }}
             ></Button>
           </StyledRowDiv>
           <Input
@@ -234,6 +241,15 @@ export default function MainMypageProfile() {
             width="150px"
             onClick={editInfo}
           ></Button>
+          {modal && (
+            <Modal closeModal={() => setModal(!modal)}>
+              <DaumPostApi
+                setModal={setModal}
+                setAddress={setUserAddress}
+                setPostCode={setUserPostCode}
+              />
+            </Modal>
+          )}
         </StyledBoxDiv>
       )}
     </div>
