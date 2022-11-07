@@ -115,7 +115,7 @@ const ProductStatusWrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 150px;
+      width: ${props => (props.width ? props.width : '150px')};
       height: 40px;
       :nth-last-child(n + 2) {
         border-right: none;

@@ -1,5 +1,8 @@
 import React from 'react';
+import { useState } from 'react';
+import AddMainDisplay from '../../components/admin/addMainDisplay/AddMainDisplay';
 
 export default function PageLayout() {
-  return <div>PageLayout</div>;
+  const [a, setA] = useState(false);
+  return <div>{!a && <AddMainDisplay />}</div>;
 }
