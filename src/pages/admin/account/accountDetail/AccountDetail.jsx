@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getExhibitionAccountId } from '../../../../apis/admin/account';
 import { HorizontalLine } from '../../../../components/common/HorizontalLine.style';
 import { WhiteWrapper } from '../../../../components/seller/common/Box.style';
+import { AccountDetailTitle } from './AccountDetail.styled';
 import AccountItemDetail from './AccountItemDetail';
 import TextWrapper from './TextWrapper';
 
@@ -47,7 +48,12 @@ export default function AccountDetail() {
         </div>
       </WhiteWrapper>
       <WhiteWrapper width="100%" marginBottom="10px" minHeight="80vh">
-        <h2 style={{ marginBottom: '30px' }}>데이터 목록</h2>
+        <AccountDetailTitle>
+          <h2 style={{ marginBottom: '30px' }}>데이터 목록</h2>
+          <div className="accountDetailNotice">
+            * 데이터 순서는 메인페이지 등록 시 수정 가능합니다
+          </div>
+        </AccountDetailTitle>
         {!isLoading &&
           data.exhibitionAccountItemsDetailResponseList.map((items, idx) => (
             <div key={idx}>

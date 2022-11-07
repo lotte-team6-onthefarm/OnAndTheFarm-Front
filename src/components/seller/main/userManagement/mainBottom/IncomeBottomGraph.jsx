@@ -5,7 +5,7 @@ import { UserBottomGraphWrapper } from './MainBottomGraph.style';
 export default function IncomeBottomGraph(props) {
   return (
     <UserBottomGraphWrapper>
-      <LineChart data={props.dayPrices} />
+      <LineChart data={props.dayPrices} name="수익" />
     </UserBottomGraphWrapper>
   );
 }

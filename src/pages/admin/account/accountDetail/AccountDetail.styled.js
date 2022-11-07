@@ -34,4 +34,15 @@ const AccountDetailTextWrapper = styled.div`
   }
 `;
 
-export { AccountDetailTextWrapper };
+const AccountDetailTitle = styled.div`
+  position: relative;
+  .accountDetailNotice {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: red;
+    font-size: 14px;
+  }
+`;
+
+export { AccountDetailTextWrapper, AccountDetailTitle };
