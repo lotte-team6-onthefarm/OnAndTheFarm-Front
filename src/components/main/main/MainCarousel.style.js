@@ -18,7 +18,22 @@ const MainCarouselDiv = styled.div`
   }
 `;
 
-const MainCarouselSlider = styled(Slider)``;
+const MainCarouselSlider = styled(Slider)`
+  .slick-prev {
+    left: -30px;
+  }
+  .slick-next {
+    right: -20px;
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    line-height: 0;
+    display: flex;
+    font-size: 35px;
+  }
+  button {
+  }
+`;
 
 const CarouselImgDiv = styled.div`
   height: 100%;
