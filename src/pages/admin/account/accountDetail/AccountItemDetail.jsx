@@ -4,7 +4,7 @@ import { AccountDetailTextWrapper } from './AccountDetail.styled';
 export default function AccountItemDetail(props) {
   const exhibitionItemsProductId =
     props.items.exhibitionAccountItemDetailResponseList.map(item => {
-      return item.exhibitionItemProductId;
+      return item.exhibitionItemId;
     });
   const exhibitionItemsPriorityId =
     props.items.exhibitionAccountItemDetailResponseList.map(item => {

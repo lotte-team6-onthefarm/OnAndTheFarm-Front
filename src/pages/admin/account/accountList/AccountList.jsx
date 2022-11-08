@@ -1,9 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
+import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { getAccountList } from '../../../../apis/admin/account';
 import Pagination from '../../../../components/common/Pagination';
 import { WhiteWrapper } from '../../../../components/seller/common/Box.style';
 import { ProductStatisticsTable } from '../../../../components/seller/products/productsStatistics/ProductsStatistics.style';
+import { getDateConnect } from '../../../../utils/commonFunction';
 import { AccountListTbody } from './AccoutList.styled';
 
 export default function AccountList() {
@@ -25,40 +28,55 @@ export default function AccountList() {
     navigate(`account/detail/${id}`);
   };
 
+  const { data, isLoading } = useQuery(
+    ['getAccountList', nowPage],
+    () => getAccountList(nowPage),
+    {
+      keepPreviousData: true,
+      onSuccess: res => {
+        setNowPage(res.pageVo.nowPage);
+        setTotalPage(res.pageVo.totalPage);
+      },
+      onError: () => {},
+    },
+  );
+
   return (
     <WhiteWrapper width="100%" marginBottom="10px" minHeight="80vh">
       <h2>구좌 목록</h2>
-      <div style={{ minHeight: '60vh' }}>
-        <ProductStatisticsTable>
-          <thead>
-            <tr style={{ fontSize: '13px' }}>
-              <th width="10%">NO.</th>
-              <th width="60%">전시명</th>
-              <th width="15%">시작시간</th>
-              <th width="15%">종료시간</th>
-            </tr>
-          </thead>
-          {datas.map((data, idx) => {
-            return (
-              <AccountListTbody key={idx}>
-                <tr>
-                  <td>{idx + 1}</td>
-                  <td
-                    className="accountListTitle"
-                    onClick={() => {
-                      accountDetailUrl(1);
-                    }}
-                  >
-                    {data.title}
-                  </td>
-                  <td>{data.sTime}</td>
-                  <td>{data.eTime}</td>
-                </tr>
-              </AccountListTbody>
-            );
-          })}
-        </ProductStatisticsTable>
-      </div>
+      {!isLoading && (
+        <div style={{ minHeight: '60vh' }}>
+          <ProductStatisticsTable>
+            <thead>
+              <tr style={{ fontSize: '13px' }}>
+                <th width="8%">NO.</th>
+                <th width="56%">구좌이름</th>
+                <th width="18%">시작시간</th>
+                <th width="18%">종료시간</th>
+              </tr>
+            </thead>
+            {data.exhibitionSelectionResponses.map((data, idx) => {
+              return (
+                <AccountListTbody key={idx}>
+                  <tr>
+                    <td>{idx + 1}</td>
+                    <td
+                      className="accountListTitle"
+                      onClick={() => {
+                        accountDetailUrl(data.exhibitionAccountId);
+                      }}
+                    >
+                      {data.exhibitionAccountName}
+                    </td>
+                    <td>{getDateConnect(data.exhibitionAccountStartTime)}</td>
+                    <td>{getDateConnect(data.exhibitionAccountEndTime)}</td>
+                  </tr>
+                </AccountListTbody>
+              );
+            })}
+          </ProductStatisticsTable>
+        </div>
+      )}
       {totalPage !== 0 && (
         <Pagination
           nowPage={nowPage + 1}

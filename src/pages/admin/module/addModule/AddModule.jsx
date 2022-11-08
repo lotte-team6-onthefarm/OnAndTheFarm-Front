@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { postModuleAdd } from '../../../../apis/exhibition/module';
 import { GreenButton } from '../../../../components/common/Button.style';
@@ -15,7 +15,7 @@ export default function AddModule() {
   const [moduleName, setModuleName] = useState('');
   const [moduleContent, setModuleContent] = useState('');
   const [moduleImages, setModuleImages] = useState('');
-  
+
   const navigate = useNavigate();
 
   // 이미지 전송을 위한 FormData
@@ -57,8 +57,8 @@ export default function AddModule() {
   };
 
   const { mutate: addModule } = useMutation(postModuleAdd, {
-    onSuccess: (res) => {
-      alert('모듈이 등록되었습니다.')
+    onSuccess: () => {
+      alert('모듈이 등록되었습니다.');
       navigate(`/admin/module`);
     },
     onError: () => {

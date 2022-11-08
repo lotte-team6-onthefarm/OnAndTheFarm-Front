@@ -21,11 +21,25 @@ const AddMainDisplayWrapper = styled.div`
     display: flex;
     justify-content: center;
   }
+  .accountPriorityContent {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: ${props => props.theme.colors.gray};
+    padding: 0 10px;
+    font-size: 15px;
+    font-weight: 600;
+    min-height: 40px;
+    border-radius: 4px;
+  }
 `;
 
 const ListTextWrapper = styled.div`
   .mainTextTitle {
     width: 115px;
+  }
+  .organizeTextTitle {
+    width: 150px;
   }
   margin-bottom: 20px;
   display: flex;
