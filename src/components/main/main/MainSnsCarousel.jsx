@@ -53,8 +53,8 @@ export default function MainSnsCarousel(props) {
                     <div>
                       <svg width="26" height="30" fill="none">
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
                           d="m13 24.25-13 5V0h26v29.25l-13-5Z"
                           fill="#40AA54"
                         ></path>
