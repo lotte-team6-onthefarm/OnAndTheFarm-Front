@@ -41,7 +41,7 @@ const putTemporaryDelete = async data => {
 // 임시 전시 전체 조회
 const getTemporaryAll = async data => {
   const response = await JWTapiAdmin.get('/exhibition/temporary/all', data);
-  return response;
+  return response.data.data;
 };
 
 // 임시 전시 적용
