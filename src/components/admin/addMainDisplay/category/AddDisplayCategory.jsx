@@ -16,17 +16,10 @@ export default function AddDisplayCategory(props) {
       <ProductStatusWrapper width="257px">
         <div className="statusBtn" style={{ marginLeft: '20px' }}>
           <div
-            className={props.category === '배너' ? 'statusBtnactive' : ''}
-            onClick={() => {
-              props.setCategory('배너');
-            }}
-          >
-            배너
-          </div>
-          <div
             className={props.category === '상품' ? 'statusBtnactive' : ''}
             onClick={() => {
               props.setCategory('상품');
+              props.setCategoryId(1);
             }}
           >
             상품
@@ -35,17 +28,28 @@ export default function AddDisplayCategory(props) {
             className={props.category === 'SNS' ? 'statusBtnactive' : ''}
             onClick={() => {
               props.setCategory('SNS');
+              props.setCategoryId(2);
             }}
           >
             SNS
           </div>
           <div
-            className={props.category === '카테고리' ? 'statusBtnactive' : ''}
+            className={props.category === '배너' ? 'statusBtnactive' : ''}
             onClick={() => {
-              props.setCategory('카테고리');
+              props.setCategory('배너');
+              props.setCategoryId(3);
             }}
           >
-            카테고리
+            배너
+          </div>
+          <div
+            className={props.category === '뱃지' ? 'statusBtnactive' : ''}
+            onClick={() => {
+              props.setCategory('뱃지');
+              props.setCategoryId(4);
+            }}
+          >
+            뱃지
           </div>
         </div>
       </ProductStatusWrapper>

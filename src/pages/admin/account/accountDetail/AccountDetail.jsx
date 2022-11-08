@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getExhibitionAccountId } from '../../../../apis/admin/account';
 import { HorizontalLine } from '../../../../components/common/HorizontalLine.style';
 import { WhiteWrapper } from '../../../../components/seller/common/Box.style';
+import { getDateConnect } from '../../../../utils/commonFunction';
 import { AccountDetailTitle } from './AccountDetail.styled';
 import AccountItemDetail from './AccountItemDetail';
 import TextWrapper from './TextWrapper';
@@ -37,11 +38,11 @@ export default function AccountDetail() {
               />
               <TextWrapper
                 title="시작 시간"
-                content={data.exhibitionAccountStartTime}
+                content={getDateConnect(data.exhibitionAccountStartTime)}
               />
               <TextWrapper
                 title="종료 시간"
-                content={data.exhibitionAccountEndTime}
+                content={getDateConnect(data.exhibitionAccountEndTime)}
               />
             </div>
           )}
@@ -65,7 +66,6 @@ export default function AccountDetail() {
                 title="데이터 리스트 설명"
                 content={items.exhibitionItemsDetail}
               />
-              {console.log(items)}
               <AccountItemDetail title="데이터" items={items} />
               <HorizontalLine color="#F2F2F2" />
             </div>

@@ -7,6 +7,14 @@ const AddAccountWrapper = styled.div`
   .managementProductTitle {
     width: 150px;
   }
+  .accountTemporarySaveBtn {
+    height: 40px;
+    position: relative;
+    button {
+      position: absolute;
+      right: 0;
+    }
+  }
 `;
 
 export { AddAccountWrapper };

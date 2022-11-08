@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
+import { useMutation } from 'react-query';
+import { postAccountNew } from '../../../../apis/admin/account';
 import { BlackButton } from '../../../../components/common/Button.style';
 import { HorizontalLine } from '../../../../components/common/HorizontalLine.style';
 import { WhiteWrapper } from '../../../../components/seller/common/Box.style';
@@ -8,17 +10,65 @@ import {
   AddProductBtnWrapper,
   ProductStatusWrapper,
 } from '../../../../components/seller/products/productsManagement/ProductManagement.style';
+import { getDateNoConnect } from '../../../../utils/commonFunction';
 import AccountDataList from './AccountDataList';
 import { AddAccountWrapper } from './AddAccount.styled';
 export default function AddAccount() {
   const [name, setName] = useState('');
   const [content, setContent] = useState('');
-  const [category, setCategory] = useState('배너');
+  const [category, setCategory] = useState('상품');
+  const [categoryId, setCategoryId] = useState(1);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [dataCount, setDataCount] = useState('');
   const [dataGroupCount, setDataGroupCount] = useState('');
   const [dataVisible, setDataVisible] = useState(false);
+  const [items, setItems] = useState([]);
+
+  const { mutate: accountNew } = useMutation('postAccountNew', postAccountNew, {
+    onSuccess: () => {
+      console.log('성공');
+    },
+  });
+  const validataionCheck = () => {
+    // 유효성 체크
+    if (name === '') {
+      alert('이름을 입력해주세요');
+      return false;
+    } else if (content === '') {
+      alert('설명을 입력해주세요');
+      return false;
+    } else if (startTime === '') {
+      alert('시작 시간을 입력해주세요');
+      return false;
+    } else if (endTime === '') {
+      alert('종료 시간을 입력해주세요');
+      return false;
+    } else if (content === '') {
+      alert('설명을 입력해주세요');
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const submitData = {
+    // 상품 정보 데이터 객체화
+    exhibitionAccountCategoryId: categoryId,
+    exhibitionAccountName: name,
+    exhibitionAccountStartTime: getDateNoConnect(startTime),
+    exhibitionAccountEndTime: getDateNoConnect(endTime),
+    exhibitionAccountDetail: content,
+    exhibitionItemsFormRequests: items,
+  };
+
+  const accountNewBtn = () => {
+    // 구좌 등록 버튼
+    const isValidation = validataionCheck();
+    if (isValidation) {
+      accountNew(submitData);
+    }
+  };
 
   const visibleDataBtn = () => {
     if (dataGroupCount === '') {
@@ -47,21 +97,14 @@ export default function AddAccount() {
             setFunction={setContent}
           />
           <HorizontalLine color="#F2F2F2" />
-          <ProductStatusWrapper>
+          <ProductStatusWrapper width="100%">
             <div className="managementProductTitle">카테고리</div>
             <div className="statusBtn">
-              <div
-                className={category === '배너' ? 'statusBtnactive' : ''}
-                onClick={() => {
-                  setCategory('배너');
-                }}
-              >
-                배너
-              </div>
               <div
                 className={category === '상품' ? 'statusBtnactive' : ''}
                 onClick={() => {
                   setCategory('상품');
+                  setCategoryId(1);
                 }}
               >
                 상품
@@ -70,17 +113,28 @@ export default function AddAccount() {
                 className={category === 'SNS' ? 'statusBtnactive' : ''}
                 onClick={() => {
                   setCategory('SNS');
+                  setCategoryId(2);
                 }}
               >
                 SNS
               </div>
               <div
-                className={category === '카테고리' ? 'statusBtnactive' : ''}
+                className={category === '배너' ? 'statusBtnactive' : ''}
                 onClick={() => {
-                  setCategory('카테고리');
+                  setCategory('배너');
+                  setCategoryId(3);
                 }}
               >
-                카테고리
+                배너
+              </div>
+              <div
+                className={category === '뱃지' ? 'statusBtnactive' : ''}
+                onClick={() => {
+                  setCategory('뱃지');
+                  setCategoryId(4);
+                }}
+              >
+                뱃지
               </div>
             </div>
           </ProductStatusWrapper>
@@ -125,8 +179,11 @@ export default function AddAccount() {
       </WhiteWrapper>
       {dataVisible && (
         <AccountDataList
+          setItems={setItems}
           dataCount={dataCount}
           dataGroupCount={dataGroupCount}
+          accountNewBtn={accountNewBtn}
+          categoryId={categoryId}
         />
       )}
     </>

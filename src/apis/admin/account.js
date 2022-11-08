@@ -1,5 +1,11 @@
 import { JWTapiAdmin } from '.';
 
+// 전시구좌 리스트 조회
+const getAccountList = async pageNo => {
+  const response = await JWTapiAdmin.get(`/exhibition/account/list/${pageNo}`);
+  return response.data.data;
+};
+
 // 전시구좌 추가
 const postAccountNew = async data => {
   const response = await JWTapiAdmin.post('/exhibition/account/new', data);
@@ -22,19 +28,11 @@ const postAccountNew = async data => {
 //               "exhibitionCategoryId":2,
 //               "exhibitionItemNumber":1,
 //               "exhibitionItemPriority":1,
-//               "exhibitionItemStartTime":20221027,
-//               "exhibitionItemEndTime":20221028,
-//               "exhibitionItemCreatedAt":202020200202020,
-//               "exhibitionItemModifiedAt":20202020202021
 //           },
 //           {
 //               "exhibitionCategoryId":2,
 //               "exhibitionItemNumber":2,
 //               "exhibitionItemPriority":2,
-//               "exhibitionItemStartTime":20221027,
-//               "exhibitionItemEndTime":20221028,
-//               "exhibitionItemCreatedAt":202020200202020,
-//               "exhibitionItemModifiedAt":20202020202021
 //           }
 //       ]
 //   },
@@ -48,19 +46,11 @@ const postAccountNew = async data => {
 //               "exhibitionCategoryId":2,
 //               "exhibitionItemNumber":1,
 //               "exhibitionItemPriority":1,
-//               "exhibitionItemStartTime":20221027,
-//               "exhibitionItemEndTime":20221028,
-//               "exhibitionItemCreatedAt":202020200202020,
-//               "exhibitionItemModifiedAt":20202020202021
 //           },
 //           {
 //               "exhibitionCategoryId":2,
 //               "exhibitionItemNumber":2,
 //               "exhibitionItemPriority":2,
-//               "exhibitionItemStartTime":20221027,
-//               "exhibitionItemEndTime":20221028,
-//               "exhibitionItemCreatedAt":202020200202020,
-//               "exhibitionItemModifiedAt":20202020202021
 //           }
 //       ]
 //   },
@@ -74,19 +64,11 @@ const postAccountNew = async data => {
 //               "exhibitionCategoryId":2,
 //               "exhibitionItemNumber":1,
 //               "exhibitionItemPriority":1,
-//               "exhibitionItemStartTime":20221027,
-//               "exhibitionItemEndTime":20221028,
-//               "exhibitionItemCreatedAt":202020200202020,
-//               "exhibitionItemModifiedAt":20202020202021
 //           },
 //           {
 //               "exhibitionCategoryId":2,
 //               "exhibitionItemNumber":2,
 //               "exhibitionItemPriority":2,
-//               "exhibitionItemStartTime":20221027,
-//               "exhibitionItemEndTime":20221028,
-//               "exhibitionItemCreatedAt":202020200202020,
-//               "exhibitionItemModifiedAt":20202020202021
 //           }
 //       ]
 //   },
@@ -100,19 +82,11 @@ const postAccountNew = async data => {
 //               "exhibitionCategoryId":2,
 //               "exhibitionItemNumber":3,
 //               "exhibitionItemPriority":1,
-//               "exhibitionItemStartTime":20221027,
-//               "exhibitionItemEndTime":20221028,
-//               "exhibitionItemCreatedAt":202020200202020,
-//               "exhibitionItemModifiedAt":20202020202021
 //           },
 //           {
 //               "exhibitionCategoryId":2,
 //               "exhibitionItemNumber":4,
 //               "exhibitionItemPriority":2,
-//               "exhibitionItemStartTime":20221027,
-//               "exhibitionItemEndTime":20221028,
-//               "exhibitionItemCreatedAt":202020200202020,
-//               "exhibitionItemModifiedAt":20202020202021
 //           }
 //       ]
 //   }
@@ -144,13 +118,13 @@ const getExhibitionCategoryNo = async exhibitionCategoryNo => {
   const response = await JWTapiAdmin.get(
     `/exhibition/account/by-category/${exhibitionCategoryNo}`,
   );
-  return response;
+  return response.data.data;
 };
 
 // 전시 구좌 내 소재리스트 불러오기
 const getExhibitionItems = async exhibitionAccountId => {
   const response = await JWTapiAdmin.get(
-    `/exhibition/accout/items/${exhibitionAccountId}`,
+    `/exhibition/account/items/${exhibitionAccountId}`,
   );
   return response.data.data;
 };
@@ -172,6 +146,7 @@ const getExhibitionAccountId = async exhibitionAccountId => {
 };
 
 export {
+  getAccountList,
   postAccountNew,
   putAccountUpdate,
   putAccountDelete,

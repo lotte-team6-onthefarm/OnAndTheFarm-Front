@@ -48,6 +48,26 @@ const getDateDotFormat = date => {
   return replaced_str;
 };
 
+const getDateNoConnect = date => {
+  // 날짜포맷 변경 (YYYYMMDDHHMMSS)
+  let replaced_str =
+    date.replace(/-/g, '').replace(/T/g, '').replace(/:/g, '') + '00';
+  return replaced_str;
+};
+
+const getDateConnect = date => {
+  // 날짜포맷 변경 (YYYYMMDDHHMMSS-> YYYY-MM-DD HH:MM:SS)
+  // console.log(date);
+  let year = date.substr(0, 4);
+  let month = date.slice(4, 6);
+  let day = date.slice(6, 8);
+  let hour = date.slice(8, 10);
+  let minute = date.slice(10, 12);
+  let dayString =
+    year + '년' + month + '월' + day + '일 ' + hour + '시' + minute + '분';
+  return dayString;
+};
+
 // 날짜 자르기
 const getNoTimeDate = date => {
   //2022.10.14
@@ -120,5 +140,7 @@ export {
   getOrderNumber,
   getDateDotFormat,
   getGoneTime,
+  getDateNoConnect,
+  getDateConnect,
   changeStatusName,
 };
