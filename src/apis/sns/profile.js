@@ -2,13 +2,13 @@ import { ApiUser, JWTapiUser } from '../user/index';
 
 // 팔로우 기능
 const postAddFollow = async data => {
-  const response = await JWTapiUser.post('follow/add', data);
+  const response = await JWTapiUser.post('members/follow/add', data);
   return response.data.data;
 };
 
 // 팔로우 취소 기능
 const putCancelFollow = async data => {
-  const response = await JWTapiUser.put('follow/cancel', data);
+  const response = await JWTapiUser.put('members/follow/cancel', data);
   return response.data.data;
 };
 
@@ -16,12 +16,12 @@ const putCancelFollow = async data => {
 const getProfileInfo = async data => {
   if (data.memberId === '0') {
     // 나 자신일 때
-    const response = await JWTapiUser.get(`profile`);
+    const response = await JWTapiUser.get(`members/profile`);
     return response.data.data;
   } else {
     const response = await JWTapiUser.get(
       // 상대 프로필 정보 받아오기
-      `profile?memberId=${data.memberId}&memberRole=${data.memberRole}`,
+      `members/profile?memberId=${data.memberId}&memberRole=${data.memberRole}`,
     );
     return response.data.data;
   }
@@ -46,11 +46,11 @@ const getFollowerList = async (pageParam, memberId, memberRole) => {
   if (memberId === '0') {
     // 나 자신일 때
     response = await JWTapiUser.get(
-      `follow/follower-list?pageNumber=${pageParam}`,
+      `members/follow/follower-list?pageNumber=${pageParam}`,
     );
   } else {
     response = await JWTapiUser.get(
-      `follow/follower-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
+      `members/follow/follower-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
     );
   }
   console.log(response, '응답값');
@@ -67,11 +67,11 @@ const getFollowingList = async (pageParam, memberId, memberRole) => {
   if (memberId === '0') {
     // 나 자신일 때
     response = await JWTapiUser.get(
-      `follow/following-list?pageNumber=${pageParam}`,
+      `members/follow/following-list?pageNumber=${pageParam}`,
     );
   } else {
     response = await JWTapiUser.get(
-      `follow/following-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
+      `members/follow/following-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
     );
   }
   return {

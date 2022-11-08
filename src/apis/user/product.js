@@ -8,6 +8,7 @@ const getProducts = async data => {
   } else {
     response = await ApiUser.get(`product/list${data.url}/${data.page}`);
   }
+
   return response.data.data;
 };
 
@@ -15,9 +16,9 @@ const getProducts = async data => {
 const getProduct = async data => {
   let response;
   if (localStorage.getItem('token') !== null) {
-    response = await JWTapiUser.get(`product/${data}`);
+    response = await JWTapiUser.get(`product/detail/${data}`);
   } else {
-    response = await ApiUser.get(`product/${data}`);
+    response = await ApiUser.get(`product/detail/${data}`);
   }
   return response.data.data;
 };

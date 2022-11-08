@@ -6,11 +6,11 @@ const getFeedList = async (data, pageParam) => {
   let response = {};
   if (data.url === '/search') {
     response = await JWTapiUser.get(
-      `sns/list/tag?feedTagName=${data.searchWord}&pageNumber=${pageParam}`,
+      `sns/feed/list/tag?feedTagName=${data.searchWord}&pageNumber=${pageParam}`,
     );
   } else {
     response = await JWTapiUser.get(
-      `sns/list${data.url}?pageNumber=${pageParam}`,
+      `sns/feed/list/orderby${data.url}?pageNumber=${pageParam}`,
     );
   }
   return {
