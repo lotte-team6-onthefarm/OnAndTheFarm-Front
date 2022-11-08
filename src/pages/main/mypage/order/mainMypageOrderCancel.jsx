@@ -1,29 +1,43 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import MenuTabComp from '../../../components/main/mypage/MenuTabComp';
-import { EmptyTable } from '../../../components/seller/main/popularProducts/MainPopularProducts.style';
-import { ProductReviewsTable } from '../../../components/seller/products/productReviews/ProductReviews.style';
-import { ReviewContentDiv } from './mainMypageReview.style';
-import ReviewEditInput from '../../../components/main/mypage/ReviewEditInput';
-import { getCancelOrderList, getMyOrderList } from '../../../apis/user/order';
-import OrderItemComp from '../../../components/main/mypage/OrderItem';
 import { useNavigate } from 'react-router-dom';
-import { changeStatusName, getNoSecDate } from '../../../utils/commonFunction';
+import { changeStatusName, getNoSecDate } from '../../../../utils/commonFunction';
+import Pagination from '../../../../components/common/Pagination';
+import MenuTabComp from '../../../../components/main/mypage/MenuTabComp';
+import { ReviewContentDiv } from './mainMypageOrderDetail.style';
+import { EmptyTable } from '../../../../components/seller/main/popularProducts/MainPopularProducts.style';
+import { ProductReviewsTable } from '../../../../components/seller/products/productReviews/ProductReviews.style';
+import { getCancelOrderList } from '../../../../apis/user/order';
 
 export default function MainMypageOrderCancel() {
-  const menuTab = [
-    { title: '주문내역', url: '/mypage/orders/list' },
-    { title: '주문취소/반품 내역', url: '/mypage/orders/cancel' },
-  ];
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+
+
   const {
     isLoading: cancelOrderListLoading,
-    // refetch: getCancelOrderListRefetch,
+    refetch: getCancelOrderListRefetch,
     data: claimList,
-  } = useQuery('CancelOrderList', () => getCancelOrderList(0), {
-    onError: () => {
-      console.log('error');
+  } = useQuery(
+    ['getCancelOrderList', nowPage],
+    () =>
+    getCancelOrderList({
+        page: nowPage,
+      }),
+    {
+      refetchOnWindowFocus: true,
+      keepPreviousData: true,
+      onSuccess: res => {
+        console.log(res)
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
+      },
+      onError: () => {
+        console.log('에러');
+      },
     },
-  });
+  );
+
   // hook
   const navigate = useNavigate();
   const moveDetail = id => {
@@ -32,7 +46,6 @@ export default function MainMypageOrderCancel() {
 
   return (
     <div>
-      <MenuTabComp menuTab={menuTab}></MenuTabComp>
       <ReviewContentDiv>
         {!cancelOrderListLoading && (
           <>
@@ -80,6 +93,13 @@ export default function MainMypageOrderCancel() {
             )}
           </>
         )}
+        {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
+      )}
       </ReviewContentDiv>
     </div>
   );

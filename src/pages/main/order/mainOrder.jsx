@@ -56,6 +56,7 @@ export default function MainOrder() {
       productList.push({
         productId: preOrderList[index].productId,
         productQty: preOrderList[index].cartQty,
+        productPrice: preOrderList[index].productPrice,
       });
     }
     const data = {

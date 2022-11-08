@@ -3,11 +3,13 @@ import styled from 'styled-components';
 const ProductManagementWrapper = styled.div`
   .title {
     margin-bottom: 10px;
-    width: 200px;
   }
 `;
 
 const ProductTextWrapper = styled.div`
+  .managementProductTitle {
+    width: 150px;
+  }
   margin-bottom: 20px;
   display: flex;
   input {
@@ -26,6 +28,9 @@ const ProductTextWrapper = styled.div`
 `;
 
 const ProductImageWrapper = styled.div`
+  .managementProductTitle {
+    width: 150px;
+  }
   display: flex;
   .image {
     display: flex;
@@ -58,6 +63,9 @@ const ProductImageWrapper = styled.div`
 `;
 
 const ProductCategoryWrapper = styled.div`
+  .managementProductTitle {
+    width: 150px;
+  }
   display: flex;
   margin-bottom: 20px;
   select {
@@ -67,6 +75,9 @@ const ProductCategoryWrapper = styled.div`
 
 const ProductContentWrapper = styled.div`
   display: flex;
+  .managementProductTitle {
+    width: 150px;
+  }
   .content {
     width: 100%;
     height: 200px;
@@ -90,6 +101,9 @@ const ProductContentWrapper = styled.div`
 `;
 
 const ProductStatusWrapper = styled.div`
+  .managementProductTitle {
+    width: 150px;
+  }
   display: flex;
   .statusBtn {
     display: flex;
@@ -101,14 +115,14 @@ const ProductStatusWrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 150px;
+      width: ${props => (props.width ? props.width : '150px')};
       height: 40px;
-      :nth-child(1) {
+      :nth-last-child(n + 2) {
         border-right: none;
       }
-      :nth-child(2) {
+      /* :nth-child(2) {
         border-right: none;
-      }
+      } */
       :hover {
         cursor: pointer;
       }

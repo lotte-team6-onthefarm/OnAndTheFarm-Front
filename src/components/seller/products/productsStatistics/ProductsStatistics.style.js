@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const ProductStatisticsTable = styled.table`
+  width: 100%;
   margin-top: 20px;
   border-collapse: collapse;
   th {
@@ -55,8 +56,9 @@ const ProductStatisticsTable = styled.table`
       padding-left: 20px;
     }
     img {
-      width: 80px;
-      height: 80px;
+      width: 90px;
+      height: 90px;
+      border-radius: 8px;
       object-fit: cover;
     }
   }

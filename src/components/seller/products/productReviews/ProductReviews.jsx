@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { getSellerReview } from '../../../../apis/seller/review';
+import Pagination from '../../../common/Pagination';
 import { WhiteWrapper } from '../../common/Box.style';
 import ReviewStar from '../../common/reviewStar/ReviewStar';
 import { UserImgWrapper } from '../../common/sellerCommon.style';
@@ -11,17 +12,23 @@ import { EmptyTable } from '../../main/popularProducts/MainPopularProducts.style
 import { ProductReviewsTable, ReviewBlock } from './ProductReviews.style';
 
 export default function ProductReviews() {
-  const [pageNo, setPageNo] = useState(0);
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
-  const {
-    isLoading: sellerReviewLoading,
-    // refetch: sellerReviewProduct,
-    data: reviews,
-  } = useQuery('sellerReview', () => getSellerReview(pageNo), {
-    onError: () => {
-      console.log('error');
+  const { isLoading: sellerReviewLoading, data: reviews } = useQuery(
+    ['sellerReview', nowPage],
+    () => getSellerReview(nowPage),
+    {
+      keepPreviousData: true,
+      onSuccess: res => {
+        setNowPage(res.pageVo.nowPage);
+        setTotalPage(res.pageVo.totalPage);
+      },
+      onError: () => {
+        console.log('error');
+      },
     },
-  });
+  );
 
   return (
     <>
@@ -30,12 +37,18 @@ export default function ProductReviews() {
         <SubTitle color="#CABDFF" title="상품별 리뷰" />
         {!sellerReviewLoading && (
           <>
-            {reviews.length === 0 ? (
+            {reviews.reviewSelectionResponses.length === 0 ? (
               <EmptyTable height="60vh">
                 <h3>현재 등록된 리뷰가 없습니다</h3>
               </EmptyTable>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  minHeight: '60vh',
+                }}
+              >
                 <ProductReviewsTable>
                   <thead>
                     <tr style={{ fontSize: '13px' }}>
@@ -44,7 +57,7 @@ export default function ProductReviews() {
                       <th width="25%">상품</th>
                     </tr>
                   </thead>
-                  {reviews.map((review, idx) => {
+                  {reviews.reviewSelectionResponses.map((review, idx) => {
                     return (
                       <tbody key={idx}>
                         <tr>
@@ -80,6 +93,13 @@ export default function ProductReviews() {
               </div>
             )}
           </>
+        )}
+        {totalPage !== 0 && (
+          <Pagination
+            nowPage={nowPage + 1}
+            totalPage={totalPage}
+            setPage={setNowPage}
+          ></Pagination>
         )}
       </WhiteWrapper>
     </>

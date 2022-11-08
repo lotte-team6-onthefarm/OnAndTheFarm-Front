@@ -25,7 +25,7 @@ export default function CategoryEtc(props) {
     <WhiteWrapper width="100%" marginBottom="10px">
       <SubTitle color="#B5E4CA" title="카테고리 및 원산지" />
       <ProductCategoryWrapper>
-        <div className="title">카테고리</div>
+        <div className="managementProductTitle">카테고리</div>
         <CaetgoryList
           categoryId={props.categoryId}
           categoryList={categoryList}

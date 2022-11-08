@@ -47,7 +47,7 @@ const getSellerMyProduct = async (pageNo, status) => {
       isLast: Boolean(response.data.data.totalPage - 1 === pageNo),
     };
   }
-  return response.data.data.productSelectionResponses;
+  return response.data.data;
 };
 
 // 셀러가 일시정지 한 내 상품 조회
@@ -55,7 +55,7 @@ const getSellerPauseProduct = async pageNo => {
   const response = await JWTapiSeller.get(
     `product/list/pause-product/by-seller/${pageNo}`,
   );
-  return response.data.data.productSelectionResponses;
+  return response.data.data;
 };
 
 // 상품 단건조회

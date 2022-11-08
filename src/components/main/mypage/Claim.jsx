@@ -21,6 +21,7 @@ export default function ClaimComp(props) {
     {
       onSuccess: res => {
         alert('성공');
+        window.location.reload();
       },
       onError: () => {
         console.log('에러');
@@ -33,6 +34,7 @@ export default function ClaimComp(props) {
     {
       onSuccess: res => {
         alert('성공');
+        window.location.reload();
       },
       onError: () => {
         console.log('에러');
@@ -58,18 +60,13 @@ export default function ClaimComp(props) {
   return (
     <ClaimDiv>
       {props.orderstatus === 'deliveryCompleted' ? (
-        <h1>환불하기</h1>
+        <div>
+          <h1>환불하기</h1>
+        </div>
       ) : (
         <h1>취소요청</h1>
       )}
-      <TextArea
-        value={refundDetail}
-        onChange={e => setRefundDetail(e.target.value)}
-        label="사유"
-        placeholder=""
-        id="phone"
-        type="text"
-      />
+
       {props.orderstatus === 'deliveryCompleted' ? (
         <Button
           text="환불"
@@ -80,7 +77,7 @@ export default function ClaimComp(props) {
         ></Button>
       ) : (
         <Button
-          text="취소"
+          text="확인"
           color="#3288E5"
           margin="auto auto 20px"
           width="150px"

@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getProfileInfo } from '../../apis/sns/profile';
+import MainCategory from '../../components/main/category/MainCategory';
+import MainBanner from '../../components/main/main/MainBanner';
 import MainCarousel from '../../components/main/main/MainCarousel';
 import MainSns from '../../components/main/main/MainSns';
+import MainSnsCarousel from '../../components/main/main/MainSnsCarousel';
 import MainProductsPopular from '../../components/main/products/MainProductsPopular';
 import { MainContentDiv } from './mainMainPage.style';
 
 export default function MainMainPage() {
-
   //main.js
   /*
     * getFeedByRecent
@@ -182,15 +184,34 @@ export default function MainMainPage() {
       feedId : 4
     }
   */
+  const mainLayout = [
+    'EasterEgg',
+    'MainCarousel',
+    'MainProductsPopular',
+    'MainSnsCarousel',
+    'MainCategory',
+    'MainBanner',
+    'MainSns',
+  ];
+  const components = {
+    MainCarousel: <MainCarousel />,
+    MainCategory: <MainCategory />,
+    MainProductsPopular: <MainProductsPopular />,
+    MainBanner: <MainBanner />,
+    MainSnsCarousel: <MainSnsCarousel />,
+    MainSns: <MainSns />,
+    EasterEgg: (
+      <div style={{ margin: '100px 0', display: 'none' }}>
+        <Link to="snstest">등록</Link>
+      </div>
+    ),
+  };
 
   return (
     <MainContentDiv>
-      <MainCarousel />
-      <MainProductsPopular />
-      <MainSns />
-      <div style={{ margin: '100px 0' }}>
-        <Link to="snstest">등록</Link>
-      </div>
+      {mainLayout.map((item, idx) => {
+        return <div key={idx}>{components[item]}</div>;
+      })}
     </MainContentDiv>
   );
 }

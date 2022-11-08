@@ -8,6 +8,7 @@ import {
   getDateFormat,
 } from '../../../utils/commonFunction';
 import Modal from '../../common/Modal';
+import Pagination from '../../common/Pagination';
 import useDidMountEffect from '../../common/useDidMountEffect';
 import { WhiteWrapper } from '../common/Box.style';
 import { GreenPurpleStatusButton } from '../common/ColorStatusButton';
@@ -36,7 +37,6 @@ export default function OrderList() {
     if (id !== undefined) {
       setOrderState(id);
     }
-    console.log(id, 'id');
   }, [id]);
 
   // usestate
@@ -45,7 +45,8 @@ export default function OrderList() {
   const [orderState, setOrderState] = useState('canceled');
   const [modal, setModal] = useState(false);
   const [selectData, setSelectData] = useState({});
-  const [pageNo, setPageNo] = useState(0);
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
   // function
   const orderStateHandler = num => {
@@ -79,21 +80,24 @@ export default function OrderList() {
     isLoading: isOrderClaimListLoading,
     refetch: orderClaimListRefetch,
   } = useQuery(
-    'orderClaimList',
+    ['orderClaimList', nowPage],
     () =>
       getSellerOrderClaimList(
         getDateDotFormat(startDate),
         getDateDotFormat(endDate),
-        pageNo,
+        nowPage,
         orderState,
       ),
     {
+      keepPreviousData: true,
       refetchOnMount: true,
       enabled: startDate !== '' && endDate !== '',
+      onSuccess: res => {
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
+      },
     },
   );
-
-  console.log(orderClaimListData, 'asdsad');
 
   // useeffect
   useEffect(() => {
@@ -113,118 +117,123 @@ export default function OrderList() {
   return (
     <WhiteWrapper width="100%" minHeight="80vh">
       <SubTitle color="#FFBC99" title="취소/반품 관리 내역" />
-      <DeliveryButtonWrapper state={orderState}>
-        <div
-          className="orderStateButton"
-          onClick={() => {
-            orderStateHandler('canceled');
-          }}
-        >
-          취소 내역
-        </div>
-        <div
-          className="orderStateButton"
-          onClick={() => {
-            orderStateHandler('refundRequest');
-          }}
-        >
-          반품 내역
-        </div>
-      </DeliveryButtonWrapper>
-      <div>
-        <OrderButtonWrapper />
-        <OrderDateWrapper>
-          <div>조회기간</div>
-          <input
-            type="date"
-            value={startDate}
-            onChange={startDateHandler}
-          /> ~ <input type="date" value={endDate} onChange={endDateHandler} />
-        </OrderDateWrapper>
-        {!isOrderClaimListLoading && startDate !== '' && endDate !== '' && (
-          <>
-            {orderClaimListData.length === 0 ? (
-              <EmptyTable height="50vh">
-                <h3>신청된 취소/반품 내역이 없습니다</h3>
-              </EmptyTable>
-            ) : (
-              <OrderTableWrapper>
-                <thead>
-                  <tr>
-                    <th width="40%">상품명/옵션</th>
-                    <th width="20%">취소/반품 상태</th>
-                    <th width="20%">주문일</th>
-                    <th width="20%">주문자</th>
-                  </tr>
-                </thead>
+      <div style={{ minHeight: '60vh' }}>
+        <DeliveryButtonWrapper state={orderState}>
+          <div
+            className="orderStateButton"
+            onClick={() => {
+              orderStateHandler('canceled');
+            }}
+          >
+            취소 내역
+          </div>
+          <div
+            className="orderStateButton"
+            onClick={() => {
+              orderStateHandler('refundRequest');
+            }}
+          >
+            반품 내역
+          </div>
+        </DeliveryButtonWrapper>
+        <div>
+          <OrderButtonWrapper />
+          <OrderDateWrapper>
+            <div>조회기간</div>
+            <input
+              type="date"
+              value={startDate}
+              onChange={startDateHandler}
+            />{' '}
+            ~ <input type="date" value={endDate} onChange={endDateHandler} />
+          </OrderDateWrapper>
+          {!isOrderClaimListLoading && startDate !== '' && endDate !== '' && (
+            <>
+              {orderClaimListData.responses.length === 0 ? (
+                <EmptyTable height="50vh">
+                  <h3>신청된 취소/반품 내역이 없습니다</h3>
+                </EmptyTable>
+              ) : (
+                <OrderTableWrapper>
+                  <thead>
+                    <tr>
+                      <th width="40%">상품명/옵션</th>
+                      <th width="20%">취소/반품 상태</th>
+                      <th width="20%">주문일</th>
+                      <th width="20%">주문자</th>
+                    </tr>
+                  </thead>
 
-                {orderClaimListData.map((data, idx) => {
-                  return orderState === 'canceled' ? (
-                    <CancleList data={data} />
-                  ) : (
-                    <tbody
-                      key={idx}
-                      onClick={() => {
-                        setSelectData(data);
-                        setModal(!modal);
-                      }}
-                      className="refundTBody"
-                    >
-                      <tr>
-                        <td className="title">
-                          <img src={data.orderProductMainImg} alt="" />
-                          <div>{data.title}</div>
-                          {data.orderProductName} / ({data.orderProductQty}EA)
-                        </td>
-                        <td className="content">
-                          <GreenPurpleStatusButton
-                            // canceled : 주문취소
-                            // refundRequest : 반품신청
-                            // refundCompleted : 반품확정
-                            fontSize="15px"
-                            text={
-                              (data.orderProductStatus === 'canceled' &&
-                                '취소요청') ||
-                              (data.orderProductStatus === 'refundRequest' &&
-                                '반품신청') ||
-                              (data.orderProductStatus === 'refundCompleted' &&
-                                '반품확정')
-                            }
-                            status={
-                              (data.orderProductStatus === 'canceled' && 1) ||
-                              (data.orderProductStatus === 'refundRequest' &&
-                                2) ||
-                              (data.orderProductStatus === 'refundCompleted' &&
-                                3)
-                            }
-                          />
-                        </td>
-                        <td className="content">{data.ordersDate}</td>
-                        <td>
-                          <div
-                            style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                            }}
-                          >
-                            <UserImgWrapper
-                              src={data.userProfile}
-                              alt=""
-                              width="30px"
-                            ></UserImgWrapper>
-                            <div style={{ paddingLeft: '10px' }}>
-                              {data.userName}
+                  {orderClaimListData.responses.map((data, idx) => {
+                    return orderState === 'canceled' ? (
+                      <CancleList data={data} key={idx} />
+                    ) : (
+                      <tbody
+                        key={idx}
+                        onClick={() => {
+                          setSelectData(data);
+                          setModal(!modal);
+                        }}
+                        className="refundTBody"
+                      >
+                        <tr>
+                          <td className="title">
+                            <img src={data.orderProductMainImg} alt="" />
+                            <div>{data.title}</div>
+                            {data.orderProductName} / ({data.orderProductQty}EA)
+                          </td>
+                          <td className="content">
+                            <GreenPurpleStatusButton
+                              // canceled : 주문취소
+                              // refundRequest : 반품신청
+                              // refundCompleted : 반품확정
+                              fontSize="15px"
+                              text={
+                                (data.orderProductStatus === 'canceled' &&
+                                  '취소요청') ||
+                                (data.orderProductStatus === 'refundRequest' &&
+                                  '반품신청') ||
+                                (data.orderProductStatus ===
+                                  'refundCompleted' &&
+                                  '반품확정')
+                              }
+                              status={
+                                (data.orderProductStatus === 'canceled' && 1) ||
+                                (data.orderProductStatus === 'refundRequest' &&
+                                  2) ||
+                                (data.orderProductStatus ===
+                                  'refundCompleted' &&
+                                  3)
+                              }
+                            />
+                          </td>
+                          <td className="content">{data.ordersDate}</td>
+                          <td>
+                            <div
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <UserImgWrapper
+                                src={data.userProfile}
+                                alt=""
+                                width="30px"
+                              ></UserImgWrapper>
+                              <div style={{ paddingLeft: '10px' }}>
+                                {data.userName}
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  );
-                })}
-              </OrderTableWrapper>
-            )}
-          </>
-        )}
+                          </td>
+                        </tr>
+                      </tbody>
+                    );
+                  })}
+                </OrderTableWrapper>
+              )}
+            </>
+          )}
+        </div>
       </div>
 
       {/* modal */}
@@ -235,6 +244,13 @@ export default function OrderList() {
             closeModal={() => setModal(!modal)}
           />
         </Modal>
+      )}
+      {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
       )}
     </WhiteWrapper>
   );

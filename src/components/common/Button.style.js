@@ -30,6 +30,14 @@ const WhiteButton = styled(StyledButton)`
   }
 `;
 
+const BlackButton = styled(StyledButton)`
+  background-color: #000000;
+`;
+
+const GrayButton = styled(StyledButton)`
+  background-color: #707070;
+`;
+
 const WhiteButtonNoHover = styled(StyledButton)`
   background-color: ${props => props.theme.colors.white};
   border: solid 1px ${props => props.theme.colors.gray};
@@ -43,4 +51,6 @@ export {
   BlueButton,
   WhiteButton,
   WhiteButtonNoHover,
+  BlackButton,
+  GrayButton,
 };

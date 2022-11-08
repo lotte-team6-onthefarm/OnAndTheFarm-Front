@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { getSellerQna } from '../../../../apis/seller/qna';
 import { getGoneTime } from '../../../../utils/commonFunction';
+import Pagination from '../../../common/Pagination';
 import { WhiteWrapper } from '../../common/Box.style';
 import { GreenRedStatusButton } from '../../common/ColorStatusButton';
 import { UserImgWrapper } from '../../common/sellerCommon.style';
@@ -16,6 +17,8 @@ import AnswerBox from './AnswerBox';
 
 export default function ProductQnAs() {
   const [selected, setSelected] = useState([]);
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
   const selectedAddHandler = idx => {
     setSelected([idx, ...selected]);
   };
@@ -27,35 +30,17 @@ export default function ProductQnAs() {
     isLoading: sellerQnALoading,
     // refetch: sellerMainProduct,
     data: qnas,
-  } = useQuery('sellerQnA', () => getSellerQna(), {
+  } = useQuery(['sellerQnA', nowPage], () => getSellerQna(nowPage), {
+    keepPreviousData: true,
+    onSuccess: res => {
+      setNowPage(res.currentPageNum);
+      setTotalPage(res.totalPageNum);
+    },
     onError: () => {
       console.log('error');
     },
   });
-  const datas = [
-    {
-      name: '손은성',
-      review: '과일 최소 주문수량이 어떻게 되죠?',
-      productName: '경북 청도 천도복숭아 2kg/1box',
-      productQnaStatus: 'completed',
-      productQnaAnswer: '최소 주문수량은 5개 입니다',
-    },
-    {
-      name: '김명자',
-      review: '포도 당도가 어떻게 되나요? 따로 주문하면 따로 배송이 될까요?',
-      productName: '국내산 프리미엄 거봉포도 900g',
-      productQnaStatus: 'waiting',
-      productQnaAnswer: null,
-    },
-    {
-      name: '박철순',
-      review:
-        '과일이 정말 신선하네요! 믿고 구매할 수 있는 상품이라 마음에 들어요 ㅎㅎ 하지만 배송이 조금 느려서 아쉬웠어요ㅜ 혹시 배송업체를 바꾸 실 생각은 없으신가요?',
-      productName: '경북 청도 천도복숭아 2kg/1box',
-      productQnaStatus: 'waiting',
-      productQnaAnswer: null,
-    },
-  ];
+  console.log(qnas, 'asdasd');
   return (
     <>
       <SellerTitle>QnA 관리</SellerTitle>
@@ -63,7 +48,7 @@ export default function ProductQnAs() {
         <SubTitle color="#B5E4CA" title="상품별 QnA" />
         {!sellerQnALoading && (
           <>
-            {qnas.length === 0 ? (
+            {qnas.sellerProductQnaResponseList.length === 0 ? (
               <EmptyTable height="60vh">
                 <h3>현재 등록된 QnA가 없습니다.</h3>
               </EmptyTable>
@@ -78,7 +63,7 @@ export default function ProductQnAs() {
                       <th width="25%">상품</th>
                     </tr>
                   </thead>
-                  {qnas.map((qna, idx) => {
+                  {qnas.sellerProductQnaResponseList.map((qna, idx) => {
                     return (
                       <tbody
                         key={idx}
@@ -138,6 +123,13 @@ export default function ProductQnAs() {
               </div>
             )}
           </>
+        )}
+        {totalPage !== 0 && (
+          <Pagination
+            nowPage={nowPage + 1}
+            totalPage={totalPage}
+            setPage={setNowPage}
+          ></Pagination>
         )}
       </WhiteWrapper>
     </>

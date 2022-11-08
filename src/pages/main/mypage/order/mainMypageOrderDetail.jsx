@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { ReviewContentDiv } from './mainMypageOrderDetail.style';
-import { getMyOrderList, getOrderDetail } from '../../../apis/user/order';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {
-  PreOrderItems,
-  PreOrderListDiv,
-  PreOrderListHeader,
-} from '../order/mainOrder.style';
-import Input from '../../../components/common/Input';
-import ProductListComp from '../../../components/main/products/ProductList';
-import OrderProductComp from '../../../components/main/mypage/OrderProductComp';
-import Modal from '../../../components/common/Modal';
-import { ClaimDiv } from '../../../components/main/mypage/Claim.style';
-import ClaimComp from '../../../components/main/mypage/Claim';
+import { getOrderDetail } from '../../../../apis/user/order';
+import Input from '../../../../components/common/Input';
+import { PreOrderItems, PreOrderListDiv, PreOrderListHeader } from '../../order/mainOrder.style';
+import ClaimComp from '../../../../components/main/mypage/Claim'
+import OrderProductComp from '../../../../components/main/mypage/OrderProductComp'
+import Modal from '../../../../components/common/Modal'
+
 
 export default function MainMypageOrderDetail() {
   const { state } = useLocation();

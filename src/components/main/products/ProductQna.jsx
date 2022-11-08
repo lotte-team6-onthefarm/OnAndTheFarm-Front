@@ -7,28 +7,41 @@ import { ProductQnaDiv, QnaListDiv } from './ProductQna.style';
 import Modal from '../../common/Modal';
 import MakeQna from '../qna/MakeQna';
 import NoneFeed from '../../sns/main/NoneFeed';
+import Pagination from '../../common/Pagination';
 
 export default function ProductQnaComp(props) {
   const productId = props.productDetailId;
-
   const [modal, setModal] = useState(false);
-  const [selectData, setSelectData] = useState('');
-  const test = () => {
-    setModal(!modal);
-  };
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
-  const { isLoading: isGetQnaList, data: qnaList } = useQuery(
-    'qnaList',
-    () => getQnaList(productId),
+  const {
+    isLoading: isGetQnaList,
+    refetch: getQnaListRefetch,
+    data: qnaList,
+  } = useQuery(
+    ['getQnaList', nowPage],
+    () =>
+    getQnaList({
+      productId: productId,
+        page: nowPage,
+      }),
     {
       refetchOnWindowFocus: true,
-      refetchOnMount: true,
-      onSuccess: res => {},
+      keepPreviousData: true,
+      onSuccess: res => {
+        setNowPage(res.currentPageNum);
+        setTotalPage(res.totalPageNum);
+      },
       onError: () => {
         console.log('에러');
       },
     },
   );
+
+  const openModal = () => {
+    setModal(!modal);
+  };
 
   return (
     <ProductQnaDiv>
@@ -39,7 +52,7 @@ export default function ProductQnaComp(props) {
           color="#40AA54"
           width="130px"
           height="30px"
-          onClick={test}
+          onClick={openModal}
           margin="10px"
         ></Button>
       </div>
@@ -64,6 +77,13 @@ export default function ProductQnaComp(props) {
             })}
           </QnaListDiv>
         ))}
+      {totalPage !== 0 && (
+        <Pagination
+          nowPage={nowPage + 1}
+          totalPage={totalPage}
+          setPage={setNowPage}
+        ></Pagination>
+      )}
       {modal && (
         <Modal closeModal={() => setModal(!modal)} style={{ zIndex: '10' }}>
           <MakeQna id={productId} setModal={setModal}></MakeQna>

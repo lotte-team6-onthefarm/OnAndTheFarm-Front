@@ -28,7 +28,7 @@ export default function ColumnChart() {
         },
       },
     },
-    series: [{ name: 'data', data: series2 }],
+    series: [{ name: '데이터', data: series2 }],
   };
   return (
     <Fragment>

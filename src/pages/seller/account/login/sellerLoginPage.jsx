@@ -36,6 +36,7 @@ export default function SellerLoginPage() {
   };
   const { mutate: sellerLogin } = useMutation(postSellerlogin, {
     onSuccess: res => {
+      console.log(res);
       if (localStorage.getItem('token') !== undefined) {
         // 셀러 로그인 시 유저 정보 있으면 셀러 토큰 제거
         localStorage.removeItem('token');
@@ -46,8 +47,15 @@ export default function SellerLoginPage() {
         localStorage.removeItem('recoil-persist');
       }
       localStorage.setItem('token', res.data.token.token);
-      localStorage.setItem('role', 'seller');
-      document.location.href = '/seller';
+      
+
+      if (res.data.role === 'admin') {
+        localStorage.setItem('role', 'admin');
+        document.location.href = '/admin';
+      } else {
+        localStorage.setItem('role', 'seller');
+        document.location.href = '/seller';
+      }
     },
     onError: () => {
       alert('아이디 또는 비밀번호가 일치하지 않습니다.');

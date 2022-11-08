@@ -12,7 +12,6 @@ import {
 
 export default function MainPopularProducts(props) {
   const products = props.products;
-  console.log(products, '야야양');
 
   // hook
   const navigate = useNavigate();
@@ -20,6 +19,9 @@ export default function MainPopularProducts(props) {
   //function
   const productUrl = () => {
     navigate('/seller/products');
+  };
+  const productDetailUrl = productId => {
+    navigate(`/products/detail/${productId}`);
   };
   return (
     <WhiteWrapper
@@ -46,7 +48,11 @@ export default function MainPopularProducts(props) {
               {products.map((product, idx) => {
                 return (
                   <tr key={idx}>
-                    <td>
+                    <td
+                      onClick={() => {
+                        productDetailUrl(product.productId);
+                      }}
+                    >
                       <img src={product.productMainImgSrc} alt="" />
                       <div className="title">{product.productName}</div>
                     </td>

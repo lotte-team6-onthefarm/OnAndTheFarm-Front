@@ -77,7 +77,7 @@ export default function UpdateProductImage(props) {
   return (
     <ProductImageWrapper>
       <div>
-        <div className="title">{props.title}</div>
+        <div className="managementProductTitle">{props.title}</div>
         <div className="deleteImage" onClick={deleteImg}>
           모든 이미지 삭제하기
         </div>

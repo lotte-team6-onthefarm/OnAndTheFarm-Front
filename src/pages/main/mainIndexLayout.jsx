@@ -18,6 +18,7 @@ import SuccessPage from './successPage';
 import SnsIndexLayout from '../sns/snsIndexLayout';
 import SnsMainLayout from '../sns/main/Main';
 import FeedDetail from '../sns/feedDetail/FeedDetail';
+import MainNaverLogin from './account/mainNaverLogin';
 
 export default function MainIndexLayout() {
   return (
@@ -41,6 +42,11 @@ export default function MainIndexLayout() {
             exact
             path="/login/success/kakao"
             element={<MainKakaoLogin />}
+          />
+          <Route
+            exact
+            path="/login/success/naver"
+            element={<MainNaverLogin />}
           />
           <Route exact path="/order/success" element={<SuccessPage />} />
           <Route path="*" element={<NotFound />}></Route>

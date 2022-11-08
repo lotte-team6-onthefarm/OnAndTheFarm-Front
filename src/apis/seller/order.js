@@ -10,7 +10,7 @@ const getSellerOrderList = async (
   const response = await JWTapiSeller.get(
     `orders/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}&ordersStatus=${deliveryState}`,
   );
-  return response.data.data.responses;
+  return response.data.data;
 };
 
 // 셀러 주문 상세내역 조회
@@ -31,7 +31,7 @@ const getSellerOrderClaimList = async (
   const response = await JWTapiSeller.get(
     `orders/claim/list?startDate=${startDate}&endDate=${endDate}&pageNumber=${pageNo}&ordersStatus=${orderState}`,
   );
-  return response.data.data.responses;
+  return response.data.data;
 };
 
 // 셀러 반품/취소 상세 내역 조회

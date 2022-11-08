@@ -32,7 +32,9 @@ export default function MainSalesStatistics() {
             {conditionData.sellingProducts}
           </div>
         </SalesStatisticsBlock>
-        <SalesStatisticsBlock onClick={() => navigate('products')}>
+        <SalesStatisticsBlock
+          onClick={() => navigate('products', { state: 'pause' })}
+        >
           <div className="SalesStatisticsTitle">판매 중지</div>
           <div className="SalesStatisticsCount">{conditionData.notSelling}</div>
         </SalesStatisticsBlock>

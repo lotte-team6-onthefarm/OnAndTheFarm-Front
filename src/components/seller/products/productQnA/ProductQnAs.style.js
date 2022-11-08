@@ -5,6 +5,7 @@ const AnswerBoxWrapper = styled.div`
 `;
 
 const AnswerBtnBox = styled.div`
+  height: 0px;
   color: ${props => props.theme.colors.blue};
   font-size: 15px;
   cursor: pointer;

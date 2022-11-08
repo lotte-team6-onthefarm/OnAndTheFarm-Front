@@ -5,7 +5,7 @@ export default function ProductInput(props) {
   const setFunction = props.setFunction;
   return (
     <ProductTextWrapper>
-      <div className="title">{props.title}</div>
+      <div className="managementProductTitle">{props.title}</div>
       <input
         placeholder={props.placeholder}
         onChange={e => {

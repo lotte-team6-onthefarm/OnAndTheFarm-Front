@@ -41,7 +41,6 @@ export default function MainProductList() {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-  const [isFirst, setIsFirst] = useState(false);
 
   const {
     isLoading: isGetProductList,
@@ -60,7 +59,6 @@ export default function MainProductList() {
       onSuccess: res => {
         setNowPage(res.pageVo.nowPage);
         setTotalPage(res.pageVo.totalPage);
-        setIsFirst(true);
       },
       onError: () => {
         console.log('에러');
