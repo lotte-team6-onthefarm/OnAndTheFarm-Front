@@ -12,8 +12,9 @@ export default function AddDisplayAccountList(props) {
     ['getExhibitionCategoryNo', props.categoryId],
     () => getExhibitionCategoryNo(props.categoryId),
     {
+      keepPreviousData: true,
       onSuccess: res => {
-        if (res[0].exhibitionAccountId !== undefined)
+        if (res.length > 0 && res[0].exhibitionAccountId !== undefined)
           props.setAccount(res[0].exhibitionAccountId);
       },
       onError: () => {},

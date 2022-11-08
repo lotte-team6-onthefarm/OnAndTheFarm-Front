@@ -38,6 +38,9 @@ const ListTextWrapper = styled.div`
   .mainTextTitle {
     width: 115px;
   }
+  .organizeTextTitle {
+    width: 150px;
+  }
   margin-bottom: 20px;
   display: flex;
   align-items: center;

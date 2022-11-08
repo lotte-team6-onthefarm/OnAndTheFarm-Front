@@ -17,6 +17,7 @@ import categoryImg from '../../../assets/모듈/카테고리.JPG';
 import sns from '../../../assets/모듈/SNS.JPG';
 import { useMutation } from 'react-query';
 import { postTemporaryNew } from '../../../apis/admin/temporary';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddMainDisplay() {
   const [block, setBlock] = useState('');
@@ -36,8 +37,6 @@ export default function AddMainDisplay() {
     { moduleImgSrc: categoryImg, moduleName: '카테고리 블록' },
     { moduleImgSrc: sns, moduleName: 'SNS 블록' },
   ];
-  // 소재들
-  const datas = [1, 2, 3, 4, 5];
   // 데이터 툴
   const dataTools = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -77,15 +76,20 @@ export default function AddMainDisplay() {
     'postTemporaryNew',
     postTemporaryNew,
     {
-      onSuccess: () => {},
+      onSuccess: () => {
+        // 상단 false처리 시켜주기
+      },
       onError: () => {},
     },
   );
 
+  // 소재 순서 정렬하는 api 보내기********************************************************
+
   const temporaryNewBtn = () => {
     const isValidation = validataionCheck();
     if (isValidation) {
-      console.log(submitData, '제출데이터');
+      temporaryNew(submitData);
+      // 소재 순서 정렬하는 api 보내기********************************************************
     }
   };
   return (
@@ -139,13 +143,20 @@ export default function AddMainDisplay() {
               setItemsDetail={setItemsDetail}
             />
             <AddDisplayDataList
-              datas={datas}
               items={items}
               itemsName={itemsName}
               itemsDetail={itemsDetail}
             />
           </div>
-          <AddDisplayOrganize />
+          <AddDisplayOrganize
+            block={block}
+            category={category}
+            dataTool={dataTool}
+            account={account}
+            itemsName={itemsName}
+            itemsDetail={itemsDetail}
+            priority={priority}
+          />
           <div className="addMainDisplayButton">
             <BlackButton
               style={{ marginTop: '30px' }}

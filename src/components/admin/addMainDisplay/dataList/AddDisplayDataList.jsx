@@ -6,7 +6,6 @@ import { ListTextWrapper } from '../AddMainDisplay.styled';
 import { getExhibitionAllItem } from '../../../../apis/admin/account';
 
 export default function AddDisplayDataList(props) {
-  console.log(props.items);
   const { data: item, isLoading } = useQuery(
     ['getExhibitionItems', props.items],
     () => getExhibitionAllItem(props.items),
@@ -40,7 +39,7 @@ export default function AddDisplayDataList(props) {
                     className="accountItemContent"
                     defaultValue={i.exhibitionItemPriority}
                     style={{
-                      marginRight: props.datas.length > 4 ? '10px' : '0px',
+                      marginRight: item.length > 4 ? '10px' : '0px',
                     }}
                   />
                 </AccountDetailTextWrapper>

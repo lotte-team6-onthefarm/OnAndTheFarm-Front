@@ -9,10 +9,13 @@ export default function AddDisplayDatasList(props) {
     ['getExhibitionItems', props.account],
     () => getExhibitionItems(props.account),
     {
+      keepPreviousData: true,
       onSuccess: res => {
-        props.setItems(res[0].exhibitionItemsId);
-        props.setItemsName(res[0].exhibitionItemsName);
-        props.setItemsDetail(res[0].exhibitionItemsDetail);
+        if (res.length > 0) {
+          props.setItems(res[0].exhibitionItemsId);
+          props.setItemsName(res[0].exhibitionItemsName);
+          props.setItemsDetail(res[0].exhibitionItemsDetail);
+        }
       },
       onError: () => {},
     },
@@ -25,12 +28,12 @@ export default function AddDisplayDatasList(props) {
   return (
     <>
       {!isLoading && (
-        <WhiteWrapper width="49%" minHeight="300px">
+        <WhiteWrapper width="49%" miHeight="300px">
           소재 리스트
           <div
             style={{
               marginTop: '10px',
-              height: '400px',
+              height: '300px',
               overflow: 'auto',
             }}
           >
