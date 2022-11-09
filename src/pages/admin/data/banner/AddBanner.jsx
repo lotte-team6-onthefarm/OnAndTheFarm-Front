@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-import { postSellerProduct } from '../../../../apis/seller/product';
+import { useMutation } from 'react-query';
+import { postExhibitionNewBanner } from '../../../../apis/admin/data';
 import { GreenButton } from '../../../../components/common/Button.style';
 import { HorizontalLine } from '../../../../components/common/HorizontalLine.style';
 import { WhiteWrapper } from '../../../../components/seller/common/Box.style';
@@ -15,8 +14,6 @@ export default function AddBanner() {
   const [bannerDetail, setBannerDetail] = useState('');
   const [bannerUrl, setBannerUrl] = useState('');
   const [bannerImages, setBannerImages] = useState('');
-
-  const queryClient = useQueryClient();
 
   // 이미지 전송을 위한 FormData
   let formData = new FormData();
@@ -44,7 +41,7 @@ export default function AddBanner() {
     return false;
   };
 
-  const addProductBtn = () => {
+  const addBannerBtn = () => {
     // 상품 등록 버튼
     const isValidation = validataionCheck();
     if (isValidation) {
@@ -56,12 +53,12 @@ export default function AddBanner() {
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
     }
-    console.log(formData)
-    // addProduct(formData);
+    postNewBanner(formData);
   };
 
-  const { mutate: addProduct } = useMutation(postSellerProduct, {
+  const { mutate: postNewBanner } = useMutation(postExhibitionNewBanner, {
     onSuccess: () => {
+      alert('등록 성공');
     },
     onError: () => {
       console.log('에러');
@@ -81,17 +78,13 @@ export default function AddBanner() {
         <HorizontalLine color="#F2F2F2" />
         <ProductInput
           title="배너 설명"
-          placeholder={
-            bannerDetail !== '' ? bannerDetail : '배너 설명 입력'
-          }
+          placeholder={bannerDetail !== '' ? bannerDetail : '배너 설명 입력'}
           setFunction={setBannerDetail}
         ></ProductInput>
         <ProductInput
           title="배너 연결 주소"
-          placeholder={
-            bannerDetail !== '' ? bannerDetail : '연결 주소 입력'
-          }
-          setFunction={setBannerDetail}
+          placeholder={bannerUrl !== '' ? bannerUrl : '연결 주소 입력'}
+          setFunction={setBannerUrl}
         ></ProductInput>
       </WhiteWrapper>
       <WhiteWrapper width="100%" marginBottom="10px">
@@ -105,7 +98,7 @@ export default function AddBanner() {
       </WhiteWrapper>
       <AddProductBtnWrapper>
         <div>
-          <GreenButton onClick={addProductBtn} width="120px">
+          <GreenButton onClick={addBannerBtn} width="120px">
             배너등록
           </GreenButton>
         </div>
