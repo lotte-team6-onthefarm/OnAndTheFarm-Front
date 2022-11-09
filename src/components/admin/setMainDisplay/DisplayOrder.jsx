@@ -142,7 +142,7 @@ export default function DisplayOrder(props) {
         미리보기
       </BlackButton>
       <BlackButton style={{ margin: '30px 20px' }} onClick={saveTemp}>
-        임시저장
+        순서저장
       </BlackButton>
       <BlackButton
         style={{ margin: '30px 20px' }}
