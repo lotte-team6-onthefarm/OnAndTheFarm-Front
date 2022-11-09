@@ -24,6 +24,7 @@ export default function AddAccount() {
   const [dataGroupCount, setDataGroupCount] = useState('');
   const [dataVisible, setDataVisible] = useState(false);
   const [items, setItems] = useState([]);
+  const [isDataListChange, setIsDataListChange] = useState(false);
 
   const { mutate: accountNew } = useMutation('postAccountNew', postAccountNew, {
     onSuccess: () => {
@@ -63,12 +64,18 @@ export default function AddAccount() {
   };
 
   const accountNewBtn = () => {
-    // 구좌 등록 버튼
+    console.log(submitData,'최종 보내주는 데이터')
+
     const isValidation = validataionCheck();
     if (isValidation) {
       accountNew(submitData);
     }
   };
+
+  const pushSubmitData = (inputData) => {
+    submitData.exhibitionItemsFormRequests.push(inputData)
+    console.log(submitData,'최종')
+  }
 
   const visibleDataBtn = () => {
     if (dataGroupCount === '') {
@@ -78,6 +85,8 @@ export default function AddAccount() {
       alert('데이터 개수를 입력해주세요');
       return;
     }
+    submitData.exhibitionItemsFormRequests = []
+    setIsDataListChange(!isDataListChange)
     setDataVisible(true);
   };
   return (
@@ -184,6 +193,9 @@ export default function AddAccount() {
           dataGroupCount={dataGroupCount}
           accountNewBtn={accountNewBtn}
           categoryId={categoryId}
+          isDataListChange={isDataListChange}
+          setIsDataListChange={setIsDataListChange}
+          pushSubmitData={pushSubmitData}
         />
       )}
     </>
