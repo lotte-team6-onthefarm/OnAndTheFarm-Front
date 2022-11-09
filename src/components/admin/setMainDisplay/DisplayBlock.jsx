@@ -7,7 +7,7 @@ export default function DisplayBlock(props) {
 
   useEffect(() => {
     setTemp(props.temporaryModuleList);
-  }, [props.flag]);
+  }, [props.flag, props.temporaryModuleList]);
 
   return (
     <WhiteWrapper height="800px">

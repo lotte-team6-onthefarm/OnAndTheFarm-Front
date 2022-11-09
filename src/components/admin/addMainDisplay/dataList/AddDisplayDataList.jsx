@@ -6,13 +6,41 @@ import { ListTextWrapper } from '../AddMainDisplay.styled';
 import { getExhibitionAllItem } from '../../../../apis/admin/account';
 
 export default function AddDisplayDataList(props) {
-  // props.setItemPriorityList
   const { data: item, isLoading } = useQuery(
     ['getExhibitionItems', props.items],
     () => getExhibitionAllItem(props.items),
-    { keepPreviousData: true, onSuccess: res => {}, onError: () => {} },
+    {
+      keepPreviousData: true,
+      onSuccess: res => {
+        props.setItemPriorityList(
+          res.map(r => {
+            return {
+              exhibitionItemId: r.exhibitionItemId,
+              exhibitionItemPriority: r.exhibitionItemPriority,
+            };
+          }),
+        );
+      },
+      onError: () => {},
+    },
   );
 
+  // 소재 우선순위 변경
+  const itemPriorityOnChange = (event, idx) => {
+    const aaa = 'exhibitionItemPriority';
+    let tempList = props.itemPriorityList.map((item, i) => {
+      if (idx === i) {
+        return {
+          ...item,
+          [aaa]: Number(event.target.value),
+        };
+      } else {
+        return item;
+      }
+    });
+    props.setItemPriorityList(tempList);
+  };
+  console.log(props.itemPriorityList, 'ss');
   return (
     <>
       {!isLoading && (
@@ -39,10 +67,11 @@ export default function AddDisplayDataList(props) {
                   </div>
                   <input
                     className="accountItemContent"
-                    defaultValue={i.exhibitionItemPriority}
+                    placeholder={i.exhibitionItemPriority}
                     style={{
                       marginRight: item.length > 4 ? '10px' : '0px',
                     }}
+                    onChange={event => itemPriorityOnChange(event, idx)}
                   />
                 </AccountDetailTextWrapper>
               );

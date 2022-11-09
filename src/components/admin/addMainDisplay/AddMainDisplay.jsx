@@ -18,6 +18,7 @@ import sns from '../../../assets/모듈/SNS.JPG';
 import { useMutation } from 'react-query';
 import { postTemporaryNew } from '../../../apis/admin/temporary';
 import { putExhibitionItemPriority } from '../../../apis/admin/account';
+import { useNavigate } from 'react-router-dom';
 
 export default function AddMainDisplay(props) {
   const [block, setBlock] = useState('');
@@ -40,6 +41,7 @@ export default function AddMainDisplay(props) {
   ];
   // 데이터 툴
   const dataTools = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const navigate = useNavigate();
 
   const validataionCheck = () => {
     // 유효성 체크
@@ -73,19 +75,19 @@ export default function AddMainDisplay(props) {
     exhibitionTemporaryPriority: priority,
   };
 
+  // 임시 테이블에 추가
   const { mutate: temporaryNew } = useMutation(
     'postTemporaryNew',
     postTemporaryNew,
     {
       onSuccess: () => {
-        // 상단 false처리 시켜주기
-        props.setAddMain(false);
+        navigate('/admin/display/set');
       },
       onError: () => {},
     },
   );
 
-  // 소재 순서 정렬하는 api 보내기********************************************************
+  // 소재 순서 정렬하는 api 보내기
   const { mutate: exhibitionItemPriority } = useMutation(
     'putExhibitionItemPriority',
     putExhibitionItemPriority,
@@ -99,7 +101,10 @@ export default function AddMainDisplay(props) {
     const isValidation = validataionCheck();
     if (isValidation) {
       temporaryNew(submitData);
-      // 소재 순서 정렬하는 api 보내기********************************************************
+      // 소재 순서 정렬하는 api 보내기
+      exhibitionItemPriority({
+        exhibitionItemPriorityUpdateFormRequests: itemPriorityList,
+      });
     }
   };
   return (
@@ -156,6 +161,8 @@ export default function AddMainDisplay(props) {
               items={items}
               itemsName={itemsName}
               itemsDetail={itemsDetail}
+              itemPriorityList={itemPriorityList}
+              setItemPriorityList={setItemPriorityList}
             />
           </div>
           <AddDisplayOrganize

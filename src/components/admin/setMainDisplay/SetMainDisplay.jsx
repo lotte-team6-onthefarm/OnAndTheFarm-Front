@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { BlackButton, BlueButton } from '../../common/Button.style';
+import { BlueButton } from '../../common/Button.style';
 import { PageCol } from '../../seller/common/Box.style';
 import { AddMainDisplayWrapper } from './SetMainDisplay.styled';
 import banner from '../../../assets/모듈/배너.JPG';
@@ -8,15 +8,8 @@ import product from '../../../assets/모듈/상품.JPG';
 import miniB from '../../../assets/모듈/미니배너.JPG';
 import categoryImg from '../../../assets/모듈/카테고리.JPG';
 import sns from '../../../assets/모듈/SNS.JPG';
-import AddDisplayBlock from '../addMainDisplay/block/AddDisplayBlock';
-import AddDisplayDataTool from '../addMainDisplay/dataTool/AddDisplayDataTool';
-import AddDisplayCategory from '../addMainDisplay/category/AddDisplayCategory';
-import AddDisplayAccountList from '../addMainDisplay/accountList/AddDisplayAccountList';
-import AddDisplayDatasList from '../addMainDisplay/datasList/AddDisplayDatasList';
-import AddDisplayDataList from '../addMainDisplay/dataList/AddDisplayDataList';
-import AddDisplayOrganize from '../addMainDisplay/organize/AddDisplayOrganize';
 import DisplayBlock from './DisplayBlock';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
   getTemporaryAll,
   putTemporaryApply,
@@ -24,6 +17,7 @@ import {
 import DisplayOrder from './DisplayOrder';
 
 export default function SetMainDisplay(props) {
+  const queryClient = useQueryClient();
   const [temporaryModuleList, setTemporaryModuleList] = useState([]);
   const [flag, setFlag] = useState(true);
   const blocks = {
@@ -40,12 +34,11 @@ export default function SetMainDisplay(props) {
     };
     for (let index = 0; index < temporaryModuleList.length; index++) {
       data.exhibitionTemporaryIds.push(
-        temporaryModuleList[index].exhibitionTemporaryId
+        temporaryModuleList[index].exhibitionTemporaryId,
       );
     }
     exhibitionSave(data);
   };
-
   const {
     isLoading: isGetTemporaryAll,
     refetch: getTemporaryAllRefetch,
@@ -63,7 +56,8 @@ export default function SetMainDisplay(props) {
     useMutation(putTemporaryApply, {
       onSuccess: res => {
         alert('최종적용 되었습니다.');
-        window.location.reload();
+        queryClient.invalidateQueries('getTemporaryAll');
+        // window.location.reload();
       },
       onError: () => {
         console.log('에러');

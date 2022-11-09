@@ -148,7 +148,7 @@ const getExhibitionAccountId = async exhibitionAccountId => {
 // 소재 아이템 우선순위 수정
 const putExhibitionItemPriority = async data => {
   const response = await JWTapiAdmin.put(
-    '/exhibition//account/item/update/priority',
+    '/exhibition/account/item/update/priority',
     data,
   );
   return response.data.data;
