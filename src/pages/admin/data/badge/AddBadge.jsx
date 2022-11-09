@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-import { postSellerProduct } from '../../../../apis/seller/product';
+import { useMutation } from 'react-query';
+import { postExhibitionNewBadge } from '../../../../apis/admin/data';
 import { GreenButton } from '../../../../components/common/Button.style';
 import { HorizontalLine } from '../../../../components/common/HorizontalLine.style';
 import { WhiteWrapper } from '../../../../components/seller/common/Box.style';
@@ -15,8 +14,6 @@ export default function AddBadge() {
   const [badgeDetail, setBadgeDetail] = useState('');
   const [badgeUrl, setBadgeUrl] = useState('');
   const [badgeImages, setBadgeImages] = useState('');
-
-  const queryClient = useQueryClient();
 
   // 이미지 전송을 위한 FormData
   let formData = new FormData();
@@ -44,7 +41,7 @@ export default function AddBadge() {
     return false;
   };
 
-  const addProductBtn = () => {
+  const addBadgeBtn = () => {
     // 상품 등록 버튼
     const isValidation = validataionCheck();
     if (isValidation) {
@@ -56,12 +53,12 @@ export default function AddBadge() {
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
     }
-    console.log(formData)
-    // addProduct(formData);
+    postNewBadge(formData);
   };
 
-  const { mutate: addProduct } = useMutation(postSellerProduct, {
+  const { mutate: postNewBadge } = useMutation(postExhibitionNewBadge, {
     onSuccess: () => {
+      alert('성공');
     },
     onError: () => {
       console.log('에러');
@@ -81,17 +78,13 @@ export default function AddBadge() {
         <HorizontalLine color="#F2F2F2" />
         <ProductInput
           title="뱃지 설명"
-          placeholder={
-            badgeDetail !== '' ? badgeDetail : '뱃지 설명 입력'
-          }
+          placeholder={badgeDetail !== '' ? badgeDetail : '뱃지 설명 입력'}
           setFunction={setBadgeDetail}
         ></ProductInput>
         <ProductInput
           title="뱃지 연결 주소"
-          placeholder={
-            badgeDetail !== '' ? badgeDetail : '연결 주소 입력'
-          }
-          setFunction={setBadgeDetail}
+          placeholder={badgeUrl !== '' ? badgeUrl : '연결 주소 입력'}
+          setFunction={setBadgeUrl}
         ></ProductInput>
       </WhiteWrapper>
       <WhiteWrapper width="100%" marginBottom="10px">
@@ -105,7 +98,7 @@ export default function AddBadge() {
       </WhiteWrapper>
       <AddProductBtnWrapper>
         <div>
-          <GreenButton onClick={addProductBtn} width="120px">
+          <GreenButton onClick={addBadgeBtn} width="120px">
             뱃지등록
           </GreenButton>
         </div>
