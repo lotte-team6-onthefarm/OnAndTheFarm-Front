@@ -4,6 +4,11 @@ import AddMainDisplay from '../../components/admin/addMainDisplay/AddMainDisplay
 import SetMainDisplay from '../../components/admin/setMainDisplay/SetMainDisplay';
 
 export default function PageLayout() {
-  const [a, setA] = useState(true);
-  return <div>{!a && <AddMainDisplay />}{a && <SetMainDisplay />}</div>;
+  const [addMain, setAddMain] = useState(false);
+  return (
+    <div>
+      {addMain && <AddMainDisplay setAddMain={setAddMain} />}
+      {!addMain && <SetMainDisplay />}
+    </div>
+  );
 }

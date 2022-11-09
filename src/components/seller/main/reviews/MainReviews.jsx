@@ -32,7 +32,7 @@ export default function MainReviews(props) {
             return (
               <div
                 key={idx}
-                style={{ display: 'flex', width: '100%' }}
+                style={{ display: 'flex', width: '100%', marginBottom: '20px' }}
                 onClick={() => {
                   productDetailUrl(review.productId);
                 }}
@@ -44,7 +44,9 @@ export default function MainReviews(props) {
                     borderRadius: '8px',
                     marginRight: '10px',
                     width: '95px',
+                    height: '95px',
                     cursor: 'pointer',
+                    objectFit: 'cover',
                   }}
                 />
                 <div style={{ width: '70%' }}>

@@ -32,8 +32,8 @@ export default function SetMainDisplay() {
   };
 
   const fixMainPage = () => {
-    console.log(temporaryModuleList)
-  }
+    console.log(temporaryModuleList);
+  };
 
   const {
     isLoading: isGetTemporaryAll,
@@ -65,7 +65,9 @@ export default function SetMainDisplay() {
               setFlag={setFlag}
               flag={flag}
             />
-            <BlueButton style={{ margin: '30px 20px' }} onClick={fixMainPage}>메인페이지에 적용</BlueButton>
+            <BlueButton style={{ margin: '30px 20px' }} onClick={fixMainPage}>
+              메인페이지에 적용
+            </BlueButton>
           </PageCol>
         </AddMainDisplayWrapper>
       )}
