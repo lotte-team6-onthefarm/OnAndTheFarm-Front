@@ -69,7 +69,16 @@ export default function DisplayOrder(props) {
   };
 
   const saveTemp = () => {
-    console.log(tempBlockList);
+    let tmepOrder = {
+      exhibitionTemporaryPriorityUpdateFormRequests: [],
+    };
+    for (let index = 0; index < tempBlockList.length; index++) {
+      tmepOrder.exhibitionTemporaryPriorityUpdateFormRequests.push({
+        exhibitionTemporaryId: tempBlockList[index].exhibitionTemporaryId,
+        exhibitionTemporaryPriority: tempBlockList[index].exhibitionTemporaryPriority,
+      });
+    }
+    temporaryUpdate(tmepOrder);
   };
 
   const { mutate: temporaryDelete, isLoading: isPutTemporaryDeleteLoading } =
@@ -133,7 +142,7 @@ export default function DisplayOrder(props) {
       <BlackButton style={{ margin: '30px 20px' }} onClick={saveTemp}>
         임시저장
       </BlackButton>
-      <BlackButton style={{ margin: '30px 20px' }}>모듈추가</BlackButton>
+      <BlackButton style={{ margin: '30px 20px' }} onClick={()=>props.setAddMain(true)}>모듈추가</BlackButton>
     </WhiteWrapper>
   );
 }

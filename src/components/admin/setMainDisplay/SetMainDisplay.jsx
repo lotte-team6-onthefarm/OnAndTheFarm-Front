@@ -16,11 +16,14 @@ import AddDisplayDatasList from '../addMainDisplay/datasList/AddDisplayDatasList
 import AddDisplayDataList from '../addMainDisplay/dataList/AddDisplayDataList';
 import AddDisplayOrganize from '../addMainDisplay/organize/AddDisplayOrganize';
 import DisplayBlock from './DisplayBlock';
-import { useQuery } from 'react-query';
-import { getTemporaryAll } from '../../../apis/admin/temporary';
+import { useMutation, useQuery } from 'react-query';
+import {
+  getTemporaryAll,
+  putTemporaryApply,
+} from '../../../apis/admin/temporary';
 import DisplayOrder from './DisplayOrder';
 
-export default function SetMainDisplay() {
+export default function SetMainDisplay(props) {
   const [temporaryModuleList, setTemporaryModuleList] = useState([]);
   const [flag, setFlag] = useState(true);
   const blocks = {
@@ -32,7 +35,15 @@ export default function SetMainDisplay() {
   };
 
   const fixMainPage = () => {
-    console.log(temporaryModuleList);
+    let data = {
+      exhibitionTemporaryIds: [],
+    };
+    for (let index = 0; index < temporaryModuleList.length; index++) {
+      data.exhibitionTemporaryIds.push(
+        temporaryModuleList[index].exhibitionTemporaryId
+      );
+    }
+    exhibitionSave(data);
   };
 
   const {
@@ -47,6 +58,18 @@ export default function SetMainDisplay() {
       console.log('에러');
     },
   });
+
+  const { mutate: exhibitionSave, isLoading: isputTemporaryApplyLoading } =
+    useMutation(putTemporaryApply, {
+      onSuccess: res => {
+        alert('최종적용 되었습니다.');
+        window.location.reload();
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    });
+
   return (
     <>
       {!isGetTemporaryAll && (
@@ -64,6 +87,7 @@ export default function SetMainDisplay() {
               setTemporaryModuleList={setTemporaryModuleList}
               setFlag={setFlag}
               flag={flag}
+              setAddMain={props.setAddMain}
             />
             <BlueButton style={{ margin: '30px 20px' }} onClick={fixMainPage}>
               메인페이지에 적용
