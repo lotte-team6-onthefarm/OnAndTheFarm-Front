@@ -16,7 +16,7 @@ const postTemporaryNew = async data => {
 
 // 임시 전시 수정
 const putTemporaryUpdate = async data => {
-  const response = await JWTapiAdmin.put('/exhibition/temporary/update', data);
+  const response = await JWTapiAdmin.put('/exhibition/temporary/update/priority', data);
   return response;
 };
 // {
