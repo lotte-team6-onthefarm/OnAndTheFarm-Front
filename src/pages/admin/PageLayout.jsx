@@ -8,7 +8,7 @@ export default function PageLayout() {
   return (
     <div>
       {addMain && <AddMainDisplay setAddMain={setAddMain} />}
-      {!addMain && <SetMainDisplay setAddMain={setAddMain}/>}
+      {!addMain && <SetMainDisplay setAddMain={setAddMain} />}
     </div>
   );
 }

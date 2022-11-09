@@ -75,7 +75,8 @@ export default function DisplayOrder(props) {
     for (let index = 0; index < tempBlockList.length; index++) {
       tmepOrder.exhibitionTemporaryPriorityUpdateFormRequests.push({
         exhibitionTemporaryId: tempBlockList[index].exhibitionTemporaryId,
-        exhibitionTemporaryPriority: tempBlockList[index].exhibitionTemporaryPriority,
+        exhibitionTemporaryPriority:
+          tempBlockList[index].exhibitionTemporaryPriority,
       });
     }
     temporaryUpdate(tmepOrder);
@@ -142,7 +143,12 @@ export default function DisplayOrder(props) {
       <BlackButton style={{ margin: '30px 20px' }} onClick={saveTemp}>
         임시저장
       </BlackButton>
-      <BlackButton style={{ margin: '30px 20px' }} onClick={()=>props.setAddMain(true)}>모듈추가</BlackButton>
+      <BlackButton
+        style={{ margin: '30px 20px' }}
+        onClick={() => props.setAddMain(true)}
+      >
+        모듈추가
+      </BlackButton>
     </WhiteWrapper>
   );
 }

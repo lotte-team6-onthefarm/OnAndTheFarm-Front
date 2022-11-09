@@ -6,11 +6,13 @@ import { ListTextWrapper } from '../AddMainDisplay.styled';
 import { getExhibitionAllItem } from '../../../../apis/admin/account';
 
 export default function AddDisplayDataList(props) {
+  // props.setItemPriorityList
   const { data: item, isLoading } = useQuery(
     ['getExhibitionItems', props.items],
     () => getExhibitionAllItem(props.items),
     { keepPreviousData: true, onSuccess: res => {}, onError: () => {} },
   );
+
   return (
     <>
       {!isLoading && (
