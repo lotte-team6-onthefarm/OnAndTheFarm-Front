@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import AddMainDisplay from '../../components/admin/addMainDisplay/AddMainDisplay';
 import AdminNavbar from '../../components/admin/navbar/AdminNavbar';
+import SetMainDisplay from '../../components/admin/setMainDisplay/SetMainDisplay';
 import {
   MainWrapper,
   PageCol,
@@ -14,7 +16,6 @@ import AddBadge from './data/badge/AddBadge';
 import AddBanner from './data/banner/AddBanner';
 import AddModule from './module/addModule/AddModule';
 import ModuleList from './module/moduleList/ModuleList';
-import PageLayout from './PageLayout';
 
 export default function AdminIndexLayout() {
   return (
@@ -31,7 +32,8 @@ export default function AdminIndexLayout() {
               <Route path="/module/add" element={<AddModule />} />
               <Route path="/data/badge/add" element={<AddBadge />} />
               <Route path="/data/banner/add" element={<AddBanner />} />
-              <Route path="/pageLayout/add" element={<PageLayout />} />
+              <Route path="/display/set" element={<SetMainDisplay />} />
+              <Route path="/display/add" element={<AddMainDisplay />} />
             </Routes>
           </PageCol>
         </PageRow>

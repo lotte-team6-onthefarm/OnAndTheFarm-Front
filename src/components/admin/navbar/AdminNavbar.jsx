@@ -36,7 +36,7 @@ export default function AdminNavbar() {
     {
       icons: <MdDesktopWindows />,
       title: '메인페이지 등록',
-      url: 'pageLayout/add',
+      url: 'display/set',
     },
   ];
   const [selectMenu, setSelectMenu] = useRecoilState(sellerNavState);

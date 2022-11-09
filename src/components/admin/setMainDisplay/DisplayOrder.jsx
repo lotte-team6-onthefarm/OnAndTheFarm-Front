@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import {
   putTemporaryDelete,
   putTemporaryUpdate,
@@ -10,8 +11,9 @@ import { WhiteWrapper } from '../../seller/common/Box.style';
 import { ListTextWrapper } from './SetMainDisplay.styled';
 
 export default function DisplayOrder(props) {
+  const queryClient = useQueryClient();
   const [tempBlockList, setTempBlockList] = useState([]);
-
+  const navigate = useNavigate();
   const chaneOrder = () => {
     let temp = props.temporaryModuleList;
     temp = temp.sort(function (a, b) {
@@ -58,9 +60,8 @@ export default function DisplayOrder(props) {
   };
 
   useEffect(() => {
-    console.log('바뀌었다');
     setTempBlockList(props.temporaryModuleList);
-  }, [props.flag]);
+  }, [props.flag, props.temporaryModuleList]);
 
   const deleteModule = idx => {
     temporaryDelete({
@@ -86,7 +87,7 @@ export default function DisplayOrder(props) {
     useMutation(putTemporaryDelete, {
       onSuccess: res => {
         alert('묘듈이 삭제되었습니다.');
-        window.location.reload();
+        queryClient.invalidateQueries('getTemporaryAll');
       },
       onError: () => {
         console.log('에러');
@@ -97,7 +98,7 @@ export default function DisplayOrder(props) {
     useMutation(putTemporaryUpdate, {
       onSuccess: res => {
         alert('묘듈이 임시저장 되었습니다.');
-        window.location.reload();
+        queryClient.invalidateQueries('getTemporaryAll');
       },
       onError: () => {
         console.log('에러');
@@ -145,7 +146,7 @@ export default function DisplayOrder(props) {
       </BlackButton>
       <BlackButton
         style={{ margin: '30px 20px' }}
-        onClick={() => props.setAddMain(true)}
+        onClick={() => navigate('/admin/display/add')}
       >
         모듈추가
       </BlackButton>
