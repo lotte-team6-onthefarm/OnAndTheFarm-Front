@@ -58,7 +58,9 @@ export default function AddDisplayDataList(props) {
               return (
                 <AccountDetailTextWrapper key={idx}>
                   <div className="accountDetailTitle">데이터 ID</div>
-                  <div className="accountItemContent">{i.exhibitionItemId}</div>
+                  <div className="accountItemContent">
+                    {i.exhibitionItemNumber}
+                  </div>
                   <div
                     className="accountDetailTitle"
                     style={{ marginLeft: '20px' }}
