@@ -11,39 +11,36 @@ import ProductInput from '../../../../components/seller/products/productsManagem
 import { AddProductBtnWrapper } from '../../../../components/seller/products/productsManagement/ProductManagement.style';
 import { AccountDetailTitle } from '../accountDetail/AccountDetail.styled';
 import AccountData from './AccountData';
+import AccountDataGroup from './AccountDataGroup';
 import { AddAccountWrapper } from './AddAccount.styled';
 
 export default function AccountDataList(props) {
   // props.setItems
-  let inputData = [];
+
   const [dataCount, setDataCount] = useState([]); // dataInput Length
   const [dataGroupCount, setDataGroupCount] = useState([]); // dataListInput Length
   const [dataGroups, setDataGroups] = useState([]);
   const [datas, setDatas] = useState([]);
-  const [itemsName, setItemsName] = useState('');
-  const [itemsDetail, setItemsDetail] = useState('');
   const [totalData, setTotalData] = useState([]);
   useEffect(() => {
     setDataCount([]);
     setDataGroupCount([]);
-  }, [props]);
-  for (let i = 0; i < props.dataCount; i++) {
-    console.log(props.dataCount);
-    dataCount.push(i);
-  }
-  for (let i = 0; i < props.dataGroupCount; i++) {
-    dataGroupCount.push(i);
-  }
+    let temp = [];
+    for (let i = 0; i < props.dataCount; i++) {
+      temp.push(i);
+    }
+    setDataCount(temp);
+    temp = [];
+    for (let i = 0; i < props.dataGroupCount; i++) {
+      temp.push(i);
+    }
+    setDataGroupCount(temp);
+  }, [props.isDataListChange]);
 
   const setDataOnChange = (e, idx) => {
     let newDatas = [...datas];
     newDatas[idx] = e.target.value;
     setDatas(newDatas);
-  };
-
-  const saveBtn = idx => {
-    console.log(inputData, '들어가는 데이터');
-    // dataGroups[idx]에 넣기
   };
 
   return (
@@ -56,29 +53,15 @@ export default function AccountDataList(props) {
           </div>
         </AccountDetailTitle>
         {dataGroupCount.map((dataGroup, idx) => (
-          <div key={idx}>
-            <h3 style={{ marginBottom: '10px' }}>{idx + 1}</h3>
-            <ProductInput
-              title="데이터 그룹 이름"
-              placeholder="데이터 그룹 이름 입력"
-              setFunction={setItemsName}
-            />
-            <ProductInput
-              title="데이터 그룹 설명"
-              placeholder="데이터 그룹 설명 입력"
-              setFunction={setItemsDetail}
-            />
-            <HorizontalLine color="#F2F2F2" />
-            {dataCount.map((data, idx) => (
-              <div key={idx}>
-                <AccountData />
-              </div>
-            ))}
-            <div className="accountTemporarySaveBtn">
-              <WhiteButton onClick={() => saveBtn(idx)}>저장</WhiteButton>
-            </div>
-            <HorizontalLine color="#F2F2F2" />
-          </div>
+          <AccountDataGroup
+            key={idx}
+            idx={idx}
+            dataGroupCount={dataGroupCount}
+            dataCount={dataCount}
+            isDataListChange={props.isDataListChange}
+            categoryId={props.categoryId}
+            pushSubmitData={props.pushSubmitData}
+          ></AccountDataGroup>
         ))}
       </AddAccountWrapper>
 
