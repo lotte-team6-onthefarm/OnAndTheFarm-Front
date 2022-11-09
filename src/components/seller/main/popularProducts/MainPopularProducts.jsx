@@ -12,7 +12,6 @@ import {
 
 export default function MainPopularProducts(props) {
   const products = props.products;
-
   // hook
   const navigate = useNavigate();
 

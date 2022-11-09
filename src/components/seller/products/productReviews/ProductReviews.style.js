@@ -42,7 +42,7 @@ const ProductReviewsTable = styled.table`
       background-color: ${props => props.theme.colors.gray};
     }
   }
-  .title {
+  .productReviewsTableImg {
     font-size: 15px;
     display: flex;
     align-items: center;
@@ -52,7 +52,9 @@ const ProductReviewsTable = styled.table`
     }
     img {
       width: 90px;
+      height: 90px;
       border-radius: 8px;
+      object-fit: cover;
     }
   }
 `;

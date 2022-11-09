@@ -17,9 +17,9 @@ import categoryImg from '../../../assets/모듈/카테고리.JPG';
 import sns from '../../../assets/모듈/SNS.JPG';
 import { useMutation } from 'react-query';
 import { postTemporaryNew } from '../../../apis/admin/temporary';
-import { useNavigate } from 'react-router-dom';
+import { putExhibitionItemPriority } from '../../../apis/admin/account';
 
-export default function AddMainDisplay() {
+export default function AddMainDisplay(props) {
   const [block, setBlock] = useState('');
   const [category, setCategory] = useState('상품');
   const [categoryId, setCategoryId] = useState(1);
@@ -29,13 +29,14 @@ export default function AddMainDisplay() {
   const [itemsName, setItemsName] = useState('');
   const [itemsDetail, setItemsDetail] = useState('');
   const [priority, setPriority] = useState(0);
+  const [itemPriorityList, setItemPriorityList] = useState([]);
   // 블록 리스트
   const blocks = [
-    { moduleImgSrc: banner, moduleName: '배너 블록' },
-    { moduleImgSrc: miniB, moduleName: '미니배너 블록' },
-    { moduleImgSrc: product, moduleName: '상품 블록' },
-    { moduleImgSrc: categoryImg, moduleName: '카테고리 블록' },
-    { moduleImgSrc: sns, moduleName: 'SNS 블록' },
+    { moduleImgSrc: banner, moduleName: 'banner' },
+    { moduleImgSrc: miniB, moduleName: 'miniBanner' },
+    { moduleImgSrc: product, moduleName: 'product' },
+    { moduleImgSrc: categoryImg, moduleName: 'category' },
+    { moduleImgSrc: sns, moduleName: 'sns' },
   ];
   // 데이터 툴
   const dataTools = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -78,12 +79,21 @@ export default function AddMainDisplay() {
     {
       onSuccess: () => {
         // 상단 false처리 시켜주기
+        props.setAddMain(false);
       },
       onError: () => {},
     },
   );
 
   // 소재 순서 정렬하는 api 보내기********************************************************
+  const { mutate: exhibitionItemPriority } = useMutation(
+    'putExhibitionItemPriority',
+    putExhibitionItemPriority,
+    {
+      onSuccess: () => {},
+      onError: () => {},
+    },
+  );
 
   const temporaryNewBtn = () => {
     const isValidation = validataionCheck();

@@ -81,7 +81,7 @@ export default function ProductReviews() {
                               </div>
                             </ReviewBlock>
                           </td>
-                          <td className="title">
+                          <td className="productReviewsTableImg">
                             <img src={review.productMainImgSrc} alt="" />
                             <div>{review.productName}</div>
                           </td>

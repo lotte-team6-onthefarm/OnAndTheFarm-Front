@@ -145,6 +145,15 @@ const getExhibitionAccountId = async exhibitionAccountId => {
   return response.data.data;
 };
 
+// 소재 아이템 우선순위 수정
+const putExhibitionItemPriority = async data => {
+  const response = await JWTapiAdmin.put(
+    '/exhibition//account/item/update/priority',
+    data,
+  );
+  return response.data.data;
+};
+
 export {
   getAccountList,
   postAccountNew,
@@ -155,4 +164,5 @@ export {
   getExhibitionItems,
   getExhibitionAllItem,
   getExhibitionAccountId,
+  putExhibitionItemPriority,
 };
