@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import MainCategory from '../../components/main/category/MainCategory';
-import MainBanner from '../../components/main/main/MainBanner';
-import MainCarousel from '../../components/main/main/MainCarousel';
-import MainSns from '../../components/main/main/MainSns';
-import MainSnsCarousel from '../../components/main/main/MainSnsCarousel';
-import MainProductsPopular from '../../components/main/products/MainProductsPopular';
-import { MainContentDiv } from './mainMainPage.style';
 import { dataTool } from '../../components/display/Product/dataTool';
+import { onErrorImg } from '../../utils/commonFunction';
+// import MainCategory from '../../components/main/category/MainCategory';
+// import MainBanner from '../../components/main/main/MainBanner';
+// import MainCarousel from '../../components/main/main/MainCarousel';
+// import MainSns from '../../components/main/main/MainSns';
+// import MainSnsCarousel from '../../components/main/main/MainSnsCarousel';
+// import MainProductsPopular from '../../components/main/products/MainProductsPopular';
+import { MainContentDiv } from './mainMainPage.style';
+
+const MainCategory = lazy(() =>
+  import('../../components/main/category/MainCategory'),
+);
+const MainBanner = lazy(() => import('../../components/main/main/MainBanner'));
+const MainCarousel = lazy(() =>
+  import('../../components/main/main/MainCarousel'),
+);
+const MainSns = lazy(() => import('../../components/main/main/MainSns'));
+const MainSnsCarousel = lazy(() =>
+  import('../../components/main/main/MainSnsCarousel'),
+);
+const MainProductsPopular = lazy(() =>
+  import('../../components/main/products/MainProductsPopular'),
+);
+
 export default function MainMainPage() {
   const mainLayout = [
     'EasterEgg',
@@ -41,7 +58,24 @@ export default function MainMainPage() {
   return (
     <MainContentDiv>
       {mainLayout.map((item, idx) => {
-        return <div key={idx}>{components[item]}</div>;
+        return (
+          <Suspense
+            fallback={
+              <div
+                key={idx}
+                style={{
+                  widows: '100%',
+                  height: '200px',
+                  backgroundColor: 'gray',
+                  marginTop: '50px',
+                }}
+              ></div>
+            }
+          >
+            <div key={idx}>{components[item]}</div>
+          </Suspense>
+        );
+        // <div key={idx}>{components[item]}</div>;
       })}
     </MainContentDiv>
   );

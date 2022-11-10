@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {
@@ -12,6 +12,8 @@ import {
 } from './MainSnsCarousel.style';
 import { getFeedList } from '../../../apis/sns/main';
 import { useQuery } from 'react-query';
+import { onErrorImg } from '../../../utils/commonFunction';
+const Image = lazy(() => import('./Img'));
 
 export default function MainSnsCarousel(props) {
   const settings = {
@@ -46,7 +48,17 @@ export default function MainSnsCarousel(props) {
             <CarouselImgDiv key={idx}>
               <a href="/sns/main">
                 <SnsDiv>
-                  <CarouselImg src={sns.feedImageSrc} />
+                  <Suspense
+                    fallback={
+                      <Image
+                        src="https://colorate.azurewebsites.net/SwatchColor/B2B2B2"
+                        onError={onErrorImg}
+                      />
+                    }
+                  >
+                    <Image src={sns.feedImageSrc} onError={onErrorImg} />
+                  </Suspense>
+                  {/* <CarouselImg src={sns.feedImageSrc} /> */}
                   <RankDiv>
                     <div>
                       <svg width="26" height="30" fill="none">
