@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getProfileInfo } from '../../apis/sns/profile';
+import Product10001 from '../../components/display/Product/Product10001';
+import Product10002 from '../../components/display/Product/Product10002';
+import Product10003 from '../../components/display/Product/Product10003';
 import MainCategory from '../../components/main/category/MainCategory';
 import MainBanner from '../../components/main/main/MainBanner';
 import MainCarousel from '../../components/main/main/MainCarousel';
@@ -10,180 +12,6 @@ import MainProductsPopular from '../../components/main/products/MainProductsPopu
 import { MainContentDiv } from './mainMainPage.style';
 
 export default function MainMainPage() {
-  //main.js
-  /*
-    * getFeedByRecent
-    pageNumber=0
-  
-    * getFeedByLike
-    pageNumber=0
-  
-    * getFeedByFollow
-    pageNumber=0
- 
-    * getFeedByViewCount
-    pageNumber=0
-  */
-
-  //profile.js
-  /*
-    * postAddFollow
-    {
-      followerMemberId : 7,
-      followerMemberRole : "user"
-    }
-
-    * putCancelFollow
-    {
-      followerMemberId : 11,
-      followerMemberRole : "user"
-    }
-
-    * postProfileInfo
-    다른 사람의 프로필 정보를 조회하는 경우
-      {
-        memberId : 6,
-        memberRole : "user"
-      }
-    내 프로필 정보를 조회하는 경우
-      {
-      }
-
-    * postScrapLikeCount
-    다른 사람의 스크랩&좋아요수를 조회하는 경우
-      {
-        memberId : 6,
-        memberRole : "user"
-      }
-    나의 스크랩&좋아요수를 조회하는 경우
-      {
-      }
-
-
-    * postFollowerList
-    다른 사람의 팔로우 리스트를 조회하는 경우
-      {
-        memberId : 6,
-        memberRole : "user"
-      }
-    나의 팔로우 리스트를 조회하는 경우
-      {
-      }
-
-    * postFollowingList
-    다른 사람의 팔로우 리스트를 조회하는 경우
-      {
-        memberId : 6,
-        memberRole : "user"
-      }
-    나의 팔로우 리스트를 조회하는 경우
-      {
-      }
-
-    * postProfileFeedList
-    다른 사람의 프로필 메인 피드 리스트를 조회하는 경우
-      {
-        memberId : 6
-      }
-    나의 프로필 메인 피드 리스트를 조회하는 경우
-      {
-      }
-
-    * postProfileScrapList
-    다른 사람의 프로필 메인 스크랩 리스트를 조회하는 경우
-      {
-        memberId : 6
-      }
-    나의 프로필 메인 스크랩 리스트를 조회하는 경우
-      {
-      }
-
-    * postProfileWishList
-    다른 사람의 프로필 메인 위시 리스트를 조회하는 경우
-      {
-        memberId : 6
-      }
-    나의 프로필 메인 위시 리스트를 조회하는 경우
-      {
-      }
-
-    * postFeedList
-    다른 사람의 피드 리스트를 조회하는 경우
-      {
-        memberId : 6
-      }
-    나의 피드 리스트를 조회하는 경우
-      {
-      }
-
-    * postScrapList
-    다른 사람의 스크랩 리스트를 조회하는 경우
-      {
-        memberId : 6
-      }
-    나의 스크랩 리스트를 조회하는 경우
-      {
-      }
-
-    * postWishList
-    다른 사람의 위시 리스트를 조회하는 경우
-      {
-        memberId : 6
-      }
-    나의 위시 리스트를 조회하는 경우
-      {
-      }
-  */
-
-  //content.js
-  /*
-    * postUploadFeed
-      못함
-    * putModifyFeed
-      못함
-
-    * putDeleteFeed
-      {
-        feedId : 1
-      }
-
-    * getFeedProduct
-    파라미터 없음!
-
-    * getFeedDetail
-    feedId=1
-
-    * putUpFeedShareCount
-    {
-      feedId : 4
-    }
-
-    * getFeedByTag //프로미스 문제
-    {
-      feedTageName : "딸기",
-      pageNumber : 0
-    }
-
-    * putFeedLike
-    {
-      feedId : 4
-    }
-
-    * putFeedUnLike
-    {
-      feedId : 4
-    }
-
-    * putFeedScrap
-    {
-      feedId : 4
-    }
-
-    * putFeedUnScrap
-    {
-      feedId : 4
-    }
-  */
   const mainLayout = [
     'EasterEgg',
     'MainCarousel',
@@ -193,10 +21,15 @@ export default function MainMainPage() {
     'MainBanner',
     'MainSns',
   ];
+  const dataTool = [<Product10001 />, <Product10002 />, <Product10003 />];
+  /* 100001 : 전체 데이터
+ * 100002 : id, image, name, price ,saleCount 
+   100003 : id, image, name, price, saleCount, sellerName
+*/
   const components = {
     MainCarousel: <MainCarousel />,
     MainCategory: <MainCategory />,
-    MainProductsPopular: <MainProductsPopular />,
+    MainProductsPopular: <MainProductsPopular dataTool={dataTool} />,
     MainBanner: <MainBanner />,
     MainSnsCarousel: <MainSnsCarousel />,
     MainSns: <MainSns />,

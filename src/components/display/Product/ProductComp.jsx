@@ -1,24 +1,25 @@
 import React from 'react';
-import { useMutation } from 'react-query';
-import {
-  ProductDiv,
-  ProductImgDiv,
-  ProductImg,
-  ProductInfoDiv,
-  ProductImgIcons,
-} from './Product.style';
 import {
   AiFillStar,
   AiOutlineHeart,
   AiOutlineShoppingCart,
 } from 'react-icons/ai';
+import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { postAddWish } from '../../apis/user/product';
-import { postAddCart } from '../../apis/user/cart';
-import { IconBox, IconWrapper } from '../seller/common/Icon.style';
+import { postAddCart } from '../../../apis/user/cart';
+import { postAddWish } from '../../../apis/user/product';
+import {
+  ProductDiv,
+  ProductImg,
+  ProductImgDiv,
+  ProductImgIcons,
+  ProductInfoDiv,
+} from '../../common/Product.style';
+import { IconBox, IconWrapper } from '../../seller/common/Icon.style';
 
-export default function Product(props) {
+export default function ProductComp(props) {
   const product = props.product;
+  console.log(product);
   const addCartClick = id => {
     let cartList = [
       {
@@ -68,7 +69,6 @@ export default function Product(props) {
       },
     },
   );
-
   return (
     <ProductDiv padding={props.padding}>
       <ProductImgIcons

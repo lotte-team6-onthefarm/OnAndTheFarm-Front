@@ -15,7 +15,6 @@ import { useQuery } from 'react-query';
 
 export default function MainSnsCarousel(props) {
   const settings = {
-    infinite: true,
     speed: 1500,
     autoplay: true,
     autoplaySpeed: 5000,
@@ -38,7 +37,6 @@ export default function MainSnsCarousel(props) {
       },
     },
   );
-
   return (
     <MainCarouselDiv>
       <h2>인기 게시글</h2>

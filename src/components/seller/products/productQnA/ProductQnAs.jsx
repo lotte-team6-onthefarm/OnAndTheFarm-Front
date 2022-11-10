@@ -40,7 +40,6 @@ export default function ProductQnAs() {
       console.log('error');
     },
   });
-  console.log(qnas, 'asdasd');
   return (
     <>
       <SellerTitle>QnA 관리</SellerTitle>
@@ -111,7 +110,7 @@ export default function ProductQnAs() {
                               />
                             </div>
                           </td>
-                          <td className="title">
+                          <td className="productReviewsTableImg">
                             <img src={qna.productImg} alt="" />
                             <div>{qna.productName}</div>
                           </td>
