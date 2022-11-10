@@ -1,8 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import Product10001 from '../../components/display/Product/Product10001';
-import Product10002 from '../../components/display/Product/Product10002';
-import Product10003 from '../../components/display/Product/Product10003';
+import { dataTool } from '../../components/display/Product/dataTool';
 import { onErrorImg } from '../../utils/commonFunction';
 // import MainCategory from '../../components/main/category/MainCategory';
 // import MainBanner from '../../components/main/main/MainBanner';
@@ -37,15 +35,16 @@ export default function MainMainPage() {
     'MainBanner',
     'MainSns',
   ];
-  const dataTool = [<Product10001 />, <Product10002 />, <Product10003 />];
+  // const dataTool = [<Product10001 />, <Product10002 />, <Product10003 />];
   /* 100001 : 전체 데이터
  * 100002 : id, image, name, price ,saleCount 
    100003 : id, image, name, price, saleCount, sellerName
 */
+  const tool = 100001;
   const components = {
     MainCarousel: <MainCarousel />,
     MainCategory: <MainCategory />,
-    MainProductsPopular: <MainProductsPopular dataTool={dataTool} />,
+    MainProductsPopular: <MainProductsPopular dataTool={dataTool[tool]} />,
     MainBanner: <MainBanner />,
     MainSnsCarousel: <MainSnsCarousel />,
     MainSns: <MainSns />,

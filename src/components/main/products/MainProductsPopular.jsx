@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getMainProduct, getProducts } from '../../../apis/user/product';
 import { Button } from '../../common/Button';
-import Product from '../../common/Product';
+import ProductComp from '../../display/Product/ProductComp';
 import {
   MainProductsDiv,
   MainProductsSubjectDiv,
@@ -13,18 +11,6 @@ import {
 export default function MainProductsPopular(props) {
   // props.dataTool
   const navigate = useNavigate();
-  const {
-    isLoading: isGetMainProduct,
-    refetch: getMainProductRefetch,
-    data: productList,
-  } = useQuery('getMainProduct', getMainProduct, {
-    refetchOnWindowFocus: true,
-    onSuccess: res => {},
-    onError: () => {
-      console.log('에러');
-    },
-  });
-
   const productsUrl = () => {
     navigate('products');
   };
@@ -40,15 +26,17 @@ export default function MainProductsPopular(props) {
           onClick={productsUrl}
         ></Button>
       </MainProductsSubjectDiv>
-      {props.dataTool[0]}
-      {/* <PopularProductsDiv>
-        {!isGetMainProduct &&
-          productList.productSelectionResponses.map((product, index) => {
-            return (
-              <Product key={index} product={product} padding="0 5px"></Product>
-            );
-          })}
-      </PopularProductsDiv> */}
+      <PopularProductsDiv>
+        {props.dataTool.map((product, index) => {
+          return (
+            <ProductComp
+              key={index}
+              product={product}
+              padding="0 5px"
+            ></ProductComp>
+          );
+        })}
+      </PopularProductsDiv>
     </MainProductsDiv>
   );
 }
