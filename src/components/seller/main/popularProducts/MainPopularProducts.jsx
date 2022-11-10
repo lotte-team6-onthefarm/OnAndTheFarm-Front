@@ -52,7 +52,7 @@ export default function MainPopularProducts(props) {
                         productDetailUrl(product.productId);
                       }}
                     >
-                      <img src={product.productMainImgSrc} alt="" />
+                      <img src={product.productImg} alt="" />
                       <div className="title">{product.productName}</div>
                     </td>
                     <td>
