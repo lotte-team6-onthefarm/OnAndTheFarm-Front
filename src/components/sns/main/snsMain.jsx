@@ -19,7 +19,7 @@ export default function SnsMain(props) {
         {role === 'user' ? (
           <MainLike wishCount={props.countData.wishCount} />
         ) : (
-          <MainProduct wishCount={props.countData.wishCount} />
+          <MainProduct productCount={props.countData.productCount} />
         )}
 
         {/* 스크랩북 */}

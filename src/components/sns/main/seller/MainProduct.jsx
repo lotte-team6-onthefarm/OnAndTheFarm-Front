@@ -22,14 +22,14 @@ export default function MainProduct(props) {
       onError: () => {},
     },
   );
-  console.log(productListData);
+  console.log(props);
   return (
     <>
       {!productListLoading && (
         <LikeSection>
           <div className="FeedTitle">
             <h1>
-              판매 상품 <span>{props.wishCount}</span>
+              판매 상품 <span>{props.productCount}</span>
             </h1>
             {productListData.posts.productSelectionResponses.length === 0 ? (
               ''

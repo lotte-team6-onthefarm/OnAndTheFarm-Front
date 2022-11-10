@@ -20,19 +20,24 @@ export default function MainReviews(props) {
   };
 
   return (
-    <WhiteWrapper width="100%" height="650px">
+    <WhiteWrapper width="100%" height="670px">
       <SubTitle color="#B1E5FC" title="실시간 리뷰" />
       {reviews.length === 0 ? (
-        <EmptyTable height="480px">
+        <EmptyTable height="500px">
           <h3>현재 등록된 리뷰가 없습니다</h3>
         </EmptyTable>
       ) : (
-        <div style={{ minHeight: '480px' }}>
+        <div style={{ minHeight: '500px' }}>
           {reviews.map((review, idx) => {
             return (
               <div
                 key={idx}
-                style={{ display: 'flex', width: '100%', marginBottom: '20px' }}
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  marginBottom: '20px',
+                  cursor: 'pointer',
+                }}
                 onClick={() => {
                   productDetailUrl(review.productId);
                 }}
@@ -43,9 +48,8 @@ export default function MainReviews(props) {
                   style={{
                     borderRadius: '8px',
                     marginRight: '10px',
-                    width: '95px',
-                    height: '95px',
-                    cursor: 'pointer',
+                    width: '80px',
+                    height: '80px',
                     objectFit: 'cover',
                   }}
                 />
