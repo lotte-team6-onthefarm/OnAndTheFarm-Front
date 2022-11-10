@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { getAddReviewList, getMyReviewList } from '../../../../apis/user/review';
+import {
+  getAddReviewList,
+  getMyReviewList,
+} from '../../../../apis/user/review';
 import { Button } from '../../../../components/common/Button';
 import ReviewInput from '../../../../components/main/mypage/ReviewInput';
 import MenuTabComp from '../../../../components/main/mypage/MenuTabComp';
@@ -32,7 +35,7 @@ export default function MainMypageQna() {
   } = useQuery(
     ['MyQnaList', nowPage],
     () =>
-    getMyQnaList({
+      getMyQnaList({
         page: nowPage,
       }),
     {
@@ -74,7 +77,7 @@ export default function MainMypageQna() {
                       <tbody key={idx}>
                         <tr>
                           <td>{idx + 1}</td>
-                          <td className="title">
+                          <td className="productReviewsTableImg">
                             <img src={data.productImg} alt="" />
                           </td>
                           <td>
@@ -103,12 +106,12 @@ export default function MainMypageQna() {
           </>
         )}
         {totalPage !== 0 && (
-        <Pagination
-          nowPage={nowPage + 1}
-          totalPage={totalPage}
-          setPage={setNowPage}
-        ></Pagination>
-      )}
+          <Pagination
+            nowPage={nowPage + 1}
+            totalPage={totalPage}
+            setPage={setNowPage}
+          ></Pagination>
+        )}
       </ReviewContentDiv>
     </div>
   );

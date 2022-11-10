@@ -17,7 +17,7 @@ import TitleDescription from '../title&description/TitleDescription';
 export default function AddProduct() {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [categoryId, setCategoryId] = useState(1);
   const [productTotalStock, setProductTotalStock] = useState('');
   const [productDetail, setProductDetail] = useState('');
   const [productDetailShort, setProductDetailShort] = useState('');
@@ -62,7 +62,6 @@ export default function AddProduct() {
       setProductImages={setProductImages}
     />,
   ];
-
   const submitData = {
     // 상품 정보 데이터 객체화
     productName: productName,

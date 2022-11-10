@@ -128,7 +128,6 @@ export default function DeliveryList() {
       onSuccess: res => {
         setNowPage(res.currentPageNum);
         setTotalPage(res.totalPageNum);
-        console.log(res);
       },
       enabled: startDate !== '' && endDate !== '',
     },

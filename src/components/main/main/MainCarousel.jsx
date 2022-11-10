@@ -22,7 +22,6 @@ export default function MainCarousel(props) {
     slidesToScroll: 1,
   };
 
-
   const items = [
     {
       id: 1,

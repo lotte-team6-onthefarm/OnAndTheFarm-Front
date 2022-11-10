@@ -24,7 +24,6 @@ export default function CaetgoryList(props) {
   }, [categoryData]);
 
   useDidMountEffect(() => {
-    console.log('이거 실행되나?');
     if (categoryList === '과일류') {
       setCategoryData(1);
     } else if (categoryList === '곡물류') {

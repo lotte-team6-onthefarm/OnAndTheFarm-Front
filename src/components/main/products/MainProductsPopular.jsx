@@ -11,8 +11,8 @@ import {
 } from './MainProductsPopular.style';
 
 export default function MainProductsPopular(props) {
+  // props.dataTool
   const navigate = useNavigate();
-
   const {
     isLoading: isGetMainProduct,
     refetch: getMainProductRefetch,
@@ -40,14 +40,15 @@ export default function MainProductsPopular(props) {
           onClick={productsUrl}
         ></Button>
       </MainProductsSubjectDiv>
-      <PopularProductsDiv>
-        {!isGetMainProduct && (productList.productSelectionResponses.map((product, index) => {
-          return (
-            <Product key={index} product={product} padding="0 5px"></Product>
-          );
-        }))}
-        
-      </PopularProductsDiv>
+      {props.dataTool[0]}
+      {/* <PopularProductsDiv>
+        {!isGetMainProduct &&
+          productList.productSelectionResponses.map((product, index) => {
+            return (
+              <Product key={index} product={product} padding="0 5px"></Product>
+            );
+          })}
+      </PopularProductsDiv> */}
     </MainProductsDiv>
   );
 }

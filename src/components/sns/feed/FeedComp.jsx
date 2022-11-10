@@ -22,6 +22,7 @@ import {
 } from './FeedComp.styled';
 
 export default function FeedComp(props) {
+  console.log(props);
   let style = {};
   if (props.parent === 'ProfileFeed') {
     style = {
