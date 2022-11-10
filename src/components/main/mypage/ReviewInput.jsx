@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '../../common/Button';
 import RatingInputComp from '../../common/Rating';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   ReviewAddButtonDiv,
   ReviewAddDiv,
@@ -17,13 +17,13 @@ import { AiFillHeart } from 'react-icons/ai';
 export default function ReviewInput(props) {
   const [reviewContent, setReviewContent] = useState('');
   const [rating, setRating] = useState(5);
-
+  const queryClient = useQueryClient();
   const { mutate: addReview, isLoading: isAddReviewLoading } = useMutation(
     postAddReview,
     {
       onSuccess: res => {
         alert('리뷰가 추가되었습니다.');
-        window.location.reload();
+        queryClient.invalidateQueries('AddReviewList');
       },
       onError: () => {
         console.log('에러');
@@ -55,8 +55,12 @@ export default function ReviewInput(props) {
         <div>
           <RatingInputComp setRating={setRating}></RatingInputComp>
         </div>
-        {props.reviewLikeCount && <p><AiFillHeart color='red' />  좋아요 {props.reviewLikeCount} 개</p>}
-          
+        {props.reviewLikeCount && (
+          <p>
+            <AiFillHeart color="red" /> 좋아요 {props.reviewLikeCount} 개
+          </p>
+        )}
+
         <Button
           text="리뷰작성"
           color="#40AA54"

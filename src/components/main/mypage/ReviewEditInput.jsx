@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Button } from '../../common/Button';
 import RatingInputComp from '../../common/Rating';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   ReviewAddButtonDiv,
   ReviewAddDiv,
 } from '../products/ProductReview.style';
-import { postAddReview, putReviewDelete, putReviewEdit } from '../../../apis/user/review';
+import { putReviewDelete, putReviewEdit } from '../../../apis/user/review';
 import { AiFillHeart } from 'react-icons/ai';
 
 export default function ReviewEditInput(props) {
@@ -14,47 +14,46 @@ export default function ReviewEditInput(props) {
   const [reviewContent, setReviewContent] = useState(props.reviewContent);
   const [rating, setRating] = useState(props.reviewRate);
 
+  const queryClient = useQueryClient();
   const { mutate: reviewEdit, isLoading: isReviewEditLoading } = useMutation(
     putReviewEdit,
     {
       onSuccess: res => {
         alert('리뷰가 수정되었습니다.');
-        window.location.reload();
+        queryClient.invalidateQueries('MyReviewList');
       },
       onError: () => {
         console.log('에러');
       },
     },
   );
-  const { mutate: reviewDelete, isLoading: isReviewDeleteLoading } = useMutation(
-    putReviewDelete,
-    {
+  const { mutate: reviewDelete, isLoading: isReviewDeleteLoading } =
+    useMutation(putReviewDelete, {
       onSuccess: res => {
         alert('리뷰가 삭제되었습니다.');
-        window.location.reload();
+        queryClient.invalidateQueries('MyReviewList');
       },
       onError: () => {
         console.log('에러');
       },
-    },
-  );
-  
+    });
+
   const eidtIsEdit = () => {
     setIsEdit(!isEdit);
   };
   const eidtReview = () => {
     const data = {
-      "reviewId" : props.id,
-      "reviewContent" : reviewContent,
-      "reviewRate" : rating
-  }
-  reviewEdit(data)
+      reviewId: props.id,
+      reviewContent: reviewContent,
+      reviewRate: rating,
+    };
+    reviewEdit(data);
     setIsEdit(!isEdit);
   };
   const deleteReview = () => {
     reviewDelete({
-      "reviewId" : props.id
-  })
+      reviewId: props.id,
+    });
     console.log('리뷰삭제');
   };
 

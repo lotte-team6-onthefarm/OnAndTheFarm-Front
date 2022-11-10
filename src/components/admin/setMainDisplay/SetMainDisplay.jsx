@@ -57,7 +57,6 @@ export default function SetMainDisplay(props) {
       onSuccess: res => {
         alert('최종적용 되었습니다.');
         queryClient.invalidateQueries('getTemporaryAll');
-        // window.location.reload();
       },
       onError: () => {
         console.log('에러');

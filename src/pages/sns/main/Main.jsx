@@ -1,38 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery, useMutation, useInfiniteQuery } from 'react-query';
-import { useInView } from 'react-intersection-observer';
-import { AiOutlineHeart } from 'react-icons/ai';
-import { BiBookmark, BiMessageAlt } from 'react-icons/bi';
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from 'react-router-dom';
-import FeedWriter from '../../../components/sns/feed/FeedWriter';
-import {
-  SnsMainWrapper,
-  SelectWrapper,
-  FeedActionList,
-  FeedCardWrapper,
-  FeedDetailWrapper,
-  FeedItemDescription,
-  FeedItemImg,
-  FeedItemWrapper,
-  FeedWriterWrapper,
-} from './Main.styled';
-import {
-  getFeedList,
-  getFeedByFollow,
-  getFeedByLike,
-  getFeedByRecent,
-  getFeedByViewCount,
-} from '../../../apis/sns/main';
-import { postAddFollow } from '../../../apis/sns/profile';
-import Loading from '../../../components/common/Loading';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { SnsMainWrapper, SelectWrapper } from './Main.styled';
 import FeedListComp from '../../../components/sns/main/FeedListComp';
 import InputSearch from '../../../components/common/SearchInput';
-import { getFeedByTag } from '../../../apis/sns/content';
 
 export default function SnsMainLayout() {
   const [filterList, setFilterList] = useState(0);
