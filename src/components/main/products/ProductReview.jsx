@@ -21,6 +21,7 @@ import {
 } from '../../../apis/user/review';
 import NoneFeed from '../../sns/main/NoneFeed';
 import Pagination from '../../common/Pagination';
+import { EmptyTable } from '../../seller/main/popularProducts/MainPopularProducts.style';
 
 export default function ProductReviewComp(props) {
   const filterList = ['최신순', '좋아요순'];
@@ -190,34 +191,14 @@ export default function ProductReviewComp(props) {
               </ReviewCountDiv>
             </ReviewCountListDiv>
           </ReviewStatisticsDiv>
-          {/* <ReviewAddDiv>
-            <input
-              style={{ width: '100%', height: '100px', marginRight: '20px' }}
-            ></input>
-            <ReviewAddButtonDiv>
-              <div>
-                <RatingInputComp></RatingInputComp>
-              </div>
-              <Button
-                text="사진첨부"
-                color="#40AA54"
-                width="130px"
-                height="30px"
-              ></Button>
-              <Button
-                text="리뷰작성"
-                color="#40AA54"
-                width="130px"
-                height="30px"
-              ></Button>
-            </ReviewAddButtonDiv>
-          </ReviewAddDiv> */}
         </div>
       )}
 
       {!isGetReviewList &&
-        (reviewList.length === 0 ? (
-          <NoneFeed text="리뷰가 없습니다" />
+        (reviewList.reviewSelectionResponses.length === 0 ? (
+          <EmptyTable height="100px">
+            <h3>현재 등록된 리뷰가 없습니다.</h3>
+          </EmptyTable>
         ) : (
           <ReviewListDiv>
             {reviewList.reviewSelectionResponses.map((item, index) => {

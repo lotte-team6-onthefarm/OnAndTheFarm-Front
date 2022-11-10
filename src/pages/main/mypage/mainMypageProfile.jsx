@@ -37,7 +37,7 @@ export default function MainMypageProfile() {
     // refetch: getUserInfoRefetch,
     // data: userInfo,
   } = useQuery('userInfo', () => getUserInfo(), {
-    refetchOnWindowFocus: true,
+    // refetchOnWindowFocus: true,
     onSuccess: res => {
       if (res.userProfileImg) {
         setUserImg(res.userProfileImg);

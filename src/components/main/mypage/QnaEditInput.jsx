@@ -9,11 +9,17 @@ import {
 import { postAddReview, putReviewDelete, putReviewEdit } from '../../../apis/user/review';
 import { AiFillHeart } from 'react-icons/ai';
 import { putQnaDelete, putQnaEdit } from '../../../apis/user/qna';
+import Input from '../../common/Input';
 
 export default function QnaEditInput(props) {
   const [isEdit, setIsEdit] = useState(false);
   const [qnaContent, setQnaContent] = useState(props.qnaContent);
   const [rating, setRating] = useState(props.reviewRate);
+  const [dispalyAnswer, setDispalyAnswer] = useState(false);
+
+  const showAnswer = e => {
+    setDispalyAnswer(!dispalyAnswer);
+  };
 
   const { mutate: qnaEdit, isLoading: isQnaEditLoading } = useMutation(
     putQnaEdit,
@@ -70,6 +76,13 @@ export default function QnaEditInput(props) {
         onChange={e => setQnaContent(e.target.value)}
         disabled={isEdit === true ? false : true}
       ></input>
+      {dispalyAnswer && <Input
+        value={props.qnaAnswer}
+        label="답변내용"
+        id="answer"
+        type="text"
+        disabled={true}
+      />}
       <ReviewAddButtonDiv>
         {isEdit === true ? (
           <Button
@@ -94,6 +107,13 @@ export default function QnaEditInput(props) {
               width="130px"
               height="30px"
               onClick={deleteQna}
+            ></Button>
+            <Button
+              text="답변보기"
+              color="#40AA54"
+              width="130px"
+              height="30px"
+              onClick={showAnswer}
             ></Button>
           </div>
         )}

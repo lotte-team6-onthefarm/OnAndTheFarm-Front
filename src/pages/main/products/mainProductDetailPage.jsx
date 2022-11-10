@@ -194,7 +194,9 @@ export default function MainProductDetailPage(props) {
           </div>
           <ProductDetailContentDiv ref={elem => (inputRef.current[0] = elem)}>
             <ProductDetailImgDiv>
-              <ProductDetailImg src={productDetail.productDetail} />
+              {productDetail.productImageList.map((item, idx) => {
+                return <ProductDetailImg src={item.productImgSrc} />
+              })}
             </ProductDetailImgDiv>
           </ProductDetailContentDiv>
           <div ref={elem => (inputRef.current[1] = elem)}>

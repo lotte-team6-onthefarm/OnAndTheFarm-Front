@@ -90,6 +90,7 @@ export default function MainMypageQna() {
                               placeholder="나의질문"
                               id={data.productQnaId}
                               type="text"
+                              qnaAnswer={data.productSellerAnswer}
                               qnaContent={data.productQnaContent}
                             />
                           </td>

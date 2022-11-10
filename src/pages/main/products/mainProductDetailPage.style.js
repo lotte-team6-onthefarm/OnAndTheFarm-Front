@@ -147,7 +147,7 @@ const ProductDetailContentDiv = styled.div`
 const ProductDetailImgDiv = styled.div`
   width: 800px;
   margin: auto;
-  display: flex;
+  display: block;
 `;
 
 const ProductDetailImg = styled.img`
