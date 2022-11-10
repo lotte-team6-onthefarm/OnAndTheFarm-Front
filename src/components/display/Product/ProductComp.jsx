@@ -71,16 +71,12 @@ export default function ProductComp(props) {
   );
   return (
     <ProductDiv padding={props.padding}>
-      <ProductImgIcons
-        productCartStatus={product.productCartStatus}
-        productWishStatus={product.productWishStatus}
-      >
-        <AiOutlineHeart fontSize="x-large" onClick={addLike} />
-        <AiOutlineShoppingCart
-          fontSize="x-large"
-          onClick={e => addCartClick(product.productId)}
-        />
-      </ProductImgIcons>
+      {product.productSoldCount !== undefined && (
+        <div className="productSoldCountDiv">
+          <span>실시간 구매 수 : </span>
+          <span className="productSoldCount">{product.productSoldCount}</span>
+        </div>
+      )}
       <ProductImgDiv
         width={props.width}
         onClick={() => updateUrl(product.productId)}
@@ -89,31 +85,49 @@ export default function ProductComp(props) {
           src={product.productMainImgSrc}
           alt="onandthefarmlogo"
         ></ProductImg>
-      </ProductImgDiv>
 
+        {product.productCartStatus !== undefined && (
+          <ProductImgIcons
+            productCartStatus={product.productCartStatus}
+            productWishStatus={product.productWishStatus}
+          >
+            <AiOutlineHeart fontSize="x-large" onClick={addLike} />
+            <AiOutlineShoppingCart
+              fontSize="x-large"
+              onClick={e => addCartClick(product.productId)}
+            />
+          </ProductImgIcons>
+        )}
+      </ProductImgDiv>
       <ProductInfoDiv
         width={props.width}
         onClick={() => updateUrl(product.productId)}
       >
         <p className="productInfoName">{product.sellerName}</p>
         <p className="productInfoTitle">{product.productName}</p>
-        <p>
-          <span>{product.productPrice.toLocaleString()} 원</span>
-        </p>
-        <div className="productInfoBottom">
-          <IconWrapper>
-            <IconBox>
-              <AiFillStar color="#40AA54" />
-              <strong>{product.reviewRate}</strong>
-            </IconBox>
-          </IconWrapper>
-          <span>리뷰</span>
-          {product.productReviewCount}
-        </div>
-        <div className="productInfoButton">
-          <div>무료 배송</div>
-          <div>최저가 도전</div>
-        </div>
+        {product.productPrice !== undefined && (
+          <p>
+            <span>{product.productPrice.toLocaleString()} 원</span>
+          </p>
+        )}
+        {product.reviewRate !== undefined && (
+          <div className="productInfoBottom">
+            <IconWrapper>
+              <IconBox>
+                <AiFillStar color="#40AA54" />
+                <strong>{product.reviewRate}</strong>
+              </IconBox>
+            </IconWrapper>
+            <span>리뷰</span>
+            {product.productReviewCount}
+          </div>
+        )}
+        {product.productCartStatus !== undefined && (
+          <div className="productInfoButton">
+            <div>무료 배송</div>
+            <div>최저가 도전</div>
+          </div>
+        )}
       </ProductInfoDiv>
     </ProductDiv>
   );

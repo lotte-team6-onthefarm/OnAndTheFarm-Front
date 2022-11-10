@@ -5,6 +5,17 @@ const ProductDiv = styled.div`
   margin: 0 7.5px 40px;
   position: relative;
   padding: ${props => (props.padding ? props.padding : '0')};
+
+  .productSoldCountDiv {
+    margin-bottom: 10px;
+    span {
+      font-size: 17px;
+      font-weight: bold;
+    }
+    .productSoldCount {
+      color: red;
+    }
+  }
 `;
 const ProductImgDiv = styled.div`
   width: 200px;
@@ -16,7 +27,7 @@ const ProductImgDiv = styled.div`
 const ProductImgIcons = styled.div`
   position: absolute;
   top: 160px;
-  right: 10px;
+  right: 5px;
   z-index: 9;
   svg:nth-child(1) {
     margin: 0 3px;
@@ -57,7 +68,6 @@ const ProductImg = styled.img`
 
 const ProductInfoDiv = styled.div`
   width: 200px;
-  height: 150px;
   p {
     margin-top: 5px;
     span {
@@ -81,7 +91,7 @@ const ProductInfoDiv = styled.div`
     max-height: 34px;
     margin-top: 5px;
     word-break: break-all;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 17px;
     color: #000;
