@@ -23,7 +23,6 @@ export default function SellerSearchIdPage() {
     postSellerSearchId,
     {
       onSuccess: res => {
-        console.log(res);
         alert(`아이디는 ${res.data} 입니다`);
         navigate('/seller/login');
       },

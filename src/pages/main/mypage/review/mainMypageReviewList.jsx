@@ -4,8 +4,11 @@ import { getMyReviewList } from '../../../../apis/user/review';
 import Pagination from '../../../../components/common/Pagination';
 import ReviewEditInput from '../../../../components/main/mypage/ReviewEditInput';
 import { EmptyTable } from '../../../../components/seller/main/popularProducts/MainPopularProducts.style';
-import { ProductReviewsTable, ReviewBlock } from '../../../../components/seller/products/productReviews/ProductReviews.style';
-
+import {
+  ProductReviewsTable,
+  ReviewBlock,
+} from '../../../../components/seller/products/productReviews/ProductReviews.style';
+import { getNoSecDate } from '../../../../utils/commonFunction';
 import { ReviewContentDiv } from './mainMypageReview.style';
 
 export default function MainMypageReviewList() {
@@ -25,7 +28,7 @@ export default function MainMypageReviewList() {
   } = useQuery(
     ['MyReviewList', nowPage],
     () =>
-    getMyReviewList({
+      getMyReviewList({
         page: nowPage,
       }),
     {
@@ -40,7 +43,6 @@ export default function MainMypageReviewList() {
       },
     },
   );
-
 
   return (
     <div>
@@ -65,12 +67,10 @@ export default function MainMypageReviewList() {
                   </thead>
                   {reviews.reviewSelectionResponses.map((data, idx) => {
                     return (
-                      <tbody
-                        key={idx}
-                      >
+                      <tbody key={idx}>
                         <tr>
                           <td>{idx + 1}</td>
-                          <td className="title">
+                          <td className="productReviewsTableImg">
                             <img src={data.productMainImgSrc} alt="" />
                           </td>
                           <td>
@@ -80,8 +80,8 @@ export default function MainMypageReviewList() {
                               </div>
                             </ReviewBlock>
                           </td>
-                          <td>{data.reviewCreatedAt}</td>
-                          <td style={{display:"flex"}}>
+                          <td>{getNoSecDate(data.reviewCreatedAt)}</td>
+                          <td style={{ display: 'flex' }}>
                             <ReviewEditInput
                               placeholder="나의리뷰"
                               id={data.reviewId}
@@ -102,12 +102,12 @@ export default function MainMypageReviewList() {
           </>
         )}
         {totalPage !== 0 && (
-        <Pagination
-          nowPage={nowPage + 1}
-          totalPage={totalPage}
-          setPage={setNowPage}
-        ></Pagination>
-      )}
+          <Pagination
+            nowPage={nowPage + 1}
+            totalPage={totalPage}
+            setPage={setNowPage}
+          ></Pagination>
+        )}
       </ReviewContentDiv>
     </div>
   );

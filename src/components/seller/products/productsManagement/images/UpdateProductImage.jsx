@@ -43,32 +43,17 @@ export default function UpdateProductImage(props) {
     setImages(e.target.files);
   };
   console.log(props.productMainImages, 'sad');
-  // dddd
+  // delete Image
   const deleteImg = () => {
     props.setImages('');
     setDetailImagesUrl([]);
-    // let temp = [...detailImagesUrl];
   };
-  const deleteDetailImg = idx => {
-    // props.setImages(
-    //   props.productImages.filter(
-    //     productImage => productImage.productImgId !== idx,
-    //   ),
-    // );
-    props.setImages('');
-    setDetailImagesUrl([]);
-    // let temp = [...detailImagesUrl];
-    // props.setDelImageId([...props.delImageId, idx]);
-    // console.log(idx, 'deleteDetailImg');
-  };
-
   // Carousel setting
   const settings = {
     dots: true,
     infinite: true,
     speed: 1500,
     draggable: false,
-    // autoplay: true,
     autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,

@@ -42,7 +42,7 @@ export default function ProductsStatistics() {
     data: products,
     refetch: sellerProductListRefetch,
   } = useQuery(
-    ['sellerProducts', nowPage],
+    ['sellerProducts', nowPage, productState],
     productState === 'selling'
       ? () => getSellerMyProduct(nowPage)
       : () => getSellerPauseProduct(nowPage),

@@ -99,6 +99,10 @@ export default function MainProductDetailPage(props) {
     navigate(`/order`, { state: tempCartItems });
   };
 
+  const soldoutBtn = () => {
+    alert('현재 재고가 부족하여 주문이 불가능합니다');
+  };
+
   const param = useParams();
   const id = param.id;
 
@@ -141,17 +145,17 @@ export default function MainProductDetailPage(props) {
                 </div>
                 <div className="production-selling-header__promotion__content-wrap">
                   <p className="production-selling-header__promotion__entry">
-                    <b>국내산</b>
+                    <b>{productDetail.productOriginPlace}</b>
                   </p>
                 </div>
               </div>
               <div className="production-selling-header__promotion">
                 <div className="production-selling-header__promotion__title-wrap">
-                  <span>배송</span>
+                  <span>재고 수</span>
                 </div>
                 <div className="production-selling-header__promotion__content-wrap">
                   <p className="production-selling-header__promotion__entry">
-                    <b>롯데 택배</b>
+                    <b>{productDetail.productTotalStock}</b>
                   </p>
                 </div>
               </div>
@@ -171,11 +175,23 @@ export default function MainProductDetailPage(props) {
                   onClick={e => addCartClick()}
                 />
                 <Button
-                  text="주문하기"
-                  color="#40AA54"
+                  text={
+                    productDetail.productStatus === 'selling'
+                      ? '주문하기'
+                      : '재고부족'
+                  }
+                  color={
+                    productDetail.productStatus === 'selling'
+                      ? '#40AA54'
+                      : '#cdcdcd'
+                  }
                   width="130px"
                   margin="0"
-                  onClick={orderCart}
+                  onClick={
+                    productDetail.productStatus === 'selling'
+                      ? orderCart
+                      : soldoutBtn
+                  }
                 ></Button>
               </div>
             </ProductTopContentDiv>
@@ -195,7 +211,7 @@ export default function MainProductDetailPage(props) {
           <ProductDetailContentDiv ref={elem => (inputRef.current[0] = elem)}>
             <ProductDetailImgDiv>
               {productDetail.productImageList.map((item, idx) => {
-                return <ProductDetailImg src={item.productImgSrc} />
+                return <ProductDetailImg src={item.productImgSrc} />;
               })}
             </ProductDetailImgDiv>
           </ProductDetailContentDiv>

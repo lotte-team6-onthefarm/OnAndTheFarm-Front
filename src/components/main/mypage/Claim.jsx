@@ -1,27 +1,19 @@
 import React, { useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { postCancelProduct, postRefundProduct } from '../../../apis/user/order';
 import { Button } from '../../common/Button';
-import Input from '../../common/Input';
-import TextArea from '../../common/TextArea';
-import {
-  ClaimDiv,
-  OrderItemImg,
-  OrderItemContent,
-  OrderItemDetail,
-  OrderItemNumber,
-  OrderItemPrice,
-} from './Claim.style';
+import { ClaimDiv } from './Claim.style';
 
 export default function ClaimComp(props) {
   const [refundDetail, setRefundDetail] = useState('');
 
+  const queryClient = useQueryClient();
   const { mutate: refundProduct, isLoading: isRefundProduct } = useMutation(
     postRefundProduct,
     {
       onSuccess: res => {
         alert('성공');
-        window.location.reload();
+        queryClient.invalidateQueries('OrderDetail');
       },
       onError: () => {
         console.log('에러');
@@ -34,7 +26,7 @@ export default function ClaimComp(props) {
     {
       onSuccess: res => {
         alert('성공');
-        window.location.reload();
+        queryClient.invalidateQueries('OrderDetail');
       },
       onError: () => {
         console.log('에러');

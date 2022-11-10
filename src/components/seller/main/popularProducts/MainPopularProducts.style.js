@@ -10,8 +10,10 @@ const MainPopularProductsTable = styled.table`
     img {
       border-radius: 8px;
       margin-right: 10px;
-      width: 90px;
-      margin-bottom: 3px;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      margin-bottom: 10px;
     }
     :nth-child(1) {
       font-size: 17px;

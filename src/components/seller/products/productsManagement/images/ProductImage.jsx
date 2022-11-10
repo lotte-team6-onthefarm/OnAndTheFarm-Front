@@ -75,10 +75,10 @@ export default function ProductImage(props) {
             ) : detailImagesUrl.length === 1 ? (
               <ImagesView images={detailImagesUrl} />
             ) : (
-              <MainCarouselSlider {...settings} style={{ width: '550px' }}>
+              <MainCarouselSlider {...settings} style={{ width: '300px' }}>
                 {detailImagesUrl.map((image, idx) => {
                   return (
-                    <AddFeedCarouselImgDiv width="50px" height="50px" key={idx}>
+                    <AddFeedCarouselImgDiv height="260px" key={idx}>
                       <AddFeedCarouselImg src={image} alt="" />
                     </AddFeedCarouselImgDiv>
                   );

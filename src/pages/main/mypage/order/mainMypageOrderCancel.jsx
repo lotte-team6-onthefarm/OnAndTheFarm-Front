@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { changeStatusName, getNoSecDate } from '../../../../utils/commonFunction';
+import {
+  changeStatusName,
+  getNoSecDate,
+} from '../../../../utils/commonFunction';
 import Pagination from '../../../../components/common/Pagination';
 import MenuTabComp from '../../../../components/main/mypage/MenuTabComp';
 import { ReviewContentDiv } from './mainMypageOrderDetail.style';
@@ -13,7 +16,6 @@ export default function MainMypageOrderCancel() {
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
 
-
   const {
     isLoading: cancelOrderListLoading,
     refetch: getCancelOrderListRefetch,
@@ -21,14 +23,14 @@ export default function MainMypageOrderCancel() {
   } = useQuery(
     ['getCancelOrderList', nowPage],
     () =>
-    getCancelOrderList({
+      getCancelOrderList({
         page: nowPage,
       }),
     {
       refetchOnWindowFocus: true,
       keepPreviousData: true,
       onSuccess: res => {
-        console.log(res)
+        console.log(res);
         setNowPage(res.currentPageNum);
         setTotalPage(res.totalPageNum);
       },
@@ -65,7 +67,6 @@ export default function MainMypageOrderCancel() {
                       <th width="10%">가격</th>
                       <th width="10%">상태</th>
                       <th width="15%">날짜</th>
-                      <th>내용</th>
                     </tr>
                   </thead>
                   {claimList.responses.map((data, idx) => {
@@ -73,17 +74,18 @@ export default function MainMypageOrderCancel() {
                       <tbody key={idx}>
                         <tr onClick={() => moveDetail(data.orderSerial)}>
                           <td width="5%">{idx + 1}</td>
-                          <td width="10%" className="title">
+                          <td width="10%" className="productReviewsTableImg">
                             <img src={data.productImage} alt="" />
                           </td>
                           <td width="10%">{data.productName}</td>
                           <td width="5%">{data.productQty}</td>
-                          <td width="5%">{data.productPrice}</td>
+                          <td width="5%">
+                            {data.productPrice.toLocaleString()}원
+                          </td>
                           <td width="10%">
                             {changeStatusName(data.productStatus)}
                           </td>
                           <td width="10%">{getNoSecDate(data.orderDate)}</td>
-                          <td width="45%">{data.cancelDetail}</td>
                         </tr>
                       </tbody>
                     );
@@ -94,12 +96,12 @@ export default function MainMypageOrderCancel() {
           </>
         )}
         {totalPage !== 0 && (
-        <Pagination
-          nowPage={nowPage + 1}
-          totalPage={totalPage}
-          setPage={setNowPage}
-        ></Pagination>
-      )}
+          <Pagination
+            nowPage={nowPage + 1}
+            totalPage={totalPage}
+            setPage={setNowPage}
+          ></Pagination>
+        )}
       </ReviewContentDiv>
     </div>
   );
