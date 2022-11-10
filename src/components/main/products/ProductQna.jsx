@@ -8,6 +8,7 @@ import Modal from '../../common/Modal';
 import MakeQna from '../qna/MakeQna';
 import NoneFeed from '../../sns/main/NoneFeed';
 import Pagination from '../../common/Pagination';
+import { EmptyTable } from '../../seller/main/popularProducts/MainPopularProducts.style';
 
 export default function ProductQnaComp(props) {
   const productId = props.productDetailId;
@@ -58,8 +59,10 @@ export default function ProductQnaComp(props) {
       </div>
       <hr />
       {!isGetQnaList &&
-        (qnaList.length === 0 ? (
-          <NoneFeed text="문의가 없습니다" />
+        (qnaList.productQnAResponseList.length === 0 ? (
+          <EmptyTable height="100px">
+            <h3>현재 등록된 문의가 없습니다.</h3>
+          </EmptyTable>
         ) : (
           <QnaListDiv>
             {qnaList.productQnAResponseList.map((item, index) => {

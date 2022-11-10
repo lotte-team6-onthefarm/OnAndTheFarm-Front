@@ -1,4 +1,4 @@
-import { JWTapiUser } from '../user/index';
+import { ApiUser, JWTapiUser } from '../user/index';
 
 // 피드 조회
 
@@ -9,9 +9,15 @@ const getFeedList = async (data, pageParam) => {
       `sns/feed/list/tag?feedTagName=${data.searchWord}&pageNumber=${pageParam}`,
     );
   } else {
-    response = await JWTapiUser.get(
-      `sns/feed/list/orderby${data.url}?pageNumber=${pageParam}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `sns/feed/list/orderby${data.url}?pageNumber=${pageParam}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `sns/feed/list/orderby${data.url}?pageNumber=${pageParam}`,
+      );
+    }
   }
   return {
     posts: response.data.data.feedResponseList,
