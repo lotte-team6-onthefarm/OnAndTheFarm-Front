@@ -36,7 +36,6 @@ export default function SellerLoginPage() {
   };
   const { mutate: sellerLogin } = useMutation(postSellerlogin, {
     onSuccess: res => {
-      console.log(res);
       if (localStorage.getItem('token') !== undefined) {
         // 셀러 로그인 시 유저 정보 있으면 셀러 토큰 제거
         localStorage.removeItem('token');
@@ -47,7 +46,6 @@ export default function SellerLoginPage() {
         localStorage.removeItem('recoil-persist');
       }
       localStorage.setItem('token', res.data.token.token);
-      
 
       if (res.data.role === 'admin') {
         localStorage.setItem('role', 'admin');

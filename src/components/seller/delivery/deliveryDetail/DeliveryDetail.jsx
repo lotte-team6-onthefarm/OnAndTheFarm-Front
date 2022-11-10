@@ -12,28 +12,10 @@ export default function DeliveryDetail(props) {
   const orderSellerResponses = props.orderSellerResponses;
   const orderSerial = props.orderSellerResponses[0].ordersSerial;
 
-  const {
-    data: orderListDetail,
-    isLoading: isOrderListDetailLoading,
-    refetch: orderListDetailRefetch,
-  } = useQuery('sellerOrderListDetail', () =>
-    getSellerOrderListDetail(orderSerial),
-  );
-
-  const data = {
-    orderDate: '2022.09.30',
-    orderNum: '202209302231',
-    orderUser: 'dmstjd3256',
-    product: '준비 샤인 머스캣 1kg',
-    quantity: '1box',
-    orderState: 'os1',
-    waybill: '23123123122',
-    userName: '손은성',
-    phone: '010-9560-6840',
-    address: '서울 관악구 신림동 1234-23 203호',
-    requre: '문 앞에 놔둬주세요!',
-    total: '1000000',
-  };
+  const { data: orderListDetail, isLoading: isOrderListDetailLoading } =
+    useQuery('sellerOrderListDetail', () =>
+      getSellerOrderListDetail(orderSerial),
+    );
 
   return (
     <>
@@ -52,7 +34,7 @@ export default function DeliveryDetail(props) {
                       <div>{orderSerialResponse.orderProductName}</div>
                       <div>수량 : {orderSerialResponse.orderProductQty} EA</div>
                       <div>
-                        가격 :{' '}
+                        가격 :
                         {orderSerialResponse.orderProductQty *
                           orderSerialResponse.orderProductPrice}
                         원
@@ -89,11 +71,6 @@ export default function DeliveryDetail(props) {
           </DeliveryDetailWrapper>
         )}
       </WhiteWrapper>
-      <div
-        style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}
-      >
-        <GreenButton onClick={() => {}}>배송처리</GreenButton>
-      </div>
     </>
   );
 }

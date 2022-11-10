@@ -8,7 +8,6 @@ import {
   getSellerMyProduct,
   getSellerProduct,
 } from '../../../apis/seller/product';
-import { getWishList } from '../../../apis/sns/profile';
 import { snsNowId } from '../../../recoil';
 import {
   FeedLikeWrapper,
@@ -32,17 +31,9 @@ export default function Products() {
     ['snsSellerProductList', id],
 
     id === '0'
-      ? ({ pageParam = 0 }) =>
-          getSellerMyProduct(
-            { sellerId: pageParam, pageNo: id },
-            'InfiniteQuery',
-          )
+      ? ({ pageParam = 0 }) => getSellerMyProduct(pageParam, 'InfiniteQuery')
       : ({ pageParam = 0 }) =>
-          getSellerProduct(
-            { sellerId: pageParam, pageNo: id },
-            'InfiniteQuery',
-          ),
-
+          getSellerProduct({ sellerId: id, pageNo: data }, 'InfiniteQuery'),
     {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
@@ -50,6 +41,7 @@ export default function Products() {
       onSuccess: res => {},
     },
   );
+  console.log(data, '들어오는 데이터');
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView]);
@@ -57,13 +49,14 @@ export default function Products() {
   const productDetailNavigator = feedId => {
     navigate(`/products/detail/${feedId}`);
   };
+  // posts.productSelectionResponses
 
   return (
     <>
       {!isLoading && (
         <FeedLikeWrapper>
           {data.pages.map((page, idx) =>
-            page.posts.map((post, idx) => (
+            page.posts.productSelectionResponses.map((post, idx) => (
               <LikeCardWrapper
                 key={idx}
                 onClick={() => {

@@ -4,11 +4,14 @@ import { ReviewContentDiv } from './mainMypageOrderDetail.style';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getOrderDetail } from '../../../../apis/user/order';
 import Input from '../../../../components/common/Input';
-import { PreOrderItems, PreOrderListDiv, PreOrderListHeader } from '../../order/mainOrder.style';
-import ClaimComp from '../../../../components/main/mypage/Claim'
-import OrderProductComp from '../../../../components/main/mypage/OrderProductComp'
-import Modal from '../../../../components/common/Modal'
-
+import {
+  PreOrderItems,
+  PreOrderListDiv,
+  PreOrderListHeader,
+} from '../../order/mainOrder.style';
+import ClaimComp from '../../../../components/main/mypage/Claim';
+import OrderProductComp from '../../../../components/main/mypage/OrderProductComp';
+import Modal from '../../../../components/common/Modal';
 
 export default function MainMypageOrderDetail() {
   const { state } = useLocation();
@@ -34,7 +37,6 @@ export default function MainMypageOrderDetail() {
     data: order,
   } = useQuery('OrderDetail', () => getOrderDetail(orderId), {
     onSuccess: res => {
-      console.log(res);
       setTotalPrice(res.orderTotalPrice);
       setRecieverName(res.orderName);
       setRecieverAddress(res.orderAddress);
@@ -63,9 +65,9 @@ export default function MainMypageOrderDetail() {
     },
   });
 
-  const modalChange = () =>{
-    setModal(!modal)
-  }
+  const modalChange = () => {
+    setModal(!modal);
+  };
 
   return (
     <div>
@@ -196,7 +198,10 @@ export default function MainMypageOrderDetail() {
         {/* modal */}
         {modal && (
           <Modal closeModal={() => setModal(!modal)}>
-            <ClaimComp orderStatus={orderStatus} selectData={selectData}></ClaimComp>
+            <ClaimComp
+              orderStatus={orderStatus}
+              selectData={selectData}
+            ></ClaimComp>
           </Modal>
         )}
       </ReviewContentDiv>

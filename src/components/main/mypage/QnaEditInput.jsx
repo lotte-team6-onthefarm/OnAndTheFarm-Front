@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 import { Button } from '../../common/Button';
-import RatingInputComp from '../../common/Rating';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import {
   ReviewAddButtonDiv,
   ReviewAddDiv,
 } from '../products/ProductReview.style';
-import { postAddReview, putReviewDelete, putReviewEdit } from '../../../apis/user/review';
-import { AiFillHeart } from 'react-icons/ai';
 import { putQnaDelete, putQnaEdit } from '../../../apis/user/qna';
 import Input from '../../common/Input';
 
 export default function QnaEditInput(props) {
   const [isEdit, setIsEdit] = useState(false);
   const [qnaContent, setQnaContent] = useState(props.qnaContent);
-  const [rating, setRating] = useState(props.reviewRate);
   const [dispalyAnswer, setDispalyAnswer] = useState(false);
 
+  const queryClient = useQueryClient();
   const showAnswer = e => {
     setDispalyAnswer(!dispalyAnswer);
   };
@@ -26,7 +23,7 @@ export default function QnaEditInput(props) {
     {
       onSuccess: res => {
         alert('질문이 수정되었습니다.');
-        window.location.reload();
+        queryClient.invalidateQueries('MyQnaList');
       },
       onError: () => {
         console.log('에러');
@@ -38,29 +35,29 @@ export default function QnaEditInput(props) {
     {
       onSuccess: res => {
         alert('질문이 삭제되었습니다.');
-        window.location.reload();
+        queryClient.invalidateQueries('MyQnaList');
       },
       onError: () => {
         console.log('에러');
       },
     },
   );
-  
+
   const eidtIsEdit = () => {
     setIsEdit(!isEdit);
   };
   const eidtQna = () => {
     const data = {
-      "productQnaId" : props.id,
-      "productQnaContent" : qnaContent,
-  }
-  qnaEdit(data)
+      productQnaId: props.id,
+      productQnaContent: qnaContent,
+    };
+    qnaEdit(data);
     setIsEdit(!isEdit);
   };
   const deleteQna = () => {
     qnaDelete({
-      "productQnaId" : props.id
-  })
+      productQnaId: props.id,
+    });
     console.log('질문삭제');
   };
 
@@ -76,13 +73,15 @@ export default function QnaEditInput(props) {
         onChange={e => setQnaContent(e.target.value)}
         disabled={isEdit === true ? false : true}
       ></input>
-      {dispalyAnswer && <Input
-        value={props.qnaAnswer}
-        label="답변내용"
-        id="answer"
-        type="text"
-        disabled={true}
-      />}
+      {dispalyAnswer && (
+        <Input
+          value={props.qnaAnswer}
+          label="답변내용"
+          id="answer"
+          type="text"
+          disabled={true}
+        />
+      )}
       <ReviewAddButtonDiv>
         {isEdit === true ? (
           <Button

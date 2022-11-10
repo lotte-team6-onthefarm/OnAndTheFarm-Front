@@ -39,12 +39,14 @@ export default function SnsUser(props) {
   };
   const { data, isLoading, refetch } = useQuery(
     ['profileInfo', props.id],
-    () => getProfileInfo({ memberId: props.id, memberRole: (memberRole === null?role:memberRole) }),
+    () =>
+      getProfileInfo({
+        memberId: props.id,
+        memberRole: memberRole === null ? role : memberRole,
+      }),
     {
       refetchOnMount: true,
-      onSuccess: res => {
-        console.log(res);
-      },
+      onSuccess: res => {},
       onError: () => {},
     },
   );
@@ -73,7 +75,12 @@ export default function SnsUser(props) {
     <SnsUserBlock>
       {!isLoading && !props.countLoading && (
         <>
-          <ShareIconBlock>{/* <HiOutlineShare /> */}{role==='seller' &&<GiGroundSprout color='#40AA54'></GiGroundSprout>}</ShareIconBlock>
+          <ShareIconBlock>
+            {/* <HiOutlineShare /> */}
+            {role === 'seller' && (
+              <GiGroundSprout color="#40AA54"></GiGroundSprout>
+            )}
+          </ShareIconBlock>
           <UserDetailBlock>
             <UserDetailImgBlock>
               <UserDetailImg
@@ -150,7 +157,7 @@ export default function SnsUser(props) {
                   <AiOutlineShop />
                 </div>
                 <div>판매 상품</div>
-                <div>{props.countData.wishCount}</div>
+                <div>{props.countData.productCount}</div>
               </Link>
             )}
 
