@@ -129,6 +129,11 @@ const changeStatusName = status => {
   return '';
 };
 
+// 대체이미지
+const onErrorImg = (e) => {
+  e.target.src = "https://colorate.azurewebsites.net/SwatchColor/B2B2B2";
+}
+
 export {
   toLocaleString,
   getDate,
@@ -143,4 +148,5 @@ export {
   getDateNoConnect,
   getDateConnect,
   changeStatusName,
+  onErrorImg,
 };

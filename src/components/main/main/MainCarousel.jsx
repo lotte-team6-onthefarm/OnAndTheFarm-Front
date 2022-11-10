@@ -10,6 +10,7 @@ import {
 import goguma from '../../../assets/imgs/banner_고구마.jpg';
 import shine from '../../../assets/imgs/banner_샤인머스캣.jpg';
 import onion from '../../../assets/imgs/banner_양파.jpg';
+import { onErrorImg } from '../../../utils/commonFunction';
 
 export default function MainCarousel(props) {
   const settings = {
@@ -45,7 +46,8 @@ export default function MainCarousel(props) {
           return (
             <div key={item.id}>
               <CarouselImgDiv>
-                <CarouselImg src={item.url} />
+                {/* <CarouselImg src={item.url} /> */}
+                <CarouselImg src="" onError={onErrorImg} />
               </CarouselImgDiv>
             </div>
           );
