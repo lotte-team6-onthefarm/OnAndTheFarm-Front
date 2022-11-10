@@ -152,7 +152,7 @@ export default function SnsUser(props) {
                 <div>{props.countData.wishCount}</div>
               </Link>
             ) : (
-              <Link to={`/sns/${props.id}/like`}>
+              <Link to={`/sns/${props.id}/product`}>
                 <div>
                   <AiOutlineShop />
                 </div>
