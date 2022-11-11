@@ -2,7 +2,7 @@ import { JWTapiUser, ApiUser } from '.';
 
 // 유저 로그인
 const postUserlogin = async data => {
-  const response = await ApiUser.post('login', data);
+  const response = await ApiUser.post('members/login', data);
   return response.data;
 };
 
