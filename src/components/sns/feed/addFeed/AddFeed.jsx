@@ -22,6 +22,9 @@ export default function AddFeed() {
   const [preImages, setPreImages] = useState([]); // Images
   const [productList, setProductList] = useState([]); // tagged product List
   const [nowImageIdx, setNowImageIdx] = useState(0);
+  const [positioinX, setPositionX] = useState(0);  
+  const [positioinY, setPositionY] = useState(0);  
+
 
   // 이미지 전송을 위한 FormData
   let formData = new FormData();
@@ -59,13 +62,15 @@ export default function AddFeed() {
         'data',
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
-
       formData.append(
         'productData',
         new Blob([JSON.stringify({ feedProductIdList: productList })], {
           type: 'application/json',
         }),
       );
+      console.log(images);
+      console.log(submitData);
+      console.log(productList);
 
       // 상품 추가 API
       uploadFeed(formData);
@@ -100,8 +105,10 @@ export default function AddFeed() {
   };
 
   // ================================ 상품 등록 띄우기
-  const productSelect = idx => {
+  const productSelect = (idx,x,y) => {
     setNowImageIdx(idx);
+    setPositionX(x)
+    setPositionY(y)
   };
   // ================================
   const productListHandler = productId => {
@@ -111,6 +118,8 @@ export default function AddFeed() {
       {
         imageIndex: nowImageIdx,
         productId: productId,
+        posX: positioinX,
+        posY: positioinY,
       },
     ]);
   };
@@ -145,6 +154,7 @@ export default function AddFeed() {
               productSelect={productSelect}
               preImages={preImages}
               productListHandler={productListHandler}
+              productList={productList}
             />
             <textarea
               placeholder="피드에 대해 설명해주세요"

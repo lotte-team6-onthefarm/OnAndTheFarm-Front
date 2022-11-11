@@ -106,6 +106,126 @@ const FeedImageWrapper = styled.div`
     }
   } */
 `;
+
+const TooltipDiv = styled.div`
+  position: absolute;
+  z-index: 100000;
+  transform: translateX(-50%);
+`;
+
+const TooltipBoxDiv = styled.div`
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: auto;
+`;
+
+const TooltipInnerDiv = styled.div`
+  margin-top: 15px;
+  position: relative;
+  box-shadow: 0 2px 6px 0 rgb(0 0 0 / 20%);
+  background-color: hsla(0, 0%, 100%, 0.86);
+  color: #fff;
+  border-radius: 4px;
+`;
+
+const TooltipArrowDiv = styled.div`
+  content: ' ';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: hsla(0, 0%, 100%, 0.86) transparent transparent transparent;
+`;
+
+const TooltipContentDiv = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 280px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-family: Noto Sans KR, Noto Sans CJK KR, 맑은 고딕, Malgun Gothic,
+    sans-serif;
+`;
+
+const ProductDiv = styled.div`
+  display: flex;
+  position: absolute;
+  .productSoldCountDiv {
+    margin-bottom: 10px;
+    span {
+      font-size: 17px;
+      font-weight: bold;
+    }
+    .productSoldCount {
+      color: red;
+    }
+  }
+`;
+const ProductImgDiv = styled.div`
+  margin-left: 10px;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+`;
+
+const ProductImg = styled.img`
+  display: flex;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: all 0.1s linear;
+  :hover {
+    transform: scale(1.02);
+  }
+`;
+
+const ProductInfoDiv = styled.div`
+  margin-left: 10px;
+  flex: 1 0 0px;
+  div:nth-child(1) {
+    margin: 0 0 2px;
+    font-size: 11px;
+    line-height: 17px;
+    color: #757575;
+  }
+  div:nth-child(2) {
+    height: 36px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #292929;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  div:nth-child(3) {
+    margin: 6px 0 0;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 17px;
+    color: #292929;
+  }
+`;
+
+const SvgDiv = styled.div`
+  flex: 0 0 auto;
+  margin-left: 6px;
+  color: #757575;
+  div {
+  }
+`;
+
 export {
   FeedDetailWrapper,
   FeedDetailBlock,
@@ -114,4 +234,14 @@ export {
   FeedDetailSideBlock,
   SideButtonWrapper,
   FeedImageWrapper,
+  TooltipDiv,
+  TooltipBoxDiv,
+  TooltipInnerDiv,
+  TooltipArrowDiv,
+  TooltipContentDiv,
+  ProductDiv,
+  ProductImgDiv,
+  ProductImg,
+  ProductInfoDiv,
+  SvgDiv,
 };

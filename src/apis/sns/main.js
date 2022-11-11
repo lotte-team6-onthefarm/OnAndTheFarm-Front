@@ -11,11 +11,11 @@ const getFeedList = async (data, pageParam) => {
   } else {
     if (localStorage.getItem('token') !== null) {
       response = await JWTapiUser.get(
-        `sns/feed/list/orderby${data.url}?pageNumber=${pageParam}`,
+        `sns/list${data.url}?pageNumber=${pageParam}`,
       );
     } else {
       response = await ApiUser.get(
-        `sns/feed/list/orderby${data.url}?pageNumber=${pageParam}`,
+        `sns/list${data.url}?pageNumber=${pageParam}`,
       );
     }
   }
