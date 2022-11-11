@@ -18,9 +18,6 @@ import ProductListComp from '../../../components/main/products/ProductList';
 import Input from '../../../components/common/Input';
 import { postMakeOrder } from '../../../apis/user/order';
 import { getUserInfo } from '../../../apis/user/account';
-import Payment from '../../../components/payment/payment';
-import TossPayment from '../../../components/payment/tossPayment';
-import PhonePayment from '../../../components/payment/phonePayment';
 
 export default function MainOrder() {
   const { state } = useLocation();
@@ -274,12 +271,12 @@ export default function MainOrder() {
           </div>
           <div
             onClick={() => {
-              setPayment('토스페이');
-              setPaymentEng('tosspay');
+              setPayment('KG이니시스');
+              setPaymentEng('html5_inicis');
             }}
-            className={payment === '토스페이' ? 'orderIsActivate' : ''}
+            className={payment === 'KG이니시스' ? 'orderIsActivate' : ''}
           >
-            토스페이
+            KG이니시스
           </div>
           <div
             onClick={() => {
@@ -298,27 +295,6 @@ export default function MainOrder() {
           margin="0 10px"
           onClick={onClickPayment}
         ></Button>
-        {/* <Payment
-          setImp_uid={setImp_uid}
-          setMerchant_uid={setMerchant_uid}
-          setPaid_amount={setPaid_amount}
-          amountTotal={totalPrice}
-          test={test}
-        ></Payment>
-        <TossPayment
-          setImp_uid={setImp_uid}
-          setMerchant_uid={setMerchant_uid}
-          setPaid_amount={setPaid_amount}
-          amountTotal={totalPrice}
-          test={test}
-        />
-        <PhonePayment
-          setImp_uid={setImp_uid}
-          setMerchant_uid={setMerchant_uid}
-          setPaid_amount={setPaid_amount}
-          amountTotal={totalPrice}
-          test={test}
-        /> */}
       </PreOrderPriceDiv>
     </PreOrderContentDiv>
   );
