@@ -2,7 +2,7 @@ import { JWTapiUser } from '../user/index';
 
 // 피드 업로드
 const postUploadFeed = async data => {
-  const response = await JWTapiUser.post('sns/upload', data);
+  const response = await JWTapiUser.post('sns/feed/upload', data);
   return response.data;
 };
 
@@ -11,7 +11,6 @@ const putModifyFeed = async data => {
   const response = await JWTapiUser.put('sns/feed/modify', data);
   return response.data;
 };
-
 // 피드 삭제
 const putDeleteFeed = async data => {
   const response = await JWTapiUser.put('sns/feed/delete', data);
@@ -20,13 +19,13 @@ const putDeleteFeed = async data => {
 
 // 피드에 등록 가능한 상품 목록 조회
 const getFeedProduct = async () => {
-  const response = await JWTapiUser.get('sns/product');
+  const response = await JWTapiUser.get('sns/feed/product');
   return response.data.data;
 };
 
 // 피드 상세 페이지 조회
 const getFeedDetail = async data => {
-  const response = await JWTapiUser.get(`sns/detail?feedId=${data}`);
+  const response = await JWTapiUser.get(`sns/feed/detail?feedId=${data}`);
   return response.data.data;
 };
 
@@ -35,11 +34,10 @@ const putUpFeedShareCount = async data => {
   const response = await JWTapiUser.put('sns/feed/share', data);
   return response.data;
 };
-
 // 태그 별 피드 조회
 const getFeedByTag = async (searchWord, pageParam) => {
   const response = await JWTapiUser.get(
-    `sns/list/tag?feedTagName=${searchWord}&pageNumber=${pageParam}`,
+    `sns/feed/list/tag?feedTagName=${searchWord}&pageNumber=${pageParam}`,
   );
   console.log(response, 'sdf');
   return {
