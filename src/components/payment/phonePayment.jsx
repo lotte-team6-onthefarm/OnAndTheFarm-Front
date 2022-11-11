@@ -3,7 +3,7 @@ import axios from 'axios';
 import ProductListComp from '../main/products/ProductList';
 axios.defaults.withCredentials = true;
 
-const phonePayment = pros => {
+const PhonePayment = pros => {
   useEffect(() => {
     const jquery = document.createElement('script');
     jquery.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
@@ -64,4 +64,4 @@ const phonePayment = pros => {
   );
 };
 
-export default phonePayment;
+export default PhonePayment;
