@@ -18,6 +18,7 @@ const AddFeedWrapper = styled.div`
   justify-content: center;
 `;
 const AddFeedBlock = styled.div`
+  position: relative;
   padding: 0 30px;
   width: 600px;
   display: flex;

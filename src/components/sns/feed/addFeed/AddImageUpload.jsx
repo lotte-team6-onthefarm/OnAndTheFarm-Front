@@ -50,6 +50,12 @@ export default function AddImageUpload(props) {
             height="540px"
             setModal={setModal}
             productList={props.productList}
+            initProductList={props.initProductList}
+            setProductList={props.setProductList}
+            setTooltip={props.setTooltip}
+            setSelectedProduct={props.setSelectedProduct}
+            selectProductInfo={props.selectProductInfo}
+            setSelectedList={props.setSelectedList}
           ></AddFeedCarousel>
         </div>
       )}

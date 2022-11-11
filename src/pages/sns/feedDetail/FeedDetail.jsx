@@ -194,6 +194,7 @@ export default function FeedDetail(props) {
                   top: `${productInfo.posY-67}px`,
                   left: `${productInfo.posX+8}px`,
                   display: 'flex',
+                  cursor: 'pointer',
                 }}
                 onMouseLeave={() => mouseOff()}
               >
@@ -230,7 +231,7 @@ export default function FeedDetail(props) {
                             >
                               <path
                                 fill="currentColor"
-                                imageHover="nonzero"
+                                imagehover="nonzero"
                                 d="M6 19.692L8.25 22 18 12 8.25 2 6 4.308 13.5 12z"
                               ></path>
                             </svg>
@@ -242,29 +243,6 @@ export default function FeedDetail(props) {
                   <TooltipArrowDiv></TooltipArrowDiv>
                 </TooltipBoxDiv>
               </TooltipDiv>
-
-              // <TooltipDiv className="tooltip-content" style={{
-              //   position:'absolute',
-              //   top: `${productInfo.posY}px`,
-              //   left: `${productInfo.posX}px`,
-              //   display:'flex',
-              // }}
-              // onMouseLeave={() => mouseOff()}
-              // >
-              //   <ProductImgDiv>
-              //     <ProductImg
-              //       src={productInfo.productMainImgSrc}
-              //       alt="onandthefarmlogo"
-              //     ></ProductImg>
-              //   </ProductImgDiv>
-              //   <ProductInfoDiv>
-              //     <p className="productInfoName">{productInfo.sellerName}</p>
-              //     <p className="productInfoTitle">{productInfo.productName}</p>
-              //     <p>
-              //       <span>{productInfo.productPrice.toLocaleString()} 원</span>
-              //     </p>
-              //   </ProductInfoDiv>
-              // </TooltipDiv>
             )}
           </FeedDetailBlock>
           <FeedDetailSideWrapper>
