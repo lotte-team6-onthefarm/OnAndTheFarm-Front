@@ -12,6 +12,7 @@ import MainLikes from './likes/mainLikes';
 import MainProductPage from './products/mainProductPage';
 import UserLoginPage from './account/userLoginPage';
 import MainKakaoLogin from './account/mainKakaoLogin';
+import MainGoogleLogin from './account/mainGoogleLogin';
 import UserSignupPage from './account/userSignupPage';
 import MainOrder from './order/mainOrder';
 import SuccessPage from './successPage';
@@ -47,6 +48,11 @@ export default function MainIndexLayout() {
             exact
             path="/login/success/naver"
             element={<MainNaverLogin />}
+          />
+          <Route
+            exact
+            path="/login/success/google"
+            element={<MainGoogleLogin />}
           />
           <Route exact path="/order/success" element={<SuccessPage />} />
           <Route path="*" element={<NotFound />}></Route>

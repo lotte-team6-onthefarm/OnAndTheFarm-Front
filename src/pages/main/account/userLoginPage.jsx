@@ -10,16 +10,21 @@ export default function UserLoginPage() {
   const navigate = useNavigate();
   const REACT_APP_KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
   const REACT_APP_NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID;
-  const REACT_APP_KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+  const REACT_APP_GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const REACT_APP_REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const state = encodeURI('http://localhost:3000/login/success/naver');
 
   const loginKakao = () => {
-    const kakao_url = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${REACT_APP_KAKAO_REDIRECT_URI}/login/success/kakao&response_type=code`;
+    const kakao_url = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URI}/kakao&response_type=code`;
     window.location.href = kakao_url;
   };
   const loginNaver = () => {
-    const naver_url = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${REACT_APP_NAVER_CLIENT_ID}&redirect_uri=http://localhost:3000/login/success/naver&state=${state}`;
+    const naver_url = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URI}/naver&state=${state}`;
     window.location.href = naver_url;
+  };
+  const loginGoogle = () => {
+    const google_url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URI}/google&response_type=code&scope=email`;
+    window.location.href = google_url;
   };
   return (
     <StyledBoxDiv>
@@ -34,7 +39,7 @@ export default function UserLoginPage() {
         <SocialLoginButton color="#21c603" width="100%" onClick={loginNaver}>
           <SiNaver /> <span>&nbsp; &nbsp; 네이버로 로그인</span>
         </SocialLoginButton>
-        <SocialLoginButton color="#3c5a9a" width="100%">
+        <SocialLoginButton color="#3c5a9a" width="100%" onClick={loginGoogle}>
           <AiFillGoogleCircle /> <span>&nbsp; &nbsp; 구글로 로그인</span>
         </SocialLoginButton>
       </div>
