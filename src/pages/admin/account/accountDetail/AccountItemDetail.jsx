@@ -4,7 +4,7 @@ import { AccountDetailTextWrapper } from './AccountDetail.styled';
 export default function AccountItemDetail(props) {
   const exhibitionItemsProductId =
     props.items.exhibitionAccountItemDetailResponseList.map(item => {
-      return item.exhibitionItemNumber;
+      return item.exhibitionItemId;
     });
   const exhibitionItemsPriorityId =
     props.items.exhibitionAccountItemDetailResponseList.map(item => {
@@ -29,23 +29,3 @@ export default function AccountItemDetail(props) {
     </>
   );
 }
-
-// <div className="accountDetailTitle">데이터 순서 및 ID</div>
-// <div className="accountDetailContent">
-//   <table width="40%" style={{ margin: '10px 0' }}>
-//     <thead>
-//       <tr>
-//         <th width="30%">데이터 전시 순서</th>
-//         <th>데이터 ID</th>
-//       </tr>
-//     </thead>
-//     <tbody>
-//       {exhibitionItemsProductId.map((data, idx) => (
-//         <tr key={idx} style={{ textAlign: 'center' }}>
-//           <td>{exhibitionItemsPriorityId[idx]}</td>
-//           <td>{exhibitionItemsProductId[idx]}</td>
-//         </tr>
-//       ))}
-//     </tbody>
-//   </table>
-// </div>
