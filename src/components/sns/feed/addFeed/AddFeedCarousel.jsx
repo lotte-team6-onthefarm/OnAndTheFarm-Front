@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDrag } from 'react-use-gesture';
+import ProductTagButton from '../../../common/ProductTagButton';
 import { MainCarouselSlider } from '../../../main/main/MainCarousel.style';
 import { AddFeedCarouselImg, AddFeedCarouselImgDiv } from './AddFeed.styled';
 
@@ -77,30 +78,35 @@ export default function AddFeedCarousel(props) {
             onClick={e => {
               props.productSelect(
                 idx,
-                e.nativeEvent.offsetX + 550 > e.nativeEvent.layerX &&
-                  e.nativeEvent.layerX > e.nativeEvent.offsetX - 550
-                  ? e.nativeEvent.layerX + 550
+                props.images.length === 1
+                  ? e.nativeEvent.layerX
+                  : e.nativeEvent.offsetX + 550 * (idx + 1) > e.nativeEvent.layerX &&
+                    e.nativeEvent.layerX > e.nativeEvent.offsetX - 550 * (idx + 1)
+                  ? e.nativeEvent.layerX + 550 * (idx + 1)
                   : e.nativeEvent.offsetX,
                 e.nativeEvent.offsetY + 5 > e.nativeEvent.layerY &&
                   e.nativeEvent.layerY > e.nativeEvent.offsetY - 5
                   ? e.nativeEvent.offsetY
                   : e.nativeEvent.layerY,
               );
+              // if (props.images.length === 1) {
+              //   console.log(e.nativeEvent.layerX, 'xxxxx');
+              // } else if (
+              //   e.nativeEvent.offsetX + 550 * (idx + 1) >
+              //     e.nativeEvent.layerX &&
+              //   e.nativeEvent.layerX > e.nativeEvent.offsetX - 550 * (idx + 1)
+              // ) {
+              //   console.log(e.nativeEvent.layerX + 550 * (idx + 1), 'ifxxxxx');
+              // } else {
+              //   console.log(e.nativeEvent.offsetX, 'elsexxxxx');
+              // }
               // if (
               //   e.nativeEvent.offsetY + 5 > e.nativeEvent.layerY &&
               //   e.nativeEvent.layerY > e.nativeEvent.offsetY - 5
               // ) {
-              //   console.log(e.nativeEvent.offsetY, 'if');
+              //   console.log(e.nativeEvent.offsetY, 'iftttttt');
               // } else {
-              //   console.log(e.nativeEvent.layerY, 'else');
-              // }
-              // if (
-              //   e.nativeEvent.offsetX + 550 > e.nativeEvent.layerX &&
-              //   e.nativeEvent.layerX > e.nativeEvent.offsetX - 550
-              // ) {
-              //   console.log(e.nativeEvent.layerX + 550, 'if');
-              // } else {
-              //   console.log(e.nativeEvent.offsetX, 'else');
+              //   console.log(e.nativeEvent.layerY, 'elsettttt');
               // }
               // console.log(
               //   e,
@@ -117,29 +123,11 @@ export default function AddFeedCarousel(props) {
             {props.productList.map((plusButton, idxx) => {
               if (plusButton.imageIndex === idx) {
                 return (
-                  <div
+                  <ProductTagButton
                     key={idxx}
-                    // {...bindLogoPos(idx)}
-                    style={{
-                      top: `${plusButton.posY}px`,
-                      left: `${plusButton.posX}px`,
-                    }}
-                  >
-                    <svg
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 24 24"
-                      className="Vfsdi jCTZa css-18se8ix"
-                    >
-                      <circle cx="12" cy="12" r="12" fill="#16B51E"></circle>
-                      <path
-                        stroke="#FFF"
-                        strokeLinecap="square"
-                        strokeWidth="2"
-                        d="M12 16V8m-4 4h8"
-                      ></path>
-                    </svg>
-                  </div>
+                    posX={plusButton.posX}
+                    posY={plusButton.posY}
+                  ></ProductTagButton>
                 );
               } else {
                 return <div key={idxx}></div>;

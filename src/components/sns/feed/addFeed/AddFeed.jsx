@@ -106,6 +106,7 @@ export default function AddFeed() {
 
   // ================================ 상품 등록 띄우기
   const productSelect = (idx,x,y) => {
+    console.log(idx,x,y)
     setNowImageIdx(idx);
     setPositionX(x)
     setPositionY(y)

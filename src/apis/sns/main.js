@@ -6,16 +6,16 @@ const getFeedList = async (data, pageParam) => {
   let response = {};
   if (data.url === '/search') {
     response = await JWTapiUser.get(
-      `sns/feed/list/tag?feedTagName=${data.searchWord}&pageNumber=${pageParam}`,
+      `sns/list/tag?feedTagName=${data.searchWord}&pageNumber=${pageParam}`,
     );
   } else {
     if (localStorage.getItem('token') !== null) {
       response = await JWTapiUser.get(
-        `sns/feed/list/orderby${data.url}?pageNumber=${pageParam}`,
+        `sns/list${data.url}?pageNumber=${pageParam}`,
       );
     } else {
       response = await ApiUser.get(
-        `sns/feed/list/orderby${data.url}?pageNumber=${pageParam}`,
+        `sns/list${data.url}?pageNumber=${pageParam}`,
       );
     }
   }

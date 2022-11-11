@@ -230,7 +230,7 @@ export default function FeedDetail(props) {
                             >
                               <path
                                 fill="currentColor"
-                                imageHover="nonzero"
+                                imagehover="nonzero"
                                 d="M6 19.692L8.25 22 18 12 8.25 2 6 4.308 13.5 12z"
                               ></path>
                             </svg>
