@@ -26,11 +26,12 @@ export default function AddFeedProductList(props) {
               <div className="feedProductListDetail">
                 <div>{product.sellerShopName}</div>
                 <div>{product.productName}</div>
+                <div>{product.productPrice.toLocaleString()} 원</div>
               </div>
               <GreenButton
                 width="70px"
                 onClick={() => {
-                  props.productListHandler(product.productId);
+                  props.productListHandler(product.productId,product);
                   props.setModal(false);
                 }}
               >

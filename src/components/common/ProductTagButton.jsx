@@ -5,16 +5,15 @@ export default function ProductTagButton(props) {
   const [logoPos, setlogoPos] = useState({ x: props.posX, y: props.posY });
 
   const bindLogoPos = useDrag((params, temp) => {
-    console.log(props.productList[props.productIdx]);
     props.setProductList(
       props.productList.map((item, idx) => {
-        if (idx === props.productIdx) {
+        if (idx === props.idxx) {
           return {
             index: item.index,
             imageIndex: item.imageIndex,
             productId: item.productId,
-            posX: props.initProductList[props.productIdx].posX+params.offset[0],
-            posY: props.initProductList[props.productIdx].posY+params.offset[1],
+            posX: props.initProductList[props.idxx].posX+params.offset[0],
+            posY: props.initProductList[props.idxx].posY+params.offset[1],
           };
         } else {
           return {
@@ -27,7 +26,7 @@ export default function ProductTagButton(props) {
         }
       }),
     );
-
+    params.offset=[0,0]
 
 
 
@@ -67,15 +66,24 @@ export default function ProductTagButton(props) {
     props.setIsMove(flag);
   };
 
+  const clickProduct = () => {
+    props.setSelectedProduct(props.productIdx)
+    props.selectProductInfo(props.productIdx)
+    props.setTooltip(true)
+    props.setSelectedList(props.idxx)
+  }
+
   return (
     <div
       {...bindLogoPos()}
       style={{
         top: `${props.posY}px`,
         left: `${props.posX}px`,
+        cursor: 'pointer',
       }}
       onMouseEnter={() => isMove(true)}
       onMouseLeave={() => isMove(false)}
+      onClick={clickProduct}
     >
       <svg
         width="1em"

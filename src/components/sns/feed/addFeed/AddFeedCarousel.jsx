@@ -66,7 +66,6 @@ export default function AddFeedCarousel(props) {
               //   e.nativeEvent.offsetY,
               //   e.nativeEvent.layerY,
               // );
-              console.log(isMove)
               if(!isMove){
                 props.setModal(true);
               }
@@ -85,6 +84,11 @@ export default function AddFeedCarousel(props) {
                     productList={props.productList}
                     initProductList={props.initProductList}
                     setProductList={props.setProductList}
+                    setTooltip={props.setTooltip}
+                    setSelectedProduct={props.setSelectedProduct}
+                    selectProductInfo={props.selectProductInfo}
+                    idxx={idxx}
+                    setSelectedList={props.setSelectedList}
                   ></ProductTagButton>
                 );
               } else {

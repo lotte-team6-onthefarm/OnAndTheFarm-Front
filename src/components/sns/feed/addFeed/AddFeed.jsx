@@ -13,6 +13,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GreenButton } from '../../../common/Button.style';
 import { useMutation, useQueryClient } from 'react-query';
 import { postUploadFeed } from '../../../../apis/sns/content';
+import { BsTrash } from 'react-icons/bs';
+import {
+  ProductImg,
+  ProductImgDiv,
+  ProductInfoDiv,
+  SvgDiv,
+  TooltipArrowDiv,
+  TooltipBoxDiv,
+  TooltipContentDiv,
+  TooltipDiv,
+  TooltipInnerDiv,
+} from '../../../../pages/sns/feedDetail/FeedDetail.styled';
 
 export default function AddFeed() {
   const [tags, setTags] = useState([]); // #hashtag
@@ -23,10 +35,14 @@ export default function AddFeed() {
   const [productList, setProductList] = useState([]); // tagged product List
   const [initProductList, setInitProductList] = useState([]); // init product List
   const [nowImageIdx, setNowImageIdx] = useState(0);
-  const [positioinX, setPositionX] = useState(0);  
-  const [positioinY, setPositionY] = useState(0);  
-  const [productIdx, setProductIdx] = useState(0);  
-
+  const [positioinX, setPositionX] = useState(0);
+  const [positioinY, setPositionY] = useState(0);
+  const [productIdx, setProductIdx] = useState(0);
+  const [productInfoList, setProductInfoList] = useState([]);
+  const [selectedProductInfo, setSelectedProductInfo] = useState({});
+  const [selectedProduct, setSelectedProduct] = useState(0);
+  const [selectedList, setSelectedList] = useState(0);
+  const [tooltip, setTooltip] = useState(false);
 
   // 이미지 전송을 위한 FormData
   let formData = new FormData();
@@ -39,6 +55,10 @@ export default function AddFeed() {
     // 상품 정보 데이터 객체화
     feedContent: content,
     feedTag: tags,
+  };
+
+  const mouseOff = () => {
+    setTooltip(false);
   };
 
   const validataionCheck = () => {
@@ -107,14 +127,13 @@ export default function AddFeed() {
   };
 
   // ================================ 상품 등록 띄우기
-  const productSelect = (idx,x,y) => {
-    console.log(idx,x,y)
+  const productSelect = (idx, x, y) => {
     setNowImageIdx(idx);
-    setPositionX(x)
-    setPositionY(y)
+    setPositionX(x);
+    setPositionY(y);
   };
   // ================================
-  const productListHandler = productId => {
+  const productListHandler = (productId, product) => {
     setProductList([
       // 기존 데이터 보존
       ...productList,
@@ -137,7 +156,14 @@ export default function AddFeed() {
         posY: positioinY,
       },
     ]);
-    setProductIdx(productIdx+1)
+    let temp = product;
+    temp.index = productIdx;
+    setProductInfoList([
+      // 기존 데이터 보존
+      ...productInfoList,
+      temp,
+    ]);
+    setProductIdx(productIdx + 1);
   };
 
   // ================================ hash tag 추가
@@ -152,7 +178,40 @@ export default function AddFeed() {
     setInputTag(''); // 추가 후 초기화
   };
   // ================================
+  const deleteProduct = () => {
+    let temp = productList
+    setProductList([])
+    setProductList(
+      temp.filter(product => product.index !== selectedProduct),
+    );
+    temp = initProductList
+    setInitProductList([])
+    setInitProductList(
+      temp.filter(product => product.index !== selectedProduct),
+    );
+    temp = productInfoList
+    setProductInfoList([])
+    setProductInfoList(
+      temp.filter(product => product.index !== selectedProduct),
+    );
+    mouseOff();
+  };
 
+  const selectProductInfo = (idx) => {
+    for (let index = 0; index < productInfoList.length; index++) {
+      if (productInfoList[index].index === idx){
+        setSelectedProductInfo(productInfoList[index])
+      }
+    }
+  };
+
+  const test = () => {
+    console.log(productList)
+    console.log(initProductList)
+    console.log(productInfoList)
+    console.log(selectedProductInfo)
+  }
+  
   return (
     <>
       <AddFeedNavbar>
@@ -160,6 +219,7 @@ export default function AddFeed() {
           <LogoImg src={Logo} alt="onandthefarmlogo" />
         </Link>
         <GreenButton onClick={uploadFeedBtn}>올리기</GreenButton>
+        <button onClick={test} >test</button>
       </AddFeedNavbar>
       <UserMaxWrapper>
         <AddFeedWrapper>
@@ -173,6 +233,10 @@ export default function AddFeed() {
               productList={productList}
               initProductList={initProductList}
               setProductList={setProductList}
+              setTooltip={setTooltip}
+              setSelectedProduct={setSelectedProduct}
+              selectProductInfo={selectProductInfo}
+              setSelectedList={setSelectedList}
             />
             <textarea
               placeholder="피드에 대해 설명해주세요"
@@ -197,6 +261,61 @@ export default function AddFeed() {
                 />
               </div>
             </TagWrapper>
+            {tooltip && (
+              <TooltipDiv
+                data-popout="true"
+                style={{
+                  position: 'absolute',
+                  top: `${productList[selectedList].posY - 68}px`,
+                  left: `${productList[selectedList].posX + 63}px`,
+                  display: 'flex',
+                }}
+                onMouseLeave={() => mouseOff()}
+              >
+                <TooltipBoxDiv>
+                  <TooltipInnerDiv>
+                    <span
+                      axis="1"
+                      direction="0,1"
+                      overflown="false,false"
+                      index="0"
+                    >
+                      <TooltipContentDiv>
+                        <ProductImgDiv>
+                          <ProductImg
+                            src={
+                              productInfoList[selectedList].productMainImgSrc
+                            }
+                            alt="onandthefarmlogo"
+                          ></ProductImg>
+                        </ProductImgDiv>
+                        <ProductInfoDiv>
+                          <div>
+                            {productInfoList[selectedList].sellerShopName}
+                          </div>
+                          <div>
+                            {productInfoList[selectedList].productName}
+                          </div>
+                          <div>
+                            {productInfoList[selectedList].productPrice.toLocaleString()}{' '}
+                            원
+                          </div>
+                        </ProductInfoDiv>
+                        <SvgDiv
+                          onClick={deleteProduct}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          <div>
+                            <BsTrash/>
+                          </div>
+                        </SvgDiv>
+                      </TooltipContentDiv>
+                    </span>
+                  </TooltipInnerDiv>
+                  <TooltipArrowDiv></TooltipArrowDiv>
+                </TooltipBoxDiv>
+              </TooltipDiv>
+            )}
           </AddFeedBlock>
         </AddFeedWrapper>
       </UserMaxWrapper>
