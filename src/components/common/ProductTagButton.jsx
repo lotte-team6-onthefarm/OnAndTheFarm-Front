@@ -5,19 +5,33 @@ export default function ProductTagButton(props) {
   const [logoPos, setlogoPos] = useState({ x: props.posX, y: props.posY });
 
   const bindLogoPos = useDrag((params, temp) => {
-    // console.log(params);
-    // console.log(temp)
-    // console.log(logoPos);
-    // setlogoPos(
-    //   logoPos.map((item, idx) => {
-    //     if(idx === params.args[0]){
-    //       return {
-    //         x: params.offset[0],
-    //         y: params.offset[1],
-    //       }
-    //     }
-    //   })
-    // )
+    console.log(props.productList[props.productIdx]);
+    props.setProductList(
+      props.productList.map((item, idx) => {
+        if (idx === props.productIdx) {
+          return {
+            index: item.index,
+            imageIndex: item.imageIndex,
+            productId: item.productId,
+            posX: props.initProductList[props.productIdx].posX+params.offset[0],
+            posY: props.initProductList[props.productIdx].posY+params.offset[1],
+          };
+        } else {
+          return {
+            index: item.index,
+            imageIndex: item.imageIndex,
+            productId: item.productId,
+            posX: item.posX,
+            posY: item.posY,
+          };
+        }
+      }),
+    );
+
+
+
+
+    
     // let temlogoPosX = logoPos[params.args[0]].x;
     // let templogoPosY = logoPos[params.args[0]].y;
     // let tempX = initPlus[params.args[0]].x;
@@ -40,14 +54,18 @@ export default function ProductTagButton(props) {
     //   ? {...item, x: (logoPos[params.args[0]].x), y: (logoPos[params.args[0]].y)}
     //   : item
     // ))
-    console.log(params.offset[0])
-    console.log(params.offset[1])
-    setlogoPos({
-      x: params.offset[0] + 100,
-      y: params.offset[1],
-    });
+    // console.log(params.offset[0])
+    // console.log(params.offset[1])
+    // setlogoPos({
+    //   x: params.offset[0] + 100,
+    //   y: params.offset[1],
+    // });
     // params.offset=[0,0]
   });
+
+  const isMove = flag => {
+    props.setIsMove(flag);
+  };
 
   return (
     <div
@@ -56,6 +74,8 @@ export default function ProductTagButton(props) {
         top: `${props.posY}px`,
         left: `${props.posX}px`,
       }}
+      onMouseEnter={() => isMove(true)}
+      onMouseLeave={() => isMove(false)}
     >
       <svg
         width="1em"

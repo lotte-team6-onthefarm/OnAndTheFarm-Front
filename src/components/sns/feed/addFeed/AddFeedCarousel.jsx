@@ -5,57 +5,7 @@ import { MainCarouselSlider } from '../../../main/main/MainCarousel.style';
 import { AddFeedCarouselImg, AddFeedCarouselImgDiv } from './AddFeed.styled';
 
 export default function AddFeedCarousel(props) {
-  const [logoPos, setlogoPos] = useState([
-    { id: 0, x: 100, y: 0 },
-    { id: 1, x: 200, y: 100 },
-  ]);
-  const [initPlus, setInitPlus] = useState([
-    { id: 0, x: 100, y: 0 },
-    { id: 1, x: 200, y: 100 },
-  ]);
-
-  const bindLogoPos = useDrag((params, temp) => {
-    console.log(params);
-    // console.log(temp)
-    // console.log(logoPos);
-    // setlogoPos(
-    //   logoPos.map((item, idx) => {
-    //     if(idx === params.args[0]){
-    //       return {
-    //         x: params.offset[0],
-    //         y: params.offset[1],
-    //       }
-    //     }
-    //   })
-    // )
-    let temlogoPosX = logoPos[params.args[0]].x;
-    let templogoPosY = logoPos[params.args[0]].y;
-    let tempX = initPlus[params.args[0]].x;
-    let tempY = initPlus[params.args[0]].y;
-    setlogoPos(
-      logoPos.map(item =>
-        item.id === params.args[0]
-          ? {
-              ...item,
-              x: params.movement[0] + tempX,
-              y: params.movement[1] + tempY,
-            }
-          : item,
-      ),
-    );
-    params.offset = [0, 0];
-    params.movement = [0, 0];
-    // setInitPlus(initPlus.map(
-    //   item => item.id === params.args[0]
-    //   ? {...item, x: (logoPos[params.args[0]].x), y: (logoPos[params.args[0]].y)}
-    //   : item
-    // ))
-    // setlogoPos({
-    //   x: params.offset[0] + 100,
-    //   y: params.offset[1],
-    // });
-    // params.offset=[0,0]
-  });
+  const [isMove, setIsMove] = useState(false); 
 
   const settings = {
     dots: true,
@@ -116,7 +66,10 @@ export default function AddFeedCarousel(props) {
               //   e.nativeEvent.offsetY,
               //   e.nativeEvent.layerY,
               // );
-              props.setModal(true);
+              console.log(isMove)
+              if(!isMove){
+                props.setModal(true);
+              }
             }}
           >
             <AddFeedCarouselImg src={image} />
@@ -127,6 +80,11 @@ export default function AddFeedCarousel(props) {
                     key={idxx}
                     posX={plusButton.posX}
                     posY={plusButton.posY}
+                    setIsMove={setIsMove}
+                    productIdx={plusButton.index}
+                    productList={props.productList}
+                    initProductList={props.initProductList}
+                    setProductList={props.setProductList}
                   ></ProductTagButton>
                 );
               } else {

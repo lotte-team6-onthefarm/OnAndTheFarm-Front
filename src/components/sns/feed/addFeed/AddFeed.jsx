@@ -21,9 +21,11 @@ export default function AddFeed() {
   const [images, setImages] = useState([]); // Images
   const [preImages, setPreImages] = useState([]); // Images
   const [productList, setProductList] = useState([]); // tagged product List
+  const [initProductList, setInitProductList] = useState([]); // init product List
   const [nowImageIdx, setNowImageIdx] = useState(0);
   const [positioinX, setPositionX] = useState(0);  
   const [positioinY, setPositionY] = useState(0);  
+  const [productIdx, setProductIdx] = useState(0);  
 
 
   // 이미지 전송을 위한 FormData
@@ -73,7 +75,7 @@ export default function AddFeed() {
       console.log(productList);
 
       // 상품 추가 API
-      uploadFeed(formData);
+      // uploadFeed(formData);
     }
   };
 
@@ -117,12 +119,25 @@ export default function AddFeed() {
       // 기존 데이터 보존
       ...productList,
       {
+        index: productIdx,
         imageIndex: nowImageIdx,
         productId: productId,
         posX: positioinX,
         posY: positioinY,
       },
     ]);
+    setInitProductList([
+      // 기존 데이터 보존
+      ...initProductList,
+      {
+        index: productIdx,
+        imageIndex: nowImageIdx,
+        productId: productId,
+        posX: positioinX,
+        posY: positioinY,
+      },
+    ]);
+    setProductIdx(productIdx+1)
   };
 
   // ================================ hash tag 추가
@@ -156,6 +171,8 @@ export default function AddFeed() {
               preImages={preImages}
               productListHandler={productListHandler}
               productList={productList}
+              initProductList={initProductList}
+              setProductList={setProductList}
             />
             <textarea
               placeholder="피드에 대해 설명해주세요"
