@@ -11,6 +11,7 @@ const putModifyFeed = async data => {
   const response = await JWTapiUser.put('sns/feed/modify', data);
   return response.data;
 };
+
 // 피드 삭제
 const putDeleteFeed = async data => {
   const response = await JWTapiUser.put('sns/feed/delete', data);
@@ -34,6 +35,7 @@ const putUpFeedShareCount = async data => {
   const response = await JWTapiUser.put('sns/feed/share', data);
   return response.data;
 };
+
 // 태그 별 피드 조회
 const getFeedByTag = async (searchWord, pageParam) => {
   const response = await JWTapiUser.get(
