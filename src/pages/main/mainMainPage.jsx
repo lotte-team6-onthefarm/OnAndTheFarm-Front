@@ -46,7 +46,7 @@ export default function MainMainPage() {
     MainCategory: <MainCategory />,
     MainProductsPopular: <MainProductsPopular dataTool={dataTool[tool]} />,
     MainBanner: <MainBanner />,
-    MainSnsCarousel: <MainSnsCarousel />,
+    // MainSnsCarousel: <MainSnsCarousel />,
     MainSns: <MainSns />,
     EasterEgg: (
       <div style={{ margin: '100px 0', display: 'none' }}>
