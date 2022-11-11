@@ -12,6 +12,11 @@ export default function AddImageUpload(props) {
   const fileUploadHandler = () => {
     fileInput.current.click();
   };
+
+  const setPosition = () => {
+    console.log('test')
+  }
+
   return (
     <ImageUploadWrapper>
       {props.preImages.length === 0 ? (
@@ -44,6 +49,7 @@ export default function AddImageUpload(props) {
             width="550px"
             height="540px"
             setModal={setModal}
+            productList={props.productList}
           ></AddFeedCarousel>
         </div>
       )}

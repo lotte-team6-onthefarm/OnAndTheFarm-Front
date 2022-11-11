@@ -16,6 +16,15 @@ import {
   FeedDetailStickyContainer,
   FeedDetailWrapper,
   FeedImageWrapper,
+  TooltipDiv,
+  TooltipBoxDiv,
+  TooltipInnerDiv,
+  TooltipArrowDiv,
+  TooltipContentDiv,
+  ProductImg,
+  ProductImgDiv,
+  ProductInfoDiv,
+  SvgDiv,
 } from './FeedDetail.styled';
 import {
   putFeedLike,
@@ -27,7 +36,7 @@ import {
 import { useLocation, useParams } from 'react-router-dom';
 import Carousel from '../../../components/common/Carousel';
 import { postAddFollow } from '../../../apis/sns/profile';
-
+import FeedCarousel from '../../../components/sns/feedDetail/FeedCarousel';
 export default function FeedDetail(props) {
   const inputRef = useRef([]);
   const param = useParams();
@@ -37,6 +46,8 @@ export default function FeedDetail(props) {
   const [feedId, setFeedId] = useState(param.id);
   const [likeStatus, setLikeStatus] = useState(false);
   const [scrapStatus, setScrapStatus] = useState(false);
+  const [productInfo, setProductInfo] = useState({});
+  const [tooltip, setTooltip] = useState(false);
   // feedId = props.feedId
   const queryClient = useQueryClient();
 
@@ -57,25 +68,24 @@ export default function FeedDetail(props) {
       );
       setLikeStatus(res.feedLikeStatus);
       setScrapStatus(res.scrapStatus);
-
     },
     onError: () => {
       console.log('에러');
     },
   });
 
-  const { isLoading: isCommentLoading, data: commentList, refetch: getCommentRefetch, } = useQuery(
-    'Comment',
-    () => getComment(feedId),
-    {
-      refetchOnWindowFocus: true,
-      refetchOnMount: true,
-      onSuccess: res => {},
-      onError: () => {
-        console.log('에러');
-      },
+  const {
+    isLoading: isCommentLoading,
+    data: commentList,
+    refetch: getCommentRefetch,
+  } = useQuery('Comment', () => getComment(feedId), {
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    onSuccess: res => {},
+    onError: () => {
+      console.log('에러');
     },
-  );
+  });
 
   const { mutate: feedLike } = useMutation(putFeedLike, {
     onSuccess: res => {
@@ -132,6 +142,10 @@ export default function FeedDetail(props) {
     window.scrollTo({ top: x, left: 0, behavior: 'smooth' });
   };
 
+  const mouseOff = () => {
+    setTooltip(false);
+  };
+
   return (
     <>
       {!isFeedDetailLoading && !isCommentLoading && (
@@ -147,77 +161,15 @@ export default function FeedDetail(props) {
               isModifiable={feedDetail.isModifiable}
             />
             <FeedImageWrapper>
-              <Carousel
+              <FeedCarousel
                 images={feedDetail.feedImageList}
                 changeFeedImg={changeFeedImg}
-                width="550px"
+                feedImageProductList={feedDetail.feedImageProductList}
                 height="540px"
-              ></Carousel>
-              {/* <img src={feedDetail.feedImageList[0].feedImageSrc} alt="" /> */}
-              {/* <div>
-              <svg
-                width="1em"
-                height="1em"
-                viewBox="0 0 24 24"
-                className="Vfsdi jCTZa css-18se8ix"
-              >
-                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                <path
-                  stroke="#FFF"
-                  strokeLinecap="square"
-                  strokeWidth="2"
-                  d="M12 16V8m-4 4h8"
-                ></path>
-              </svg>
-            </div>
-            <div>
-              <svg
-                width="1em"
-                height="1em"
-                viewBox="0 0 24 24"
-                className="Vfsdi jCTZa css-18se8ix"
-              >
-                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                <path
-                  stroke="#FFF"
-                  strokeLinecap="square"
-                  strokeWidth="2"
-                  d="M12 16V8m-4 4h8"
-                ></path>
-              </svg>
-            </div>
-            <div>
-              <svg
-                width="1em"
-                height="1em"
-                viewBox="0 0 24 24"
-                className="Vfsdi jCTZa css-18se8ix"
-              >
-                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                <path
-                  stroke="#FFF"
-                  strokeLinecap="square"
-                  strokeWidth="2"
-                  d="M12 16V8m-4 4h8"
-                ></path>
-              </svg>
-            </div> */}
-            <div>
-              <svg
-                width="1em"
-                height="1em"
-                viewBox="0 0 24 24"
-                className="Vfsdi jCTZa css-18se8ix"
-              >
-                <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                <path
-                  stroke="#FFF"
-                  strokeLinecap="square"
-                  strokeWidth="2"
-                  d="M12 16V8m-4 4h8"
-                ></path>
-              </svg>
-            </div>
+                setProductInfo={setProductInfo}
+                tooltip={tooltip}
+                setTooltip={setTooltip}
+              ></FeedCarousel>
             </FeedImageWrapper>
 
             <FeedProduct
@@ -234,6 +186,86 @@ export default function FeedDetail(props) {
               getFeedDetailRefetch={getFeedDetailRefetch}
             />
             <FeedCommentList commentList={commentList} />
+            {tooltip && (
+              <TooltipDiv
+                data-popout="true"
+                style={{
+                  position: 'absolute',
+                  top: `${productInfo.posY-67}px`,
+                  left: `${productInfo.posX+8}px`,
+                  display: 'flex',
+                }}
+                onMouseLeave={() => mouseOff()}
+              >
+                <TooltipBoxDiv>
+                  <TooltipInnerDiv>
+                    <a
+                      axis="1"
+                      direction="0,1"
+                      overflown="false,false"
+                      index="0"
+                      href={`/products/detail/${productInfo.productId}`}
+                    >
+                      <TooltipContentDiv>
+                        <ProductImgDiv>
+                          <ProductImg
+                            src={productInfo.productMainImgSrc}
+                            alt="onandthefarmlogo"
+                          ></ProductImg>
+                        </ProductImgDiv>
+                        <ProductInfoDiv>
+                          <div>{productInfo.sellerName}</div>
+                          <div>
+                            {productInfo.productName}
+                          </div>
+                          <div>{productInfo.productPrice.toLocaleString()} 원</div>
+                        </ProductInfoDiv>
+                        <SvgDiv>
+                          <div>
+                            <svg
+                              width="1em"
+                              height="1em"
+                              viewBox="0 0 24 24"
+                              preserveAspectRatio="xMidYMid meet"
+                            >
+                              <path
+                                fill="currentColor"
+                                imageHover="nonzero"
+                                d="M6 19.692L8.25 22 18 12 8.25 2 6 4.308 13.5 12z"
+                              ></path>
+                            </svg>
+                          </div>
+                        </SvgDiv>
+                      </TooltipContentDiv>
+                    </a>
+                  </TooltipInnerDiv>
+                  <TooltipArrowDiv></TooltipArrowDiv>
+                </TooltipBoxDiv>
+              </TooltipDiv>
+
+              // <TooltipDiv className="tooltip-content" style={{
+              //   position:'absolute',
+              //   top: `${productInfo.posY}px`,
+              //   left: `${productInfo.posX}px`,
+              //   display:'flex',
+              // }}
+              // onMouseLeave={() => mouseOff()}
+              // >
+              //   <ProductImgDiv>
+              //     <ProductImg
+              //       src={productInfo.productMainImgSrc}
+              //       alt="onandthefarmlogo"
+              //     ></ProductImg>
+              //   </ProductImgDiv>
+              //   <ProductInfoDiv>
+              //     <p className="productInfoName">{productInfo.sellerName}</p>
+              //     <p className="productInfoTitle">{productInfo.productName}</p>
+              //     <p>
+              //       <span>{productInfo.productPrice.toLocaleString()} 원</span>
+              //     </p>
+              //   </ProductInfoDiv>
+              // </TooltipDiv>
+            )}
           </FeedDetailBlock>
           <FeedDetailSideWrapper>
             <FeedDetailStickyContainer>
@@ -261,7 +293,12 @@ export default function FeedDetail(props) {
                   buttonClick={scroll}
                   count={feedDetail.feedCommentCount}
                 />
-                <SideButton id={feedDetail.feedId} icon="share" count={feedDetail.feedShareCount} getFeedDetailRefetch={getFeedDetailRefetch}/>
+                <SideButton
+                  id={feedDetail.feedId}
+                  icon="share"
+                  count={feedDetail.feedShareCount}
+                  getFeedDetailRefetch={getFeedDetailRefetch}
+                />
               </FeedDetailSideBlock>
             </FeedDetailStickyContainer>
           </FeedDetailSideWrapper>

@@ -71,41 +71,79 @@ export default function AddFeedCarousel(props) {
     <MainCarouselSlider {...settings}>
       {props.images.map((image, idx) => {
         return (
-          <AddFeedCarouselImgDiv height={props.height} key={idx}>
-            <AddFeedCarouselImg
-              src={image}
-              onClick={e => {
-                props.productSelect(idx);
-                props.setModal(true);
-                console.log(e.nativeEvent.osaffsetX, e.nativeEvent.offsetY);
-              }}
-            />
-            {logoPos.map((plusButton, idx) => {
-              return (
-                <div
-                  key={idx}
-                  {...bindLogoPos(idx)}
-                  style={{
-                    top: `${plusButton.y}px`,
-                    left: `${plusButton.x}px`,
-                  }}
-                >
-                  <svg
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 24 24"
-                    className="Vfsdi jCTZa css-18se8ix"
-                  >
-                    <circle cx="12" cy="12" r="12" fill="currentColor"></circle>
-                    <path
-                      stroke="#FFF"
-                      strokeLinecap="square"
-                      strokeWidth="2"
-                      d="M12 16V8m-4 4h8"
-                    ></path>
-                  </svg>
-                </div>
+          <AddFeedCarouselImgDiv
+            height={props.height}
+            key={idx}
+            onClick={e => {
+              props.productSelect(
+                idx,
+                e.nativeEvent.offsetX + 550 > e.nativeEvent.layerX &&
+                  e.nativeEvent.layerX > e.nativeEvent.offsetX - 550
+                  ? e.nativeEvent.layerX + 550
+                  : e.nativeEvent.offsetX,
+                e.nativeEvent.offsetY + 5 > e.nativeEvent.layerY &&
+                  e.nativeEvent.layerY > e.nativeEvent.offsetY - 5
+                  ? e.nativeEvent.offsetY
+                  : e.nativeEvent.layerY,
               );
+              // if (
+              //   e.nativeEvent.offsetY + 5 > e.nativeEvent.layerY &&
+              //   e.nativeEvent.layerY > e.nativeEvent.offsetY - 5
+              // ) {
+              //   console.log(e.nativeEvent.offsetY, 'if');
+              // } else {
+              //   console.log(e.nativeEvent.layerY, 'else');
+              // }
+              // if (
+              //   e.nativeEvent.offsetX + 550 > e.nativeEvent.layerX &&
+              //   e.nativeEvent.layerX > e.nativeEvent.offsetX - 550
+              // ) {
+              //   console.log(e.nativeEvent.layerX + 550, 'if');
+              // } else {
+              //   console.log(e.nativeEvent.offsetX, 'else');
+              // }
+              // console.log(
+              //   e,
+              //   idx,
+              //   e.nativeEvent.offsetX,
+              //   e.nativeEvent.layerX,
+              //   e.nativeEvent.offsetY,
+              //   e.nativeEvent.layerY,
+              // );
+              props.setModal(true);
+            }}
+          >
+            <AddFeedCarouselImg src={image} />
+            {props.productList.map((plusButton, idxx) => {
+              if (plusButton.imageIndex === idx) {
+                return (
+                  <div
+                    key={idxx}
+                    // {...bindLogoPos(idx)}
+                    style={{
+                      top: `${plusButton.posY}px`,
+                      left: `${plusButton.posX}px`,
+                    }}
+                  >
+                    <svg
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                      className="Vfsdi jCTZa css-18se8ix"
+                    >
+                      <circle cx="12" cy="12" r="12" fill="#16B51E"></circle>
+                      <path
+                        stroke="#FFF"
+                        strokeLinecap="square"
+                        strokeWidth="2"
+                        d="M12 16V8m-4 4h8"
+                      ></path>
+                    </svg>
+                  </div>
+                );
+              } else {
+                return <div key={idxx}></div>;
+              }
             })}
           </AddFeedCarouselImgDiv>
         );

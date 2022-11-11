@@ -165,7 +165,7 @@ const AddFeedCarouselImgDiv = styled.div`
   position: relative;
   width: ${props => props.width};
   height: ${props => props.height};
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   div {
@@ -176,6 +176,7 @@ const AddFeedCarouselImgDiv = styled.div`
 const AddFeedCarouselImg = styled.img`
   vertical-align: middle;
   max-width: 100%;
+  max-height: 100%;
   object-fit: cover;
 `;
 
