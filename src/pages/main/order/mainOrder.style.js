@@ -38,6 +38,9 @@ const PreOrderPriceDiv = styled.div`
   padding: 20px 5px;
   border: solid 1px lightgray;
   border-radius: 5px;
+  button {
+    margin-top: 40px;
+  }
 `;
 
 const PreOrderPriceHeader = styled.h2`
@@ -59,6 +62,27 @@ const PreOrderPriceTotal = styled.h3`
   }
 `;
 
+const OrderSelectBox = styled.div`
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  width: 280px;
+  div {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: ${props => props.theme.colors.gray};
+    :hover {
+      background-color: ${props => props.theme.colors.logoGreen};
+      color: white;
+    }
+  }
+  .orderIsActivate {
+    background-color: ${props => props.theme.colors.logoGreen};
+    color: white;
+  }
+`;
+
 export {
   PreOrderContentDiv,
   PreOrderListDiv,
@@ -68,4 +92,5 @@ export {
   PreOrderPriceHeader,
   PreOrderPriceRow,
   PreOrderPriceTotal,
+  OrderSelectBox,
 };
