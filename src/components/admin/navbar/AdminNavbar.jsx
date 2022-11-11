@@ -38,6 +38,11 @@ export default function AdminNavbar() {
       title: '메인페이지 등록',
       url: 'display/set',
     },
+    {
+      icons: <MdDesktopWindows />,
+      title: '관리',
+      url: 'display/set',
+    },
   ];
   const [selectMenu, setSelectMenu] = useRecoilState(sellerNavState);
   const [accountSub, setAccountSub] = useState(false);
