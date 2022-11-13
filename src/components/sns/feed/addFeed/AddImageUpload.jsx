@@ -56,6 +56,7 @@ export default function AddImageUpload(props) {
             setSelectedProduct={props.setSelectedProduct}
             selectProductInfo={props.selectProductInfo}
             setSelectedList={props.setSelectedList}
+            deletedList={props.deletedList}
           ></AddFeedCarousel>
         </div>
       )}

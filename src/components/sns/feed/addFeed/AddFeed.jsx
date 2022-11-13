@@ -42,6 +42,8 @@ export default function AddFeed() {
   const [selectedProductInfo, setSelectedProductInfo] = useState({});
   const [selectedProduct, setSelectedProduct] = useState(0);
   const [selectedList, setSelectedList] = useState(0);
+  const [deletedList, setDeletedList] = useState([]);
+  const [productInfoBody, setProductInfoBody] = useState([]);
   const [tooltip, setTooltip] = useState(false);
 
   // 이미지 전송을 위한 FormData
@@ -79,23 +81,24 @@ export default function AddFeed() {
       for (let i = 0; i < images.length; i++) {
         formData.append('images', images[i]);
       }
+
+      
+
       // 상품 데이터 추가
       formData.append(
         'data',
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
+      let productBody = productList.filter(product => !(deletedList.includes(product.index)))
       formData.append(
         'productData',
-        new Blob([JSON.stringify({ feedProductIdList: productList })], {
+        new Blob([JSON.stringify({ feedProductIdList: productBody })], {
           type: 'application/json',
         }),
       );
-      console.log(images);
-      console.log(submitData);
-      console.log(productList);
 
       // 상품 추가 API
-      // uploadFeed(formData);
+      uploadFeed(formData);
     }
   };
 
@@ -145,6 +148,17 @@ export default function AddFeed() {
         posY: positioinY,
       },
     ]);
+    setProductInfoBody([
+      // 기존 데이터 보존
+      ...productInfoBody,
+      {
+        index: productIdx,
+        imageIndex: nowImageIdx,
+        productId: productId,
+        posX: positioinX,
+        posY: positioinY,
+      },
+    ]);
     setInitProductList([
       // 기존 데이터 보존
       ...initProductList,
@@ -179,39 +193,23 @@ export default function AddFeed() {
   };
   // ================================
   const deleteProduct = () => {
-    let temp = productList
-    setProductList([])
-    setProductList(
-      temp.filter(product => product.index !== selectedProduct),
-    );
-    temp = initProductList
-    setInitProductList([])
-    setInitProductList(
-      temp.filter(product => product.index !== selectedProduct),
-    );
-    temp = productInfoList
-    setProductInfoList([])
-    setProductInfoList(
-      temp.filter(product => product.index !== selectedProduct),
-    );
+    setDeletedList([
+      // 기존 데이터 보존
+      ...deletedList,
+      selectedProduct,
+    ]);
     mouseOff();
   };
 
-  const selectProductInfo = (idx) => {
+  const selectProductInfo = idx => {
     for (let index = 0; index < productInfoList.length; index++) {
-      if (productInfoList[index].index === idx){
-        setSelectedProductInfo(productInfoList[index])
+      if (productInfoList[index].index === idx) {
+        setSelectedProductInfo(productInfoList[index]);
       }
     }
   };
 
-  const test = () => {
-    console.log(productList)
-    console.log(initProductList)
-    console.log(productInfoList)
-    console.log(selectedProductInfo)
-  }
-  
+
   return (
     <>
       <AddFeedNavbar>
@@ -219,7 +217,6 @@ export default function AddFeed() {
           <LogoImg src={Logo} alt="onandthefarmlogo" />
         </Link>
         <GreenButton onClick={uploadFeedBtn}>올리기</GreenButton>
-        <button onClick={test} >test</button>
       </AddFeedNavbar>
       <UserMaxWrapper>
         <AddFeedWrapper>
@@ -237,6 +234,7 @@ export default function AddFeed() {
               setSelectedProduct={setSelectedProduct}
               selectProductInfo={selectProductInfo}
               setSelectedList={setSelectedList}
+              deletedList={deletedList}
             />
             <textarea
               placeholder="피드에 대해 설명해주세요"
@@ -293,11 +291,11 @@ export default function AddFeed() {
                           <div>
                             {productInfoList[selectedList].sellerShopName}
                           </div>
+                          <div>{productInfoList[selectedList].productName}</div>
                           <div>
-                            {productInfoList[selectedList].productName}
-                          </div>
-                          <div>
-                            {productInfoList[selectedList].productPrice.toLocaleString()}{' '}
+                            {productInfoList[
+                              selectedList
+                            ].productPrice.toLocaleString()}{' '}
                             원
                           </div>
                         </ProductInfoDiv>
@@ -306,7 +304,7 @@ export default function AddFeed() {
                           style={{ cursor: 'pointer' }}
                         >
                           <div>
-                            <BsTrash/>
+                            <BsTrash />
                           </div>
                         </SvgDiv>
                       </TooltipContentDiv>

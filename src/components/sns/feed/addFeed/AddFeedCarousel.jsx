@@ -71,9 +71,10 @@ export default function AddFeedCarousel(props) {
               }
             }}
           >
+            
             <AddFeedCarouselImg src={image} />
             {props.productList.map((plusButton, idxx) => {
-              if (plusButton.imageIndex === idx) {
+              if (plusButton.imageIndex === idx && !(props.deletedList.includes(plusButton.index))) {
                 return (
                   <ProductTagButton
                     key={idxx}
