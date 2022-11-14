@@ -13,6 +13,7 @@ import {
 import Product from '../../../components/common/Product';
 import { getProducts } from '../../../apis/user/product';
 import Pagination from '../../../components/common/Pagination';
+import { useParams } from 'react-router-dom';
 
 export default function MainProductList() {
   const filterList = [
@@ -36,9 +37,22 @@ export default function MainProductList() {
     { id: 10, name: '기타/국산과일', value: '/all' },
   ];
 
+  const params = new URLSearchParams(window.location.search);
+  const category = params.get('category');
+  let categoryNum = 0
+  if (category === 'pear') {
+    categoryNum =1;
+  } else if (category === 'apple') {
+    categoryNum =2;
+  } else if (category === 'banana') {
+    categoryNum =3;
+  } else if (category === 'all') {
+    categoryNum =4;
+  }
+
   // const [searchWord, setSearchWord] = useState('');
   const [selectedFilter, setSelectedFilter] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState(categoryNum);
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
 
