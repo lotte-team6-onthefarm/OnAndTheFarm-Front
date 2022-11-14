@@ -22,7 +22,7 @@ export default function AddBadge() {
     // 뱃지 정보 데이터 객체화
     badgeName: badgeName,
     badgeDetail: badgeDetail,
-    badgeUrl: badgeUrl,
+    badgeConnectUrl: badgeUrl,
   };
 
   const validataionCheck = () => {

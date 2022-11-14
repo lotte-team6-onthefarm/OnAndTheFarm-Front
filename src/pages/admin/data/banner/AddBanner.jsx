@@ -22,7 +22,7 @@ export default function AddBanner() {
     // 모듈 정보 데이터 객체화
     bannerName: bannerName,
     bannerDetail: bannerDetail,
-    bannerUrl: bannerUrl,
+    bannerConnectUrl: bannerUrl,
   };
 
   const validataionCheck = () => {
