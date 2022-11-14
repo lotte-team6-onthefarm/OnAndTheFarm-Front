@@ -7,7 +7,7 @@ export default function MainBanner(props) {
   return (
     <MainBannerDiv>
       <a href="/sns/main">
-        <MainSnsImage src="https://image.ohou.se/i/bucketplace-v2-development/uploads/home/marketing/166753684104186222.png?h=144" />
+        <MainSnsImage src="https://product-image.kurly.com/cdn-cgi/image/width=1050,format=auto/banner/event/ca075b33-c4cd-4bf1-a6dd-09325da669cc.jpg" />
       </a>
     </MainBannerDiv>
   );

@@ -27,13 +27,13 @@ const MainProductsPopular = lazy(() =>
 
 export default function MainMainPage() {
   const mainLayout = [
-    'EasterEgg',
-    'MainCarousel',
-    'MainProductsPopular',
-    'MainSnsCarousel',
-    'MainCategory',
     'MainBanner',
     'MainSns',
+    'EasterEgg',
+    'MainCarousel',
+    'MainSnsCarousel',
+    // 'MainCategory',
+    'MainProductsPopular',
   ];
   // const dataTool = [<Product10001 />, <Product10002 />, <Product10003 />];
   /* 100001 : 전체 데이터
@@ -46,7 +46,7 @@ export default function MainMainPage() {
     MainCategory: <MainCategory />,
     MainProductsPopular: <MainProductsPopular dataTool={dataTool[tool]} />,
     MainBanner: <MainBanner />,
-    // MainSnsCarousel: <MainSnsCarousel />,
+    MainSnsCarousel: <MainSnsCarousel />,
     MainSns: <MainSns />,
     EasterEgg: (
       <div style={{ margin: '100px 0', display: 'none' }}>

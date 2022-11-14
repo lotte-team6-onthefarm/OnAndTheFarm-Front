@@ -130,9 +130,18 @@ const changeStatusName = status => {
 };
 
 // 대체이미지
-const onErrorImg = (e) => {
-  e.target.src = "https://colorate.azurewebsites.net/SwatchColor/B2B2B2";
-}
+const onErrorImg = e => {
+  e.target.src = 'https://colorate.azurewebsites.net/SwatchColor/B2B2B2';
+};
+
+// 소수점 둘째자리까지 표현
+const upNumber = num => {
+  const number = (num + '').split('.');
+  if (number.length > 1 && number[1].length > 2) {
+    return num.toFixed(2);
+  }
+  return num;
+};
 
 export {
   toLocaleString,
@@ -149,4 +158,5 @@ export {
   getDateConnect,
   changeStatusName,
   onErrorImg,
+  upNumber,
 };

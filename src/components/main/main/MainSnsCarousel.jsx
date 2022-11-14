@@ -5,7 +5,6 @@ import {
   MainCarouselDiv,
   MainCarouselSlider,
   CarouselImgDiv,
-  CarouselImg,
   UserNameDiv,
   SnsDiv,
   RankDiv,

@@ -7,7 +7,7 @@ const ProductDiv = styled.div`
   padding: ${props => (props.padding ? props.padding : '0')};
 
   .productSoldCountDiv {
-    background-color: lightgray;
+    background-color: ${props => props.theme.colors.gray};
     /* margin-bottom: 10px; */
     padding: 5px;
     span {
