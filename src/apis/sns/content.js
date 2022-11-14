@@ -27,6 +27,7 @@ const getFeedProduct = async () => {
 // 피드 상세 페이지 조회
 const getFeedDetail = async data => {
   const response = await JWTapiUser.get(`sns/feed/detail?feedId=${data}`);
+  // const response = await JWTapiUser.get(`sns/feed/detail?feedId=${data}?feedNumber=dkjfsieofzp`);
   return response.data.data;
 };
 

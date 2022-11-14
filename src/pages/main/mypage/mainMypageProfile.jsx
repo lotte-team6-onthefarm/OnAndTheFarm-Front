@@ -6,6 +6,8 @@ import { Button } from '../../../components/common/Button';
 import ButtonGroup from '../../../components/common/ButtonGroup';
 import Input from '../../../components/common/Input';
 import {
+  MemberInfoDiv,
+  MemberPointDiv,
   UserDetailBlock,
   UserDetailImg,
   UserDetailImgBlock,
@@ -95,7 +97,7 @@ export default function MainMypageProfile() {
       userSex: userGender,
       userBirthday: userBirthday,
     };
-    console.log(data)
+    console.log(data);
     formData.append('images', profileImages[0]);
     // 상품 데이터 추가
     formData.append(
@@ -130,7 +132,7 @@ export default function MainMypageProfile() {
     <div>
       {!isgetUserInfo && (
         <StyledBoxDiv>
-          <h2>회원정보 수정</h2>
+          <h2>회원정보</h2>
           <StyledRowDiv
             position="start"
             style={{ display: 'flex', justifyContent: 'center' }}
@@ -138,24 +140,53 @@ export default function MainMypageProfile() {
             <UserDetailBlock>
               <UserDetailImgBlock>
                 <UserDetailImg src={imageUrl === '' ? userImg : imageUrl} />
+                <UserInfoSetting>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    // accept='image/jpg,impge/png,image/jpeg,image/gif'
+                    style={{ display: 'none' }}
+                    ref={fileInput}
+                    onChange={handleChange}
+                  />
+                  <button
+                    onClick={() => {
+                      fileUploadHandler();
+                    }}
+                  >
+                    설정
+                  </button>
+                </UserInfoSetting>
               </UserDetailImgBlock>
-              <UserInfoSetting>
-                <input
-                  type="file"
-                  accept="image/*"
-                  // accept='image/jpg,impge/png,image/jpeg,image/gif'
-                  style={{ display: 'none' }}
-                  ref={fileInput}
-                  onChange={handleChange}
-                />
-                <button
-                  onClick={() => {
-                    fileUploadHandler();
-                  }}
-                >
-                  설정
-                </button>
-              </UserInfoSetting>
+
+              <MemberInfoDiv>
+                <div class="nickname">
+                  <strong>{userName}</strong>&nbsp;&nbsp;님
+                </div>
+                <p data-v-61a35f7b="" class="infoWord">
+                  과일이 신선한 날 이에요!
+                </p>
+                {/* <div data-v-61a35f7b="" class="memberGrade">
+                  <p
+                    data-v-61a35f7b=""
+                    data-cmpnt-typ="mlt_profile"
+                    data-cmpnt-name="mlt_mygrade_select"
+                  >
+                    <strong data-v-61a35f7b="">온앤더팜 ACE</strong>
+                    등급이네요!
+                  </p>
+                </div> */}
+              </MemberInfoDiv>
+
+              <MemberPointDiv>
+                <div className="title">
+                  <span>POINT</span>
+                </div>
+                <div className="contain">
+                  <strong>167</strong>
+                  <span>P</span>
+                </div>
+              </MemberPointDiv>
             </UserDetailBlock>
           </StyledRowDiv>
           <StyledRowDiv position="start">
