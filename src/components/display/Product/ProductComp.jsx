@@ -94,12 +94,12 @@ export default function ProductComp(props) {
           </ProductImgIcons>
         )}
       </ProductImgDiv>
-      {/* {product.productSoldCount !== undefined && (
+      {product.productSoldCount !== undefined && (
         <div className="productSoldCountDiv">
           <span>실시간 구매 수 : </span>
           <span className="productSoldCount">{product.productSoldCount}</span>
         </div>
-      )} */}
+      )}
       <ProductInfoDiv
         width={props.width}
         onClick={() => updateUrl(product.productId)}

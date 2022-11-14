@@ -45,6 +45,7 @@ const ListTextWrapper = styled.div`
   display: flex;
   align-items: center;
   .mainTextContent {
+    cursor: pointer;
     border: none;
     background-color: ${props => props.theme.colors.gray};
     padding: 0 10px;

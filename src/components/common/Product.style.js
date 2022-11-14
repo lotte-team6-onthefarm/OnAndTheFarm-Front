@@ -24,9 +24,11 @@ const ProductImgDiv = styled.div`
   height: 200px;
   position: relative;
   overflow: hidden;
+  /* border: solid; */
 `;
 
 const ProductImgIcons = styled.div`
+  /* border: solid red; */
   position: absolute;
   top: 160px;
   right: 5px;

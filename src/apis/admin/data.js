@@ -12,4 +12,10 @@ const postExhibitionNewBadge = async data => {
   return response.data.data;
 };
 
-export { postExhibitionNewBanner, postExhibitionNewBadge };
+// 데이터 툴 리스트 불러오기
+const getDataPickerAll = async data => {
+  const response = await JWTapiAdmin.get('/data-picker/get/all');
+  return response.data.data;
+};
+
+export { postExhibitionNewBanner, postExhibitionNewBadge, getDataPickerAll };
