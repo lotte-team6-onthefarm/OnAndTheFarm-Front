@@ -36,6 +36,7 @@ const MainCarouselSlider = styled(Slider)`
 `;
 
 const SnsDiv = styled.div`
+  margin: 0 10px;
   height: 200px;
   overflow: hidden;
   position: relative;
@@ -89,8 +90,8 @@ const UserNameDiv = styled.div`
   padding: 8px;
   font-size: 0px;
   z-index: 1;
-  left: 0px;
-  bottom: -190px;
+  left: 7px;
+  bottom: -187px;
   span {
     overflow: hidden;
     display: inline-block;
@@ -116,6 +117,7 @@ const CarouselImg = styled.img`
   top: 0px;
   left: 0px;
   transition: transform 0.2s ease 0s;
+
   span {
     overflow: hidden;
     display: inline-block;

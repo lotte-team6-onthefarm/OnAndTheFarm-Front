@@ -20,16 +20,16 @@ import { postTemporaryNew } from '../../../apis/admin/temporary';
 import { putExhibitionItemPriority } from '../../../apis/admin/account';
 import { useNavigate } from 'react-router-dom';
 
-export default function AddMainDisplay(props) {
+export default function AddMainDisplay() {
   const [block, setBlock] = useState('');
   const [category, setCategory] = useState('상품');
   const [categoryId, setCategoryId] = useState(1);
-  const [dataTool, setDataTool] = useState(100054);
+  const [dataTool, setDataTool] = useState();
   const [account, setAccount] = useState(0);
   const [items, setItems] = useState(0);
   const [itemsName, setItemsName] = useState('');
   const [itemsDetail, setItemsDetail] = useState('');
-  const [priority, setPriority] = useState(0);
+  const [priority, setPriority] = useState();
   const [itemPriorityList, setItemPriorityList] = useState([]);
   // 블록 리스트
   const blocks = [
@@ -107,6 +107,7 @@ export default function AddMainDisplay(props) {
       });
     }
   };
+  console.log(dataTool, 'asdas');
   return (
     <>
       <AddMainDisplayWrapper>
@@ -114,7 +115,7 @@ export default function AddMainDisplay(props) {
           <AddDisplayBlock blocks={blocks} setBlock={setBlock} />
         </PageCol>
         <PageCol width="28%">
-          <AddDisplayDataTool dataTools={dataTools} />
+          <AddDisplayDataTool dataTools={dataTools} setDataTool={setDataTool} />
         </PageCol>
       </AddMainDisplayWrapper>
       <AddMainDisplayWrapper>

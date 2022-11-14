@@ -8,7 +8,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { postAddCart } from '../../../apis/user/cart';
 import { postAddWish } from '../../../apis/user/product';
-import { HorizontalLine } from '../../common/HorizontalLine.style';
+import { upNumber } from '../../../utils/commonFunction';
 import {
   ProductDiv,
   ProductImg,
@@ -116,7 +116,7 @@ export default function ProductComp(props) {
             <IconWrapper>
               <IconBox>
                 <AiFillStar color="#40AA54" />
-                <strong>{product.reviewRate}</strong>
+                <strong>{upNumber(product.reviewRate)}</strong>
               </IconBox>
             </IconWrapper>
             <span>리뷰</span>

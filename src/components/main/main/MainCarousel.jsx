@@ -46,8 +46,8 @@ export default function MainCarousel(props) {
           return (
             <div key={item.id}>
               <CarouselImgDiv>
-                {/* <CarouselImg src={item.url} /> */}
-                <CarouselImg src="" onError={onErrorImg} />
+                <CarouselImg src={item.url} />
+                {/* <CarouselImg src="" onError={onErrorImg} /> */}
               </CarouselImgDiv>
             </div>
           );

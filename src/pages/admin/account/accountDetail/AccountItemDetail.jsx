@@ -2,22 +2,21 @@ import React from 'react';
 import { AccountDetailTextWrapper } from './AccountDetail.styled';
 
 export default function AccountItemDetail(props) {
-  const exhibitionItemsProductId =
+  const exhibitionItemNumber =
     props.items.exhibitionAccountItemDetailResponseList.map(item => {
-      return item.exhibitionItemId;
+      return item.exhibitionItemNumber;
     });
   const exhibitionItemsPriorityId =
     props.items.exhibitionAccountItemDetailResponseList.map(item => {
       return item.exhibitionItemPriority;
     });
+  console.log(props, '대ㅔ이터');
   return (
     <>
-      {exhibitionItemsProductId.map((data, idx) => (
+      {exhibitionItemNumber.map((data, idx) => (
         <AccountDetailTextWrapper key={idx}>
           <div className="accountDetailTitle">데이터 ID</div>
-          <div className="accountItemContent">
-            {exhibitionItemsProductId[idx]}
-          </div>
+          <div className="accountItemContent">{exhibitionItemNumber[idx]}</div>
           <div className="accountDetailTitle" style={{ marginLeft: '30px' }}>
             데이터 순서
           </div>

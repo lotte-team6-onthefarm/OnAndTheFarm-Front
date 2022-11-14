@@ -28,7 +28,7 @@ export default function AddAccount() {
 
   const { mutate: accountNew } = useMutation('postAccountNew', postAccountNew, {
     onSuccess: () => {
-      console.log('성공');
+      alert('구좌 등록 성공');
     },
   });
   const validataionCheck = () => {
@@ -48,6 +48,11 @@ export default function AddAccount() {
     } else if (content === '') {
       alert('설명을 입력해주세요');
       return false;
+    } else if (
+      submitData.exhibitionItemsFormRequests.length != dataGroupCount
+    ) {
+      alert('데이터 저장을 확인해주세요');
+      return false;
     } else {
       return true;
     }
@@ -64,7 +69,7 @@ export default function AddAccount() {
   };
 
   const accountNewBtn = () => {
-    console.log(submitData,'최종 보내주는 데이터')
+    console.log(submitData, dataGroupCount, '최종 보내주는 데이터');
 
     const isValidation = validataionCheck();
     if (isValidation) {
@@ -72,10 +77,10 @@ export default function AddAccount() {
     }
   };
 
-  const pushSubmitData = (inputData) => {
-    submitData.exhibitionItemsFormRequests.push(inputData)
-    console.log(submitData,'최종')
-  }
+  const pushSubmitData = inputData => {
+    submitData.exhibitionItemsFormRequests.push(inputData);
+    console.log(submitData, '최종');
+  };
 
   const visibleDataBtn = () => {
     if (dataGroupCount === '') {
@@ -85,8 +90,8 @@ export default function AddAccount() {
       alert('데이터 개수를 입력해주세요');
       return;
     }
-    submitData.exhibitionItemsFormRequests = []
-    setIsDataListChange(!isDataListChange)
+    submitData.exhibitionItemsFormRequests = [];
+    setIsDataListChange(!isDataListChange);
     setDataVisible(true);
   };
   return (

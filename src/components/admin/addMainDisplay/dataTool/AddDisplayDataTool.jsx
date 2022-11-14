@@ -1,8 +1,12 @@
 import React from 'react';
+import { useQuery } from 'react-query';
+import { getDataPickerAll } from '../../../../apis/admin/data';
 import { WhiteWrapper } from '../../../seller/common/Box.style';
 import { ListTextWrapper } from '../AddMainDisplay.styled';
 
 export default function AddDisplayDataTool(props) {
+  const { data: dataTools, isLoading } = useQuery('', getDataPickerAll, {});
+
   return (
     <WhiteWrapper height="450px">
       <div style={{ fontSize: '18px' }}>데이터 툴</div>
@@ -13,18 +17,26 @@ export default function AddDisplayDataTool(props) {
           overflow: 'auto',
         }}
       >
-        {props.dataTools.map((dataTool, idx) => {
-          return (
-            <ListTextWrapper
-              key={idx}
-              style={{
-                marginRight: props.dataTools.length > 5 ? '10px' : '0px',
-              }}
-            >
-              <div className="mainTextContent">데이터 툴 리스트 이름</div>
-            </ListTextWrapper>
-          );
-        })}
+        {!isLoading &&
+          dataTools.map((dataTool, idx) => {
+            return (
+              <ListTextWrapper
+                key={idx}
+                style={{
+                  marginRight: props.dataTools.length > 5 ? '10px' : '0px',
+                }}
+              >
+                <div
+                  className="mainTextContent"
+                  onClick={() => {
+                    props.setDataTool(dataTool.dataPickerId);
+                  }}
+                >
+                  [{dataTool.dataPickerId}] {dataTool.dataPickerName}
+                </div>
+              </ListTextWrapper>
+            );
+          })}
       </div>
     </WhiteWrapper>
   );

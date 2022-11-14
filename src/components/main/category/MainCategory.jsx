@@ -24,7 +24,7 @@ export default function MainCategory() {
       id: 2,
       move: '/products',
       url: 'https://image.ohou.se/i/bucketplace-v2-development/uploads/shortcut/home_feed_shortcut_sets/166774467947795922.png?w=256',
-      text: '오시즌위크',
+      text: '이달의 과일',
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ export default function MainCategory() {
       id: 4,
       move: '/products',
       url: 'https://image.ohou.se/i/bucketplace-v2-development/uploads/shortcut/home_feed_shortcut_sets/166556933560554347.png?w=256',
-      text: '오늘뭐하지',
+      text: '오늘 한상',
     },
     {
       id: 5,
@@ -65,12 +65,6 @@ export default function MainCategory() {
     {
       id: 9,
       move: '/products',
-      url: 'https://image.ohou.se/i/bucketplace-v2-development/uploads/shortcut/home_feed_shortcut_sets/166485741189749105.png?w=256',
-      text: '빠른배송',
-    },
-    {
-      id: 10,
-      move: '/products',
       url: 'https://image.ohou.se/i/bucketplace-v2-development/uploads/shortcut/home_feed_shortcut_sets/166485740201992331.png?w=256',
       text: '리모델링',
     },
@@ -83,12 +77,8 @@ export default function MainCategory() {
         {Category.map((item, index) => (
           <MainImageWrapper key={index}>
             <MainImageA href={item.move}>
-              <MainSnsImage
-                src={item.url}
-              />
-              <MainImageSpan>
-                {item.text}{' '}
-              </MainImageSpan>
+              <MainSnsImage src={item.url} />
+              <MainImageSpan>{item.text} </MainImageSpan>
             </MainImageA>
           </MainImageWrapper>
         ))}
