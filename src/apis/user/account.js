@@ -6,6 +6,12 @@ const postUserlogin = async data => {
   return response.data;
 };
 
+// 유저 로그아웃
+const putUserlogout = async data => {
+  const response = await JWTapiUser.put('members/logout');
+  return response.data;
+};
+
 // 유저 회원가입
 const postUserSignup = async data => {
   const response = await JWTapiUser.post('register', data);
@@ -24,4 +30,4 @@ const postUserInfo = async data => {
   return response.data;
 };
 
-export { postUserlogin, postUserSignup, getUserInfo, postUserInfo };
+export { postUserlogin, putUserlogout, postUserSignup, getUserInfo, postUserInfo };

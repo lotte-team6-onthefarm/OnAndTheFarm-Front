@@ -14,6 +14,8 @@ import {
 import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
 import { isLoginState } from '../../recoil';
+import { useMutation } from 'react-query';
+import { putUserlogout } from '../../apis/user/account';
 
 export default function MainNavbar(props) {
   const [isLogin, setisLogin] = useRecoilState(isLoginState);
@@ -60,10 +62,31 @@ export default function MainNavbar(props) {
   ];
   // hook
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('recoil-persist'); // 전역 member_id 삭제
-    document.location.href = '/';
+    logoutUser();
   };
+
+  const { mutate: logoutUser, isLoading: isLogoutUser } = useMutation(
+    putUserlogout,
+    {
+      onSuccess: res => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('role');
+        localStorage.removeItem('recoil-persist'); // 전역 member_id 삭제
+        document.location.href = '/';
+      },
+      onError: err => {
+        if (err.response.status === 406) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('refreshToken');
+          localStorage.removeItem('role');
+          localStorage.removeItem('recoil-persist'); // 전역 member_id 삭제
+          document.location.href = '/';
+        }
+        console.log('에러');
+      },
+    },
+  );
 
   const mainUrl = () => {
     navigate('/');
