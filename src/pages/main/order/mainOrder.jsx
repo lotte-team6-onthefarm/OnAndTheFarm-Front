@@ -34,6 +34,9 @@ export default function MainOrder() {
   const [payment, setPayment] = useState('');
   const [paymentEng, setPaymentEng] = useState('');
 
+  const params = new URLSearchParams(window.location.search);
+  const feedNumber = params.get('feedNumber');
+
   const {
     isLoading: isgetUserInfo,
     // refetch: getUserInfoRefetch,
@@ -85,7 +88,11 @@ export default function MainOrder() {
       merchant_uid: merchant_uid,
       paid_amount: paid_amount,
     };
-    console.log(data);
+    if(feedNumber===null){
+      console.log('그냥주문')
+    } else {
+      console.log('포인트주문')
+    }
     makeOrder(data);
   };
 
