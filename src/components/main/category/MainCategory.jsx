@@ -9,12 +9,13 @@ import {
   MainSnsWrapper,
 } from './MainCategory.styled';
 import { getAllMainBadge } from '../../../apis/exhibition/mainpage';
+import { displayMap } from '../../../utils/exhibition';
 
 export default function MainCategory(props) {
-  console.log(props.data, '데이터');
+  const data = displayMap(props.data, 'category');
   const { data: datas, isLoading } = useQuery(
     'getAllMainBadge',
-    () => getAllMainBadge(props.data.dataPicker, props.data.itemsId),
+    () => getAllMainBadge(data[0].dataPicker, data[0].itemsId),
     {
       onSuccess: () => {},
       enabled: props.data !== {},
@@ -23,7 +24,7 @@ export default function MainCategory(props) {
 
   return (
     <MainSnsWrapper>
-      <p>{props.data.accountName}</p>
+      <p>{data[0].accountName}</p>
       {!isLoading && (
         <MainSnsBlock>
           {datas.badgeATypeResponseList.map((item, index) => (

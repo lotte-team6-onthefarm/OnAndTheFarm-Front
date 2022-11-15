@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { getAllMainProduct } from '../../../apis/exhibition/mainpage';
+import { displayMap } from '../../../utils/exhibition';
 import { Button } from '../../common/Button';
 import ProductComp from '../../display/Product/ProductComp';
 import {
@@ -11,6 +12,7 @@ import {
 } from './MainProductsPopular.style';
 
 export default function MainProductsPopular(props) {
+  const data = displayMap(props.data, 'product');
   // props.dataTool
   const navigate = useNavigate();
   const productsUrl = () => {
@@ -19,11 +21,9 @@ export default function MainProductsPopular(props) {
 
   const { data: datas, isLoading } = useQuery(
     'getAllMainProduct',
-    () => getAllMainProduct(props.data.dataPicker, props.data.itemsId),
+    () => getAllMainProduct(data[0].dataPicker, data[0].itemsId),
     {
-      onSuccess: res => {
-        console.log(res, 'ssssssssssssss');
-      },
+      onSuccess: res => {},
       enabled: props.data !== {},
     },
   );
@@ -31,7 +31,7 @@ export default function MainProductsPopular(props) {
   return (
     <MainProductsDiv>
       <MainProductsSubjectDiv>
-        <p>{props.data.accountName}</p>
+        <p>{data[0].accountName}</p>
         <Button
           text="전체보기"
           color="#40AA54"
@@ -42,7 +42,7 @@ export default function MainProductsPopular(props) {
       </MainProductsSubjectDiv>
       {!isLoading && (
         <PopularProductsDiv>
-          {datas.btypeResponses.map((product, index) => {
+          {datas.responses.map((product, index) => {
             return (
               <ProductComp
                 key={index}

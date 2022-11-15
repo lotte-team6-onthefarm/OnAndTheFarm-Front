@@ -6,12 +6,6 @@ import { Link } from 'react-router-dom';
 import { getAllMainModule } from '../../apis/exhibition/mainpage';
 import { dataTool } from '../../components/display/Product/dataTool';
 import { onErrorImg } from '../../utils/commonFunction';
-// import MainCategory from '../../components/main/category/MainCategory';
-// import MainBanner from '../../components/main/main/MainBanner';
-// import MainCarousel from '../../components/main/main/MainCarousel';
-// import MainSns from '../../components/main/main/MainSns';
-// import MainSnsCarousel from '../../components/main/main/MainSnsCarousel';
-// import MainProductsPopular from '../../components/main/products/MainProductsPopular';
 import { MainContentDiv } from './mainMainPage.style';
 
 const MainCategory = lazy(() =>
@@ -82,37 +76,14 @@ export default function MainMainPage() {
     },
     onError: () => {},
   });
-  useEffect(() => {
-    if (data !== undefined) {
-      mapFunction(data);
-    }
-  }, []);
-
-  const mainLayout = [
-    'EasterEgg',
-    'MainCarousel',
-    'MainProductsPopular',
-    'MainSnsCarousel',
-    'MainCategory',
-    'MainBanner',
-    'MainSns',
-  ];
-  // const dataTool = [<Product10001 />, <Product10002 />, <Product10003 />];
-  /* 100001 : 전체 데이터
- * 100002 : id, image, name, price ,saleCount 
-   100003 : id, image, name, price, saleCount, sellerName
-*/
-  // 557
-  // 556
-  // 555
   const tool = 100001;
   const components = {
-    banner: <MainCarousel data={banner} />,
-    category: <MainCategory data={category} />,
-    product: <MainProductsPopular dataTool={dataTool[tool]} data={product} />,
-    miniBanner: <MainBanner data={miniBanner} />,
-    sns: <MainSnsCarousel data={sns} />,
-    farmfluencer: <MainSns data={farmfluencer} />,
+    banner: <MainCarousel data={data} />,
+    category: <MainCategory data={data} />,
+    product: <MainProductsPopular dataTool={dataTool[tool]} data={data} />,
+    miniBanner: <MainBanner data={data} />,
+    sns: <MainSnsCarousel data={data} />,
+    farmfluencer: <MainSns data={data} />,
     EasterEgg: (
       <div style={{ margin: '100px 0', display: 'none' }}>
         <Link to="snstest">등록</Link>
