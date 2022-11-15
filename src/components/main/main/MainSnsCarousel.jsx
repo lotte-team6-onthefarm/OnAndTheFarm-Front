@@ -9,12 +9,23 @@ import {
   SnsDiv,
   RankDiv,
 } from './MainSnsCarousel.style';
-import { getFeedList } from '../../../apis/sns/main';
 import { useQuery } from 'react-query';
 import { onErrorImg } from '../../../utils/commonFunction';
+import { getAllMainSNS } from '../../../apis/exhibition/mainpage';
 const Image = lazy(() => import('./Img'));
 
 export default function MainSnsCarousel(props) {
+  const { data: datas, isLoading } = useQuery(
+    'getAllMainSNS',
+    () => getAllMainSNS(props.data.dataPicker, props.data.itemsId),
+    {
+      onSuccess: res => {
+        console.log(res, 'snsRes');
+      },
+      enabled: props.data !== {},
+    },
+  );
+
   const settings = {
     speed: 1500,
     autoplay: true,
@@ -23,27 +34,27 @@ export default function MainSnsCarousel(props) {
     slidesToScroll: 1,
   };
 
-  const {
-    isLoading: isGetFeedList,
-    refetch: getFeedListRefetch,
-    data: snsList,
-  } = useQuery(
-    'getFeedList',
-    ({ pageParam = 0 }) => getFeedList({ url: '/like', searchWord: '' }, 0),
-    {
-      refetchOnWindowFocus: true,
-      onSuccess: res => {},
-      onError: () => {
-        console.log('에러');
-      },
-    },
-  );
+  // const {
+  //   isLoading: isGetFeedList,
+  //   refetch: getFeedListRefetch,
+  //   data: snsList,
+  // } = useQuery(
+  //   'getFeedList',
+  //   ({ pageParam = 0 }) => getFeedList({ url: '/like', searchWord: '' }, 0),
+  //   {
+  //     refetchOnWindowFocus: true,
+  //     onSuccess: res => {},
+  //     onError: () => {
+  //       console.log('에러');
+  //     },
+  //   },
+  // );
   return (
     <MainCarouselDiv>
       <h2>인기 게시글</h2>
       <MainCarouselSlider {...settings}>
-        {!isGetFeedList &&
-          snsList.posts.map((sns, idx) => (
+        {!isLoading &&
+          datas.snsATypeResponses.map((sns, idx) => (
             <CarouselImgDiv key={idx}>
               <a href="/sns/main">
                 <SnsDiv>

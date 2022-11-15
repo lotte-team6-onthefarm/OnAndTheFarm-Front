@@ -7,10 +7,12 @@ import {
   CarouselImgDiv,
   CarouselImg,
 } from './MainCarousel.style';
-import goguma from '../../../assets/imgs/banner_고구마.jpg';
-import shine from '../../../assets/imgs/banner_샤인머스캣.jpg';
-import onion from '../../../assets/imgs/banner_양파.jpg';
+// import goguma from '../../../assets/imgs/banner_고구마.jpg';
+// import shine from '../../../assets/imgs/banner_샤인머스캣.jpg';
+// import onion from '../../../assets/imgs/banner_양파.jpg';
 import { onErrorImg } from '../../../utils/commonFunction';
+import { useQuery } from 'react-query';
+import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
 
 export default function MainCarousel(props) {
   const settings = {
@@ -23,36 +25,32 @@ export default function MainCarousel(props) {
     slidesToScroll: 1,
   };
 
-  const items = [
+  const { data: datas, isLoading } = useQuery(
+    'getAllMainBanner',
+    () => getAllMainBanner(props.data.dataPicker, props.data.itemsId),
     {
-      id: 1,
-      url: goguma,
+      onSuccess: res => {},
+      enabled: props.data !== {},
     },
-    {
-      id: 2,
-      url: shine,
-    },
-    {
-      id: 3,
-      url: onion,
-    },
-  ];
+  );
 
   return (
     <MainCarouselDiv>
       <h2>농산물 큐레이팅</h2>
-      <MainCarouselSlider {...settings}>
-        {items.map(item => {
-          return (
-            <div key={item.id}>
-              <CarouselImgDiv>
-                <CarouselImg src={item.url} />
-                {/* <CarouselImg src="" onError={onErrorImg} /> */}
-              </CarouselImgDiv>
-            </div>
-          );
-        })}
-      </MainCarouselSlider>
+      {!isLoading && (
+        <MainCarouselSlider {...settings}>
+          {datas.bannerATypeResponses.map((data, idx) => {
+            return (
+              <div key={idx}>
+                <CarouselImgDiv>
+                  <CarouselImg src={data.imgSrc} />
+                  {/* <CarouselImg src="" onError={onErrorImg} /> */}
+                </CarouselImgDiv>
+              </div>
+            );
+          })}
+        </MainCarouselSlider>
+      )}
     </MainCarouselDiv>
   );
 }

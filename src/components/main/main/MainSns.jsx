@@ -9,8 +9,21 @@ import SellerSNS_1 from '../../../assets/imgs/SellerSNS_1.png';
 import SellerSNS_2 from '../../../assets/imgs/SellerSNS_2.png';
 import SellerSNS_3 from '../../../assets/imgs/SellerSNS_3.png';
 import SellerSNS_4 from '../../../assets/imgs/SellerSNS_4.png';
+import { useQuery } from 'react-query';
+import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
 
-export default function MainSns() {
+export default function MainSns(props) {
+  const { data: datas, isLoading } = useQuery(
+    'getAllMainFarmFluencer',
+    () => getAllMainBanner(props.data.dataPicker, props.data.itemsId),
+    {
+      onSuccess: res => {
+        console.log(res.bannerATypeResponses, '팜플루언서Res');
+      },
+      enabled: props.data !== {},
+    },
+  );
+
   const SNS = [
     {
       id: 1,
@@ -33,13 +46,15 @@ export default function MainSns() {
   return (
     <MainSnsWrapper>
       <p>신규 팜플루언서</p>
-      <MainSnsBlock>
-        {SNS.map((sns, idx) => (
-          <MainImageWrapper key={idx}>
-            <MainSnsImage src={sns.url} alt=""></MainSnsImage>
-          </MainImageWrapper>
-        ))}
-      </MainSnsBlock>
+      {!isLoading && (
+        <MainSnsBlock>
+          {datas.bannerATypeResponses.map((sns, idx) => (
+            <MainImageWrapper key={idx}>
+              <MainSnsImage src={sns.imgSrc} alt=""></MainSnsImage>
+            </MainImageWrapper>
+          ))}
+        </MainSnsBlock>
+      )}
     </MainSnsWrapper>
   );
 }

@@ -86,7 +86,9 @@ export default function Product(props) {
         onClick={() => updateUrl(product.productId)}
       >
         <ProductImg
+          // src={`${product.productMainImgSrc}/640x480`}
           src={product.productMainImgSrc}
+          loading="lazy"
           alt="onandthefarmlogo"
         ></ProductImg>
       </ProductImgDiv>

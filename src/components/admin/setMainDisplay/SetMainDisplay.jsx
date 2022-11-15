@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { BlueButton } from '../../common/Button.style';
 import { PageCol } from '../../seller/common/Box.style';
 import { AddMainDisplayWrapper } from './SetMainDisplay.styled';
-import banner from '../../../assets/모듈/배너.JPG';
-import product from '../../../assets/모듈/상품.JPG';
-import miniB from '../../../assets/모듈/미니배너.JPG';
-import categoryImg from '../../../assets/모듈/카테고리.JPG';
-import sns from '../../../assets/모듈/SNS.JPG';
+import banner from '../../../assets/모듈/배너.PNG';
+import product from '../../../assets/모듈/상품.PNG';
+import miniB from '../../../assets/모듈/미니배너.PNG';
+import categoryImg from '../../../assets/모듈/카테고리.PNG';
+import sns from '../../../assets/모듈/SNS.PNG';
+import farmfluencer from '../../../assets/모듈/팜플루언서.PNG';
 import DisplayBlock from './DisplayBlock';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
@@ -26,6 +27,7 @@ export default function SetMainDisplay(props) {
     product: { moduleImgSrc: product, moduleName: '상품 블록' },
     category: { moduleImgSrc: categoryImg, moduleName: '카테고리 블록' },
     sns: { moduleImgSrc: sns, moduleName: 'SNS 블록' },
+    farmfluencer: { moduleImgSrc: farmfluencer, moduleName: '팜플루언서 블록' },
   };
 
   const fixMainPage = () => {
@@ -51,7 +53,7 @@ export default function SetMainDisplay(props) {
       console.log('에러');
     },
   });
-
+  console.log(temporaryList, 'sadas');
   const { mutate: exhibitionSave, isLoading: isputTemporaryApplyLoading } =
     useMutation(putTemporaryApply, {
       onSuccess: res => {

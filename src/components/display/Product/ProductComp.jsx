@@ -20,7 +20,6 @@ import { IconBox, IconWrapper } from '../../seller/common/Icon.style';
 
 export default function ProductComp(props) {
   const product = props.product;
-  console.log(product);
   const addCartClick = id => {
     let cartList = [
       {
@@ -76,15 +75,12 @@ export default function ProductComp(props) {
         width={props.width}
         onClick={() => updateUrl(product.productId)}
       >
-        <ProductImg
-          src={product.productMainImgSrc}
-          alt="onandthefarmlogo"
-        ></ProductImg>
+        <ProductImg src={product.imgSrc} alt="onandthefarmlogo"></ProductImg>
 
         {product.productCartStatus !== undefined && (
           <ProductImgIcons
-            productCartStatus={product.productCartStatus}
-            productWishStatus={product.productWishStatus}
+            productCartStatus={product.cartStatus}
+            productWishStatus={product.wishStatus}
           >
             <AiOutlineHeart fontSize="x-large" onClick={addLike} />
             <AiOutlineShoppingCart
@@ -97,7 +93,7 @@ export default function ProductComp(props) {
       {product.productSoldCount !== undefined && (
         <div className="productSoldCountDiv">
           <span>실시간 구매 수 : </span>
-          <span className="productSoldCount">{product.productSoldCount}</span>
+          <span className="productSoldCount">{product.soldCount}</span>
         </div>
       )}
       <ProductInfoDiv
@@ -120,7 +116,7 @@ export default function ProductComp(props) {
               </IconBox>
             </IconWrapper>
             <span>리뷰</span>
-            {product.productReviewCount}
+            {product.reviewCount}
           </div>
         )}
         {product.productCartStatus !== undefined && (

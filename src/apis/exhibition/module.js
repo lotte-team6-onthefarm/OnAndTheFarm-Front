@@ -12,14 +12,10 @@ const getModuleList = async data => {
   return response.data.data;
 };
 
-// 전체 모듈목록
+// 전체 모듈리스트
 const getAllModuleList = async data => {
   const response = await JWTapiAdmin.get(`module/list/all`);
   return response.data.data;
 };
 
-export {
-  postModuleAdd,
-  getModuleList,
-  getAllModuleList,
-};
+export { postModuleAdd, getModuleList, getAllModuleList };

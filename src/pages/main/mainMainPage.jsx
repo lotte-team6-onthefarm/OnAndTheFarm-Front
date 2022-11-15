@@ -1,5 +1,8 @@
 import React, { lazy, Suspense } from 'react';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import { getAllMainModule } from '../../apis/exhibition/mainpage';
 import { dataTool } from '../../components/display/Product/dataTool';
 import { onErrorImg } from '../../utils/commonFunction';
 // import MainCategory from '../../components/main/category/MainCategory';
@@ -26,6 +29,51 @@ const MainProductsPopular = lazy(() =>
 );
 
 export default function MainMainPage() {
+  const [banner, setBanner] = useState({});
+  const [category, setCategory] = useState({});
+  const [product, setProduct] = useState({});
+  const [farmfluencer, setFarmfluencer] = useState({});
+  const [miniBanner, setMiniBanner] = useState({});
+  const [sns, setSNS] = useState({});
+
+  const { data, isLoading } = useQuery('getAllMainModule', getAllMainModule, {
+    onSuccess: res => {
+      res.map((r, idx) => {
+        if (r.exhibitionModuleName === 'banner')
+          setBanner({
+            dataPicker: r.exhibitionDataPickerId,
+            itemsId: r.exhibitionItemsId,
+          });
+        else if (r.exhibitionModuleName === 'category')
+          setCategory({
+            dataPicker: r.exhibitionDataPickerId,
+            itemsId: r.exhibitionItemsId,
+          });
+        else if (r.exhibitionModuleName === 'product')
+          setProduct({
+            dataPicker: r.exhibitionDataPickerId,
+            itemsId: r.exhibitionItemsId,
+          });
+        else if (r.exhibitionModuleName === 'farmfluencer')
+          setFarmfluencer({
+            dataPicker: r.exhibitionDataPickerId,
+            itemsId: r.exhibitionItemsId,
+          });
+        else if (r.exhibitionModuleName === 'miniBanner')
+          setMiniBanner({
+            dataPicker: r.exhibitionDataPickerId,
+            itemsId: r.exhibitionItemsId,
+          });
+        else if (r.exhibitionModuleName === 'sns')
+          setSNS({
+            dataPicker: r.exhibitionDataPickerId,
+            itemsId: r.exhibitionItemsId,
+          });
+      });
+    },
+    onError: () => {},
+  });
+
   const mainLayout = [
     'EasterEgg',
     'MainCarousel',
@@ -40,14 +88,19 @@ export default function MainMainPage() {
  * 100002 : id, image, name, price ,saleCount 
    100003 : id, image, name, price, saleCount, sellerName
 */
+  // 557
+  // 556
+  // 555
   const tool = 100001;
   const components = {
-    MainCarousel: <MainCarousel />,
-    MainCategory: <MainCategory />,
-    MainProductsPopular: <MainProductsPopular dataTool={dataTool[tool]} />,
-    MainBanner: <MainBanner />,
-    // MainSnsCarousel: <MainSnsCarousel />,
-    MainSns: <MainSns />,
+    MainCarousel: <MainCarousel data={banner} />, // ssssssssssssssssssssssss
+    MainCategory: <MainCategory data={category} />, // ssssssssssssssssssssssss
+    MainProductsPopular: (
+      <MainProductsPopular dataTool={dataTool[tool]} data={product} />
+    ),
+    MainBanner: <MainBanner data={miniBanner} />, // ssssssssssssssssssssssss
+    MainSnsCarousel: <MainSnsCarousel data={sns} />, // ssssssssssssssssssssssss
+    MainSns: <MainSns data={farmfluencer} />, // ssssssssssssssssssssssss
     EasterEgg: (
       <div style={{ margin: '100px 0', display: 'none' }}>
         <Link to="snstest">등록</Link>
@@ -57,26 +110,27 @@ export default function MainMainPage() {
 
   return (
     <MainContentDiv>
-      {mainLayout.map((item, idx) => {
-        return (
-          <Suspense
-            fallback={
-              <div
-                key={idx}
-                style={{
-                  widows: '100%',
-                  height: '200px',
-                  backgroundColor: 'gray',
-                  marginTop: '50px',
-                }}
-              ></div>
-            }
-          >
-            <div key={idx}>{components[item]}</div>
-          </Suspense>
-        );
-        // <div key={idx}>{components[item]}</div>;
-      })}
+      {!isLoading &&
+        mainLayout.map((item, idx) => {
+          return (
+            <Suspense
+              fallback={
+                <div
+                  style={{
+                    widows: '100%',
+                    height: '200px',
+                    backgroundColor: 'gray',
+                    marginTop: '50px',
+                  }}
+                ></div>
+              }
+              key={idx}
+            >
+              <div>{components[item]}</div>
+            </Suspense>
+          );
+          // <div key={idx}>{components[item]}</div>;
+        })}
     </MainContentDiv>
   );
 }
