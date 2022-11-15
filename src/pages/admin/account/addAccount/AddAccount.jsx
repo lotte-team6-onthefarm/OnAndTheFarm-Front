@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { postAccountNew } from '../../../../apis/admin/account';
 import { BlackButton } from '../../../../components/common/Button.style';
 import { HorizontalLine } from '../../../../components/common/HorizontalLine.style';
@@ -25,10 +26,11 @@ export default function AddAccount() {
   const [dataVisible, setDataVisible] = useState(false);
   const [items, setItems] = useState([]);
   const [isDataListChange, setIsDataListChange] = useState(false);
-
+  const navigate = useNavigate();
   const { mutate: accountNew } = useMutation('postAccountNew', postAccountNew, {
     onSuccess: () => {
       alert('구좌 등록 성공');
+      navigate('/admin');
     },
   });
   const validataionCheck = () => {

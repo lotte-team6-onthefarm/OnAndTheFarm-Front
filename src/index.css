@@ -14,5 +14,6 @@ code {
 
 @font-face {
   font-family: 'Pretendard';
-  src: url(./assets/font/PretendardVariable.ttf);
+  src: url(./assets/font/Pretendard-Regular.woff2) format('woff2'),
+    url(./assets/font/PretendardVariable.ttf) format('truetype');
 }

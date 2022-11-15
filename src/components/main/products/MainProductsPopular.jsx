@@ -1,5 +1,7 @@
 import React from 'react';
+import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { getAllMainProduct } from '../../../apis/exhibition/mainpage';
 import { Button } from '../../common/Button';
 import ProductComp from '../../display/Product/ProductComp';
 import {
@@ -14,6 +16,18 @@ export default function MainProductsPopular(props) {
   const productsUrl = () => {
     navigate('products');
   };
+
+  const { data: datas, isLoading } = useQuery(
+    'getAllMainProduct',
+    () => getAllMainProduct(props.data.dataPicker, props.data.itemsId),
+    {
+      onSuccess: res => {
+        console.log(res.btypeResponses, 'productRes');
+      },
+      enabled: props.data !== {},
+    },
+  );
+
   return (
     <MainProductsDiv>
       <MainProductsSubjectDiv>
@@ -26,17 +40,19 @@ export default function MainProductsPopular(props) {
           onClick={productsUrl}
         ></Button>
       </MainProductsSubjectDiv>
-      <PopularProductsDiv>
-        {props.dataTool.map((product, index) => {
-          return (
-            <ProductComp
-              key={index}
-              product={product}
-              padding="0 5px"
-            ></ProductComp>
-          );
-        })}
-      </PopularProductsDiv>
+      {!isLoading && (
+        <PopularProductsDiv>
+          {datas.btypeResponses.map((product, index) => {
+            return (
+              <ProductComp
+                key={index}
+                product={product}
+                padding="0 5px"
+              ></ProductComp>
+            );
+          })}
+        </PopularProductsDiv>
+      )}
     </MainProductsDiv>
   );
 }

@@ -24,12 +24,12 @@ export default function AddMainDisplay() {
   const [block, setBlock] = useState('');
   const [category, setCategory] = useState('상품');
   const [categoryId, setCategoryId] = useState(1);
-  const [dataTool, setDataTool] = useState();
+  const [dataTool, setDataTool] = useState(0);
   const [account, setAccount] = useState(0);
   const [items, setItems] = useState(0);
   const [itemsName, setItemsName] = useState('');
   const [itemsDetail, setItemsDetail] = useState('');
-  const [priority, setPriority] = useState();
+  const [priority, setPriority] = useState(0);
   const [itemPriorityList, setItemPriorityList] = useState([]);
   // 블록 리스트
   const blocks = [

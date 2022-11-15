@@ -8,6 +8,8 @@ const AddDisplayBlockWrapper = styled.div`
   flex-wrap: wrap;
   overflow: auto;
   .displayBlockImgDiv {
+    display: flex;
+    align-items: center;
     margin-top: 10px;
     margin-right: 10px;
     width: 350px;
