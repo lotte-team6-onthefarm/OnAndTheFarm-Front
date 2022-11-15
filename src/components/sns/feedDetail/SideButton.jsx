@@ -19,7 +19,6 @@ export default function SideButton(props) {
   };
   const { mutate: feedShare } = useMutation(putUpFeedShareCount, {
     onSuccess: res => {
-      alert('피드 공유하기');
       props.getFeedDetailRefetch();
     },
     onError: () => {
@@ -39,7 +38,7 @@ export default function SideButton(props) {
   };
 
   const handle = () => {
-    clip()
+    // clip()
     // if (navigator.share) {
     //     navigator.share({
     //         title: '기록하며 성장하기',
@@ -49,10 +48,16 @@ export default function SideButton(props) {
     // }else{
     //     alert("공유하기가 지원되지 않는 환경 입니다.")
     // }
+    navigator.clipboard.writeText(window.location.href+'?feedNumber='+props.feedNumber).then(() => {
+      alert('링크를 복사했습니다.');
+    });
+
+    console.log('주소복사');
     feedShare({
-      "feedId":props.id
-  })
-  }
+      feedId: props.id,
+    });
+  };
+  
 
   const buttonClick = () => {
     if (props.status !== undefined && props.status === false) {
@@ -63,7 +68,7 @@ export default function SideButton(props) {
     if (props.icon === 'comment') {
       props.buttonClick();
     } else if (props.icon === 'share') {
-      handle()
+      handle();
     }
   };
   return (

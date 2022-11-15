@@ -51,6 +51,8 @@ export default function FeedDetail(props) {
   // feedId = props.feedId
   const queryClient = useQueryClient();
 
+  const params = new URLSearchParams(window.location.search);
+  const feedNumber = params.get('feedNumber');
   const {
     isLoading: isFeedDetailLoading,
     data: feedDetail,
@@ -175,6 +177,7 @@ export default function FeedDetail(props) {
             <FeedProduct
               feedContent={feedDetail.feedContent}
               feedImageProductList={feedImageProductList}
+              feedNumber={feedNumber}
             />
             <FeedTag feedTag={feedDetail.feedTag} />
             <HorizontalLine color="#d7d7d7" />
@@ -205,7 +208,7 @@ export default function FeedDetail(props) {
                       direction="0,1"
                       overflown="false,false"
                       index="0"
-                      href={`/products/detail/${productInfo.productId}`}
+                      href={`/products/detail/${productInfo.productId}`+(feedNumber !== null ? `?feedNumber=`+feedNumber:'')}
                     >
                       <TooltipContentDiv>
                         <ProductImgDiv>
@@ -276,6 +279,7 @@ export default function FeedDetail(props) {
                   icon="share"
                   count={feedDetail.feedShareCount}
                   getFeedDetailRefetch={getFeedDetailRefetch}
+                  feedNumber={feedDetail.feedNumber}
                 />
               </FeedDetailSideBlock>
             </FeedDetailStickyContainer>

@@ -88,6 +88,9 @@ export default function MainProductDetailPage(props) {
   // hook
   const navigate = useNavigate();
 
+  const feed = new URLSearchParams(window.location.search);
+  const feedNumber = feed.get('feedNumber');
+
   const orderCart = () => {
     let tempCartItems = [];
     tempCartItems.push({
@@ -96,7 +99,7 @@ export default function MainProductDetailPage(props) {
       cartQty: quantity,
       productPrice: productDetail.productPrice,
     });
-    navigate(`/order`, { state: tempCartItems });
+    navigate(`/order`+(feedNumber !== null ? `?feedNumber=`+feedNumber:''), { state: tempCartItems });
   };
 
   const soldoutBtn = () => {

@@ -10,7 +10,7 @@ export default function FeedProduct(props) {
           return (
             <li key={idx}>
               <div>
-                <Link to={"/products/detail/"+img.productId}>
+                <Link to={"/products/detail/"+img.productId+(props.feedNumber !== null ? `?feedNumber=`+props.feedNumber:'')}>
                   <div
                     style={{
                       display: 'flex',
