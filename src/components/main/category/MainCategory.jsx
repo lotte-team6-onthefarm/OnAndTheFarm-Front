@@ -11,6 +11,7 @@ import {
 import { getAllMainBadge } from '../../../apis/exhibition/mainpage';
 
 export default function MainCategory(props) {
+  console.log(props.data, '데이터');
   const { data: datas, isLoading } = useQuery(
     'getAllMainBadge',
     () => getAllMainBadge(props.data.dataPicker, props.data.itemsId),
@@ -22,7 +23,7 @@ export default function MainCategory(props) {
 
   return (
     <MainSnsWrapper>
-      <p>카테고리</p>
+      <p>{props.data.accountName}</p>
       {!isLoading && (
         <MainSnsBlock>
           {datas.badgeATypeResponseList.map((item, index) => (

@@ -11,9 +11,7 @@ export default function MainBanner(props) {
     'getAllMainMiniBanner',
     () => getAllMainBanner(props.data.dataPicker, props.data.itemsId),
     {
-      onSuccess: res => {
-        console.log(res.bannerATypeResponses, 'miniBannerRes');
-      },
+      onSuccess: res => {},
       enabled: props.data !== {},
     },
   );
