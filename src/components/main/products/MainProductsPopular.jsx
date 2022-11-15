@@ -22,7 +22,7 @@ export default function MainProductsPopular(props) {
     () => getAllMainProduct(props.data.dataPicker, props.data.itemsId),
     {
       onSuccess: res => {
-        console.log(res.btypeResponses, 'productRes');
+        console.log(res, 'ssssssssssssss');
       },
       enabled: props.data !== {},
     },
@@ -31,7 +31,7 @@ export default function MainProductsPopular(props) {
   return (
     <MainProductsDiv>
       <MainProductsSubjectDiv>
-        <p>인기상품</p>
+        <p>{props.data.accountName}</p>
         <Button
           text="전체보기"
           color="#40AA54"

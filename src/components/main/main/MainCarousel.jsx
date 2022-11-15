@@ -30,13 +30,13 @@ export default function MainCarousel(props) {
     () => getAllMainBanner(props.data.dataPicker, props.data.itemsId),
     {
       onSuccess: res => {},
-      enabled: props.data !== {},
+      enabled: props.data !== {} && props.data.dataPicker !== undefined,
     },
   );
 
   return (
     <MainCarouselDiv>
-      <h2>농산물 큐레이팅</h2>
+      <h2>{props.data.accountName}</h2>
       {!isLoading && (
         <MainCarouselSlider {...settings}>
           {datas.bannerATypeResponses.map((data, idx) => {

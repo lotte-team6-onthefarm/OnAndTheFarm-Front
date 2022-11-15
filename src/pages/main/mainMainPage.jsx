@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
@@ -35,44 +36,57 @@ export default function MainMainPage() {
   const [farmfluencer, setFarmfluencer] = useState({});
   const [miniBanner, setMiniBanner] = useState({});
   const [sns, setSNS] = useState({});
-
+  const mapFunction = res => {
+    res.map((r, idx) => {
+      if (r.exhibitionModuleName === 'banner')
+        setBanner({
+          dataPicker: r.exhibitionDataPickerId,
+          itemsId: r.exhibitionItemsId,
+          accountName: r.exhibitionAccountName,
+        });
+      else if (r.exhibitionModuleName === 'category')
+        setCategory({
+          dataPicker: r.exhibitionDataPickerId,
+          itemsId: r.exhibitionItemsId,
+          accountName: r.exhibitionAccountName,
+        });
+      else if (r.exhibitionModuleName === 'product')
+        setProduct({
+          dataPicker: r.exhibitionDataPickerId,
+          itemsId: r.exhibitionItemsId,
+          accountName: r.exhibitionAccountName,
+        });
+      else if (r.exhibitionModuleName === 'farmfluencer')
+        setFarmfluencer({
+          dataPicker: r.exhibitionDataPickerId,
+          itemsId: r.exhibitionItemsId,
+          accountName: r.exhibitionAccountName,
+        });
+      else if (r.exhibitionModuleName === 'miniBanner')
+        setMiniBanner({
+          dataPicker: r.exhibitionDataPickerId,
+          itemsId: r.exhibitionItemsId,
+          accountName: r.exhibitionAccountName,
+        });
+      else if (r.exhibitionModuleName === 'sns')
+        setSNS({
+          dataPicker: r.exhibitionDataPickerId,
+          itemsId: r.exhibitionItemsId,
+          accountName: r.exhibitionAccountName,
+        });
+    });
+  };
   const { data, isLoading } = useQuery('getAllMainModule', getAllMainModule, {
     onSuccess: res => {
-      res.map((r, idx) => {
-        if (r.exhibitionModuleName === 'banner')
-          setBanner({
-            dataPicker: r.exhibitionDataPickerId,
-            itemsId: r.exhibitionItemsId,
-          });
-        else if (r.exhibitionModuleName === 'category')
-          setCategory({
-            dataPicker: r.exhibitionDataPickerId,
-            itemsId: r.exhibitionItemsId,
-          });
-        else if (r.exhibitionModuleName === 'product')
-          setProduct({
-            dataPicker: r.exhibitionDataPickerId,
-            itemsId: r.exhibitionItemsId,
-          });
-        else if (r.exhibitionModuleName === 'farmfluencer')
-          setFarmfluencer({
-            dataPicker: r.exhibitionDataPickerId,
-            itemsId: r.exhibitionItemsId,
-          });
-        else if (r.exhibitionModuleName === 'miniBanner')
-          setMiniBanner({
-            dataPicker: r.exhibitionDataPickerId,
-            itemsId: r.exhibitionItemsId,
-          });
-        else if (r.exhibitionModuleName === 'sns')
-          setSNS({
-            dataPicker: r.exhibitionDataPickerId,
-            itemsId: r.exhibitionItemsId,
-          });
-      });
+      mapFunction(res);
     },
     onError: () => {},
   });
+  useEffect(() => {
+    if (data !== undefined) {
+      mapFunction(data);
+    }
+  }, []);
 
   const mainLayout = [
     'EasterEgg',
@@ -93,14 +107,12 @@ export default function MainMainPage() {
   // 555
   const tool = 100001;
   const components = {
-    MainCarousel: <MainCarousel data={banner} />, // ssssssssssssssssssssssss
-    MainCategory: <MainCategory data={category} />, // ssssssssssssssssssssssss
-    MainProductsPopular: (
-      <MainProductsPopular dataTool={dataTool[tool]} data={product} />
-    ),
-    MainBanner: <MainBanner data={miniBanner} />, // ssssssssssssssssssssssss
-    MainSnsCarousel: <MainSnsCarousel data={sns} />, // ssssssssssssssssssssssss
-    MainSns: <MainSns data={farmfluencer} />, // ssssssssssssssssssssssss
+    banner: <MainCarousel data={banner} />,
+    category: <MainCategory data={category} />,
+    product: <MainProductsPopular dataTool={dataTool[tool]} data={product} />,
+    miniBanner: <MainBanner data={miniBanner} />,
+    sns: <MainSnsCarousel data={sns} />,
+    farmfluencer: <MainSns data={farmfluencer} />,
     EasterEgg: (
       <div style={{ margin: '100px 0', display: 'none' }}>
         <Link to="snstest">등록</Link>
@@ -111,7 +123,7 @@ export default function MainMainPage() {
   return (
     <MainContentDiv>
       {!isLoading &&
-        mainLayout.map((item, idx) => {
+        data.map((item, idx) => {
           return (
             <Suspense
               fallback={
@@ -126,7 +138,7 @@ export default function MainMainPage() {
               }
               key={idx}
             >
-              <div>{components[item]}</div>
+              <div>{components[item.exhibitionModuleName]}</div>
             </Suspense>
           );
           // <div key={idx}>{components[item]}</div>;

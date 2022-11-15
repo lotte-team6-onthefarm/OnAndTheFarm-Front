@@ -19,9 +19,7 @@ export default function MainSnsCarousel(props) {
     'getAllMainSNS',
     () => getAllMainSNS(props.data.dataPicker, props.data.itemsId),
     {
-      onSuccess: res => {
-        console.log(res, 'snsRes');
-      },
+      onSuccess: res => {},
       enabled: props.data !== {},
     },
   );
@@ -34,24 +32,9 @@ export default function MainSnsCarousel(props) {
     slidesToScroll: 1,
   };
 
-  // const {
-  //   isLoading: isGetFeedList,
-  //   refetch: getFeedListRefetch,
-  //   data: snsList,
-  // } = useQuery(
-  //   'getFeedList',
-  //   ({ pageParam = 0 }) => getFeedList({ url: '/like', searchWord: '' }, 0),
-  //   {
-  //     refetchOnWindowFocus: true,
-  //     onSuccess: res => {},
-  //     onError: () => {
-  //       console.log('에러');
-  //     },
-  //   },
-  // );
   return (
     <MainCarouselDiv>
-      <h2>인기 게시글</h2>
+      <h2>{props.data.accountName}</h2>
       <MainCarouselSlider {...settings}>
         {!isLoading &&
           datas.snsATypeResponses.map((sns, idx) => (

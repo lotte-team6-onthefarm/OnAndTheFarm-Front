@@ -77,7 +77,7 @@ export default function ProductComp(props) {
       >
         <ProductImg src={product.imgSrc} alt="onandthefarmlogo"></ProductImg>
 
-        {product.productCartStatus !== undefined && (
+        {product.cartStatus !== undefined && (
           <ProductImgIcons
             productCartStatus={product.cartStatus}
             productWishStatus={product.wishStatus}
@@ -90,7 +90,7 @@ export default function ProductComp(props) {
           </ProductImgIcons>
         )}
       </ProductImgDiv>
-      {product.productSoldCount !== undefined && (
+      {product.soldCount !== undefined && (
         <div className="productSoldCountDiv">
           <span>실시간 구매 수 : </span>
           <span className="productSoldCount">{product.soldCount}</span>
