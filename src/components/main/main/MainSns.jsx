@@ -7,11 +7,13 @@ import {
 } from './MainSns.styled';
 import { useQuery } from 'react-query';
 import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
+import { displayMap } from '../../../utils/exhibition';
 
 export default function MainSns(props) {
+  const data = displayMap(props.data, 'farmfluencer');
   const { data: datas, isLoading } = useQuery(
     'getAllMainFarmFluencer',
-    () => getAllMainBanner(props.data.dataPicker, props.data.itemsId),
+    () => getAllMainBanner(data[0].dataPicker, data[0].itemsId),
     {
       onSuccess: res => {},
       enabled: props.data !== {},
@@ -20,7 +22,7 @@ export default function MainSns(props) {
 
   return (
     <MainSnsWrapper>
-      <p>{props.data.accountName}</p>
+      <p>{data[0].accountName}</p>
       {!isLoading && (
         <MainSnsBlock>
           {datas.bannerATypeResponses.map((sns, idx) => (

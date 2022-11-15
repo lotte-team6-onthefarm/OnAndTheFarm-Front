@@ -7,14 +7,13 @@ import {
   CarouselImgDiv,
   CarouselImg,
 } from './MainCarousel.style';
-// import goguma from '../../../assets/imgs/banner_고구마.jpg';
-// import shine from '../../../assets/imgs/banner_샤인머스캣.jpg';
-// import onion from '../../../assets/imgs/banner_양파.jpg';
 import { onErrorImg } from '../../../utils/commonFunction';
 import { useQuery } from 'react-query';
 import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
+import { displayMap } from '../../../utils/exhibition';
 
 export default function MainCarousel(props) {
+  const data = displayMap(props.data, 'banner');
   const settings = {
     dots: true,
     infinite: true,
@@ -27,10 +26,10 @@ export default function MainCarousel(props) {
 
   const { data: datas, isLoading } = useQuery(
     'getAllMainBanner',
-    () => getAllMainBanner(props.data.dataPicker, props.data.itemsId),
+    () => getAllMainBanner(data[0].dataPicker, data[0].itemsId),
     {
       onSuccess: res => {},
-      enabled: props.data !== {} && props.data.dataPicker !== undefined,
+      enabled: props.data !== {},
     },
   );
 
