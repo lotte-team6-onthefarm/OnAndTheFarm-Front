@@ -16,7 +16,7 @@ import {
 } from './mainOrder.style';
 import ProductListComp from '../../../components/main/products/ProductList';
 import Input from '../../../components/common/Input';
-import { postMakeOrder } from '../../../apis/user/order';
+import { postMakeOrder, postMakePointOrder } from '../../../apis/user/order';
 import { getUserInfo } from '../../../apis/user/account';
 
 export default function MainOrder() {
@@ -77,7 +77,6 @@ export default function MainOrder() {
     console.log(imp_uid);
     console.log(merchant_uid);
     console.log(paid_amount);
-
     const data = {
       orderRecipientName: recieverName,
       orderAddress: recieverAddress,
@@ -85,15 +84,17 @@ export default function MainOrder() {
       orderRequest: recieverRequest,
       productList: productList,
       imp_uid: imp_uid,
+      feedNumber: feedNumber,
       merchant_uid: merchant_uid,
       paid_amount: paid_amount,
     };
     if(feedNumber===null){
       console.log('그냥주문')
+      makeOrder(data);
     } else {
       console.log('포인트주문')
+      postMakePointOrder(data);
     }
-    makeOrder(data);
   };
 
   useEffect(() => {
@@ -109,6 +110,19 @@ export default function MainOrder() {
 
   const { mutate: makeOrder, isLoading: isMakeOrderLoading } = useMutation(
     postMakeOrder,
+    {
+      onSuccess: res => {
+        alert('주문완료되었습니다');
+        navigate(`/order/success`, { state: '주문완료' });
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+
+  const { mutate: makePointOrder, isLoading: isMakePointOrderLoading } = useMutation(
+    postMakePointOrder,
     {
       onSuccess: res => {
         alert('주문완료되었습니다');

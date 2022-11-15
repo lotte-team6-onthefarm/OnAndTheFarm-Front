@@ -6,6 +6,12 @@ const postMakeOrder = async data => {
   return response.data;
 };
 
+// 포인트 주문서 생성
+const postMakePointOrder = async data => {
+  const response = await JWTapiUser.post('orders/point', data);
+  return response.data;
+};
+
 // 나의 주문내역 불러오기
 const getMyOrderList = async data => {
   const response = await JWTapiUser.get(`orders/list?pageNumber=${data.page}`);
@@ -43,4 +49,5 @@ export {
   getOrderDetail,
   postRefundProduct,
   postCancelProduct,
+  postMakePointOrder,
 };
