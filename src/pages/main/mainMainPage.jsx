@@ -46,6 +46,22 @@ export default function MainMainPage() {
       </div>
     ),
   };
+  const componentsF = (moduleName, display) => {
+    if (moduleName === 'banner') {
+      return <MainCarousel data={display} />;
+    } else if (moduleName === 'category') {
+      return <MainCategory data={display} />;
+    } else if (moduleName === 'product') {
+      return <MainProductsPopular data={display} />;
+    } else if (moduleName === 'miniBanner') {
+      return <MainBanner data={display} />;
+    } else if (moduleName === 'sns') {
+      return <MainSnsCarousel data={display} />;
+    } else if (moduleName === 'farmfluencer') {
+      return <MainSns data={display} />;
+    }
+    return;
+  };
 
   return (
     <MainContentDiv>
@@ -66,7 +82,7 @@ export default function MainMainPage() {
               key={idx}
             >
               <MainDisplayBlock>
-                {components[display.exhibitionModuleName]}
+                {componentsF(display.exhibitionModuleName, display)}
               </MainDisplayBlock>
             </Suspense>
           );

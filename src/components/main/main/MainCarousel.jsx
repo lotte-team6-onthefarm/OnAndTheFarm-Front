@@ -12,7 +12,8 @@ import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
 import { displayMap } from '../../../utils/exhibition';
 
 export default function MainCarousel(props) {
-  const data = displayMap(props.data, 'banner');
+  console.log(props.data, '메인배너');
+  // const data = displayMap(props.data, 'banner');
   const settings = {
     dots: true,
     infinite: true,
@@ -25,7 +26,11 @@ export default function MainCarousel(props) {
 
   const { data: datas, isLoading } = useQuery(
     'getAllMainBanner',
-    () => getAllMainBanner(data[0].dataPicker, data[0].itemsId),
+    () =>
+      getAllMainBanner(
+        props.data.exhibitionDataPickerId,
+        props.data.exhibitionItemsId,
+      ),
     {
       onSuccess: res => {},
       enabled: props.data !== {},

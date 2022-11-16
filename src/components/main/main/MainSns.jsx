@@ -10,10 +10,15 @@ import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
 import { displayMap } from '../../../utils/exhibition';
 
 export default function MainSns(props) {
-  const data = displayMap(props.data, 'farmfluencer');
+  console.log(props.data, '팜플루언서');
+  // const data = displayMap(props.data, 'farmfluencer');
   const { data: datas, isLoading } = useQuery(
     'getAllMainFarmFluencer',
-    () => getAllMainBanner(data[0].dataPicker, data[0].itemsId),
+    () =>
+      getAllMainBanner(
+        props.data.exhibitionDataPickerId,
+        props.data.exhibitionItemsId,
+      ),
     {
       onSuccess: res => {},
       enabled: props.data !== {},
@@ -22,7 +27,7 @@ export default function MainSns(props) {
 
   return (
     <MainSnsWrapper>
-      <div className="accountTitle">{data[0].accountName}</div>
+      <div className="accountTitle">{props.data.exhibitionAccountName}</div>
       {!isLoading && (
         <MainSnsBlock>
           {datas.bannerATypeResponses.map((sns, idx) => (

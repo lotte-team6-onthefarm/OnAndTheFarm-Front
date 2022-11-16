@@ -16,10 +16,14 @@ import { displayMap } from '../../../utils/exhibition';
 const Image = lazy(() => import('./Img'));
 
 export default function MainSnsCarousel(props) {
-  const data = displayMap(props.data, 'sns');
+  // const data = displayMap(props.data, 'sns');
   const { data: datas, isLoading } = useQuery(
     'getAllMainSNS',
-    () => getAllMainSNS(data[0].dataPicker, data[0].itemsId),
+    () =>
+      getAllMainSNS(
+        props.data.exhibitionDataPickerId,
+        props.data.exhibitionItemsId,
+      ),
     {
       onSuccess: res => {},
       enabled: props.data !== {},
@@ -36,7 +40,7 @@ export default function MainSnsCarousel(props) {
 
   return (
     <MainCarouselDiv>
-      <div className="accountTitle">{data[0].accountName}</div>
+      <div className="accountTitle">{props.data.exhibitionAccountName}</div>
       <MainCarouselSlider {...settings}>
         {!isLoading &&
           datas.snsATypeResponses.map((sns, idx) => (

@@ -12,10 +12,10 @@ import { getAllMainBadge } from '../../../apis/exhibition/mainpage';
 import { displayMap } from '../../../utils/exhibition';
 
 export default function MainCategory(props) {
-  const data = displayMap(props.data, 'category');
+  console.log(props.data, '카테고리');
   const { data: datas, isLoading } = useQuery(
     'getAllMainBadge',
-    () => getAllMainBadge(data[0].dataPicker, data[0].itemsId),
+    () => getAllMainBadge(props.data.dataPicker, props.data.itemsId),
     {
       onSuccess: () => {},
       enabled: props.data !== {},
@@ -24,7 +24,7 @@ export default function MainCategory(props) {
 
   return (
     <MainSnsWrapper>
-      <div className="accountTitle">{data[0].accountName}</div>
+      <div className="accountTitle">{props.data.accountName}</div>
       {!isLoading && (
         <MainSnsBlock>
           {datas.badgeATypeResponseList.map((item, index) => (
