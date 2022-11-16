@@ -16,7 +16,6 @@ export default function AddDisplayBlock(props) {
       onSuccess: () => {},
     },
   );
-  console.log(blocks);
   return (
     <WhiteWrapper height="450px">
       <div style={{ fontSize: '18px' }}>블록 모음</div>
@@ -26,13 +25,26 @@ export default function AddDisplayBlock(props) {
             return (
               <div
                 key={idx}
-                className="displayBlockImgDiv"
+                className={
+                  props.block === block.moduleName
+                    ? 'displayBlockImgDivActive'
+                    : 'displayBlockImgDiv'
+                }
                 onClick={() => {
                   setBlockBtn(block.moduleName);
                 }}
               >
                 <img src={block.moduleImgSrc} alt="" />
-                <div className="displayBlockTitle">{block.moduleName}</div>
+                <div
+                  className={
+                    // props.block === block.moduleName
+                    //   ? 'displayBlockTitleActive'
+                    //   : 'displayBlockTitle'
+                    'displayBlockTitle'
+                  }
+                >
+                  {block.moduleName}
+                </div>
               </div>
             );
           })}

@@ -10,11 +10,6 @@ import AddDisplayAccountList from './accountList/AddDisplayAccountList';
 import AddDisplayDatasList from './datasList/AddDisplayDatasList';
 import AddDisplayDataList from './dataList/AddDisplayDataList';
 import AddDisplayOrganize from './organize/AddDisplayOrganize';
-import banner from '../../../assets/모듈/배너.JPG';
-import product from '../../../assets/모듈/상품.JPG';
-import miniB from '../../../assets/모듈/미니배너.JPG';
-import categoryImg from '../../../assets/모듈/카테고리.JPG';
-import sns from '../../../assets/모듈/SNS.JPG';
 import { useMutation } from 'react-query';
 import { postTemporaryNew } from '../../../apis/admin/temporary';
 import { putExhibitionItemPriority } from '../../../apis/admin/account';
@@ -31,16 +26,6 @@ export default function AddMainDisplay() {
   const [itemsDetail, setItemsDetail] = useState('');
   const [priority, setPriority] = useState(0);
   const [itemPriorityList, setItemPriorityList] = useState([]);
-  // 블록 리스트
-  const blocks = [
-    { moduleImgSrc: banner, moduleName: 'banner' },
-    { moduleImgSrc: miniB, moduleName: 'miniBanner' },
-    { moduleImgSrc: product, moduleName: 'product' },
-    { moduleImgSrc: categoryImg, moduleName: 'category' },
-    { moduleImgSrc: sns, moduleName: 'sns' },
-  ];
-  // 데이터 툴
-  const dataTools = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const navigate = useNavigate();
 
   const validataionCheck = () => {
@@ -107,15 +92,14 @@ export default function AddMainDisplay() {
       });
     }
   };
-  console.log(dataTool, 'asdas');
   return (
     <>
       <AddMainDisplayWrapper>
         <PageCol width="70%">
-          <AddDisplayBlock blocks={blocks} setBlock={setBlock} />
+          <AddDisplayBlock block={block} setBlock={setBlock} />
         </PageCol>
         <PageCol width="28%">
-          <AddDisplayDataTool dataTools={dataTools} setDataTool={setDataTool} />
+          <AddDisplayDataTool dataTool={dataTool} setDataTool={setDataTool} />
         </PageCol>
       </AddMainDisplayWrapper>
       <AddMainDisplayWrapper>
@@ -154,6 +138,7 @@ export default function AddMainDisplay() {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <AddDisplayDatasList
               account={account}
+              items={items}
               setItems={setItems}
               setItemsName={setItemsName}
               setItemsDetail={setItemsDetail}

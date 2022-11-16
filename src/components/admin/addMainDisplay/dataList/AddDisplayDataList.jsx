@@ -40,7 +40,6 @@ export default function AddDisplayDataList(props) {
     });
     props.setItemPriorityList(tempList);
   };
-  console.log(props.itemPriorityList, 'ss');
   return (
     <>
       {!isLoading && (

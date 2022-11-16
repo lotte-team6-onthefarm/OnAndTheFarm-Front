@@ -5,7 +5,11 @@ import { WhiteWrapper } from '../../../seller/common/Box.style';
 import { ListTextWrapper } from '../AddMainDisplay.styled';
 
 export default function AddDisplayDataTool(props) {
-  const { data: dataTools, isLoading } = useQuery('', getDataPickerAll, {});
+  const { data: dataTools, isLoading } = useQuery(
+    'getDataPickerAll',
+    getDataPickerAll,
+    {},
+  );
 
   return (
     <WhiteWrapper height="450px">
@@ -23,11 +27,15 @@ export default function AddDisplayDataTool(props) {
               <ListTextWrapper
                 key={idx}
                 style={{
-                  marginRight: props.dataTools.length > 5 ? '10px' : '0px',
+                  marginRight: dataTools.length > 5 ? '10px' : '0px',
                 }}
               >
                 <div
-                  className="mainTextContent"
+                  className={
+                    props.dataTool === dataTool.dataPickerId
+                      ? 'mainTextContentActive'
+                      : 'mainTextContent'
+                  }
                   onClick={() => {
                     props.setDataTool(dataTool.dataPickerId);
                   }}

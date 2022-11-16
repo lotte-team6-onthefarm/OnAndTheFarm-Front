@@ -48,7 +48,13 @@ export default function AddDisplayDatasList(props) {
                     setItemsBtn(item);
                   }}
                 >
-                  <div className="mainTextContent">
+                  <div
+                    className={
+                      props.items === item.exhibitionItemsId
+                        ? 'mainTextContentActive'
+                        : 'mainTextContent'
+                    }
+                  >
                     {item.exhibitionItemsName}
                   </div>
                 </ListTextWrapper>
