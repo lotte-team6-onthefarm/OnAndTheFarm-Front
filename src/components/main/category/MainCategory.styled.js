@@ -2,13 +2,7 @@ import styled from 'styled-components';
 
 const MainSnsWrapper = styled.div`
   width: 1130px;
-  margin-bottom: 50px;
   align-items: center;
-  p {
-    font-size: xx-large;
-    font-weight: 800;
-    margin-bottom: 25px;
-  }
 `;
 
 const MainSnsBlock = styled.div`

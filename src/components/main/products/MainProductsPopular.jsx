@@ -31,7 +31,7 @@ export default function MainProductsPopular(props) {
   return (
     <MainProductsDiv>
       <MainProductsSubjectDiv>
-        <p>{data[0].accountName}</p>
+        <div className="accountTitle">{data[0].accountName}</div>
         <Button
           text="전체보기"
           color="#40AA54"

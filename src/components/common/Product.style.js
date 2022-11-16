@@ -8,7 +8,6 @@ const ProductDiv = styled.div`
 
   .productSoldCountDiv {
     background-color: ${props => props.theme.colors.gray};
-    /* margin-bottom: 10px; */
     padding: 5px;
     span {
       font-size: 17px;
@@ -24,11 +23,9 @@ const ProductImgDiv = styled.div`
   height: 200px;
   position: relative;
   overflow: hidden;
-  /* border: solid; */
 `;
 
 const ProductImgIcons = styled.div`
-  /* border: solid red; */
   position: absolute;
   top: 160px;
   right: 5px;

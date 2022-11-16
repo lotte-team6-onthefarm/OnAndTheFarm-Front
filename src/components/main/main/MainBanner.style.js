@@ -1,9 +1,6 @@
 import styled from 'styled-components';
-import mainImage from './mainImage2.png';
-
 const MainBannerDiv = styled.div`
   height: 140px;
-  margin: 40px 0px;
   border-radius: 4px;
 `;
 

@@ -36,7 +36,7 @@ export default function MainSnsCarousel(props) {
 
   return (
     <MainCarouselDiv>
-      <h2>{data[0].accountName}</h2>
+      <div className="accountTitle">{data[0].accountName}</div>
       <MainCarouselSlider {...settings}>
         {!isLoading &&
           datas.snsATypeResponses.map((sns, idx) => (

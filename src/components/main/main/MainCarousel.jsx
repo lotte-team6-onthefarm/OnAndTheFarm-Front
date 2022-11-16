@@ -7,7 +7,6 @@ import {
   CarouselImgDiv,
   CarouselImg,
 } from './MainCarousel.style';
-import { onErrorImg } from '../../../utils/commonFunction';
 import { useQuery } from 'react-query';
 import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
 import { displayMap } from '../../../utils/exhibition';
@@ -35,7 +34,6 @@ export default function MainCarousel(props) {
 
   return (
     <MainCarouselDiv>
-      <h2>{props.data.accountName}</h2>
       {!isLoading && (
         <MainCarouselSlider {...settings}>
           {datas.bannerATypeResponses.map((data, idx) => {

@@ -24,7 +24,7 @@ export default function MainCategory(props) {
 
   return (
     <MainSnsWrapper>
-      <p>{data[0].accountName}</p>
+      <div className="accountTitle">{data[0].accountName}</div>
       {!isLoading && (
         <MainSnsBlock>
           {datas.badgeATypeResponseList.map((item, index) => (

@@ -22,7 +22,7 @@ export default function MainSns(props) {
 
   return (
     <MainSnsWrapper>
-      <p>{data[0].accountName}</p>
+      <div className="accountTitle">{data[0].accountName}</div>
       {!isLoading && (
         <MainSnsBlock>
           {datas.bannerATypeResponses.map((sns, idx) => (

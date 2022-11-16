@@ -6,4 +6,14 @@ const MainContentDiv = styled.div`
   margin: 0 auto;
 `;
 
-export { MainContentDiv };
+const MainDisplayBlock = styled.div`
+  .accountTitle {
+    font-size: 25px;
+    font-weight: 800;
+    margin-left: 15px;
+    margin-bottom: 25px;
+  }
+  margin-bottom: 60px;
+`;
+
+export { MainContentDiv, MainDisplayBlock };

@@ -16,6 +16,7 @@ import {
   ProductImgIcons,
   ProductInfoDiv,
 } from '../../common/Product.style';
+import { MainProductDiv } from '../../main/products/MainProductsPopular.style';
 import { IconBox, IconWrapper } from '../../seller/common/Icon.style';
 
 export default function ProductComp(props) {
@@ -70,7 +71,7 @@ export default function ProductComp(props) {
     },
   );
   return (
-    <ProductDiv padding={props.padding}>
+    <MainProductDiv padding={props.padding}>
       <ProductImgDiv
         width={props.width}
         onClick={() => updateUrl(product.productId)}
@@ -126,6 +127,6 @@ export default function ProductComp(props) {
           </div>
         )}
       </ProductInfoDiv>
-    </ProductDiv>
+    </MainProductDiv>
   );
 }
