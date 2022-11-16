@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useState } from 'react';
 import {
   CartContentDiv,
@@ -11,9 +11,9 @@ import {
   ProductListDiv,
 } from './mainProductList.style';
 import Product from '../../../components/common/Product';
-import { getProducts } from '../../../apis/user/product';
+import { getProducts, postSearchProducts } from '../../../apis/user/product';
 import Pagination from '../../../components/common/Pagination';
-import { useParams } from 'react-router-dom';
+import InputSearch from '../../../components/common/SearchInput';
 
 export default function MainProductList() {
   const filterList = [
@@ -43,15 +43,15 @@ export default function MainProductList() {
 
   const params = new URLSearchParams(window.location.search);
   const category = params.get('category');
-  let categoryNum = 0
+  let categoryNum = 0;
   if (category === 'pear') {
-    categoryNum =1;
+    categoryNum = 1;
   } else if (category === 'apple') {
-    categoryNum =2;
+    categoryNum = 2;
   } else if (category === 'banana') {
-    categoryNum =3;
+    categoryNum = 3;
   } else if (category === 'all') {
-    categoryNum =4;
+    categoryNum = 4;
   }
 
   // const [searchWord, setSearchWord] = useState('');
@@ -59,7 +59,9 @@ export default function MainProductList() {
   const [selectedCategory, setSelectedCategory] = useState(categoryNum);
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-
+  const [searchWord, setSearchWord] = useState('');
+  const [searchData, setSearchData] = useState([]);
+  const [isSearch, setIsSearch] = useState(false);
   const {
     isLoading: isGetProductList,
     refetch: getProductListRefetch,
@@ -81,12 +83,38 @@ export default function MainProductList() {
       onError: () => {
         console.log('에러');
       },
+      enabled: !isSearch,
+    },
+  );
+  const { mutate: searchProduct } = useMutation(
+    ['postSearchProducts', nowPage],
+    postSearchProducts,
+    {
+      onSuccess: res => {
+        setNowPage(res.pageVo.nowPage);
+        setTotalPage(res.pageVo.totalPage);
+        setSearchData(res.productSearchResponses);
+        setIsSearch(true);
+      },
+      onError: () => {},
     },
   );
 
-  const test = () => {
-    console.log(selectedCategory);
-    console.log(selectedFilter);
+  const onKeyPress = e => {
+    if (e.key === 'Enter') {
+      search();
+    }
+  };
+
+  const search = () => {
+    if (searchWord === '') {
+      setIsSearch(false);
+      return;
+    }
+    searchProduct({
+      searchText: searchWord,
+      pageNumber: 0,
+    });
   };
 
   return (
@@ -113,15 +141,18 @@ export default function MainProductList() {
         })}
       </ProductCategoryDiv>
       <CartListDiv>
-        {/* <InputSearch
-          id="search"
-          value={searchWord}
-          width="400px"
-          onChange={e => setSearchWord(e.target.value)}
-          placeholder="원하시는 상품을 검색해주세요"
-          type="text"
-        ></InputSearch> */}
-
+        <div style={{ marginBottom: '20px' }}>
+          <InputSearch
+            id="search"
+            value={searchWord}
+            width="400px"
+            onKeyPress={onKeyPress}
+            onChange={e => setSearchWord(e.target.value)}
+            placeholder="원하시는 상품을 검색해주세요"
+            type="text"
+            search={search}
+          ></InputSearch>
+        </div>
         <CartListHeader>
           <p className="subject">{CATEGORY[selectedCategory].name}</p>
           <div style={{ display: 'flex' }}></div>
@@ -140,14 +171,41 @@ export default function MainProductList() {
             </select>
           </div>
         </CartListHeader>
-        <ProductListDiv>
+        {isSearch ? (
+          <ProductListDiv>
+            {!isGetProductList &&
+              searchData.map((product, index) => {
+                return (
+                  <Product
+                    key={index}
+                    product={product}
+                    width="170px"
+                  ></Product>
+                );
+              })}
+          </ProductListDiv>
+        ) : (
+          <ProductListDiv>
+            {!isGetProductList &&
+              productList.productSelectionResponses.map((product, index) => {
+                return (
+                  <Product
+                    key={index}
+                    product={product}
+                    width="170px"
+                  ></Product>
+                );
+              })}
+          </ProductListDiv>
+        )}
+        {/* <ProductListDiv>
           {!isGetProductList &&
             productList.productSelectionResponses.map((product, index) => {
               return (
                 <Product key={index} product={product} width="170px"></Product>
               );
             })}
-        </ProductListDiv>
+        </ProductListDiv> */}
         {totalPage !== 0 && (
           <Pagination
             nowPage={nowPage + 1}

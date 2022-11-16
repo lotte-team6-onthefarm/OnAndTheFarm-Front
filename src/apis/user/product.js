@@ -44,4 +44,19 @@ const deleteWishList = async data => {
   return response.data;
 };
 
-export { getProducts, postAddWish, getMainProduct, getProduct, deleteWishList };
+// 상품 검색
+const postSearchProducts = async data => {
+  console.log(data, 'e[d;xkxk');
+  const response = await JWTapiUser.post('product/search', data);
+  console.log(response, '앙아ㅏㅇ');
+  return response.data.data;
+};
+
+export {
+  getProducts,
+  postAddWish,
+  getMainProduct,
+  getProduct,
+  deleteWishList,
+  postSearchProducts,
+};
