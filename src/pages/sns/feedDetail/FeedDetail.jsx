@@ -48,7 +48,7 @@ export default function FeedDetail(props) {
   const [scrapStatus, setScrapStatus] = useState(false);
   const [productInfo, setProductInfo] = useState({});
   const [tooltip, setTooltip] = useState(false);
-  // feedId = props.feedId
+
   const queryClient = useQueryClient();
 
   const params = new URLSearchParams(window.location.search);
@@ -57,7 +57,7 @@ export default function FeedDetail(props) {
     isLoading: isFeedDetailLoading,
     data: feedDetail,
     refetch: getFeedDetailRefetch,
-  } = useQuery('FeedDetail', () => getFeedDetail(feedId), {
+  } = useQuery('FeedDetail', () => getFeedDetail(feedId,feedNumber), {
     refetchOnWindowFocus: true,
     refetchOnMount: true,
     onSuccess: res => {

@@ -37,7 +37,7 @@ export default function MainMypageProfile() {
   const {
     isLoading: isgetUserInfo,
     // refetch: getUserInfoRefetch,
-    // data: userInfo,
+    data: userInfo,
   } = useQuery('userInfo', () => getUserInfo(), {
     // refetchOnWindowFocus: true,
     onSuccess: res => {
@@ -160,12 +160,10 @@ export default function MainMypageProfile() {
               </UserDetailImgBlock>
 
               <MemberInfoDiv>
-                <div class="nickname">
+                <div className="nickname">
                   <strong>{userName}</strong>&nbsp;&nbsp;님
                 </div>
-                <p data-v-61a35f7b="" class="infoWord">
-                  과일이 신선한 날 이에요!
-                </p>
+                <p className="infoWord">과일이 신선한 날 이에요!</p>
                 {/* <div data-v-61a35f7b="" class="memberGrade">
                   <p
                     data-v-61a35f7b=""
@@ -183,13 +181,16 @@ export default function MainMypageProfile() {
                   <span>POINT</span>
                 </div>
                 <div className="contain">
-                  <strong>167</strong>
-                  <span>P</span>
+                  <strong>{userInfo.userPoint}</strong>
+                  <span>&nbsp;P</span>
                 </div>
               </MemberPointDiv>
             </UserDetailBlock>
           </StyledRowDiv>
-          <StyledRowDiv position="start">
+          <StyledRowDiv
+            position="start"
+            style={{ display: 'block', textAlign: 'left', fontSize: '13px' }}
+          >
             <Input
               value={userEmail}
               onChange={e => setUserEmail(e.target.value)}
@@ -199,6 +200,10 @@ export default function MainMypageProfile() {
               type="email"
               disabled={true}
             />
+            <p>
+              &nbsp;&nbsp;&nbsp;이메일 수신 동의 시 광고메일이 발송될 수
+              있습니다.
+            </p>
           </StyledRowDiv>
           <Input
             value={userName}
