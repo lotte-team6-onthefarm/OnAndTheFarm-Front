@@ -13,18 +13,14 @@ const StyledcontentDiv = styled.div`
   height: 150px;
   display: flex;
   margin: auto;
-  /* border: solid; */
 `;
 
 const StyledLogoDiv = styled.div`
   width: 28%;
   height: 150px;
-  /* display: flex; */
-  /* border: solid red; */
 `;
 
 const StyledLinkDiv = styled.div`
-  /* border: solid gray; */
   margin-top: 70px;
   display: flex;
   flex-direction: column;
@@ -34,7 +30,6 @@ const StyledLinkDiv = styled.div`
     font-weight: bold;
     margin-bottom: 5px;
   }
-  /* height: 150px; */
 `;
 
 const LogoImage = styled.img`
@@ -42,7 +37,6 @@ const LogoImage = styled.img`
   margin: auto;
   cursor: pointer;
   margin-left: 530px;
-  /* border: solid blue; */
 `;
 
 const FooterLink = styled.div`

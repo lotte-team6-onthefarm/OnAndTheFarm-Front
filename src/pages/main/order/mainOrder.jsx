@@ -88,11 +88,11 @@ export default function MainOrder() {
       merchant_uid: merchant_uid,
       paid_amount: paid_amount,
     };
-    if(feedNumber===null){
-      console.log('그냥주문')
+    if (feedNumber === null) {
+      console.log('그냥주문');
       makeOrder(data);
     } else {
-      console.log('포인트주문')
+      console.log('포인트주문');
       postMakePointOrder(data);
     }
   };
@@ -116,14 +116,13 @@ export default function MainOrder() {
         navigate(`/order/success`, { state: '주문완료' });
       },
       onError: () => {
-        console.log('에러');
+        alert('결제가 취소되었습니다.');
       },
     },
   );
 
-  const { mutate: makePointOrder, isLoading: isMakePointOrderLoading } = useMutation(
-    postMakePointOrder,
-    {
+  const { mutate: makePointOrder, isLoading: isMakePointOrderLoading } =
+    useMutation(postMakePointOrder, {
       onSuccess: res => {
         alert('주문완료되었습니다');
         navigate(`/order/success`, { state: '주문완료' });
@@ -131,8 +130,7 @@ export default function MainOrder() {
       onError: () => {
         console.log('에러');
       },
-    },
-  );
+    });
 
   const validataionCheck = () => {
     // 유효성 체크

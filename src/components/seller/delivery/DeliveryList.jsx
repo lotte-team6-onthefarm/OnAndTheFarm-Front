@@ -114,7 +114,7 @@ export default function DeliveryList() {
     isLoading: isOrderListLoading,
     refetch: orderListRefetch,
   } = useQuery(
-    'sellerOrderList',
+    ['sellerOrderList', nowPage],
     () =>
       getSellerOrderList(
         getDateDotFormat(startDate),

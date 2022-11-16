@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { getAllMainModule } from '../../apis/exhibition/mainpage';
 import { dataTool } from '../../components/display/Product/dataTool';
 import { onErrorImg } from '../../utils/commonFunction';
-import { MainContentDiv } from './mainMainPage.style';
+import { MainContentDiv, MainDisplayBlock } from './mainMainPage.style';
 
 const MainCategory = lazy(() =>
   import('../../components/main/category/MainCategory'),
@@ -24,66 +24,22 @@ const MainProductsPopular = lazy(() =>
 );
 
 export default function MainMainPage() {
-  const [banner, setBanner] = useState({});
-  const [category, setCategory] = useState({});
-  const [product, setProduct] = useState({});
-  const [farmfluencer, setFarmfluencer] = useState({});
-  const [miniBanner, setMiniBanner] = useState({});
-  const [sns, setSNS] = useState({});
-  const mapFunction = res => {
-    res.map((r, idx) => {
-      if (r.exhibitionModuleName === 'banner')
-        setBanner({
-          dataPicker: r.exhibitionDataPickerId,
-          itemsId: r.exhibitionItemsId,
-          accountName: r.exhibitionAccountName,
-        });
-      else if (r.exhibitionModuleName === 'category')
-        setCategory({
-          dataPicker: r.exhibitionDataPickerId,
-          itemsId: r.exhibitionItemsId,
-          accountName: r.exhibitionAccountName,
-        });
-      else if (r.exhibitionModuleName === 'product')
-        setProduct({
-          dataPicker: r.exhibitionDataPickerId,
-          itemsId: r.exhibitionItemsId,
-          accountName: r.exhibitionAccountName,
-        });
-      else if (r.exhibitionModuleName === 'farmfluencer')
-        setFarmfluencer({
-          dataPicker: r.exhibitionDataPickerId,
-          itemsId: r.exhibitionItemsId,
-          accountName: r.exhibitionAccountName,
-        });
-      else if (r.exhibitionModuleName === 'miniBanner')
-        setMiniBanner({
-          dataPicker: r.exhibitionDataPickerId,
-          itemsId: r.exhibitionItemsId,
-          accountName: r.exhibitionAccountName,
-        });
-      else if (r.exhibitionModuleName === 'sns')
-        setSNS({
-          dataPicker: r.exhibitionDataPickerId,
-          itemsId: r.exhibitionItemsId,
-          accountName: r.exhibitionAccountName,
-        });
-    });
-  };
-  const { data, isLoading } = useQuery('getAllMainModule', getAllMainModule, {
-    onSuccess: res => {
-      mapFunction(res);
+  const { data: displays, isLoading } = useQuery(
+    'getAllMainModule',
+    getAllMainModule,
+    {
+      onSuccess: res => {},
+      onError: () => {},
     },
-    onError: () => {},
-  });
-  const tool = 100001;
+  );
+
   const components = {
-    banner: <MainCarousel data={data} />,
-    category: <MainCategory data={data} />,
-    product: <MainProductsPopular dataTool={dataTool[tool]} data={data} />,
-    miniBanner: <MainBanner data={data} />,
-    sns: <MainSnsCarousel data={data} />,
-    farmfluencer: <MainSns data={data} />,
+    banner: <MainCarousel data={displays} />,
+    category: <MainCategory data={displays} />,
+    product: <MainProductsPopular data={displays} />,
+    miniBanner: <MainBanner data={displays} />,
+    sns: <MainSnsCarousel data={displays} />,
+    farmfluencer: <MainSns data={displays} />,
     EasterEgg: (
       <div style={{ margin: '100px 0', display: 'none' }}>
         <Link to="snstest">등록</Link>
@@ -94,7 +50,7 @@ export default function MainMainPage() {
   return (
     <MainContentDiv>
       {!isLoading &&
-        data.map((item, idx) => {
+        displays.map((display, idx) => {
           return (
             <Suspense
               fallback={
@@ -109,10 +65,11 @@ export default function MainMainPage() {
               }
               key={idx}
             >
-              <div>{components[item.exhibitionModuleName]}</div>
+              <MainDisplayBlock>
+                {components[display.exhibitionModuleName]}
+              </MainDisplayBlock>
             </Suspense>
           );
-          // <div key={idx}>{components[item]}</div>;
         })}
     </MainContentDiv>
   );

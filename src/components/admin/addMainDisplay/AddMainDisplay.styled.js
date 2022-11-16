@@ -57,6 +57,21 @@ const ListTextWrapper = styled.div`
     height: 48px;
     border-radius: 4px;
   }
+
+  .mainTextContentActive {
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: ${props => props.theme.colors.thickGray};
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    width: calc(100% - 20px);
+    height: 48px;
+    border-radius: 4px;
+  }
 `;
 
 export { AddMainDisplayWrapper, ListTextWrapper };

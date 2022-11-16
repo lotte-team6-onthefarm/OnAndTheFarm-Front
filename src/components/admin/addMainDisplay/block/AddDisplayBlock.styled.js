@@ -8,25 +8,46 @@ const AddDisplayBlockWrapper = styled.div`
   flex-wrap: wrap;
   overflow: auto;
   .displayBlockImgDiv {
+    border: solid white;
     display: flex;
     align-items: center;
     margin-top: 10px;
     margin-right: 10px;
     width: 350px;
     height: 210px;
-    /* border: solid 1px gray; */
+    position: relative;
+    padding: 10px;
+    overflow: hidden;
+  }
+  .displayBlockImgDivActive {
+    border: solid ${props => props.theme.colors.thickGray};
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 350px;
+    height: 210px;
     position: relative;
     padding: 10px;
     overflow: hidden;
   }
   .displayBlockTitle {
-    background-color: gray;
-    padding: 0 3px;
-    color: white;
+    background-color: ${props => props.theme.colors.gray};
+    padding: 1px 5px;
     position: absolute;
     bottom: 0;
     right: 0;
   }
+  /* .displayBlockTitleActive {
+    background-color: ${props => props.theme.colors.thickGray};
+    font-weight: 600;
+    color: white;
+    padding: 1px 5px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  } */
   img {
     width: 100%;
     border-radius: 4px;
