@@ -25,16 +25,20 @@ export default function MainProductList() {
 
   const CATEGORY = [
     { id: 0, name: '전체보기', value: '/all' },
-    { id: 1, name: '배,단감', value: '/pear' },
-    { id: 2, name: '사과,토마토', value: '/apple' },
-    { id: 3, name: '바나나,포도', value: '/banana' },
-    { id: 4, name: '호두/땅콩/견과류', value: '/all' },
-    { id: 5, name: '포도/배/키위', value: '/all' },
-    { id: 6, name: '밤/대추/곶감/건과일', value: '/all' },
-    { id: 7, name: '냉동과일', value: '/all' },
-    { id: 8, name: '토마토/메론', value: '/all' },
-    { id: 9, name: '밀감/수박/자두', value: '/all' },
-    { id: 10, name: '기타/국산과일', value: '/all' },
+    { id: 1, name: '바나나/오렌지/수입과일', value: '/banana' },
+    { id: 2, name: '단감/곶감', value: '/persimmon' },
+    { id: 3, name: '사과/참외/배', value: '/apple' },
+    { id: 4, name: '토마토/메론', value: '/tomato' },
+    { id: 5, name: '밀감/수박/자두', value: '/mandarin' },
+    { id: 6, name: '망고/열대과일', value: '/mango' },
+    { id: 7, name: '딸기/블루베리/키위', value: '/strawberry' },
+    { id: 8, name: '고구마/감자', value: '/sweetpotato' },
+    { id: 9, name: '양파/마늘/생강', value: '/onion' },
+    { id: 10, name: '백미', value: '/rice' },
+    { id: 11, name: '찹쌀/현미/흑미', value: '/blackrice' },
+    { id: 12, name: '당근/우엉/연근/마', value: '/carrot' },
+    { id: 13, name: '배추/무/김장재료', value: '/cabbage' },
+    { id: 14, name: '포도', value: '/grape' },
   ];
 
   const params = new URLSearchParams(window.location.search);
