@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { BlueButton } from '../../common/Button.style';
 import { PageCol } from '../../seller/common/Box.style';
-import { AddMainDisplayWrapper } from './SetMainDisplay.styled';
+import { AddMainDisplayWrapper, ButtonDiv } from './SetMainDisplay.styled';
 import banner from '../../../assets/모듈/배너.PNG';
 import product from '../../../assets/모듈/상품.PNG';
 import miniB from '../../../assets/모듈/미니배너.PNG';
@@ -16,19 +16,12 @@ import {
   putTemporaryApply,
 } from '../../../apis/admin/temporary';
 import DisplayOrder from './DisplayOrder';
+import { getAllModuleList } from '../../../apis/exhibition/module';
 
 export default function SetMainDisplay(props) {
   const queryClient = useQueryClient();
   const [temporaryModuleList, setTemporaryModuleList] = useState([]);
   const [flag, setFlag] = useState(true);
-  const blocks = {
-    banner: { moduleImgSrc: banner, moduleName: '배너 블록' },
-    miniBanner: { moduleImgSrc: miniB, moduleName: '미니배너 블록' },
-    product: { moduleImgSrc: product, moduleName: '상품 블록' },
-    category: { moduleImgSrc: categoryImg, moduleName: '카테고리 블록' },
-    sns: { moduleImgSrc: sns, moduleName: 'SNS 블록' },
-    farmfluencer: { moduleImgSrc: farmfluencer, moduleName: '팜플루언서 블록' },
-  };
 
   const fixMainPage = () => {
     let data = {
@@ -41,6 +34,7 @@ export default function SetMainDisplay(props) {
     }
     exhibitionSave(data);
   };
+
   const {
     isLoading: isGetTemporaryAll,
     refetch: getTemporaryAllRefetch,
@@ -53,7 +47,18 @@ export default function SetMainDisplay(props) {
       console.log('에러');
     },
   });
-  console.log(temporaryList, 'sadas');
+
+  const {
+    isLoading: getAllModuleListLoading,
+    data: allModules,
+    refetch: getAllModuleListRefetch,
+  } = useQuery(['getAllModuleList'], getAllModuleList, {
+    refetchOnWindowFcous: true,
+    keepPreviousData: true,
+    onSuccess: res => {},
+    onError: {},
+  });
+
   const { mutate: exhibitionSave, isLoading: isputTemporaryApplyLoading } =
     useMutation(putTemporaryApply, {
       onSuccess: res => {
@@ -67,12 +72,12 @@ export default function SetMainDisplay(props) {
 
   return (
     <>
-      {!isGetTemporaryAll && (
+      {!isGetTemporaryAll && !getAllModuleListLoading && (
         <AddMainDisplayWrapper>
           <PageCol width="45%">
             <DisplayBlock
-              blocks={blocks}
               temporaryModuleList={temporaryModuleList}
+              allModules={allModules}
               flag={flag}
             />
           </PageCol>
@@ -84,9 +89,14 @@ export default function SetMainDisplay(props) {
               flag={flag}
               setAddMain={props.setAddMain}
             />
-            <BlueButton style={{ margin: '30px 20px' }} onClick={fixMainPage}>
-              메인페이지에 적용
-            </BlueButton>
+            <ButtonDiv>
+              <BlueButton
+                style={{ margin: '30px 0', width: '300px', height: '50px' }}
+                onClick={fixMainPage}
+              >
+                메인페이지에 적용
+              </BlueButton>
+            </ButtonDiv>
           </PageCol>
         </AddMainDisplayWrapper>
       )}

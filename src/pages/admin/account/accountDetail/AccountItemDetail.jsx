@@ -10,7 +10,6 @@ export default function AccountItemDetail(props) {
     props.items.exhibitionAccountItemDetailResponseList.map(item => {
       return item.exhibitionItemPriority;
     });
-  console.log(props, '대ㅔ이터');
   return (
     <>
       {exhibitionItemNumber.map((data, idx) => (

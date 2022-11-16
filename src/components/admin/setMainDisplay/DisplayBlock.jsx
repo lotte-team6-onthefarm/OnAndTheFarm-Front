@@ -4,6 +4,15 @@ import { AddDisplayBlockWrapper } from './DisplayBlock.styled';
 
 export default function DisplayBlock(props) {
   const [temp, setTemp] = useState([]);
+  let allModuleList = {};
+  let tempModule = { moduleImgSrc: '', moduleName: '' };
+
+  for (let index = 0; index < props.allModules.length; index++) {
+    tempModule.moduleImgSrc = props.allModules[index].moduleImgSrc;
+    tempModule.moduleName = props.allModules[index].moduleContent;
+    allModuleList[props.allModules[index].moduleName] = tempModule;
+    tempModule = { moduleImgSrc: '', moduleName: '' };
+  }
 
   useEffect(() => {
     setTemp(props.temporaryModuleList);
@@ -18,7 +27,8 @@ export default function DisplayBlock(props) {
             <div key={idx} className="displayBlockImgDiv">
               <img
                 src={
-                  props.blocks[block.exhibitionTemporaryModuleName].moduleImgSrc
+                  allModuleList[block.exhibitionTemporaryModuleName]
+                    .moduleImgSrc
                 }
                 alt=""
               />

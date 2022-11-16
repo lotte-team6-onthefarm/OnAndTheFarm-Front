@@ -31,7 +31,6 @@ export default function DlqList() {
     refetchOnWindowFcous: true,
     keepPreviousData: true,
     onSuccess: res => {
-      console.log(res);
     },
     onError: {},
   });
@@ -53,7 +52,7 @@ export default function DlqList() {
 
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
-      <SellerTitle>모듈 관리</SellerTitle>
+      <SellerTitle>데드레터큐</SellerTitle>
       <WhiteWrapper width="100%" marginBottom="10px" minHeight="80vh">
         <SubTitle color="#FFBC99" title={title} />
         {!getDltListLoading && (

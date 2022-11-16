@@ -12,16 +12,6 @@ import { AccountListTbody } from './AccoutList.styled';
 export default function AccountList() {
   const [nowPage, setNowPage] = useState(1);
   const [totalPage, setTotalPage] = useState(10);
-  const datas = [
-    { title: 'KB 이벤트 배너', sTime: '2022-10-12', eTime: '2022-10-15' },
-    { title: 'KB 이벤트 배너', sTime: '2022-10-12', eTime: '2022-10-15' },
-    { title: 'KB 이벤트 배너', sTime: '2022-10-12', eTime: '2022-10-15' },
-    { title: 'KB 이벤트 배너', sTime: '2022-10-12', eTime: '2022-10-15' },
-    { title: 'KB 이벤트 배너', sTime: '2022-10-12', eTime: '2022-10-15' },
-    { title: 'KB 이벤트 배너', sTime: '2022-10-12', eTime: '2022-10-15' },
-    { title: 'KB 이벤트 배너', sTime: '2022-10-12', eTime: '2022-10-15' },
-    { title: 'KB 이벤트 배너', sTime: '2022-10-12', eTime: '2022-10-15' },
-  ];
 
   const navigate = useNavigate();
   const accountDetailUrl = id => {
@@ -50,9 +40,9 @@ export default function AccountList() {
             <thead>
               <tr style={{ fontSize: '13px' }}>
                 <th width="8%">NO.</th>
-                <th width="56%">구좌이름</th>
-                <th width="18%">시작시간</th>
-                <th width="18%">종료시간</th>
+                <th width="50%">구좌이름</th>
+                <th width="21%">시작시간</th>
+                <th width="21%">종료시간</th>
               </tr>
             </thead>
             {data.exhibitionSelectionResponses.map((data, idx) => {

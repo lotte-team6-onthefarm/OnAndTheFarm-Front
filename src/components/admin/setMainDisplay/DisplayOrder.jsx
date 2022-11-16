@@ -11,9 +11,11 @@ import { WhiteWrapper } from '../../seller/common/Box.style';
 import { ListTextWrapper } from './SetMainDisplay.styled';
 
 export default function DisplayOrder(props) {
-  const queryClient = useQueryClient();
   const [tempBlockList, setTempBlockList] = useState([]);
+
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
+
   const chaneOrder = () => {
     let temp = props.temporaryModuleList;
     temp = temp.sort(function (a, b) {
@@ -59,10 +61,6 @@ export default function DisplayOrder(props) {
     props.setTemporaryModuleList(newArr);
   };
 
-  useEffect(() => {
-    setTempBlockList(props.temporaryModuleList);
-  }, [props.flag, props.temporaryModuleList]);
-
   const deleteModule = idx => {
     temporaryDelete({
       exhibitionTemporaryId: tempBlockList[idx].exhibitionTemporaryId,
@@ -82,6 +80,10 @@ export default function DisplayOrder(props) {
     }
     temporaryUpdate(tmepOrder);
   };
+
+  useEffect(() => {
+    setTempBlockList(props.temporaryModuleList);
+  }, [props.flag, props.temporaryModuleList]);
 
   const { mutate: temporaryDelete, isLoading: isPutTemporaryDeleteLoading } =
     useMutation(putTemporaryDelete, {
@@ -129,7 +131,7 @@ export default function DisplayOrder(props) {
                 모듈순서
               </div>
               <input
-                className="accountItemContent"
+                className="accountOrderItemContent"
                 value={module.exhibitionTemporaryPriority}
                 onChange={event => testOnChange(event, idx)}
               />
