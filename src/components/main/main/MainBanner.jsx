@@ -6,17 +6,21 @@ import { displayMap } from '../../../utils/exhibition';
 import InputSearch from '../../common/SearchInput';
 import { MainBannerDiv, MainSnsImage, SearchInput } from './MainBanner.style';
 export default function MainBanner(props) {
-  const data = displayMap(props.data, 'miniBanner');
+  // const data = displayMap(props.data, 'miniBanner');
 
   const { data: datas, isLoading } = useQuery(
     'getAllMainMiniBanner',
-    () => getAllMainBanner(data[0].dataPicker, data[0].itemsId),
+    () =>
+      getAllMainBanner(
+        props.data.exhibitionDataPickerId,
+        props.data.exhibitionItemsId,
+      ),
     {
       onSuccess: res => {},
       enabled: props.data !== {},
     },
   );
-
+  console.log(datas, 'sss');
   return (
     <MainBannerDiv>
       {!isLoading && (

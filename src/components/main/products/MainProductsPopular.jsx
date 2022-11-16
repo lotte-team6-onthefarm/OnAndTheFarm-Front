@@ -12,7 +12,7 @@ import {
 } from './MainProductsPopular.style';
 
 export default function MainProductsPopular(props) {
-  const data = displayMap(props.data, 'product');
+  console.log(props.data, '프로덕트');
   // props.dataTool
   const navigate = useNavigate();
   const productsUrl = () => {
@@ -20,8 +20,12 @@ export default function MainProductsPopular(props) {
   };
 
   const { data: datas, isLoading } = useQuery(
-    'getAllMainProduct',
-    () => getAllMainProduct(data[0].dataPicker, data[0].itemsId),
+    ['getAllMainProduct', props.data.exhibitionId],
+    () =>
+      getAllMainProduct(
+        props.data.exhibitionDataPickerId,
+        props.data.exhibitionItemsId,
+      ),
     {
       onSuccess: res => {},
       enabled: props.data !== {},
@@ -31,7 +35,7 @@ export default function MainProductsPopular(props) {
   return (
     <MainProductsDiv>
       <MainProductsSubjectDiv>
-        <div className="accountTitle">{data[0].accountName}</div>
+        <div className="accountTitle">{props.data.exhibitionAccountName}</div>
         <Button
           text="전체보기"
           color="#40AA54"
