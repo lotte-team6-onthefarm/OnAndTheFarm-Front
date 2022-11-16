@@ -14,6 +14,7 @@ import AccountList from './account/accountList/AccountList';
 import AddAccount from './account/addAccount/AddAccount';
 import AddBadge from './data/badge/AddBadge';
 import AddBanner from './data/banner/AddBanner';
+import DlqList from './DlqList';
 import AddModule from './module/addModule/AddModule';
 import ModuleList from './module/moduleList/ModuleList';
 
@@ -34,6 +35,8 @@ export default function AdminIndexLayout() {
               <Route path="/data/banner/add" element={<AddBanner />} />
               <Route path="/display/set" element={<SetMainDisplay />} />
               <Route path="/display/add" element={<AddMainDisplay />} />
+              <Route path="/display/add" element={<AddMainDisplay />} />
+              <Route path="/dlq/list" element={<DlqList />} />
             </Routes>
           </PageCol>
         </PageRow>

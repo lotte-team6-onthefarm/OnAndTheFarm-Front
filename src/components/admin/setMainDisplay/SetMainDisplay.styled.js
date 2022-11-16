@@ -44,4 +44,13 @@ const ListTextWrapper = styled.div`
   }
 `;
 
-export { AddMainDisplayWrapper, ListTextWrapper };
+const ButtonDiv = styled.div`
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  button {
+    font-size: 17px;
+  }
+`;
+
+export { AddMainDisplayWrapper, ListTextWrapper, ButtonDiv };

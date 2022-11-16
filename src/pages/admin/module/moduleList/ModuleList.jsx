@@ -44,22 +44,6 @@ export default function ModuleList() {
     },
   );
 
-  const {
-    isLoading: getAllModuleListLoading,
-    data: test,
-    refetch: getAllModuleListRefetch,
-  } = useQuery(['getAllModuleList', nowPage], getAllModuleList, {
-    refetchOnWindowFcous: true,
-    keepPreviousData: true,
-    onSuccess: res => {
-      console.log(res);
-      setNowPage(res.pageVo.nowPage);
-      setTotalPage(res.pageVo.totalPage);
-      setModuleCnt(res.pageVo.totalElement);
-    },
-    onError: {},
-  });
-
   const title = `전체 모듈 (총 ${moduleCnt}개)`;
 
   const moduleStatusCheck = moduleStatus => {
@@ -133,18 +117,7 @@ export default function ModuleList() {
                               )}
                             />
                           </td>
-
-                          <td className="grayBack">
-                            <IconWrapper>
-                              {module.reviewRate === null ? (
-                                <div className="IconWrapper_none_review">
-                                  등록된 모듈이 없습니다
-                                </div>
-                              ) : (
-                                <>{module.moduleCreatedAt}</>
-                              )}
-                            </IconWrapper>
-                          </td>
+                          <td className="grayBack">{module.moduleCreatedAt}</td>
                         </tr>
                       </tbody>
                     );
@@ -171,7 +144,7 @@ export default function ModuleList() {
             )}
         {/* modal */}
         {modal && (
-          <Modal closeModal={() => setModal(!modal)}>
+          <Modal closeModal={() => setModal(!modal)} width='100%'>
             <img src={selectedImg} alt={''} />
           </Modal>
         )}
