@@ -39,9 +39,9 @@ export default function AdminNavbar() {
       url: 'display/set',
     },
     {
-      icons: <MdDesktopWindows />,
-      title: '관리',
-      url: 'display/set',
+      icons: <MdOutlineTune />,
+      title: '데드레터큐 목록',
+      url: 'dlq/list',
     },
   ];
   const [selectMenu, setSelectMenu] = useRecoilState(sellerNavState);
@@ -185,6 +185,22 @@ export default function AdminNavbar() {
             )}
 
             {idx === 9 && (
+              <Link to={menu.url} key={idx}>
+                <ListWrapper
+                  onClick={() => {
+                    handleMenu(idx);
+                  }}
+                  check={idx === selectMenu ? '1' : '0'}
+                  color={idx === selectMenu ? '#F2F2F2' : 'white'}
+                >
+                  <div className="icons">{menu.icons}</div>
+                  <div className="right">
+                    <div>{menu.title}</div>
+                  </div>
+                </ListWrapper>
+              </Link>
+            )}
+            {idx === 10 && (
               <Link to={menu.url} key={idx}>
                 <ListWrapper
                   onClick={() => {
