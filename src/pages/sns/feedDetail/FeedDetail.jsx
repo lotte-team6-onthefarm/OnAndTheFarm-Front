@@ -194,7 +194,7 @@ export default function FeedDetail(props) {
                 data-popout="true"
                 style={{
                   position: 'absolute',
-                  top: `${productInfo.posY-67}px`,
+                  top: `${productInfo.posY-60}px`,
                   left: `${productInfo.posX+8}px`,
                   display: 'flex',
                   cursor: 'pointer',
