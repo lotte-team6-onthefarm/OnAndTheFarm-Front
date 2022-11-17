@@ -13,7 +13,7 @@ import {
   AiOutlineShoppingCart,
 } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import { postAddWish } from '../../apis/user/product';
+import { deleteWishList, postAddWish } from '../../apis/user/product';
 import { postAddCart } from '../../apis/user/cart';
 import { IconBox, IconWrapper } from '../seller/common/Icon.style';
 
@@ -36,6 +36,14 @@ export default function Product(props) {
     };
     addWish(data);
   };
+  const cancleLike = () => {
+    const data = {
+      body: {
+        productId: product.productId,
+      },
+    };
+    cancleWish(data);
+  };
 
   // hook
   const navigate = useNavigate();
@@ -50,6 +58,18 @@ export default function Product(props) {
     {
       onSuccess: res => {
         alert('찜목록에 추가되었습니다');
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+
+  const { mutate: cancleWish, isLoading: isCancleWishLoading } = useMutation(
+    deleteWishList,
+    {
+      onSuccess: res => {
+        alert('찜목록에서 삭제되었습니다');
       },
       onError: () => {
         console.log('에러');
@@ -75,7 +95,12 @@ export default function Product(props) {
         productCartStatus={product.productCartStatus}
         productWishStatus={product.productWishStatus}
       >
-        <AiOutlineHeart fontSize="x-large" onClick={addLike} />
+        {product.productWishStatus ? (
+          <AiOutlineHeart fontSize="x-large" onClick={cancleLike} />
+        ) : (
+          <AiOutlineHeart fontSize="x-large" onClick={addLike} />
+        )}
+
         <AiOutlineShoppingCart
           fontSize="x-large"
           onClick={e => addCartClick(product.productId)}

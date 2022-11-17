@@ -22,6 +22,7 @@ export default function MainMypageProfile() {
   const [userImg, setUserImg] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
+  const [preUserName, setPreUserName] = useState('');
   const [userPhone, setUserPhone] = useState('');
   const [userPostCode, setUserPostCode] = useState('');
   const [userAddress, setUserAddress] = useState('');
@@ -51,6 +52,7 @@ export default function MainMypageProfile() {
       }
       if (res.userName) {
         setUserName(res.userName);
+        setPreUserName(res.userName)
       }
       if (res.userPhone) {
         setUserPhone(res.userPhone);
@@ -177,7 +179,7 @@ export default function MainMypageProfile() {
 
               <MemberInfoDiv>
                 <div className="nickname">
-                  <strong>{userName}</strong>&nbsp;&nbsp;님
+                  <strong>{preUserName}</strong>&nbsp;&nbsp;님
                 </div>
                 <p className="infoWord">과일이 신선한 날 이에요!</p>
                 {/* <div data-v-61a35f7b="" class="memberGrade">
