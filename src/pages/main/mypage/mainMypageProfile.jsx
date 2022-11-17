@@ -5,6 +5,7 @@ import { getUserInfo, postUserInfo } from '../../../apis/user/account';
 import { Button } from '../../../components/common/Button';
 import ButtonGroup from '../../../components/common/ButtonGroup';
 import Input from '../../../components/common/Input';
+import imageCompression from 'browser-image-compression';
 import {
   MemberInfoDiv,
   MemberPointDiv,
@@ -30,6 +31,7 @@ export default function MainMypageProfile() {
   const [profileImages, setProfileImages] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [modal, setModal] = useState(false);
+  const [temp, setTemp] = useState({});
 
   // 이미지 전송을 위한 FormData
   let formData = new FormData();
@@ -87,6 +89,28 @@ export default function MainMypageProfile() {
     },
   );
 
+  const actionImgCompress = async (fileSrc, data) => {
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    try {
+      // 압축 결과
+      const compressedFile = await imageCompression(fileSrc, options);
+      setTemp(compressedFile);
+      formData.append('images', compressedFile);
+      // 상품 데이터 추가
+      formData.append(
+        'data',
+        new Blob([JSON.stringify(data)], { type: 'application/json' }),
+      );
+      changeUserInfo(formData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const editInfo = () => {
     const data = {
       userName: userName,
@@ -97,15 +121,7 @@ export default function MainMypageProfile() {
       userSex: userGender,
       userBirthday: userBirthday,
     };
-    console.log(data);
-    formData.append('images', profileImages[0]);
-    // 상품 데이터 추가
-    formData.append(
-      'data',
-      new Blob([JSON.stringify(data)], { type: 'application/json' }),
-    );
-    console.log(formData);
-    changeUserInfo(formData);
+    actionImgCompress(profileImages[0], data);
   };
 
   const printButtonLabel = event => {

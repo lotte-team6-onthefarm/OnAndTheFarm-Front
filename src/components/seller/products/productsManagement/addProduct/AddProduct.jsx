@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import imageCompression from 'browser-image-compression';
 import { postSellerProduct } from '../../../../../apis/seller/product';
 import { BlueButton, GreenButton } from '../../../../common/Button.style';
 import { PageCol, PageRow } from '../../../common/Box.style';
@@ -102,6 +103,38 @@ export default function AddProduct() {
     return false;
   };
 
+  const actionImgCompress = async (fileSrc, data) => {
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+      initialQuality: 0.5,
+    };
+    try {
+      // 압축 결과
+      let compressedFile;
+      // Feed Image 데이터 추가
+      compressedFile = await imageCompression(productMainImages[0], options);
+      formData.append('images', compressedFile);
+
+      for (let i = 0; i < productImages.length; i++) {
+        compressedFile = await imageCompression(productImages[i], options);
+        formData.append('images', compressedFile);
+      }
+
+      // 상품 데이터 추가
+      formData.append(
+        'data',
+        new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
+      );
+
+      // 상품 추가 API
+      addProduct(formData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const addProductBtn = () => {
     if (productStatus === 'soldout') {
       // 판매상태가 soldout이면 재고 0으로 수정
@@ -110,18 +143,7 @@ export default function AddProduct() {
     // 상품 등록 버튼
     const isValidation = validataionCheck();
     if (isValidation) {
-      // 상품 image 데이터 추가
-      formData.append('images', productMainImages[0]);
-      for (let i = 0; i < productImages.length; i++) {
-        formData.append('images', productImages[i]);
-      }
-      // 상품 데이터 추가
-      formData.append(
-        'data',
-        new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
-      );
-      // 상품 추가 API
-      addProduct(formData);
+      actionImgCompress();
     }
   };
 
