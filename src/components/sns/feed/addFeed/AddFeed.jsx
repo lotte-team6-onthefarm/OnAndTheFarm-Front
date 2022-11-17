@@ -14,6 +14,7 @@ import { GreenButton } from '../../../common/Button.style';
 import { useMutation, useQueryClient } from 'react-query';
 import { postUploadFeed } from '../../../../apis/sns/content';
 import { BsTrash } from 'react-icons/bs';
+import imageCompression from 'browser-image-compression';
 import {
   ProductImg,
   ProductImgDiv,
@@ -74,22 +75,33 @@ export default function AddFeed() {
     }
     return false;
   };
-
-  const uploadFeedBtn = () => {
-    if (validataionCheck) {
+  
+  const actionImgCompress = async (fileSrc, data) => {
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+      initialQuality: 0.5,
+    };
+    try {
+      // 압축 결과
+      let compressedFile;
       // Feed Image 데이터 추가
       for (let i = 0; i < images.length; i++) {
-        formData.append('images', images[i]);
+        compressedFile = await imageCompression(images[i], options);
+        console.log(images[i], 'image');
+        console.log(compressedFile, 'convet');
+        formData.append('images', compressedFile);
       }
-
-      
 
       // 상품 데이터 추가
       formData.append(
         'data',
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
-      let productBody = productList.filter(product => !(deletedList.includes(product.index)))
+      let productBody = productList.filter(
+        product => !deletedList.includes(product.index),
+      );
       formData.append(
         'productData',
         new Blob([JSON.stringify({ feedProductIdList: productBody })], {
@@ -99,6 +111,14 @@ export default function AddFeed() {
 
       // 상품 추가 API
       uploadFeed(formData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const uploadFeedBtn = () => {
+    if (validataionCheck) {
+      actionImgCompress();
     }
   };
 
@@ -208,7 +228,6 @@ export default function AddFeed() {
       }
     }
   };
-
 
   return (
     <>

@@ -32,20 +32,6 @@ export default function MainMainPage() {
       onError: () => {},
     },
   );
-
-  const components = {
-    banner: <MainCarousel data={displays} />,
-    category: <MainCategory data={displays} />,
-    product: <MainProductsPopular data={displays} />,
-    miniBanner: <MainBanner data={displays} />,
-    sns: <MainSnsCarousel data={displays} />,
-    farmfluencer: <MainSns data={displays} />,
-    EasterEgg: (
-      <div style={{ margin: '100px 0', display: 'none' }}>
-        <Link to="snstest">등록</Link>
-      </div>
-    ),
-  };
   const componentsF = (moduleName, display) => {
     if (moduleName === 'banner') {
       return <MainCarousel data={display} />;

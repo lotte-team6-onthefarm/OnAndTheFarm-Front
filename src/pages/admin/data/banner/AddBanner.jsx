@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from 'react-query';
+import imageCompression from 'browser-image-compression';
 import { postExhibitionNewBanner } from '../../../../apis/admin/data';
 import { GreenButton } from '../../../../components/common/Button.style';
 import { HorizontalLine } from '../../../../components/common/HorizontalLine.style';
@@ -41,19 +42,35 @@ export default function AddBanner() {
     return false;
   };
 
-  const addBannerBtn = () => {
-    // 상품 등록 버튼
-    const isValidation = validataionCheck();
-    if (isValidation) {
-      // 상품 image 데이터 추가
-      formData.append('images', bannerImages[0]);
+  const actionImgCompress = async (fileSrc, data) => {
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+      initialQuality: 0.5,
+    };
+    try {
+      // 압축 결과
+      const compressedFile = await imageCompression(bannerImages[0], options);
+      console.log(compressedFile)
+      formData.append('images', compressedFile);
       // 상품 데이터 추가
       formData.append(
         'data',
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
+      postNewBanner(formData);
+    } catch (error) {
+      console.log(error);
     }
-    postNewBanner(formData);
+  };
+
+  const addBannerBtn = () => {
+    // 상품 등록 버튼
+    const isValidation = validataionCheck();
+    if (isValidation) {
+      actionImgCompress()
+    }
   };
 
   const { mutate: postNewBanner } = useMutation(postExhibitionNewBanner, {

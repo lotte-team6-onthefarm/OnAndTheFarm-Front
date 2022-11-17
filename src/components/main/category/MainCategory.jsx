@@ -15,7 +15,10 @@ export default function MainCategory(props) {
   console.log(props.data, '카테고리');
   const { data: datas, isLoading } = useQuery(
     'getAllMainBadge',
-    () => getAllMainBadge(props.data.dataPicker, props.data.itemsId),
+    () => getAllMainBadge(
+      props.data.exhibitionDataPickerId,
+      props.data.exhibitionItemsId,
+      ),
     {
       onSuccess: () => {},
       enabled: props.data !== {},
@@ -24,7 +27,7 @@ export default function MainCategory(props) {
 
   return (
     <MainSnsWrapper>
-      <div className="accountTitle">{props.data.accountName}</div>
+      <div className="accountTitle">{props.data.exhibitionAccountName}</div>
       {!isLoading && (
         <MainSnsBlock>
           {datas.badgeATypeResponseList.map((item, index) => (
