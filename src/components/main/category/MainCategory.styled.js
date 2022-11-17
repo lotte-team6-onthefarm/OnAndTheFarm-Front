@@ -13,6 +13,7 @@ const MainCategoryBlock = styled.div`
 const MainImageWrapper = styled.div`
   text-align: center;
   width: 100%;
+  height: 112px;
   border-radius: 8px;
   margin: 0 5px;
   overflow: hidden;

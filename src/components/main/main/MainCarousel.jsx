@@ -36,7 +36,7 @@ export default function MainCarousel(props) {
 
   return (
     <MainCarouselDiv>
-      {!isLoading && (
+      {!isLoading ? (
         <MainCarouselSlider {...settings}>
           {datas.bannerATypeResponses.map((data, idx) => {
             return (
@@ -47,6 +47,12 @@ export default function MainCarousel(props) {
               </div>
             );
           })}
+        </MainCarouselSlider>
+      ) : (
+        <MainCarouselSlider {...settings} className="lazyActive">
+          <CarouselImgDiv>
+            <CarouselImg />
+          </CarouselImgDiv>
         </MainCarouselSlider>
       )}
     </MainCarouselDiv>

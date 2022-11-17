@@ -91,7 +91,7 @@ export default function SetMainDisplay(props) {
             />
             <ButtonDiv>
               <BlueButton
-                style={{ margin: '30px 0', width: '300px', height: '50px' }}
+                style={{ margin: '30px 0', width: '100%', height: '50px' }}
                 onClick={fixMainPage}
               >
                 메인페이지에 적용

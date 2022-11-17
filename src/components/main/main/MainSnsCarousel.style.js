@@ -3,8 +3,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const MainCarouselDiv = styled.div`
+const SnsCarouselDiv = styled.div`
   width: 1130px;
+  height: 255px;
   button::before {
     color: #c1c1c1;
   }
@@ -31,8 +32,8 @@ const MainCarouselSlider = styled(Slider)`
 `;
 
 const SnsDiv = styled.div`
+  height: 206px;
   margin: 0 10px;
-  height: 200px;
   overflow: hidden;
   position: relative;
   border-radius: 4px;
@@ -41,7 +42,7 @@ const SnsDiv = styled.div`
 const CarouselImgDiv = styled.div`
   position: relative;
   display: flex;
-  height: 100%;
+  height: 208px;
   min-width: 0px;
   flex-flow: column;
   a {
@@ -127,7 +128,7 @@ const CarouselImg = styled.img`
 `;
 
 export {
-  MainCarouselDiv,
+  SnsCarouselDiv,
   MainCarouselSlider,
   SnsDiv,
   RankDiv,

@@ -140,18 +140,26 @@ export default function DisplayOrder(props) {
           );
         })}
       </div>
-      <BlackButton style={{ margin: '30px 20px' }} onClick={chaneOrder}>
-        미리보기
-      </BlackButton>
-      <BlackButton style={{ margin: '30px 20px' }} onClick={saveTemp}>
-        순서저장
-      </BlackButton>
-      <BlackButton
-        style={{ margin: '30px 20px' }}
-        onClick={() => navigate('/admin/display/add')}
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-evenly',
+        }}
       >
-        모듈추가
-      </BlackButton>
+        <BlackButton style={{ margin: '30px 20px' }} onClick={chaneOrder}>
+          미리보기
+        </BlackButton>
+        <BlackButton style={{ margin: '30px 20px' }} onClick={saveTemp}>
+          순서저장
+        </BlackButton>
+        <BlackButton
+          style={{ margin: '30px 20px' }}
+          onClick={() => navigate('/admin/display/add')}
+        >
+          모듈추가
+        </BlackButton>
+      </div>
     </WhiteWrapper>
   );
 }

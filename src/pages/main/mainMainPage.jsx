@@ -4,6 +4,12 @@ import { getAllMainModule } from '../../apis/exhibition/mainpage';
 import { MainContentDiv, MainDisplayBlock } from './mainMainPage.style';
 
 import FadeLoader from 'react-spinners/FadeLoader';
+import MainCarouselLazy from '../../components/main/lazyComponent/MainCarouselLazy';
+import MainBadgeLazy from '../../components/main/lazyComponent/MainBadgeLazy';
+import MainProductLazy from '../../components/main/lazyComponent/MainProductLazy';
+import MainMiniBannerLazy from '../../components/main/lazyComponent/MainMiniBannerLazy';
+import MainSNSLazy from '../../components/main/lazyComponent/MainSNSLazy';
+import MainFarmFluencerLazy from '../../components/main/lazyComponent/MainFarmFluencerLazy';
 const MainCategory = lazy(() =>
   import('../../components/main/category/MainCategory'),
 );
@@ -35,100 +41,41 @@ export default function MainMainPage() {
       onError: () => {},
     },
   );
+
   const components = (moduleName, display) => {
     if (moduleName === 'banner') {
       return (
-        <Suspense
-          fallback={
-            <FadeLoader
-              color="#C63DEE"
-              height={15}
-              width={5}
-              radius={2}
-              margin={2}
-            />
-          }
-        >
+        <Suspense fallback={<MainCarouselLazy />}>
           <MainCarousel data={display} />
         </Suspense>
       );
     } else if (moduleName === 'category') {
       return (
-        <Suspense
-          fallback={
-            <FadeLoader
-              color="#C63DEE"
-              height={15}
-              width={5}
-              radius={2}
-              margin={2}
-            />
-          }
-        >
+        <Suspense fallback={<MainBadgeLazy />}>
           <MainCategory data={display} />
         </Suspense>
       );
     } else if (moduleName === 'product') {
       return (
-        <Suspense
-          fallback={
-            <FadeLoader
-              color="#C63DEE"
-              height={15}
-              width={5}
-              radius={2}
-              margin={2}
-            />
-          }
-        >
+        <Suspense fallback={<MainProductLazy />}>
           <MainProductsPopular data={display} />
         </Suspense>
       );
     } else if (moduleName === 'miniBanner') {
       return (
-        <Suspense
-          fallback={
-            <FadeLoader
-              color="#C63DEE"
-              height={15}
-              width={5}
-              radius={2}
-              margin={2}
-            />
-          }
-        >
+        <Suspense fallback={<MainMiniBannerLazy />}>
           <MainBanner data={display} />
         </Suspense>
       );
     } else if (moduleName === 'sns') {
       return (
-        <Suspense
-          fallback={
-            <FadeLoader
-              color="#C63DEE"
-              height={15}
-              width={5}
-              radius={2}
-              margin={2}
-            />
-          }
-        >
+        <Suspense fallback={<MainSNSLazy />}>
           <MainSnsCarousel data={display} />
         </Suspense>
       );
     } else if (moduleName === 'farmfluencer') {
       return (
-        <Suspense
-          fallback={
-            <FadeLoader
-              color="#C63DEE"
-              height={15}
-              width={5}
-              radius={2}
-              margin={2}
-            />
-          }
-        >
+        <Suspense fallback={<MainFarmFluencerLazy />}>
           <MainSns data={display} />
         </Suspense>
       );
@@ -141,20 +88,7 @@ export default function MainMainPage() {
       {!isLoading &&
         displays.map((display, idx) => {
           return (
-            // <Suspense
-            //   fallback={
-            //     <FadeLoader
-            //       color="#C63DEE"
-            //       height={15}
-            //       width={5}
-            //       radius={2}
-            //       margin={2}
-            //     />
-            //   }
-            // >
-
-            // </Suspense>
-            <MainDisplayBlock>
+            <MainDisplayBlock key={idx}>
               {components(display.exhibitionModuleName, display)}
             </MainDisplayBlock>
           );

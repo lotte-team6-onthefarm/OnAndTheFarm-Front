@@ -11,4 +11,11 @@ const MainSnsImage = styled.img`
   height: 100%;
 `;
 
-export { MainBannerDiv, MainSnsImage };
+const MainBannerImage = styled.div`
+  object-fit: cover;
+  border-radius: 4px;
+  width: 100%;
+  height: 140px;
+`;
+
+export { MainBannerDiv, MainSnsImage, MainBannerImage };
