@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-const MainSnsWrapper = styled.div`
+const MainCategoryWrapper = styled.div`
   width: 1130px;
+  height: 170px;
   align-items: center;
 `;
 
-const MainSnsBlock = styled.div`
+const MainCategoryBlock = styled.div`
   display: flex;
 `;
 
@@ -23,7 +24,7 @@ const MainImageA = styled.a`
   text-decoration: none;
 `;
 
-const MainSnsImage = styled.img`
+const MainCategoryImage = styled.img`
   max-width: 88px;
   border-radius: 8px;
   transition: all 0.1s linear;
@@ -40,10 +41,10 @@ const MainImageSpan = styled.span`
 `;
 
 export {
-  MainSnsWrapper,
+  MainCategoryWrapper,
   MainImageWrapper,
-  MainSnsImage,
+  MainCategoryImage,
   MainImageA,
-  MainSnsBlock,
+  MainCategoryBlock,
   MainImageSpan,
 };

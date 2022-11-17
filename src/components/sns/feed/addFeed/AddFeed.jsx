@@ -82,14 +82,14 @@ export default function AddFeed() {
         formData.append('images', images[i]);
       }
 
-      
-
       // 상품 데이터 추가
       formData.append(
         'data',
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
-      let productBody = productList.filter(product => !(deletedList.includes(product.index)))
+      let productBody = productList.filter(
+        product => !deletedList.includes(product.index),
+      );
       formData.append(
         'productData',
         new Blob([JSON.stringify({ feedProductIdList: productBody })], {
@@ -208,7 +208,6 @@ export default function AddFeed() {
       }
     }
   };
-
 
   return (
     <>

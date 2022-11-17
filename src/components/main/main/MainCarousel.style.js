@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const MainCarouselDiv = styled.div`
   width: 1130px;
+  height: 500px;
   margin: 0 auto;
   h2 {
     margin-left: 15px;

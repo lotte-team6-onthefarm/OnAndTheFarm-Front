@@ -1,13 +1,9 @@
 import React, { lazy, Suspense } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 import { getAllMainModule } from '../../apis/exhibition/mainpage';
-import { dataTool } from '../../components/display/Product/dataTool';
-import { onErrorImg } from '../../utils/commonFunction';
 import { MainContentDiv, MainDisplayBlock } from './mainMainPage.style';
 
+import FadeLoader from 'react-spinners/FadeLoader';
 const MainCategory = lazy(() =>
   import('../../components/main/category/MainCategory'),
 );
@@ -23,6 +19,13 @@ const MainProductsPopular = lazy(() =>
   import('../../components/main/products/MainProductsPopular'),
 );
 
+// import MainCategory from '../../components/main/category/MainCategory';
+// import MainBanner from '../../components/main/main/MainBanner';
+// import MainCarousel from '../../components/main/main/MainCarousel';
+// import MainSns from '../../components/main/main/MainSns';
+// import MainSnsCarousel from '../../components/main/main/MainSnsCarousel';
+// import MainProductsPopular from '../../components/main/products/MainProductsPopular';
+
 export default function MainMainPage() {
   const { data: displays, isLoading } = useQuery(
     'getAllMainModule',
@@ -33,32 +36,103 @@ export default function MainMainPage() {
     },
   );
 
-  const components = {
-    banner: <MainCarousel data={displays} />,
-    category: <MainCategory data={displays} />,
-    product: <MainProductsPopular data={displays} />,
-    miniBanner: <MainBanner data={displays} />,
-    sns: <MainSnsCarousel data={displays} />,
-    farmfluencer: <MainSns data={displays} />,
-    EasterEgg: (
-      <div style={{ margin: '100px 0', display: 'none' }}>
-        <Link to="snstest">등록</Link>
-      </div>
-    ),
-  };
-  const componentsF = (moduleName, display) => {
+  const components = (moduleName, display) => {
     if (moduleName === 'banner') {
-      return <MainCarousel data={display} />;
+      return (
+        <Suspense
+          fallback={
+            <FadeLoader
+              color="#C63DEE"
+              height={15}
+              width={5}
+              radius={2}
+              margin={2}
+            />
+          }
+        >
+          <MainCarousel data={display} />
+        </Suspense>
+      );
     } else if (moduleName === 'category') {
-      return <MainCategory data={display} />;
+      return (
+        <Suspense
+          fallback={
+            <FadeLoader
+              color="#C63DEE"
+              height={15}
+              width={5}
+              radius={2}
+              margin={2}
+            />
+          }
+        >
+          <MainCategory data={display} />
+        </Suspense>
+      );
     } else if (moduleName === 'product') {
-      return <MainProductsPopular data={display} />;
+      return (
+        <Suspense
+          fallback={
+            <FadeLoader
+              color="#C63DEE"
+              height={15}
+              width={5}
+              radius={2}
+              margin={2}
+            />
+          }
+        >
+          <MainProductsPopular data={display} />
+        </Suspense>
+      );
     } else if (moduleName === 'miniBanner') {
-      return <MainBanner data={display} />;
+      return (
+        <Suspense
+          fallback={
+            <FadeLoader
+              color="#C63DEE"
+              height={15}
+              width={5}
+              radius={2}
+              margin={2}
+            />
+          }
+        >
+          <MainBanner data={display} />
+        </Suspense>
+      );
     } else if (moduleName === 'sns') {
-      return <MainSnsCarousel data={display} />;
+      return (
+        <Suspense
+          fallback={
+            <FadeLoader
+              color="#C63DEE"
+              height={15}
+              width={5}
+              radius={2}
+              margin={2}
+            />
+          }
+        >
+          <MainSnsCarousel data={display} />
+        </Suspense>
+      );
     } else if (moduleName === 'farmfluencer') {
-      return <MainSns data={display} />;
+      return (
+        <Suspense
+          fallback={
+            <FadeLoader
+              color="#C63DEE"
+              height={15}
+              width={5}
+              radius={2}
+              margin={2}
+            />
+          }
+        >
+          <MainSns data={display} />
+        </Suspense>
+      );
     }
     return;
   };
@@ -68,23 +142,22 @@ export default function MainMainPage() {
       {!isLoading &&
         displays.map((display, idx) => {
           return (
-            <Suspense
-              fallback={
-                <div
-                  style={{
-                    widows: '100%',
-                    height: '200px',
-                    backgroundColor: 'gray',
-                    marginTop: '50px',
-                  }}
-                ></div>
-              }
-              key={idx}
-            >
-              <MainDisplayBlock>
-                {componentsF(display.exhibitionModuleName, display)}
-              </MainDisplayBlock>
-            </Suspense>
+            // <Suspense
+            //   fallback={
+            //     <FadeLoader
+            //       color="#C63DEE"
+            //       height={15}
+            //       width={5}
+            //       radius={2}
+            //       margin={2}
+            //     />
+            //   }
+            // >
+
+            // </Suspense>
+            <MainDisplayBlock>
+              {components(display.exhibitionModuleName, display)}
+            </MainDisplayBlock>
           );
         })}
     </MainContentDiv>

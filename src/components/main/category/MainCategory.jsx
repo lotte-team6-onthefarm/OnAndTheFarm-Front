@@ -4,9 +4,9 @@ import {
   MainImageA,
   MainImageSpan,
   MainImageWrapper,
-  MainSnsBlock,
-  MainSnsImage,
-  MainSnsWrapper,
+  MainCategoryBlock,
+  MainCategoryImage,
+  MainCategoryWrapper,
 } from './MainCategory.styled';
 import { getAllMainBadge } from '../../../apis/exhibition/mainpage';
 
@@ -25,20 +25,20 @@ export default function MainCategory(props) {
   );
 
   return (
-    <MainSnsWrapper>
+    <MainCategoryWrapper>
       <div className="accountTitle">{props.data.exhibitionAccountName}</div>
       {!isLoading && (
-        <MainSnsBlock>
+        <MainCategoryBlock>
           {datas.badgeATypeResponseList.map((item, index) => (
             <MainImageWrapper key={index}>
               <MainImageA href={item.connectUrl}>
-                <MainSnsImage src={item.imgSrc} />
+                <MainCategoryImage src={item.imgSrc} />
                 <MainImageSpan>{item.badgeName} </MainImageSpan>
               </MainImageA>
             </MainImageWrapper>
           ))}
-        </MainSnsBlock>
+        </MainCategoryBlock>
       )}
-    </MainSnsWrapper>
+    </MainCategoryWrapper>
   );
 }

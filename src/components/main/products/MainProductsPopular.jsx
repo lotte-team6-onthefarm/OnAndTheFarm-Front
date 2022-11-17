@@ -11,7 +11,6 @@ import {
 } from './MainProductsPopular.style';
 
 export default function MainProductsPopular(props) {
-  // props.dataTool
   const navigate = useNavigate();
   const productsUrl = () => {
     navigate('products');

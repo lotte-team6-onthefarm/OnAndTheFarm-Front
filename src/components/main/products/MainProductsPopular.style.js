@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const MainProductsDiv = styled.div`
   width: 1130px;
-  height: 100%;
+  height: 360px;
 `;
 
 const MainProductsSubjectDiv = styled.div`
