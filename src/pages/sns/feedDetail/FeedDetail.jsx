@@ -57,7 +57,7 @@ export default function FeedDetail(props) {
     isLoading: isFeedDetailLoading,
     data: feedDetail,
     refetch: getFeedDetailRefetch,
-  } = useQuery('FeedDetail', () => getFeedDetail(feedId,feedNumber), {
+  } = useQuery('FeedDetail', () => getFeedDetail(feedId, feedNumber), {
     refetchOnWindowFocus: true,
     refetchOnMount: true,
     onSuccess: res => {
@@ -188,14 +188,14 @@ export default function FeedDetail(props) {
               getCommentRefetch={getCommentRefetch}
               getFeedDetailRefetch={getFeedDetailRefetch}
             />
-            <FeedCommentList commentList={commentList} />
+            <FeedCommentList data={commentList} />
             {tooltip && (
               <TooltipDiv
                 data-popout="true"
                 style={{
                   position: 'absolute',
-                  top: `${productInfo.posY-60}px`,
-                  left: `${productInfo.posX+8}px`,
+                  top: `${productInfo.posY - 60}px`,
+                  left: `${productInfo.posX + 8}px`,
                   display: 'flex',
                   cursor: 'pointer',
                 }}
@@ -208,7 +208,10 @@ export default function FeedDetail(props) {
                       direction="0,1"
                       overflown="false,false"
                       index="0"
-                      href={`/products/detail/${productInfo.productId}`+(feedNumber !== null ? `?feedNumber=`+feedNumber:'')}
+                      href={
+                        `/products/detail/${productInfo.productId}` +
+                        (feedNumber !== null ? `?feedNumber=` + feedNumber : '')
+                      }
                     >
                       <TooltipContentDiv>
                         <ProductImgDiv>
@@ -219,10 +222,10 @@ export default function FeedDetail(props) {
                         </ProductImgDiv>
                         <ProductInfoDiv>
                           <div>{productInfo.sellerName}</div>
+                          <div>{productInfo.productName}</div>
                           <div>
-                            {productInfo.productName}
+                            {productInfo.productPrice.toLocaleString()} 원
                           </div>
-                          <div>{productInfo.productPrice.toLocaleString()} 원</div>
                         </ProductInfoDiv>
                         <SvgDiv>
                           <div>

@@ -6,6 +6,7 @@ import { getGoneTime } from '../../../../utils/commonFunction';
 import { FeedCommentListWrapper, FeedListBlock } from './FeedComment.styled';
 
 export default function FeedCommentList(props) {
+  console.log(props.commentList, '들어온 값');
   const { mutate: deleteCommnet, isLoading: isDeleteCommnetLoading } =
     useMutation(putDeleteComment, {
       onSuccess: res => {
@@ -17,8 +18,8 @@ export default function FeedCommentList(props) {
     });
   return (
     <FeedCommentListWrapper>
-      {props.commentList !== null &&
-        props.commentList.map((comment, idx) => {
+      {props.data.commentList !== null &&
+        props.data.commentList.map((comment, idx) => {
           return (
             <li key={idx}>
               <FeedListBlock>
