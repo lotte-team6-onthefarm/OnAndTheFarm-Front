@@ -210,7 +210,8 @@ export default function FeedDetail(props) {
                       index="0"
                       href={
                         `/products/detail/${productInfo.productId}` +
-                        (feedNumber !== null ? `?feedNumber=` + feedNumber : '')
+                        `?feedNumber=` +
+                        feedDetail.feedNumber
                       }
                     >
                       <TooltipContentDiv>

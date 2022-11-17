@@ -25,39 +25,27 @@ export default function SideButton(props) {
       console.log('에러');
     },
   });
-  const clip = () => {
-    // 주소 복사하기
-    let url = '';
-    let textarea = document.createElement('textarea');
-    document.body.appendChild(textarea);
-    url = window.document.location.href;
-    textarea.value = url;
-    textarea.select();
+
+  const copy = () => {
+    const t = document.createElement('textarea');
+    document.body.appendChild(t);
+    t.value = window.location.href + '?feedNumber=' + props.feedNumber;
+    // t.style.display = 'fixed';
+    // t.style.left = '-999999px';
+    // t.style.top = '-999999px';
+    t.select();
     document.execCommand('copy');
-    document.body.removeChild(textarea);
+    document.body.removeChild(t);
   };
 
   const handle = () => {
-    // clip()
-    // if (navigator.share) {
-    //     navigator.share({
-    //         title: '기록하며 성장하기',
-    //         text: 'Hello World',
-    //         url: 'https://shinsangeun.github.io',
-    //     });
-    // }else{
-    //     alert("공유하기가 지원되지 않는 환경 입니다.")
-    // }
-    navigator.clipboard.writeText(window.location.href+'?feedNumber='+props.feedNumber).then(() => {
-      alert('링크를 복사했습니다.');
-    });
+    copy()
 
-    console.log('주소복사');
+    alert('링크가 복사되었습니다.');
     feedShare({
       feedId: props.id,
     });
   };
-  
 
   const buttonClick = () => {
     if (props.status !== undefined && props.status === false) {
