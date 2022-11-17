@@ -6,7 +6,6 @@ import { getGoneTime } from '../../../../utils/commonFunction';
 import { FeedCommentListWrapper, FeedListBlock } from './FeedComment.styled';
 
 export default function FeedCommentList(props) {
-  console.log(props.commentList, '들어온 값');
   const { mutate: deleteCommnet, isLoading: isDeleteCommnetLoading } =
     useMutation(putDeleteComment, {
       onSuccess: res => {
