@@ -17,6 +17,8 @@ const UserDetailImgBlock = styled.div`
 const UserDetailImg = styled.img`
   border-radius: 60px;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   border: 0;
 `;
 
