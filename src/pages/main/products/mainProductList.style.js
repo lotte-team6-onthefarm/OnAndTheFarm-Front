@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const CartContentDiv = styled.div`
   width: 1130px;
   padding: 20px 30px;
-  margin: 100px auto;
+  margin: 0 auto;
   display: flex;
 `;
 
@@ -46,14 +46,15 @@ const CartPriceHeader = styled.div`
 `;
 
 const CartPriceRow = styled.div`
-  color: ${props => (props.selectedCategory === props.idx ? '#40AA54' : 'black')};
+  color: ${props =>
+    props.selectedCategory === props.idx ? '#40AA54' : 'black'};
   padding: 3px 20px;
   margin: 10px;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  :hover{
-    background: #F2F2F2;
+  :hover {
+    background: #f2f2f2;
     cursor: pointer;
     border-radius: 8px;
   }

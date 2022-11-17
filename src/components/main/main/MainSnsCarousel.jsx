@@ -12,7 +12,6 @@ import {
 import { useQuery } from 'react-query';
 import { onErrorImg } from '../../../utils/commonFunction';
 import { getAllMainSNS } from '../../../apis/exhibition/mainpage';
-import { displayMap } from '../../../utils/exhibition';
 const Image = lazy(() => import('./Img'));
 
 export default function MainSnsCarousel(props) {

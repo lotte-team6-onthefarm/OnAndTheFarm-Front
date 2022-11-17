@@ -1,13 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
-import { displayMap } from '../../../utils/exhibition';
-import InputSearch from '../../common/SearchInput';
-import { MainBannerDiv, MainSnsImage, SearchInput } from './MainBanner.style';
+import { MainBannerDiv, MainSnsImage } from './MainBanner.style';
 export default function MainBanner(props) {
-  // const data = displayMap(props.data, 'miniBanner');
-
   const { data: datas, isLoading } = useQuery(
     'getAllMainMiniBanner',
     () =>
@@ -20,7 +15,6 @@ export default function MainBanner(props) {
       enabled: props.data !== {},
     },
   );
-  console.log(datas, 'sss');
   return (
     <MainBannerDiv>
       {!isLoading && (

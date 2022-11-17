@@ -2,7 +2,6 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { getAllMainProduct } from '../../../apis/exhibition/mainpage';
-import { displayMap } from '../../../utils/exhibition';
 import { Button } from '../../common/Button';
 import ProductComp from '../../display/Product/ProductComp';
 import {
@@ -12,7 +11,6 @@ import {
 } from './MainProductsPopular.style';
 
 export default function MainProductsPopular(props) {
-  console.log(props.data, '프로덕트');
   // props.dataTool
   const navigate = useNavigate();
   const productsUrl = () => {
