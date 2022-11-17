@@ -88,9 +88,9 @@ export default function MainProductList() {
     },
   );
   const {
-    // data: searchData,
     isLoading: isSearchLoading,
     refetch: searchProduct,
+    isFetching: isSearchFetching,
   } = useQuery(
     ['getSearchProducts', searchValue, nowPage],
     () => getSearchProducts(searchWord, nowPage),
@@ -186,6 +186,7 @@ export default function MainProductList() {
         {isSearch ? (
           <ProductListDiv>
             {!isSearchLoading &&
+              !isSearchFetching &&
               searchData.productSearchResponses.map((product, index) => {
                 return (
                   <Product
