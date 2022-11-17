@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const MainSnsWrapper = styled.div`
   width: 1130px;
+  height: 335px;
   align-items: center;
 `;
 

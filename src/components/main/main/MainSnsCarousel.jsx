@@ -12,10 +12,10 @@ import {
 import { useQuery } from 'react-query';
 import { onErrorImg } from '../../../utils/commonFunction';
 import { getAllMainSNS } from '../../../apis/exhibition/mainpage';
-const Image = lazy(() => import('./Img'));
+// const Image = lazy(() => import('./Img'));
+import Image from './Img';
 
 export default function MainSnsCarousel(props) {
-  // const data = displayMap(props.data, 'sns');
   const { data: datas, isLoading } = useQuery(
     'getAllMainSNS',
     () =>
@@ -46,16 +46,16 @@ export default function MainSnsCarousel(props) {
             <CarouselImgDiv key={idx}>
               <a href="/sns/main">
                 <SnsDiv>
-                  <Suspense
+                  {/* <Suspense
                     fallback={
                       <Image
                         src="https://colorate.azurewebsites.net/SwatchColor/B2B2B2"
                         onError={onErrorImg}
                       />
                     }
-                  >
-                    <Image src={sns.feedImageSrc} onError={onErrorImg} />
-                  </Suspense>
+                  > */}
+                  <Image src={sns.feedImageSrc} onError={onErrorImg} />
+                  {/* </Suspense> */}
                   {/* <CarouselImg src={sns.feedImageSrc} /> */}
                   <RankDiv>
                     <div>
