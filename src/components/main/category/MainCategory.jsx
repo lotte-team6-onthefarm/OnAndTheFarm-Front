@@ -13,10 +13,9 @@ import { getAllMainBadge } from '../../../apis/exhibition/mainpage';
 export default function MainCategory(props) {
   const { data: datas, isLoading } = useQuery(
     'getAllMainBadge',
-    () =>
-      getAllMainBadge(
-        props.data.exhibitionDataPickerId,
-        props.data.exhibitionItemsId,
+    () => getAllMainBadge(
+      props.data.exhibitionDataPickerId,
+      props.data.exhibitionItemsId,
       ),
     {
       onSuccess: () => {},

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import imageCompression from 'browser-image-compression';
 import { postModuleAdd } from '../../../../apis/exhibition/module';
 import { GreenButton } from '../../../../components/common/Button.style';
 import { HorizontalLine } from '../../../../components/common/HorizontalLine.style';
@@ -41,19 +42,35 @@ export default function AddModule() {
     return false;
   };
 
-  const addModuletBtn = () => {
-    // 모듈 등록 버튼
-    const isValidation = validataionCheck();
-    if (isValidation) {
-      // 모듈 image 데이터 추가
-      formData.append('image', moduleImages[0]);
-      // 모듈 데이터 추가
+  const actionImgCompress = async (fileSrc, data) => {
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+      initialQuality: 0.5,
+    };
+    try {
+      // 압축 결과
+      const compressedFile = await imageCompression(moduleImages[0], options);
+      console.log(compressedFile)
+      formData.append('image', compressedFile);
+      // 상품 데이터 추가
       formData.append(
         'data',
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
+      addModule(formData);
+    } catch (error) {
+      console.log(error);
     }
-    addModule(formData);
+  };
+
+  const addModuletBtn = () => {
+    // 모듈 등록 버튼
+    const isValidation = validataionCheck();
+    if (isValidation) {
+      actionImgCompress();
+    }
   };
 
   const { mutate: addModule } = useMutation(postModuleAdd, {

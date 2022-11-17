@@ -4,6 +4,7 @@ import { SellerTitle } from '../../../common/Title.style';
 import PriceAmount from '../price&amount/PriceAmount';
 import TitleDescription from '../title&description/TitleDescription';
 import CategoryEtc from '../category&etc/CategoryEtc';
+import imageCompression from 'browser-image-compression';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   AddProductBtnWrapper,
@@ -164,26 +165,45 @@ export default function UpdateProduct() {
     return false;
   };
 
-  const updateProductBtn = () => {
-    // 상품 등록 버튼
-    const isValidation = validataionCheck();
-    if (isValidation) {
+  const actionImgCompress = async (fileSrc, data) => {
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+      initialQuality: 0.5,
+    };
+    try {
+      // 압축 결과
+      let compressedFile;
       // 상품 image 데이터 추가
       if (uploadMainImages !== serverMainImage) {
         console.log(uploadMainImages, '로 들어간다이');
         // 메인 이미지가 바꼈으면 추가
-        formData.append('mainImage', uploadMainImages[0]);
+        compressedFile = await imageCompression(uploadMainImages[0], options);
+        formData.append('mainImage', compressedFile);
       }
       for (let i = 0; i < productImages.length; i++) {
-        formData.append('images', productImages[i]);
+        compressedFile = await imageCompression(productImages[i], options);
+        formData.append('images', compressedFile);
       }
       // 상품 데이터 추가
       formData.append(
         'data',
         new Blob([JSON.stringify(submitData)], { type: 'application/json' }),
       );
+
       // 상품 추가 API
       updateProduct(formData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateProductBtn = () => {
+    // 상품 등록 버튼
+    const isValidation = validataionCheck();
+    if (isValidation) {
+      actionImgCompress();
     }
   };
   return (

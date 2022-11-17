@@ -35,7 +35,6 @@ export default function MainMainPage() {
       onError: () => {},
     },
   );
-
   const components = (moduleName, display) => {
     if (moduleName === 'banner') {
       return (
