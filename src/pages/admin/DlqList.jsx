@@ -37,29 +37,16 @@ export default function DlqList() {
 
   const title = `전체 리스트 (총 0개)`;
 
-  const dummy = [
-    {
-      dlqPaymentId: 1,
-      orderSerial: '13248u21389rja',
-      paymentDepositAmount: 4,
-    },
-    {
-      dlqPaymentId: 2,
-      orderSerial: '13248u21389rja',
-      paymentDepositAmount: 2,
-    },
-  ];
-
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
-      <SellerTitle>데드레터큐</SellerTitle>
+      <SellerTitle>처리되지 않은 결제 목록</SellerTitle>
       <WhiteWrapper width="100%" marginBottom="10px" minHeight="80vh">
         <SubTitle color="#FFBC99" title={title} />
         {!getDltListLoading && (
           <>
-            {dummy.length === 0 ? (
+            {moduleList.length === 0 ? (
               <EmptyTable height="60vh">
-                <h3>현재 등록된 모듈이 없습니다</h3>
+                <h3>현재 처리되지않은 결제가 없습니다</h3>
               </EmptyTable>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -68,11 +55,11 @@ export default function DlqList() {
                     <tr style={{ fontSize: '13px' }}>
                       <th width="5%">NO.</th>
                       <th width="15%">dlqPaymentId</th>
-                      <th width="40%">orderSerial</th>
-                      <th width="40%">paymentDepositAmount</th>
+                      <th width="40%">주문번호</th>
+                      <th width="40%">결제금액</th>
                     </tr>
                   </thead>
-                  {dummy.map((item, idx) => {
+                  {moduleList.map((item, idx) => {
                     return (
                       <tbody key={idx}>
                         <tr>
