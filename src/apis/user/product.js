@@ -45,10 +45,12 @@ const deleteWishList = async data => {
 };
 
 // 상품 검색
-const postSearchProducts = async data => {
-  console.log(data, 'e[d;xkxk');
-  const response = await JWTapiUser.post('product/search', data);
-  console.log(response, '앙아ㅏㅇ');
+const getSearchProducts = async (searchText, pageNo) => {
+  console.log(searchText, pageNo, 'ssssssssssss');
+  const response = await JWTapiUser.get(
+    `product/search/${searchText}/${pageNo}`,
+  );
+  console.log(response, '정답');
   return response.data.data;
 };
 
@@ -58,5 +60,5 @@ export {
   getMainProduct,
   getProduct,
   deleteWishList,
-  postSearchProducts,
+  getSearchProducts,
 };

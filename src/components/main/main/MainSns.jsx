@@ -7,11 +7,8 @@ import {
 } from './MainSns.styled';
 import { useQuery } from 'react-query';
 import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
-import { displayMap } from '../../../utils/exhibition';
 
 export default function MainSns(props) {
-  console.log(props.data, '팜플루언서');
-  // const data = displayMap(props.data, 'farmfluencer');
   const { data: datas, isLoading } = useQuery(
     'getAllMainFarmFluencer',
     () =>

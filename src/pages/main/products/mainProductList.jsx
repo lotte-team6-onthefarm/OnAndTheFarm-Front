@@ -11,7 +11,7 @@ import {
   ProductListDiv,
 } from './mainProductList.style';
 import Product from '../../../components/common/Product';
-import { getProducts, postSearchProducts } from '../../../apis/user/product';
+import { getProducts, getSearchProducts } from '../../../apis/user/product';
 import Pagination from '../../../components/common/Pagination';
 import InputSearch from '../../../components/common/SearchInput';
 
@@ -59,8 +59,9 @@ export default function MainProductList() {
   const [selectedCategory, setSelectedCategory] = useState(categoryNum);
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
-  const [searchWord, setSearchWord] = useState('');
   const [searchData, setSearchData] = useState([]);
+  const [searchWord, setSearchWord] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const [isSearch, setIsSearch] = useState(false);
   const {
     isLoading: isGetProductList,
@@ -86,17 +87,23 @@ export default function MainProductList() {
       enabled: !isSearch,
     },
   );
-  const { mutate: searchProduct } = useMutation(
-    ['postSearchProducts', nowPage],
-    postSearchProducts,
+  const {
+    // data: searchData,
+    isLoading: isSearchLoading,
+    refetch: searchProduct,
+  } = useQuery(
+    ['getSearchProducts', searchValue, nowPage],
+    () => getSearchProducts(searchWord, nowPage),
     {
+      keepPreviousData: true,
       onSuccess: res => {
         setNowPage(res.pageVo.nowPage);
         setTotalPage(res.pageVo.totalPage);
-        setSearchData(res.productSearchResponses);
+        setSearchData(res);
         setIsSearch(true);
       },
       onError: () => {},
+      enabled: isSearch,
     },
   );
 
@@ -111,6 +118,9 @@ export default function MainProductList() {
       setIsSearch(false);
       return;
     }
+    setIsSearch(true);
+    setNowPage(0);
+    setSearchValue(searchWord);
     searchProduct({
       searchText: searchWord,
       pageNumber: 0,
@@ -147,7 +157,9 @@ export default function MainProductList() {
             value={searchWord}
             width="400px"
             onKeyPress={onKeyPress}
-            onChange={e => setSearchWord(e.target.value)}
+            onChange={e => {
+              setSearchWord(e.target.value);
+            }}
             placeholder="원하시는 상품을 검색해주세요"
             type="text"
             search={search}
@@ -173,8 +185,8 @@ export default function MainProductList() {
         </CartListHeader>
         {isSearch ? (
           <ProductListDiv>
-            {!isGetProductList &&
-              searchData.map((product, index) => {
+            {!isSearchLoading &&
+              searchData.productSearchResponses.map((product, index) => {
                 return (
                   <Product
                     key={index}
@@ -198,14 +210,6 @@ export default function MainProductList() {
               })}
           </ProductListDiv>
         )}
-        {/* <ProductListDiv>
-          {!isGetProductList &&
-            productList.productSelectionResponses.map((product, index) => {
-              return (
-                <Product key={index} product={product} width="170px"></Product>
-              );
-            })}
-        </ProductListDiv> */}
         {totalPage !== 0 && (
           <Pagination
             nowPage={nowPage + 1}
