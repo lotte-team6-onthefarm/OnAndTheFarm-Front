@@ -37,7 +37,10 @@ export default function MainSns(props) {
       ) : (
         <MainSnsBlock>
           {lazys.map((sns, idx) => (
-            <MainImageWrapper key={idx} className="lazyActive" />
+            <MainImageWrapper
+              key={idx}
+              className="lazyActive skeleton-list-item"
+            />
           ))}
         </MainSnsBlock>
       )}

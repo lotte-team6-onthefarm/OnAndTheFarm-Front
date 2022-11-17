@@ -66,7 +66,7 @@ export default function MainProductsPopular(props) {
                   padding: '0 5px',
                   borderRadius: '4px',
                 }}
-                className="lazyActive"
+                className="lazyActive skeleton-list-item"
                 key={index}
               />
             );

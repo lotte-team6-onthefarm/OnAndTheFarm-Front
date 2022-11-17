@@ -20,6 +20,40 @@ const MainDisplayBlock = styled.div`
     margin-bottom: 25px;
   }
   margin-bottom: 60px;
+
+  @-webkit-keyframes skeleton-gradient {
+    0% {
+      background-color: rgba(165, 165, 165, 0.1);
+    }
+
+    50% {
+      background-color: rgba(165, 165, 165, 0.3);
+    }
+
+    100% {
+      background-color: rgba(165, 165, 165, 0.1);
+    }
+  }
+
+  @keyframes skeleton-gradient {
+    0% {
+      background-color: rgba(165, 165, 165, 0.1);
+    }
+
+    50% {
+      background-color: rgba(165, 165, 165, 0.3);
+    }
+
+    100% {
+      background-color: rgba(165, 165, 165, 0.1);
+    }
+  }
+
+  /*해당되는 컴포넌트에 적용*/
+  .skeleton-list-item {
+    -webkit-animation: skeleton-gradient 1.8s infinite ease-in-out;
+    animation: skeleton-gradient 1.8s infinite ease-in-out;
+  }
 `;
 
 export { MainContentDiv, MainDisplayBlock };

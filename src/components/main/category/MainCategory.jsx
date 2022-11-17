@@ -45,7 +45,10 @@ export default function MainCategory(props) {
           <div className="accountTitle">{props.data.exhibitionAccountName}</div>
           <MainCategoryBlock>
             {lazys.map((item, index) => (
-              <MainImageWrapper key={index} className="lazyActive">
+              <MainImageWrapper
+                key={index}
+                className="lazyActive skeleton-list-item"
+              >
                 <MainImageA href={item.connectUrl}>
                   <MainCategoryImage
                     src={item.imgSrc}

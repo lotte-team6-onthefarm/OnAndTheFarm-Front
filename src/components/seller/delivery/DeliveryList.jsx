@@ -53,7 +53,7 @@ export default function DeliveryList() {
   const [endDay, setEndDay] = useState('');
   const [selectData, setSelectData] = useState([]);
   const [deliveryCompany, setDeliveryCompany] = useState('롯데택배');
-  const [waybillNumber, setWaybillNumber] = useState('');
+  const [waybillNumber, setWaybillNumber] = useState([]);
   const [modal, setModal] = useState(false);
   // pagenation
   const [nowPage, setNowPage] = useState(0);
@@ -132,7 +132,7 @@ export default function DeliveryList() {
       enabled: startDate !== '' && endDate !== '',
     },
   );
-
+  console.log(waybillNumber, 's??');
   // 배송 처리
   const { mutate: deliveryStart, isLoading: isDelivertStartLoading } =
     useMutation(postSellerDeliveryStart, {

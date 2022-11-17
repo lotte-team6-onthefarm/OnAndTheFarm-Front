@@ -17,11 +17,11 @@ export default function MainSNSLazy() {
   const lazys = ['', '', '', '', ''];
   return (
     <SnsCarouselDiv>
-      <div className="accountTitle lazyActive"></div>
+      <div className="accountTitle lazyActive skeleton-list-item"></div>
       <MainCarouselSlider {...settings}>
         {lazys.map((sns, idx) => (
           <CarouselImgDiv key={idx}>
-            <SnsDiv className="lazyActive" />
+            <SnsDiv className="lazyActive skeleton-list-item" />
           </CarouselImgDiv>
         ))}
       </MainCarouselSlider>
