@@ -2,20 +2,20 @@ import React, { lazy, Suspense } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {
-  MainCarouselDiv,
   MainCarouselSlider,
   CarouselImgDiv,
   UserNameDiv,
   SnsDiv,
   RankDiv,
+  SnsCarouselDiv,
 } from './MainSnsCarousel.style';
 import { useQuery } from 'react-query';
 import { onErrorImg } from '../../../utils/commonFunction';
 import { getAllMainSNS } from '../../../apis/exhibition/mainpage';
-// const Image = lazy(() => import('./Img'));
 import Image from './Img';
 
 export default function MainSnsCarousel(props) {
+  const lazys = ['', '', '', '', ''];
   const { data: datas, isLoading } = useQuery(
     'getAllMainSNS',
     () =>
@@ -38,25 +38,15 @@ export default function MainSnsCarousel(props) {
   };
 
   return (
-    <MainCarouselDiv>
+    <SnsCarouselDiv>
       <div className="accountTitle">{props.data.exhibitionAccountName}</div>
-      <MainCarouselSlider {...settings}>
-        {!isLoading &&
-          datas.snsATypeResponses.map((sns, idx) => (
+      {!isLoading ? (
+        <MainCarouselSlider {...settings}>
+          {datas.snsATypeResponses.map((sns, idx) => (
             <CarouselImgDiv key={idx}>
               <a href="/sns/main">
                 <SnsDiv>
-                  {/* <Suspense
-                    fallback={
-                      <Image
-                        src="https://colorate.azurewebsites.net/SwatchColor/B2B2B2"
-                        onError={onErrorImg}
-                      />
-                    }
-                  > */}
                   <Image src={sns.feedImageSrc} onError={onErrorImg} />
-                  {/* </Suspense> */}
-                  {/* <CarouselImg src={sns.feedImageSrc} /> */}
                   <RankDiv>
                     <div>
                       <svg width="26" height="30" fill="none">
@@ -77,7 +67,16 @@ export default function MainSnsCarousel(props) {
               </UserNameDiv>
             </CarouselImgDiv>
           ))}
-      </MainCarouselSlider>
-    </MainCarouselDiv>
+        </MainCarouselSlider>
+      ) : (
+        <MainCarouselSlider {...settings}>
+          {lazys.map((sns, idx) => (
+            <CarouselImgDiv key={idx}>
+              <SnsDiv className="lazyActive" />
+            </CarouselImgDiv>
+          ))}
+        </MainCarouselSlider>
+      )}
+    </SnsCarouselDiv>
   );
 }

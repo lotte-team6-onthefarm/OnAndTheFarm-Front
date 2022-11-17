@@ -11,6 +11,7 @@ import {
 } from './MainProductsPopular.style';
 
 export default function MainProductsPopular(props) {
+  const lazys = ['', '', '', '', ''];
   const navigate = useNavigate();
   const productsUrl = () => {
     navigate('products');
@@ -41,7 +42,7 @@ export default function MainProductsPopular(props) {
           onClick={productsUrl}
         ></Button>
       </MainProductsSubjectDiv>
-      {!isLoading && (
+      {!isLoading ? (
         <PopularProductsDiv>
           {datas.responses.map((product, index) => {
             return (
@@ -50,6 +51,24 @@ export default function MainProductsPopular(props) {
                 product={product}
                 padding="0 5px"
               ></ProductComp>
+            );
+          })}
+        </PopularProductsDiv>
+      ) : (
+        <PopularProductsDiv>
+          {lazys.map((product, index) => {
+            return (
+              <div
+                style={{
+                  width: '200px',
+                  height: '300px',
+                  margin: '0 7.5px 0px',
+                  padding: '0 5px',
+                  borderRadius: '4px',
+                }}
+                className="lazyActive"
+                key={index}
+              />
             );
           })}
         </PopularProductsDiv>

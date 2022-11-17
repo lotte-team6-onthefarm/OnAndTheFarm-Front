@@ -9,6 +9,7 @@ import { useQuery } from 'react-query';
 import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
 
 export default function MainSns(props) {
+  const lazys = ['', '', '', ''];
   const { data: datas, isLoading } = useQuery(
     'getAllMainFarmFluencer',
     () =>
@@ -25,12 +26,18 @@ export default function MainSns(props) {
   return (
     <MainSnsWrapper>
       <div className="accountTitle">{props.data.exhibitionAccountName}</div>
-      {!isLoading && (
+      {!isLoading ? (
         <MainSnsBlock>
           {datas.bannerATypeResponses.map((sns, idx) => (
             <MainImageWrapper key={idx}>
               <MainSnsImage src={sns.imgSrc} alt=""></MainSnsImage>
             </MainImageWrapper>
+          ))}
+        </MainSnsBlock>
+      ) : (
+        <MainSnsBlock>
+          {lazys.map((sns, idx) => (
+            <MainImageWrapper key={idx} className="lazyActive" />
           ))}
         </MainSnsBlock>
       )}
