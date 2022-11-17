@@ -49,7 +49,10 @@ export default function MainCarousel(props) {
           })}
         </MainCarouselSlider>
       ) : (
-        <MainCarouselSlider {...settings} className="lazyActive">
+        <MainCarouselSlider
+          {...settings}
+          className="lazyActive skeleton-list-item"
+        >
           <CarouselImgDiv>
             <CarouselImg />
           </CarouselImgDiv>

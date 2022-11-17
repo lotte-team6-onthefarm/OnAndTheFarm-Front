@@ -2,8 +2,6 @@ import React, { lazy, Suspense } from 'react';
 import { useQuery } from 'react-query';
 import { getAllMainModule } from '../../apis/exhibition/mainpage';
 import { MainContentDiv, MainDisplayBlock } from './mainMainPage.style';
-
-import FadeLoader from 'react-spinners/FadeLoader';
 import MainCarouselLazy from '../../components/main/lazyComponent/MainCarouselLazy';
 import MainBadgeLazy from '../../components/main/lazyComponent/MainBadgeLazy';
 import MainProductLazy from '../../components/main/lazyComponent/MainProductLazy';

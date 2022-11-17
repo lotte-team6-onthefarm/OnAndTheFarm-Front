@@ -72,7 +72,7 @@ export default function MainSnsCarousel(props) {
         <MainCarouselSlider {...settings}>
           {lazys.map((sns, idx) => (
             <CarouselImgDiv key={idx}>
-              <SnsDiv className="lazyActive" />
+              <SnsDiv className="lazyActive skeleton-list-item" />
             </CarouselImgDiv>
           ))}
         </MainCarouselSlider>

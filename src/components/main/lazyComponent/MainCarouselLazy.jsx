@@ -9,7 +9,7 @@ import {
 export default function MainCarouselLazy() {
   return (
     <MainCarouselDiv>
-      <MainCarouselSlider className="lazyActive">
+      <MainCarouselSlider className="lazyActive skeleton-list-item">
         <CarouselImgDiv>
           <CarouselImg />
         </CarouselImgDiv>

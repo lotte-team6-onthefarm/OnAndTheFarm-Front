@@ -10,7 +10,7 @@ export default function MainProductLazy() {
   return (
     <MainProductsDiv>
       <MainProductsSubjectDiv>
-        <div className="accountTitle lazyActive" />
+        <div className="accountTitle lazyActive skeleton-list-item" />
       </MainProductsSubjectDiv>
       <PopularProductsDiv>
         {lazys.map((product, index) => {
@@ -23,7 +23,7 @@ export default function MainProductLazy() {
                 padding: '0 5px',
                 borderRadius: '4px',
               }}
-              className="lazyActive"
+              className="lazyActive skeleton-list-item"
               key={index}
             ></div>
           );

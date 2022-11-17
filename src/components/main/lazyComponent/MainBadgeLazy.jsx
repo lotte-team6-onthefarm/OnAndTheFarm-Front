@@ -16,7 +16,10 @@ export default function MainBadgeLazy() {
           <div className="accountTitle lazyActive"></div>
           <MainCategoryBlock>
             {lazys.map((item, index) => (
-              <MainImageWrapper key={index} className="lazyActive">
+              <MainImageWrapper
+                key={index}
+                className="lazyActive skeleton-list-item"
+              >
                 <MainImageA href={item.connectUrl}>
                   <MainCategoryImage src={item.imgSrc} alt="" />
                 </MainImageA>

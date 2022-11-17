@@ -27,7 +27,7 @@ export default function MainBanner(props) {
         </a>
       ) : (
         <div>
-          <MainBannerImage className="lazyActive" />
+          <MainBannerImage className="lazyActive skeleton-list-item" />
         </div>
       )}
     </MainBannerDiv>

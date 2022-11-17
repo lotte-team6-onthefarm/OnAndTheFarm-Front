@@ -93,7 +93,7 @@ export default function MainOrder() {
       makeOrder(data);
     } else {
       console.log('포인트주문');
-      postMakePointOrder(data);
+      makePointOrder(data);
     }
   };
 
@@ -128,7 +128,7 @@ export default function MainOrder() {
         navigate(`/order/success`, { state: '주문완료' });
       },
       onError: () => {
-        console.log('에러');
+        alert('결제가 취소되었습니다.');
       },
     });
 
