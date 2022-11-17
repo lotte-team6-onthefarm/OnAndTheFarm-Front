@@ -9,11 +9,8 @@ import {
 } from './MainCarousel.style';
 import { useQuery } from 'react-query';
 import { getAllMainBanner } from '../../../apis/exhibition/mainpage';
-import { displayMap } from '../../../utils/exhibition';
 
 export default function MainCarousel(props) {
-  console.log(props.data, '메인배너');
-  // const data = displayMap(props.data, 'banner');
   const settings = {
     dots: true,
     infinite: true,
@@ -46,7 +43,6 @@ export default function MainCarousel(props) {
               <div key={idx}>
                 <CarouselImgDiv>
                   <CarouselImg src={data.imgSrc} />
-                  {/* <CarouselImg src="" onError={onErrorImg} /> */}
                 </CarouselImgDiv>
               </div>
             );

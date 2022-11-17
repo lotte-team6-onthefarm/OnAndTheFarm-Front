@@ -9,10 +9,8 @@ import {
   MainSnsWrapper,
 } from './MainCategory.styled';
 import { getAllMainBadge } from '../../../apis/exhibition/mainpage';
-import { displayMap } from '../../../utils/exhibition';
 
 export default function MainCategory(props) {
-  console.log(props.data, '카테고리');
   const { data: datas, isLoading } = useQuery(
     'getAllMainBadge',
     () => getAllMainBadge(

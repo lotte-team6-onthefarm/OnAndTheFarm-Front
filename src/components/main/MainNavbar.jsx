@@ -16,6 +16,7 @@ import { useRecoilState } from 'recoil';
 import { isLoginState } from '../../recoil';
 import { useMutation } from 'react-query';
 import { putUserlogout } from '../../apis/user/account';
+import InputSearch from '../common/SearchInput';
 
 export default function MainNavbar(props) {
   const [isLogin, setisLogin] = useRecoilState(isLoginState);
