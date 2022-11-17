@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '../../common/Button';
 import RatingInputComp from '../../common/Rating';
 import { useMutation, useQueryClient } from 'react-query';
@@ -16,13 +16,15 @@ import { AiFillHeart } from 'react-icons/ai';
 
 export default function ReviewInput(props) {
   const [reviewContent, setReviewContent] = useState('');
-  const [rating, setRating] = useState(5);
+  const [rating, setRating] = useState(0);
   const queryClient = useQueryClient();
   const { mutate: addReview, isLoading: isAddReviewLoading } = useMutation(
     postAddReview,
     {
       onSuccess: res => {
         alert('리뷰가 추가되었습니다.');
+        setReviewContent('')
+        setRating(0)
         queryClient.invalidateQueries('AddReviewList');
       },
       onError: () => {
@@ -39,6 +41,10 @@ export default function ReviewInput(props) {
     };
     addReview(data);
   };
+
+  useEffect(() => {
+    console.log('taijsdtoiawehjsgiothasegkt;h asdkg hadsfkah askhrf ')
+  }, []);
 
   return (
     <ReviewAddDiv>

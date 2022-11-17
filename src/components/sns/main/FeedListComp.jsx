@@ -27,7 +27,7 @@ export default function FeedListComp(props) {
       keepPreviousData: true,
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
-      onSuccess: () => {},
+      onSuccess: (res) => {console.log(res)},
     },
   );
 
@@ -36,7 +36,7 @@ export default function FeedListComp(props) {
     getFeedListRefetch();
   }, [props.filterList, props.searchWord]);
   useEffect(() => {
-    if (inView || myRef.current.offsetTop < document.body.offsetHeight - 650)
+    if ((inView || myRef.current.offsetTop < document.body.offsetHeight - 650)&&(true))
       fetchNextPage();
   }, [inView, isFetchingNextPage]);
   return (

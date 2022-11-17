@@ -22,7 +22,7 @@ const getFeedList = async (data, pageParam) => {
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean((response.data.data.totalPageNum - 1 === pageParam)||(response.data.data.totalPageNum === 0)),
   };
 };
 
