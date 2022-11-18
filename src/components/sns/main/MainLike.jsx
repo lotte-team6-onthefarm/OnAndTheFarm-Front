@@ -23,7 +23,7 @@ export default function MainLike(props) {
         <LikeSection>
           <div className="FeedTitle">
             <h1>
-              위시 리스트 <span>{props.wishCount}</span>
+              찜 목록 <span>{props.wishCount}</span>
             </h1>
             {wishListData.length === 0 ? (
               ''

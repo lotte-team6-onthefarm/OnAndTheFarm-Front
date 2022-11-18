@@ -106,9 +106,7 @@ export default function MainProductDetailPage(props) {
 
   const cancleLike = () => {
     const data = {
-      body: {
-        productId: productDetail.productId,
-      },
+      productId: productDetail.productId,
     };
     cancleWish(data);
   };
@@ -135,7 +133,7 @@ export default function MainProductDetailPage(props) {
     const x = inputRef.current[idx].offsetTop;
     window.scrollTo({ top: x, left: 0, behavior: 'smooth' });
   };
-  
+
   return (
     <div>
       {!isGetProductDetailLoading && (

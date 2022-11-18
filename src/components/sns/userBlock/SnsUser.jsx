@@ -148,7 +148,7 @@ export default function SnsUser(props) {
                 <div>
                   <AiOutlineHeart />
                 </div>
-                <div>위시 리스트</div>
+                <div>찜 목록</div>
                 <div>{props.countData.wishCount}</div>
               </Link>
             ) : (
