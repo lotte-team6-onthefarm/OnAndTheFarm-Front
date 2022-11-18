@@ -59,16 +59,18 @@ export default function ReviewEditInput(props) {
 
   return (
     <ReviewAddDiv>
-      <input
-        style={{
-          width: '100%',
-          height: '100px',
-          marginRight: '20px',
-        }}
-        value={reviewContent}
-        onChange={e => setReviewContent(e.target.value)}
-        disabled={isEdit === true ? false : true}
-      ></input>
+      <div style={{ display: 'block' }}>
+        <textarea
+          label="답변내용"
+          name=""
+          id="answer"
+          cols="50"
+          rows="6"
+          value={reviewContent}
+          onChange={e => setReviewContent(e.target.value)}
+          disabled={isEdit === true ? false : true}
+        ></textarea>
+      </div>
       <ReviewAddButtonDiv>
         <div>
           <RatingInputComp

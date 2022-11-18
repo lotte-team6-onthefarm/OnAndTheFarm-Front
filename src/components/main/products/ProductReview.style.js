@@ -105,6 +105,10 @@ const ReviewAddDiv = styled.div`
   margin: auto;
   width: 500px;
   display: flex;
+  textarea{
+    /* border: none; */
+    resize: none;
+  }
 `;
 
 const ReviewAddButtonDiv = styled.div`
