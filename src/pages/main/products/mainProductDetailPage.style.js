@@ -116,6 +116,29 @@ const ProductTopContentDiv = styled.div`
   }
 `;
 
+const IconDiv = styled.div`
+  svg:nth-child(1) {
+    margin: 0 3px;
+    border: 2px solid
+      ${props => (props.productWishStatus ? '#FF6D59' : 'rgba(0,0,0,0)')};
+    color: ${props => (props.productWishStatus ? 'white' : 'white')};
+    border-radius: 100px;
+    background-color: ${props =>
+      props.productWishStatus ? '#FF6D59' : 'rgba(0,0,0,0)'};
+    cursor: pointer;
+  }
+  svg:nth-child(2) {
+    margin: 0 3px;
+    border: 2px solid
+      ${props => (props.productCartStatus ? '#40AA54' : 'rgba(0,0,0,0)')};
+    color: ${props => (props.productWishStatus ? 'white' : 'black')};
+    border-radius: 100px;
+    background-color: ${props =>
+      props.productCartStatus ? '#40AA54' : 'rgba(0,0,0,0)'};
+    cursor: pointer;
+  }
+`;
+
 const ProductTabDiv = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -164,6 +187,7 @@ export {
   ProductTopDiv,
   ProductTopImgDiv,
   ProductTopImg,
+  IconDiv,
   ProductTopContentDiv,
   ProductTabDiv,
   ProductDetailContentDiv,

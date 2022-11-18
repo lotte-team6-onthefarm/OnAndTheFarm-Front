@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BsReply } from 'react-icons/bs';
-import Counter from '../../common/Counter';
 import Input from '../../common/Input';
-import RatingInput from '../../common/Rating';
 import {
   QnaItem,
   QnaItemImg,
   QnaItemContent,
   QnaItemDetail,
-  QnaItemNumber,
   QnaItemPrice,
 } from './QnaItem.style';
 
@@ -16,7 +13,11 @@ export default function QnaItemComp(props) {
   const [dispalyAnswer, setDispalyAnswer] = useState(false);
 
   const showAnswer = e => {
-    setDispalyAnswer(!dispalyAnswer);
+    if (props.answer !== null) {
+      setDispalyAnswer(!dispalyAnswer);
+    } else {
+      alert('답변이 없습니다');
+    }
   };
   return (
     <div>
@@ -35,14 +36,15 @@ export default function QnaItemComp(props) {
           </QnaItemPrice>
         </QnaItemContent>
       </QnaItem>
-      {dispalyAnswer && <Input
-        value={props.answer}
-        label="답변내용"
-        id="answer"
-        type="text"
-        disabled={true}
-      />}
-      
+      {dispalyAnswer && (
+        <Input
+          value={props.answer}
+          label="답변내용"
+          id="answer"
+          type="text"
+          disabled={true}
+        />
+      )}
     </div>
   );
 }
