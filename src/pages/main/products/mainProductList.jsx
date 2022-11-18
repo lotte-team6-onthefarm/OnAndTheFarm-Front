@@ -38,7 +38,7 @@ export default function MainProductList() {
     { id: 11, name: '찹쌀/현미/흑미', value: '/blackrice' },
     { id: 12, name: '당근/우엉/연근/마', value: '/carrot' },
     { id: 13, name: '배추/무/김장재료', value: '/cabbage' },
-    { id: 14, name: '포도/복숭ㅏ', value: '/grape' },
+    { id: 14, name: '포도/복숭아', value: '/grape' },
   ];
 
   const params = new URLSearchParams(window.location.search);

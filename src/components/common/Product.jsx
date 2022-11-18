@@ -38,9 +38,7 @@ export default function Product(props) {
   };
   const cancleLike = () => {
     const data = {
-      body: {
-        productId: product.productId,
-      },
+      productId: product.productId,
     };
     cancleWish(data);
   };

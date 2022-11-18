@@ -6,7 +6,6 @@ import QnaItemComp from '../qna/QnaItem';
 import { ProductQnaDiv, QnaListDiv } from './ProductQna.style';
 import Modal from '../../common/Modal';
 import MakeQna from '../qna/MakeQna';
-import NoneFeed from '../../sns/main/NoneFeed';
 import Pagination from '../../common/Pagination';
 import { EmptyTable } from '../../seller/main/popularProducts/MainPopularProducts.style';
 
@@ -23,8 +22,8 @@ export default function ProductQnaComp(props) {
   } = useQuery(
     ['getQnaList', nowPage],
     () =>
-    getQnaList({
-      productId: productId,
+      getQnaList({
+        productId: productId,
         page: nowPage,
       }),
     {
@@ -43,20 +42,23 @@ export default function ProductQnaComp(props) {
   const openModal = () => {
     setModal(!modal);
   };
-
   return (
     <ProductQnaDiv>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h4>문의사항</h4>
-        <Button
-          text="문의 작성"
-          color="#40AA54"
-          width="130px"
-          height="30px"
-          onClick={openModal}
-          margin="10px"
-        ></Button>
-      </div>
+      {!isGetQnaList && (
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <h4>
+            문의사항<span> {qnaList.totalElementNum.toLocaleString()}</span>{' '}
+          </h4>
+          <Button
+            text="문의 작성"
+            color="#40AA54"
+            width="130px"
+            height="30px"
+            onClick={openModal}
+            margin="10px"
+          ></Button>
+        </div>
+      )}
       <hr />
       {!isGetQnaList &&
         (qnaList.productQnAResponseList.length === 0 ? (

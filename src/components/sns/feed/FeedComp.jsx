@@ -190,7 +190,7 @@ export default function FeedComp(props) {
           </Link>
           <Link to={`/sns/detail/${props.post.feedId}`}>
             <BiMessageAlt />
-            <span>{props.post.feedShareCount}</span>
+            <span>{props.post.feedCommentCount}</span>
           </Link>
         </FeedActionList>
         <FeedItemDescription>

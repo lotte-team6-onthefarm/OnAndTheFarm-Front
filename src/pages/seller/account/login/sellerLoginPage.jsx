@@ -38,6 +38,7 @@ export default function SellerLoginPage() {
     onSuccess: res => {
       if (localStorage.getItem('token') !== undefined) {
         // 셀러 로그인 시 유저 정보 있으면 셀러 토큰 제거
+        localStorage.removeItem('refreshToken');
         localStorage.removeItem('token');
         localStorage.removeItem('role');
       }
@@ -45,13 +46,16 @@ export default function SellerLoginPage() {
         // 셀러 로그인 시 유저 정보가 있으면 제거
         localStorage.removeItem('recoil-persist');
       }
-      localStorage.setItem('token', res.data.token.token);
 
       if (res.data.role === 'admin') {
         localStorage.setItem('role', 'admin');
+        localStorage.setItem('token', res.data.token.token);
+        localStorage.setItem('refreshToken', res.data.token.refreshToken);
         document.location.href = '/admin';
       } else {
         localStorage.setItem('role', 'seller');
+        localStorage.setItem('token', res.data.token.token);
+        localStorage.setItem('refreshToken', res.data.token.refreshToken);
         document.location.href = '/seller';
       }
     },

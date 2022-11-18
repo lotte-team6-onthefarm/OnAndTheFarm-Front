@@ -72,7 +72,11 @@ export default function MainLikes() {
 
   const allCheckedHandler = isChecked => {
     if (isChecked) {
-      setCheckedItems(new Set(likeList.productWishResponseList.map((like, idx) => String(idx))));
+      setCheckedItems(
+        new Set(
+          likeList.productWishResponseList.map((like, idx) => String(idx)),
+        ),
+      );
       setIsAllChecked(true);
     } else {
       checkedItems.clear();
@@ -127,7 +131,9 @@ export default function MainLikes() {
   const { mutate: deleteWish, isLoading: isDeleteWishLoading } = useMutation(
     deleteWishList,
     {
-      onSuccess: res => {},
+      onSuccess: res => {
+        alert('삭제되었습니다.');
+      },
       onError: () => {
         console.log('에러');
       },

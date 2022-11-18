@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const ProductQnaDiv = styled.div`
   align-items: center;
   margin: 50px auto 50px;
-  
+
   width: 800px;
   h4 {
     font-size: 18px;

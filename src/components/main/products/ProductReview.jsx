@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '../../common/Button';
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import RatingInputComp from '../../common/Rating';
 import ReviewItemComp from '../review/ReviewItem';
 import {
@@ -9,8 +8,6 @@ import {
   ReviewCountDiv,
   ReviewTotalDiv,
   ReviewCountListDiv,
-  ReviewAddDiv,
-  ReviewAddButtonDiv,
   ReviewListDiv,
   SelectDiv,
   RateDiv,
@@ -19,9 +16,9 @@ import {
   getProductReviewCount,
   getReviewList,
 } from '../../../apis/user/review';
-import NoneFeed from '../../sns/main/NoneFeed';
 import Pagination from '../../common/Pagination';
 import { EmptyTable } from '../../seller/main/popularProducts/MainPopularProducts.style';
+import { upNumber } from '../../../utils/commonFunction';
 
 export default function ProductReviewComp(props) {
   const filterList = ['최신순', '좋아요순'];
@@ -67,7 +64,7 @@ export default function ProductReviewComp(props) {
     },
   );
 
-  const test = e => {
+  const selectFilter = e => {
     setSelectedFilter(e.target.value);
     if (e.target.value === '최신순') {
       data = { filter: 'newest', productId: props.productDetailId, page: 0 };
@@ -84,10 +81,18 @@ export default function ProductReviewComp(props) {
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <h4>
-              후기리뷰<span>{productReviewCount.reviewCount}</span>{' '}
+              후기리뷰
+              <span>
+                {' '}
+                {productReviewCount.reviewCount.toLocaleString()}
+              </span>{' '}
             </h4>
             <SelectDiv>
-              <select onChange={test} value={selectedFilter} className="select">
+              <select
+                onChange={selectFilter}
+                value={selectedFilter}
+                className="select"
+              >
                 {filterList.map((filter, idx) => {
                   return (
                     <option value={filter} key={idx}>
@@ -106,7 +111,7 @@ export default function ProductReviewComp(props) {
                 rate={productReviewCount.reviewRate}
                 font="13px"
               />
-              <span>{productReviewCount.reviewRate}</span>
+              <span>{upNumber(productReviewCount.reviewRate)}</span>
             </ReviewTotalDiv>
             <ReviewCountListDiv>
               <ReviewCountDiv>
@@ -123,7 +128,9 @@ export default function ProductReviewComp(props) {
                     }}
                   ></div>
                 </RateDiv>
-                <span>{productReviewCount.reviewFiveCount}</span>
+                <span>
+                  {productReviewCount.reviewFiveCount.toLocaleString()}
+                </span>
               </ReviewCountDiv>
               <ReviewCountDiv>
                 <span>4점</span>
@@ -139,7 +146,9 @@ export default function ProductReviewComp(props) {
                     }}
                   ></div>
                 </RateDiv>
-                <span>{productReviewCount.reviewFourCount}</span>
+                <span>
+                  {productReviewCount.reviewFourCount.toLocaleString()}
+                </span>
               </ReviewCountDiv>
               <ReviewCountDiv>
                 <span>3점</span>
@@ -155,7 +164,9 @@ export default function ProductReviewComp(props) {
                     }}
                   ></div>
                 </RateDiv>
-                <span>{productReviewCount.reviewThreeCount}</span>
+                <span>
+                  {productReviewCount.reviewThreeCount.toLocaleString()}
+                </span>
               </ReviewCountDiv>
               <ReviewCountDiv>
                 <span>2점</span>
@@ -171,7 +182,9 @@ export default function ProductReviewComp(props) {
                     }}
                   ></div>
                 </RateDiv>
-                <span>{productReviewCount.reviewTwoCount}</span>
+                <span>
+                  {productReviewCount.reviewTwoCount.toLocaleString()}
+                </span>
               </ReviewCountDiv>
               <ReviewCountDiv>
                 <span>1점&nbsp;</span>
@@ -187,7 +200,9 @@ export default function ProductReviewComp(props) {
                     }}
                   ></div>
                 </RateDiv>
-                <span>{productReviewCount.reviewOneCount}</span>
+                <span>
+                  {productReviewCount.reviewOneCount.toLocaleString()}
+                </span>
               </ReviewCountDiv>
             </ReviewCountListDiv>
           </ReviewStatisticsDiv>
