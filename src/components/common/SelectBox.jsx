@@ -9,6 +9,7 @@ export default function SelectBox(props) {
     <SelectWrapper
       onChange={handleChange}
       defaultValue={props.defaultValue}
+      value={props.value}
       width={props.width}
     >
       {props.options.map(option => (

@@ -281,12 +281,12 @@ export default function MainOrder() {
         <OrderSelectBox>
           <div
             onClick={() => {
-              setPayment('카카오페이');
-              setPaymentEng('kakaopay');
+              setPayment('토스페이');
+              setPaymentEng('uplus.tlgdacomxpay');
             }}
-            className={payment === '카카오페이' ? 'orderIsActivate' : ''}
+            className={payment === '토스페이' ? 'orderIsActivate' : ''}
           >
-            카카오페이
+            토스페이
           </div>
           <div
             onClick={() => {
