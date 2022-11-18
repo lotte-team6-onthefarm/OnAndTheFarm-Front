@@ -21,7 +21,7 @@ export default function AddDisplayOrganize(props) {
       </div>
       <AddDisplayOrganizeWrapper>
         <ListTextWrapper>
-          <div className="organizeTextTitle">블록</div>
+          <div className="organizeTextTitle">모듈</div>
           <div className="mainTextContent">{props.block}</div>
         </ListTextWrapper>
         <ListTextWrapper>
@@ -37,11 +37,11 @@ export default function AddDisplayOrganize(props) {
           <div className="mainTextContent">{props.account}</div>
         </ListTextWrapper>
         <ListTextWrapper>
-          <div className="organizeTextTitle">소재 리스트 이름</div>
+          <div className="organizeTextTitle">아이템 리스트 이름</div>
           <div className="mainTextContent">{props.itemsName}</div>
         </ListTextWrapper>
         <ListTextWrapper>
-          <div className="organizeTextTitle">소재 리스트 설명</div>
+          <div className="organizeTextTitle">아이템 리스트 설명</div>
           <div className="mainTextContent">{props.itemsDetail}</div>
         </ListTextWrapper>
         <ListTextWrapper>

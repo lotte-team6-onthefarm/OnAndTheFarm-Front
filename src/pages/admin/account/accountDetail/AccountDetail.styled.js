@@ -23,8 +23,18 @@ const AccountDetailTextWrapper = styled.div`
   .accountItemContent {
     display: flex;
     align-items: center;
-    border: none;
     background-color: ${props => props.theme.colors.gray};
+    padding: 0 10px;
+    font-size: 15px;
+    font-weight: 600;
+    width: calc(42% - 20px);
+    min-height: 48px;
+    border-radius: 4px;
+  }
+  .accountItemContentInput {
+    display: flex;
+    align-items: center;
+    border: solid 1px #d7d7d7;
     padding: 0 10px;
     font-size: 15px;
     font-weight: 600;

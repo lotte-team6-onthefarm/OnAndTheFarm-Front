@@ -29,10 +29,10 @@ import {
   ProductDetailDiv,
 } from './Delivery.style';
 import DeliveryDetail from './deliveryDetail/DeliveryDetail';
-import { DELIVERY_COMPANY } from './DeliveryCompanyList';
 import { EmptyTable } from '../main/popularProducts/MainPopularProducts.style';
 import useDidMountEffect from '../../common/useDidMountEffect';
 import Pagination from '../../common/Pagination';
+import WaybillList from './WaybillList';
 export default function DeliveryList() {
   const param = useParams();
   const id = param.id;
@@ -52,12 +52,13 @@ export default function DeliveryList() {
   const [today, setToday] = useState('');
   const [endDay, setEndDay] = useState('');
   const [selectData, setSelectData] = useState([]);
-  const [deliveryCompany, setDeliveryCompany] = useState('롯데택배');
+  const [deliveryCompany, setDeliveryCompany] = useState([]);
   const [waybillNumber, setWaybillNumber] = useState([]);
   const [modal, setModal] = useState(false);
   // pagenation
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
+  const [isPush, setIsPush] = useState(true);
 
   // useeffect
   useEffect(() => {
@@ -97,18 +98,27 @@ export default function DeliveryList() {
     }
   };
 
-  const startDeliveryBtn = orderSerial => {
+  const startDeliveryBtn = (orderSerial, idx) => {
+    if (waybillNumber[idx] === '') {
+      alert('운송장 번호를 입력해주세요');
+      return;
+    }
     deliveryStart({
-      orderDeliveryCompany: deliveryCompany,
+      orderDeliveryCompany: deliveryCompany[idx],
       orderSerial: orderSerial,
-      orderDeliveryWaybillNumber: waybillNumber,
+      orderDeliveryWaybillNumber: waybillNumber[idx],
     });
+    setWaybillNumber(
+      waybillNumber.filter((num, numIdx) => {
+        return idx !== numIdx;
+      }),
+    );
+    setDeliveryCompany(
+      deliveryCompany.filter((num, numIdx) => {
+        return idx !== numIdx;
+      }),
+    );
   };
-
-  const waybillNumberHandler = e => {
-    setWaybillNumber(e.target.value);
-  };
-
   const {
     data: orderList,
     isLoading: isOrderListLoading,
@@ -128,11 +138,17 @@ export default function DeliveryList() {
       onSuccess: res => {
         setNowPage(res.currentPageNum);
         setTotalPage(res.totalPageNum);
+        if (isPush) {
+          for (let i = 0; i < res.responses.length; i++) {
+            deliveryCompany.push('롯데택배');
+            waybillNumber.push('');
+          }
+          setIsPush(false);
+        }
       },
       enabled: startDate !== '' && endDate !== '',
     },
   );
-  console.log(waybillNumber, 's??');
   // 배송 처리
   const { mutate: deliveryStart, isLoading: isDelivertStartLoading } =
     useMutation(postSellerDeliveryStart, {
@@ -277,37 +293,26 @@ export default function DeliveryList() {
                               },
                             )}
                           </td>
-                          <td>
-                            {order.orderProductDeliveryWaybillNumber ===
-                            null ? (
-                              <>
-                                <SelectBox
-                                  options={DELIVERY_COMPANY}
-                                  setSelectData={setDeliveryCompany}
-                                ></SelectBox>
-                                <input
-                                  type="text"
-                                  className="deliveryNumberInput"
-                                  placeholder="운송장 번호를 입력해주세요"
-                                  onChange={waybillNumberHandler}
-                                />
-                              </>
-                            ) : (
-                              <>
-                                <div>{order.orderProductDeliveryCompany}</div>
-                                <div>
-                                  {order.orderProductDeliveryWaybillNumber}
-                                </div>
-                              </>
-                            )}
-                          </td>
+                          <WaybillList
+                            idx={idx}
+                            orderProductDeliveryWaybillNumber={
+                              order.orderProductDeliveryWaybillNumber
+                            }
+                            deliveryCompany={deliveryCompany}
+                            setDeliveryCompany={setDeliveryCompany}
+                            waybillNumber={waybillNumber}
+                            setWaybillNumber={setWaybillNumber}
+                            orderProductDeliveryCompany={
+                              order.orderProductDeliveryCompany
+                            }
+                          />
                           <td>
                             <div>
                               {order.orderProductStatus === 'activated' && (
                                 <GreenButton
                                   height="40px"
                                   onClick={() => {
-                                    startDeliveryBtn(order.ordersSerial);
+                                    startDeliveryBtn(order.ordersSerial, idx);
                                   }}
                                 >
                                   배송처리

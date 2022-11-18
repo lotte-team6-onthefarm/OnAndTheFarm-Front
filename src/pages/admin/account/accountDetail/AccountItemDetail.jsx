@@ -14,10 +14,10 @@ export default function AccountItemDetail(props) {
     <>
       {exhibitionItemNumber.map((data, idx) => (
         <AccountDetailTextWrapper key={idx}>
-          <div className="accountDetailTitle">데이터 ID</div>
+          <div className="accountDetailTitle">아이템 ID</div>
           <div className="accountItemContent">{exhibitionItemNumber[idx]}</div>
           <div className="accountDetailTitle" style={{ marginLeft: '30px' }}>
-            데이터 순서
+            아이템 순서
           </div>
           <div className="accountItemContent">
             {exhibitionItemsPriorityId[idx]}

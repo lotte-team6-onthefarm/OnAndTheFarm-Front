@@ -11,12 +11,6 @@ import {
 import Pagination from '../../../../components/common/Pagination';
 
 export default function MainMypageReview() {
-  const menuTab = [
-    { title: '작성 가능한 리뷰', url: '/mypage/review/addlist' },
-    { title: '내가 작성한 리뷰', url: '/mypage/review/myreview' },
-    { title: '문의사항', url: '/mypage/review/qna' },
-  ];
-
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
 
