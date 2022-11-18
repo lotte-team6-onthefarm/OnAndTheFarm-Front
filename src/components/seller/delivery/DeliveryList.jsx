@@ -293,30 +293,6 @@ export default function DeliveryList() {
                               },
                             )}
                           </td>
-                          {/* <td>
-                            {order.orderProductDeliveryWaybillNumber ===
-                            null ? (
-                              <>
-                                <SelectBox
-                                  options={DELIVERY_COMPANY}
-                                  setSelectData={setDeliveryCompany}
-                                ></SelectBox>
-                                <input
-                                  type="text"
-                                  className="deliveryNumberInput"
-                                  placeholder="운송장 번호를 입력해주세요"
-                                  onChange={waybillNumberHandler}
-                                />
-                              </>
-                            ) : (
-                              <>
-                                <div>{order.orderProductDeliveryCompany}</div>
-                                <div>
-                                  {order.orderProductDeliveryWaybillNumber}
-                                </div>
-                              </>
-                            )}
-                          </td> */}
                           <WaybillList
                             idx={idx}
                             orderProductDeliveryWaybillNumber={

@@ -23,8 +23,8 @@ export default function ReviewInput(props) {
     {
       onSuccess: res => {
         alert('리뷰가 추가되었습니다.');
-        setReviewContent('')
-        setRating(0)
+        setReviewContent('');
+        setRating(0);
         queryClient.invalidateQueries('AddReviewList');
       },
       onError: () => {
@@ -41,10 +41,6 @@ export default function ReviewInput(props) {
     };
     addReview(data);
   };
-
-  useEffect(() => {
-    console.log('taijsdtoiawehjsgiothasegkt;h asdkg hadsfkah askhrf ')
-  }, []);
 
   return (
     <ReviewAddDiv>

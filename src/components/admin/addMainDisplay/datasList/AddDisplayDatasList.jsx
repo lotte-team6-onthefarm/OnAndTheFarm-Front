@@ -29,7 +29,7 @@ export default function AddDisplayDatasList(props) {
     <>
       {!isLoading && (
         <WhiteWrapper width="49%" miHeight="300px">
-          소재 리스트
+          아이템 리스트
           <div
             style={{
               marginTop: '10px',

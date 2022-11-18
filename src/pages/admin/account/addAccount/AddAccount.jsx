@@ -173,14 +173,14 @@ export default function AddAccount() {
           </div>
           <HorizontalLine color="#F2F2F2" />
           <ProductInput
-            title="데이터 그룹 개수"
-            placeholder="데이터 그룹 수 입력"
+            title="아이템 리스트 개수"
+            placeholder="아이템 리스트 수 입력"
             setFunction={setDataGroupCount}
           />
           <HorizontalLine color="#F2F2F2" />
           <ProductInput
-            title="데이터 개수"
-            placeholder="데이터 개수 입력"
+            title="아이템 개수"
+            placeholder="아이템 개수 입력"
             setFunction={setDataCount}
           />
           <HorizontalLine color="#F2F2F2" />

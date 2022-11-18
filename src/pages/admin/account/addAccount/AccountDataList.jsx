@@ -47,9 +47,9 @@ export default function AccountDataList(props) {
     <WhiteWrapper width="100%" marginBottom="10px">
       <AddAccountWrapper>
         <AccountDetailTitle>
-          <h2 style={{ marginBottom: '30px' }}>데이터 등록</h2>
+          <h2 style={{ marginBottom: '30px' }}>아이템 등록</h2>
           <div className="accountDetailNotice">
-            * 데이터 등록 시 하단의 저장 버튼을 눌러주세요
+            * 아이템 등록 시 하단의 저장 버튼을 눌러주세요
           </div>
         </AccountDetailTitle>
         {dataGroupCount.map((dataGroup, idx) => (

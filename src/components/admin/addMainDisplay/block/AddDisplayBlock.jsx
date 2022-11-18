@@ -18,7 +18,7 @@ export default function AddDisplayBlock(props) {
   );
   return (
     <WhiteWrapper height="450px">
-      <div style={{ fontSize: '18px' }}>블록 모음</div>
+      <div style={{ fontSize: '18px' }}>모듈 모음</div>
       {!isLoading && (
         <AddDisplayBlockWrapper>
           {blocks.map((block, idx) => {

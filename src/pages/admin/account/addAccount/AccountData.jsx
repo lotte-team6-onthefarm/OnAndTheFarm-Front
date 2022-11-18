@@ -13,7 +13,7 @@ export default function AccountData(props) {
       temp.push({
         exhibitionCategoryId: props.categoryId,
         exhibitionItemNumber: 1,
-        exhibitionItemPriority: i+1,
+        exhibitionItemPriority: i + 1,
       });
     }
     setDatas(temp);
@@ -26,7 +26,7 @@ export default function AccountData(props) {
   };
 
   const saveDataGroup = () => {
-    props.saveBtn(datas)
+    props.saveBtn(datas);
   };
 
   return (
@@ -34,9 +34,9 @@ export default function AccountData(props) {
       {props.dataCount.map((data, idx) => (
         <div key={idx}>
           <ProductInput
-            title="데이터 아이디"
-            placeholder="데이터 아이디 입력"
-            setFunction={(event) => setDataOnChange(event, idx)}
+            title="아이템 아이디"
+            placeholder="아이템 아이디 입력"
+            setFunction={event => setDataOnChange(event, idx)}
           />
         </div>
       ))}

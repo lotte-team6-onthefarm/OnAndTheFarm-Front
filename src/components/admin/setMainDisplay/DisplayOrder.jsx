@@ -110,7 +110,7 @@ export default function DisplayOrder(props) {
   return (
     <WhiteWrapper width="90%" minHeight="300px">
       <ListTextWrapper>
-        <div className="mainTextTitle">모듈 순서</div>
+        <div className="mainTextTitle">전시 순서</div>
       </ListTextWrapper>
       <ListTextWrapper>
         <div className="mainTextTitle">방법</div>
@@ -128,10 +128,10 @@ export default function DisplayOrder(props) {
                 className="accountDetailTitle"
                 style={{ marginLeft: '20px' }}
               >
-                모듈순서
+                전시순서
               </div>
               <input
-                className="accountOrderItemContent"
+                className="accountItemContentInput"
                 value={module.exhibitionTemporaryPriority}
                 onChange={event => testOnChange(event, idx)}
               />
@@ -157,7 +157,7 @@ export default function DisplayOrder(props) {
           style={{ margin: '30px 20px' }}
           onClick={() => navigate('/admin/display/add')}
         >
-          모듈추가
+          전시추가
         </BlackButton>
       </div>
     </WhiteWrapper>
