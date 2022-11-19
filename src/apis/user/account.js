@@ -1,4 +1,4 @@
-import { JWTapiUser, ApiUser } from '.';
+import { JWTapiUser, ApiUser, JWTapiLogoutUser } from '.';
 
 // 유저 로그인
 const postUserlogin = async data => {
@@ -8,7 +8,7 @@ const postUserlogin = async data => {
 
 // 유저 로그아웃
 const putUserlogout = async data => {
-  const response = await JWTapiUser.put('members/logout');
+  const response = await JWTapiLogoutUser.put('members/logout');
   return response.data;
 };
 

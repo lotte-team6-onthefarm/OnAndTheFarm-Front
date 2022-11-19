@@ -1,4 +1,11 @@
 import { JWTapiAdmin } from '.';
+import { JWTapiLogoutAdmin } from '..';
+
+// 어드민 로그아웃
+const putAdminlogout = async data => {
+  const response = await JWTapiLogoutAdmin.put('members/logout');
+  return response.data;
+};
 
 // 전시구좌 리스트 조회
 const getAccountList = async pageNo => {
@@ -155,6 +162,7 @@ const putExhibitionItemPriority = async data => {
 };
 
 export {
+  putAdminlogout,
   getAccountList,
   postAccountNew,
   putAccountUpdate,
