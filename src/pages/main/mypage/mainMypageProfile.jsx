@@ -199,7 +199,7 @@ export default function MainMypageProfile() {
                   <span>POINT</span>
                 </div>
                 <div className="contain">
-                  <strong>{userInfo.userPoint}</strong>
+                  <strong>{userInfo.userPoint.toLocaleString()}</strong>
                   <span>&nbsp;P</span>
                 </div>
               </MemberPointDiv>

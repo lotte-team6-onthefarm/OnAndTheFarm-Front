@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { deleteWishList, postAddWish } from '../../apis/user/product';
 import { postAddCart } from '../../apis/user/cart';
 import { IconBox, IconWrapper } from '../seller/common/Icon.style';
+import { upNumber } from '../../utils/commonFunction';
 
 export default function Product(props) {
   const product = props.product;
@@ -129,11 +130,11 @@ export default function Product(props) {
           <IconWrapper>
             <IconBox>
               <AiFillStar color="#40AA54" />
-              <strong>{product.reviewRate}</strong>
+              <strong>{upNumber(product.reviewRate)}</strong>
             </IconBox>
           </IconWrapper>
           <span>리뷰</span>
-          {product.productReviewCount}
+          {product.productReviewCount.toLocaleString()}
         </div>
         <div className="productInfoButton">
           <div>무료 배송</div>

@@ -16,8 +16,10 @@ export default function SnsMainLayout() {
   useEffect(() => {
     if (searchParams.get('search') !== null) {
       setSearchWord(searchParams.get('search'));
-      setFilterList(4);
+      setSearchValue(searchParams.get('search'));
       setUrl('/search');
+      setFilterList(4);
+      console.log('검색')
     }
   }, []);
 

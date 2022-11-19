@@ -23,7 +23,7 @@ export default function MainScrap(props) {
         <ScrapSection>
           <div className="FeedTitle">
             <h1>
-              스크랩북 <span>{props.scrapCount}</span>
+              스크랩북 <span>{props.scrapCount.toLocaleString()}</span>
             </h1>
             {scrapListData.length === 0 ? (
               ''

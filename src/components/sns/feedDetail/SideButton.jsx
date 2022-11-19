@@ -72,7 +72,7 @@ export default function SideButton(props) {
           )}
         </span>
       </span>
-      <span>{props.count}</span>
+      <span>{props.count.toLocaleString()}</span>
     </SideButtonWrapper>
   );
 }

@@ -24,7 +24,7 @@ export default function MainMyFeed(props) {
         <MyFeedSection>
           <div className="FeedTitle">
             <h1>
-              사진 <span>{props.photoCount}</span>
+              사진 <span>{props.photoCount.toLocaleString()}</span>
             </h1>
             {feedListData.length === 0 ? (
               ''

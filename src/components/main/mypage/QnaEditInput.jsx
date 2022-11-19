@@ -63,25 +63,29 @@ export default function QnaEditInput(props) {
 
   return (
     <ReviewAddDiv>
-      <input
-        style={{
-          width: '100%',
-          height: '100px',
-          marginRight: '20px',
-        }}
-        value={qnaContent}
-        onChange={e => setQnaContent(e.target.value)}
-        disabled={isEdit === true ? false : true}
-      ></input>
-      {dispalyAnswer && (
-        <Input
-          value={props.qnaAnswer}
-          label="답변내용"
-          id="answer"
-          type="text"
-          disabled={true}
-        />
-      )}
+      <div style={{ display: 'block' }}>
+        <textarea
+            label="답변내용"
+            name=""
+            id="answer"
+            cols="50"
+            rows="6"
+            value={qnaContent}
+            onChange={e => setQnaContent(e.target.value)}
+            disabled={isEdit === true ? false : true}
+          ></textarea>
+        {dispalyAnswer && (
+          <textarea
+            label="답변내용"
+            name=""
+            id="answer"
+            cols="50"
+            rows="6"
+            value={props.qnaAnswer}
+            disabled={true}
+          ></textarea>
+        )}
+      </div>
       <ReviewAddButtonDiv>
         {isEdit === true ? (
           <Button
