@@ -8,6 +8,7 @@ import {
   CartItemDetail,
   CartItemNumber,
   CartItemPrice,
+  CartItemTotalPrice,
 } from './CartItem.style';
 
 export default function CartItemComp(props) {
@@ -47,11 +48,14 @@ export default function CartItemComp(props) {
           <Counter value={quantity} setQuantity={setQuantity} />
         </CartItemNumber>
         <CartItemPrice>
-          <p>{props.price}</p>
+          <p>{props.price.toLocaleString()}</p>
         </CartItemPrice>
-        <CartItemPrice>
-          <p>{Number(props.price)*Number(quantity)}</p>
-        </CartItemPrice>
+        <CartItemTotalPrice>
+          <div>
+            {(Number(props.price) * Number(quantity)).toLocaleString()}
+            <span>&nbsp;원</span>
+          </div>
+        </CartItemTotalPrice>
       </CartItemContent>
     </CartItem>
   );

@@ -39,7 +39,7 @@ export default function FeedComment(props) {
     <FeedCommentInputWrapper>
       <section>
         <CommentTopP>
-          댓글<span>{props.feedCommentCount}</span>
+          댓글<span>{props.feedCommentCount.toLocaleString()}</span>
           {/* 댓글<span>{props.comment.length}</span> */}
         </CommentTopP>
         <CommentBottom>

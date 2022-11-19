@@ -22,7 +22,7 @@ export default function LikeItemComp(props) {
   const allCheckHandler = () => {
     if (props.likeListSize === props.checkedItems.size) {
       setChecked(props.isAllChecked);
-    } else if(props.checkedItems.size === 0){
+    } else if (props.checkedItems.size === 0) {
       setChecked(props.isAllChecked);
     }
   };
@@ -47,7 +47,10 @@ export default function LikeItemComp(props) {
           <Counter value={quantity} setQuantity={setQuantity} />
         </LikeItemNumber>
         <LikeItemPrice>
-          <p>{props.price}</p>
+          <div>
+            {(props.price * quantity).toLocaleString()}
+            <span>&nbsp;원</span>
+          </div>
         </LikeItemPrice>
       </LikeItemContent>
     </LikeItem>

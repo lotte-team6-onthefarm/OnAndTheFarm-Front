@@ -96,11 +96,11 @@ export default function SnsUser(props) {
                 <UserInfoFollow>
                   <div onClick={followerNavigator} className="infoFollowButton">
                     <div>팔로워</div>
-                    <div>{data.followerCount}</div>
+                    <div>{data.followerCount.toLocaleString()}</div>
                   </div>
                   <div onClick={followeeNavigator} className="infoFollowButton">
                     <div>팔로잉</div>
-                    <div>{data.followingCount}</div>
+                    <div>{data.followingCount.toLocaleString()}</div>
                   </div>
                 </UserInfoFollow>
                 <UserInfoSetting>
@@ -141,7 +141,7 @@ export default function SnsUser(props) {
                 <BiImages />
               </div>
               <div>사진</div>
-              <div>{props.countData.photoCount}</div>
+              <div>{props.countData.photoCount.toLocaleString()}</div>
             </Link>
             {data.memberRole === 'user' ? (
               <Link to={`/sns/${props.id}/like`}>
@@ -149,7 +149,7 @@ export default function SnsUser(props) {
                   <AiOutlineHeart />
                 </div>
                 <div>찜 목록</div>
-                <div>{props.countData.wishCount}</div>
+                <div>{props.countData.wishCount.toLocaleString()}</div>
               </Link>
             ) : (
               <Link to={`/sns/${props.id}/product`}>
@@ -157,7 +157,7 @@ export default function SnsUser(props) {
                   <AiOutlineShop />
                 </div>
                 <div>판매 상품</div>
-                <div>{props.countData.productCount}</div>
+                <div>{props.countData.productCount.toLocaleString()}</div>
               </Link>
             )}
 
