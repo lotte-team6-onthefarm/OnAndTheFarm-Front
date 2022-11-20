@@ -11,9 +11,10 @@ import AddDisplayDatasList from './datasList/AddDisplayDatasList';
 import AddDisplayDataList from './dataList/AddDisplayDataList';
 import AddDisplayOrganize from './organize/AddDisplayOrganize';
 import { useMutation } from 'react-query';
-import { postTemporaryNew } from '../../../apis/admin/temporary';
+import { getTemporaryAll, postTemporaryNew } from '../../../apis/admin/temporary';
 import { putExhibitionItemPriority } from '../../../apis/admin/account';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 export default function AddMainDisplay() {
   const [block, setBlock] = useState('');
@@ -92,6 +93,20 @@ export default function AddMainDisplay() {
       });
     }
   };
+
+  const {
+    isLoading: isGetTemporaryAll,
+    refetch: getTemporaryAllRefetch,
+    data: temporaryList,
+  } = useQuery('getTemporaryAll', getTemporaryAll, {
+    onSuccess: res => {
+      setPriority(res.length+1)
+    },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+
   return (
     <>
       <AddMainDisplayWrapper>
@@ -129,9 +144,8 @@ export default function AddMainDisplay() {
               <input
                 className="accountPriorityContent"
                 placeholder="1 - 999"
-                onChange={e => {
-                  setPriority(e.target.value);
-                }}
+                value={priority}
+                disabled={true}
               />
             </WhiteWrapper>
           </div>

@@ -16,7 +16,7 @@ export default function DisplayOrder(props) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const chaneOrder = () => {
+  const preview = () => {
     let temp = props.temporaryModuleList;
     temp = temp.sort(function (a, b) {
       return (
@@ -32,7 +32,13 @@ export default function DisplayOrder(props) {
         Number(b.exhibitionTemporaryPriority)
       );
     });
-    props.setTemporaryModuleList(tempList);
+    let tempOrder = tempList.map((item, i) => {
+      return {
+        ...item,
+        ['exhibitionTemporaryPriority']: i+1,
+      };  
+    });
+    props.setTemporaryModuleList(tempOrder);
     props.setFlag(!props.flag);
   };
 
@@ -83,7 +89,7 @@ export default function DisplayOrder(props) {
 
   useEffect(() => {
     setTempBlockList(props.temporaryModuleList);
-  }, [props.flag, props.temporaryModuleList]);
+  }, [props.flag, props.temporaryModuleList, props.moveFlag]);
 
   const { mutate: temporaryDelete, isLoading: isPutTemporaryDeleteLoading } =
     useMutation(putTemporaryDelete, {
@@ -147,7 +153,7 @@ export default function DisplayOrder(props) {
           justifyContent: 'space-evenly',
         }}
       >
-        <BlackButton style={{ margin: '30px 20px' }} onClick={chaneOrder}>
+        <BlackButton style={{ margin: '30px 20px' }} onClick={preview}>
           미리보기
         </BlackButton>
         <BlackButton style={{ margin: '30px 20px' }} onClick={saveTemp}>
