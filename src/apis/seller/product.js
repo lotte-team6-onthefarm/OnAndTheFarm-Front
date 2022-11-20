@@ -29,7 +29,10 @@ const getSellerProduct = async (data, status) => {
     return {
       posts: response.data.data,
       nextPage: data.pageNo + 1,
-      isLast: Boolean(response.data.data.totalPage - 1 === data.pageNo),
+      isLast: Boolean(
+        response.data.data.totalPageNum - 1 === data.pageNo ||
+          response.data.data.totalPageNum === 0,
+      ),
     };
   }
   return response.data.data;
@@ -45,7 +48,10 @@ const getSellerMyProduct = async (pageNo, status) => {
     return {
       posts: response.data.data,
       nextPage: pageNo + 1,
-      isLast: Boolean(response.data.data.totalPage - 1 === pageNo),
+      isLast: Boolean(
+        response.data.data.totalPageNum - 1 === pageNo ||
+          response.data.data.totalPageNum === 0,
+      ),
     };
   }
   return response.data.data;

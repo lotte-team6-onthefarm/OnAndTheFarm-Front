@@ -1,4 +1,4 @@
-import { JWTapiUser } from '../user/index';
+import { ApiUser, JWTapiUser } from '../user/index';
 
 // 피드 업로드
 const postUploadFeed = async data => {
@@ -26,14 +26,25 @@ const getFeedProduct = async () => {
 
 // 피드 상세 페이지 조회
 const getFeedDetail = async (id, number) => {
-  console.log(id,number)
   let response = {};
   if (number === null) {
-    response = await JWTapiUser.get(`sns/feed/detail?feedId=${id}`);
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(`sns/feed/detail?feedId=${id}`);
+    } else {
+      response = await ApiUser.get(`sns/feed/detail?feedId=${id}`);
+    }
+    
   } else {
-    response = await JWTapiUser.get(
-      `sns/feed/detail?feedId=${id}&feedNumber=${number}`,
-    );
+    
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `sns/feed/detail?feedId=${id}&feedNumber=${number}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `sns/feed/detail?feedId=${id}&feedNumber=${number}`,
+      );
+    }
   }
   return response.data.data;
 };
@@ -46,14 +57,23 @@ const putUpFeedShareCount = async data => {
 
 // 태그 별 피드 조회
 const getFeedByTag = async (searchWord, pageParam) => {
-  const response = await JWTapiUser.get(
-    `sns/feed/list/tag?feedTagName=${searchWord}&pageNumber=${pageParam}`,
-  );
-  console.log(response, 'sdf');
+  let response = {};
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(
+      `sns/feed/list/tag?feedTagName=${searchWord}&pageNumber=${pageParam}`,
+    );
+  } else {
+    response = await ApiUser.get(
+      `sns/feed/list/tag?feedTagName=${searchWord}&pageNumber=${pageParam}`,
+    );
+  }
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
@@ -64,7 +84,10 @@ const getFeedList = async (url, pageParam) => {
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
