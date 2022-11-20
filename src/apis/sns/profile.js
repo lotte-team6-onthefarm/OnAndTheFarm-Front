@@ -14,29 +14,50 @@ const putCancelFollow = async data => {
 
 // 프로필 정보(이름&프로필이미지&팔로우&팔로잉) 조회
 const getProfileInfo = async data => {
+  let response = {};
   if (data.memberId === '0') {
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(`members/profile`);
+    } else {
+      response = await ApiUser.get(`members/profile`);
+    }
     // 나 자신일 때
-    const response = await JWTapiUser.get(`members/profile`);
     return response.data.data;
   } else {
-    const response = await JWTapiUser.get(
-      // 상대 프로필 정보 받아오기
-      `members/profile?memberId=${data.memberId}&memberRole=${data.memberRole}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `members/profile?memberId=${data.memberId}&memberRole=${data.memberRole}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `members/profile?memberId=${data.memberId}&memberRole=${data.memberRole}`,
+      );
+    }
     return response.data.data;
   }
 };
 
 // 스크랩&좋아요 수 조회
 const getScrapLikeCount = async data => {
+  let response = {};
   if (data.memberId === '0') {
     // 나 자신일 때
-    const response = await JWTapiUser.get(`sns/profile/count`);
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(`sns/profile/count`);
+    } else {
+      response = await ApiUser.get(`sns/profile/count`);
+    }
     return response.data.data;
   }
-  const response = await JWTapiUser.get(
-    `sns/profile/count?memberId=${data.memberId}&memberRole=${data.memberRole}`,
-  );
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(
+      `sns/profile/count?memberId=${data.memberId}&memberRole=${data.memberRole}`,
+    );
+  } else {
+    response = await ApiUser.get(
+      `sns/profile/count?memberId=${data.memberId}&memberRole=${data.memberRole}`,
+    );
+  }
   return response.data.data;
 };
 
@@ -45,19 +66,33 @@ const getFollowerList = async (pageParam, memberId, memberRole) => {
   let response = {};
   if (memberId === '0') {
     // 나 자신일 때
-    response = await JWTapiUser.get(
-      `members/follow/follower-list?pageNumber=${pageParam}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `members/follow/follower-list?pageNumber=${pageParam}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `members/follow/follower-list?pageNumber=${pageParam}`,
+      );
+    }
   } else {
-    response = await JWTapiUser.get(
-      `members/follow/follower-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `members/follow/follower-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `members/follow/follower-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
+      );
+    }
   }
-  console.log(response, '응답값');
   return {
     posts: response.data.data.memberFollowListResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
@@ -66,60 +101,111 @@ const getFollowingList = async (pageParam, memberId, memberRole) => {
   let response = {};
   if (memberId === '0') {
     // 나 자신일 때
-    response = await JWTapiUser.get(
-      `members/follow/following-list?pageNumber=${pageParam}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `members/follow/following-list?pageNumber=${pageParam}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `members/follow/following-list?pageNumber=${pageParam}`,
+      );
+    }
   } else {
-    response = await JWTapiUser.get(
-      `members/follow/following-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `members/follow/following-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `members/follow/following-list?pageNumber=${pageParam}&memberId=${memberId}&memberRole=${memberRole}`,
+      );
+    }
   }
   return {
     posts: response.data.data.memberFollowListResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
 // 프로필 화면 feed 부분 조회
 const getProfileFeedList = async data => {
+  let response = {};
   if (data.memberId === '0') {
     // 나 자신일 때
-    const response = await JWTapiUser.get(`sns/profile/main-feed`, data);
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(`sns/profile/main-feed`, data);
+    } else {
+      response = await ApiUser.get(`sns/profile/main-feed`, data);
+    }
     return response.data.data;
   }
-  const response = await JWTapiUser.get(
-    `sns/profile/main-feed?memberId=${data.memberId}`,
-    data,
-  );
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(
+      `sns/profile/main-feed?memberId=${data.memberId}`,
+      data,
+    );
+  } else {
+    response = await ApiUser.get(
+      `sns/profile/main-feed?memberId=${data.memberId}`,
+      data,
+    );
+  }
   return response.data.data;
 };
 
 // 프로필 화면 scrap 부분 조회
 const getProfileScrapList = async data => {
+  let response = {};
   if (data.memberId === '0') {
     // 나 자신일 때
-    const response = await JWTapiUser.get('sns/profile/main-scrap', data);
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get('sns/profile/main-scrap', data);
+    } else {
+      response = await ApiUser.get('sns/profile/main-scrap', data);
+    }
     return response.data.data;
   }
-  const response = await JWTapiUser.get(
-    `sns/profile/main-scrap?memberId=${data.memberId}`,
-    data,
-  );
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(
+      `sns/profile/main-scrap?memberId=${data.memberId}`,
+      data,
+    );
+  } else {
+    response = await ApiUser.get(
+      `sns/profile/main-scrap?memberId=${data.memberId}`,
+      data,
+    );
+  }
   return response.data.data;
 };
 
 // 프로필 화면 wish 부분 조회
 const getProfileWishList = async data => {
+  let response = {};
   if (data.memberId === '0') {
     // 나 자신일 때
-    const response = await JWTapiUser.get('sns/profile/main-wish', data);
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get('sns/profile/main-wish', data);
+    } else {
+      response = await ApiUser.get('sns/profile/main-wish', data);
+    }
     return response.data.data;
   }
-  const response = await JWTapiUser.get(
-    `sns/profile/main-wish?memberId=${data.memberId}`,
-    data,
-  );
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(
+      `sns/profile/main-wish?memberId=${data.memberId}`,
+      data,
+    );
+  } else {
+    response = await ApiUser.get(
+      `sns/profile/main-wish?memberId=${data.memberId}`,
+      data,
+    );
+  }
   return response.data.data;
 };
 
@@ -127,16 +213,31 @@ const getProfileWishList = async data => {
 const getAllFeedList = async (pageParam, memberId) => {
   let response = {};
   if (memberId === '0') {
-    response = await JWTapiUser.get(`sns/profile/feed?pageNumber=${pageParam}`);
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `sns/profile/feed?pageNumber=${pageParam}`,
+      );
+    } else {
+      response = await ApiUser.get(`sns/profile/feed?pageNumber=${pageParam}`);
+    }
   } else {
-    response = await JWTapiUser.get(
-      `sns/profile/feed?pageNumber=${pageParam}&memberId=${memberId}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `sns/profile/feed?pageNumber=${pageParam}&memberId=${memberId}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `sns/profile/feed?pageNumber=${pageParam}&memberId=${memberId}`,
+      );
+    }
   }
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
@@ -144,18 +245,31 @@ const getAllFeedList = async (pageParam, memberId) => {
 const getScrapList = async (pageParam, memberId) => {
   let response = {};
   if (memberId === '0') {
-    response = await JWTapiUser.get(
-      `sns/profile/scrap?pageNumber=${pageParam}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `sns/profile/scrap?pageNumber=${pageParam}`,
+      );
+    } else {
+      response = await ApiUser.get(`sns/profile/scrap?pageNumber=${pageParam}`);
+    }
   } else {
-    response = await JWTapiUser.get(
-      `sns/profile/scrap?pageNumber=${pageParam}&memberId=${memberId}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `sns/profile/scrap?pageNumber=${pageParam}&memberId=${memberId}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `sns/profile/scrap?pageNumber=${pageParam}&memberId=${memberId}`,
+      );
+    }
   }
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
@@ -163,16 +277,31 @@ const getScrapList = async (pageParam, memberId) => {
 const getWishList = async (pageParam, memberId) => {
   let response = {};
   if (memberId === '0') {
-    response = await JWTapiUser.get(`sns/profile/wish?pageNumber=${pageParam}`);
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `sns/profile/wish?pageNumber=${pageParam}`,
+      );
+    } else {
+      response = await ApiUser.get(`sns/profile/wish?pageNumber=${pageParam}`);
+    }
   } else {
-    response = await JWTapiUser.get(
-      `sns/profile/wish?pageNumber=${pageParam}&memberId=${memberId}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `sns/profile/wish?pageNumber=${pageParam}&memberId=${memberId}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `sns/profile/wish?pageNumber=${pageParam}&memberId=${memberId}`,
+      );
+    }
   }
   return {
     posts: response.data.data.wishProductListResponse,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 export {

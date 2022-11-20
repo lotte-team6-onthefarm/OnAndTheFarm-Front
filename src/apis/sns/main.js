@@ -5,9 +5,15 @@ import { ApiUser, JWTapiUser } from '../user/index';
 const getFeedList = async (data, pageParam) => {
   let response = {};
   if (data.url === '/search') {
-    response = await JWTapiUser.get(
-      `sns/feed/list/tag?feedTagName=${data.searchWord}&pageNumber=${pageParam}`,
-    );
+    if (localStorage.getItem('token') !== null) {
+      response = await JWTapiUser.get(
+        `sns/feed/list/tag?feedTagName=${data.searchWord}&pageNumber=${pageParam}`,
+      );
+    } else {
+      response = await ApiUser.get(
+        `sns/feed/list/tag?feedTagName=${data.searchWord}&pageNumber=${pageParam}`,
+      );
+    }
   } else {
     if (localStorage.getItem('token') !== null) {
       response = await JWTapiUser.get(
@@ -22,7 +28,10 @@ const getFeedList = async (data, pageParam) => {
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean((response.data.data.totalPageNum - 1 === pageParam)||(response.data.data.totalPageNum === 0)),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
@@ -32,7 +41,10 @@ const getFeedByRecent = async pageParam => {
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
@@ -44,7 +56,10 @@ const getFeedByLike = async pageParam => {
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
@@ -56,7 +71,10 @@ const getFeedByFollow = async pageParam => {
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
@@ -68,7 +86,10 @@ const getFeedByViewCount = async pageParam => {
   return {
     posts: response.data.data.feedResponseList,
     nextPage: pageParam + 1,
-    isLast: Boolean(response.data.data.totalPageNum - 1 === pageParam),
+    isLast: Boolean(
+      response.data.data.totalPageNum - 1 === pageParam ||
+        response.data.data.totalPageNum === 0,
+    ),
   };
 };
 
