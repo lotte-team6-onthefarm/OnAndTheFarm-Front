@@ -13,12 +13,12 @@ import {
 } from './MainNavbar.style';
 import { AiOutlineHeart, AiOutlineShoppingCart } from 'react-icons/ai';
 import { useRecoilState } from 'recoil';
-import { isLoginState } from '../../recoil';
+import { isLoginState, preLoginUrl } from '../../recoil';
 import { useMutation } from 'react-query';
 import { putUserlogout } from '../../apis/user/account';
-import InputSearch from '../common/SearchInput';
 
 export default function MainNavbar(props) {
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
   const [isLogin, setisLogin] = useRecoilState(isLoginState);
   const [selectedMenu, setSelectedMenu] = useState(0);
   const navigate = useNavigate();
@@ -92,6 +92,32 @@ export default function MainNavbar(props) {
   const mainUrl = () => {
     navigate('/');
   };
+
+  const itemsBtn = url => {
+    if (url === '/sns/0/mysns') {
+      // 나의한상 일때
+      // 로그인 페이지 보내주기
+      const userToken = localStorage.getItem('token');
+      if (userToken === null) {
+        setPreUrl(window.location.href);
+        alert('로그인이 필요한 서비스 입니다.');
+        navigate('/login');
+        return;
+      }
+    }
+    navigate(url);
+  };
+  const iconBtn = url => {
+    // 로그인 페이지 보내주기
+    const userToken = localStorage.getItem('token');
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
+    navigate(url);
+  };
   return (
     <Navbar>
       <LogoImg
@@ -102,10 +128,15 @@ export default function MainNavbar(props) {
       <NavbarMenu>
         {MenuItems.map((item, index) => {
           return (
-            <Link key={index} to={item.url}>
+            <div
+              key={index}
+              onClick={() => {
+                itemsBtn(item.url);
+              }}
+            >
+              {/* <Link key={index} to={item.url}> */}
               <li>
                 <NavbarMenuPtag
-                  key={index}
                   idx={index}
                   selectedMenu={selectedMenu}
                   onClick={() => setSelectedMenu(index)}
@@ -113,16 +144,24 @@ export default function MainNavbar(props) {
                   {item.title}
                 </NavbarMenuPtag>
               </li>
-            </Link>
+              {/* </Link> */}
+            </div>
           );
         })}
       </NavbarMenu>
       <NavbarIcons>
         {MenuIcons.map((item, index) => {
           return (
-            <Link key={index} to={item.url}>
+            <div
+              key={index}
+              onClick={() => {
+                iconBtn(item.url);
+              }}
+            >
+              {/* <Link key={index} to={item.url}> */}
               <NavbarIcon color={item.color}>{item.icons}</NavbarIcon>
-            </Link>
+              {/* </Link> */}
+            </div>
           );
         })}
       </NavbarIcons>

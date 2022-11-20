@@ -6,8 +6,10 @@ import {
 } from 'react-icons/ai';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { postAddCart } from '../../../apis/user/cart';
-import { postAddWish } from '../../../apis/user/product';
+import { deleteWishList, postAddWish } from '../../../apis/user/product';
+import { preLoginUrl } from '../../../recoil';
 import { upNumber } from '../../../utils/commonFunction';
 import {
   ProductDiv,
@@ -20,8 +22,18 @@ import { MainProductDiv } from '../../main/products/MainProductsPopular.style';
 import { IconBox, IconWrapper } from '../../seller/common/Icon.style';
 
 export default function ProductComp(props) {
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
+  const userToken = localStorage.getItem('token');
+
   const product = props.product;
   const addCartClick = id => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
     let cartList = [
       {
         productId: id,
@@ -31,12 +43,33 @@ export default function ProductComp(props) {
     addCart({ cartList: cartList });
   };
   const addLike = () => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
     const data = {
       body: {
         productId: product.productId,
       },
     };
     addWish(data);
+  };
+
+  const cancleLike = () => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
+    const data = {
+      productId: product.productId,
+    };
+    cancleWish(data);
   };
 
   // hook
@@ -52,6 +85,18 @@ export default function ProductComp(props) {
     {
       onSuccess: res => {
         alert('찜목록에 추가되었습니다');
+      },
+      onError: () => {
+        console.log('에러');
+      },
+    },
+  );
+
+  const { mutate: cancleWish, isLoading: isCancleWishLoading } = useMutation(
+    deleteWishList,
+    {
+      onSuccess: res => {
+        alert('찜목록에서 삭제되었습니다');
       },
       onError: () => {
         console.log('에러');
@@ -83,7 +128,11 @@ export default function ProductComp(props) {
             productCartStatus={product.cartStatus}
             productWishStatus={product.wishStatus}
           >
-            <AiOutlineHeart fontSize="x-large" onClick={addLike} />
+            {product.productWishStatus ? (
+              <AiOutlineHeart fontSize="x-large" onClick={cancleLike} />
+            ) : (
+              <AiOutlineHeart fontSize="x-large" onClick={addLike} />
+            )}
             <AiOutlineShoppingCart
               fontSize="x-large"
               onClick={e => addCartClick(product.productId)}

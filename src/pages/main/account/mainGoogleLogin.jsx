@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { postUserlogin } from '../../../apis/user/account';
 import Loading from '../../../components/common/Loading';
-import { isLoginState, snsNowId } from '../../../recoil';
+import { isLoginState, preLoginUrl, snsNowId } from '../../../recoil';
 
 export default function MainGoogleLogin() {
   const [id, setId] = useRecoilState(snsNowId);
   const [isLogin, setisLogin] = useRecoilState(isLoginState);
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
   // useeffect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -39,7 +40,13 @@ export default function MainGoogleLogin() {
         localStorage.setItem('role', 'user');
         setTimeout(() => {
           setisLogin(true);
-          document.location.href = '/';
+          if (preUrl === '') {
+            document.location.href = '/';
+          } else {
+            const url = preUrl;
+            setPreUrl('');
+            document.location.href = url;
+          }
         }, [1000]);
       },
       onError: () => {
