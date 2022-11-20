@@ -25,6 +25,8 @@ import { postAddCart } from '../../../apis/user/cart';
 import ProductQnaComp from '../../../components/main/products/ProductQna';
 import RatingInputComp from '../../../components/common/Rating';
 import ProductMenuTab from '../../../components/main/products/ProductMenuTab';
+import { preLoginUrl } from '../../../recoil';
+import { useRecoilState } from 'recoil';
 
 export default function MainProductDetailPage(props) {
   const params = useParams();
@@ -36,6 +38,7 @@ export default function MainProductDetailPage(props) {
 
   const inputRef = useRef([]);
   const [quantity, setQuantity] = useState(props.number);
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
 
   const {
     isLoading: isGetProductDetailLoading,
@@ -112,6 +115,15 @@ export default function MainProductDetailPage(props) {
   };
 
   const orderCart = () => {
+    // 로그인 페이지 보내주기
+    const userToken = localStorage.getItem('token');
+    if (userToken === null) {
+      // 로그인 안했을 때
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
     let tempCartItems = [];
     tempCartItems.push({
       ...productDetail,
