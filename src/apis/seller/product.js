@@ -1,4 +1,4 @@
-import { JWPapiSellertoUser, JWTapiSeller, JWTapiSellertoUser } from '..';
+import { ApiSeller, JWPapiSellertoUser, JWTapiSeller, JWTapiSellertoUser } from '..';
 
 // 상품등록
 const postSellerProduct = async formData => {
@@ -22,9 +22,16 @@ const getSellerNewestProduct = async data => {
 
 // 셀러별 상품 조회
 const getSellerProduct = async (data, status) => {
-  const response = await JWTapiSeller.get(
-    `product/list/orderby/seller/${data.sellerId}/${data.pageNo}`,
-  );
+  let response = {}
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiSeller.get(
+      `product/list/orderby/seller/${data.sellerId}/${data.pageNo}`,
+    );
+  } else {
+    response = await ApiSeller.get(
+      `product/list/orderby/seller/${data.sellerId}/${data.pageNo}`,
+    );
+  }
   if (status === 'InfiniteQuery') {
     return {
       posts: response.data.data,
