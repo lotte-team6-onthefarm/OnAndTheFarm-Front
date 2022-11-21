@@ -108,7 +108,8 @@ const FeedActionList = styled.div`
   justify-content: space-evenly;
   flex: 0 0 auto;
   margin-bottom: -10px;
-  a {
+  a,
+  div {
     position: relative;
     display: flex;
     align-items: center;

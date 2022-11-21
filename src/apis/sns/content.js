@@ -49,6 +49,12 @@ const getFeedDetail = async (id, number) => {
   return response.data.data;
 };
 
+// 피드 포인트 증가
+const putUpFeedPoint = async data => {
+  console.log(data)
+  const response = await JWTapiUser.put('sns/feed/share/point', data);
+  return response.data;
+};
 // 피드 공유 수 증가
 const putUpFeedShareCount = async data => {
   const response = await JWTapiUser.put('sns/feed/share', data);
@@ -122,6 +128,7 @@ export {
   getFeedProduct,
   getFeedDetail,
   getFeedList,
+  putUpFeedPoint,
   putUpFeedShareCount,
   getFeedByTag,
   putFeedLike,

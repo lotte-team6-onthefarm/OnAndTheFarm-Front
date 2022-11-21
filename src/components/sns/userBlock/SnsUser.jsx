@@ -23,10 +23,12 @@ import {
   putCancelFollow,
 } from '../../../apis/sns/profile';
 import { FollowButton, FollowingButton } from '../follow/follow.styled';
-import { useRecoilValue } from 'recoil';
-import { snsNowRole } from '../../../recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { preLoginUrl, snsNowRole } from '../../../recoil';
 
 export default function SnsUser(props) {
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
+  const userToken = localStorage.getItem('token');
   const role = useRecoilValue(snsNowRole);
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -109,24 +111,42 @@ export default function SnsUser(props) {
                   ) : !data.followStatus ? (
                     <FollowButton
                       width="200px"
-                      onClick={() =>
+                      onClick={() => {
+                        // 로그인 페이지 보내주기
+                        if (userToken === null) {
+                          // 로그인 안했을 때
+                          setPreUrl(window.location.href);
+                          alert('로그인이 필요한 서비스 입니다.');
+                          navigate('/login');
+                          return;
+                        }
+
                         addFollow({
                           followerMemberId: props.id,
                           followerMemberRole: memberRole,
-                        })
-                      }
+                        });
+                      }}
                     >
                       팔로우
                     </FollowButton>
                   ) : (
                     <FollowingButton
                       width="200px"
-                      onClick={() =>
+                      onClick={() => {
+                        // 로그인 페이지 보내주기
+                        if (userToken === null) {
+                          // 로그인 안했을 때
+                          setPreUrl(window.location.href);
+                          alert('로그인이 필요한 서비스 입니다.');
+                          navigate('/login');
+                          return;
+                        }
+
                         cancelFollow({
                           followerMemberId: props.id,
                           followerMemberRole: memberRole,
-                        })
-                      }
+                        });
+                      }}
                     >
                       팔로잉
                     </FollowingButton>

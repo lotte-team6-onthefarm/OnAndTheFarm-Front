@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useState } from 'react';
 import {
@@ -16,6 +16,17 @@ import Pagination from '../../../components/common/Pagination';
 import InputSearch from '../../../components/common/SearchInput';
 
 export default function MainProductList() {
+  // const [searchWord, setSearchWord] = useState('');
+  let categoryNum = 0;
+  const [selectedFilter, setSelectedFilter] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState(categoryNum);
+  const [nowPage, setNowPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+  const [searchData, setSearchData] = useState([]);
+  const [searchWord, setSearchWord] = useState('');
+  const [fixSearchWord, setFixSearchWord] = useState('');
+  const [searchValue, setSearchValue] = useState('');
+  const [isSearch, setIsSearch] = useState(false);
   const filterList = [
     { id: 0, name: '최신순', value: '/newest' },
     { id: 1, name: '낮은가격순', value: '/lowprice' },
@@ -43,27 +54,41 @@ export default function MainProductList() {
 
   const params = new URLSearchParams(window.location.search);
   const category = params.get('category');
-  let categoryNum = 0;
-  if (category === 'pear') {
-    categoryNum = 1;
-  } else if (category === 'apple') {
-    categoryNum = 2;
-  } else if (category === 'banana') {
-    categoryNum = 3;
-  } else if (category === 'all') {
-    categoryNum = 4;
-  }
+  
+  
+  useEffect(() => {
+    console.log(category)
+    if (category === 'banana') {
+      setSelectedCategory(1);
+    } else if (category === 'persimmon') {
+      setSelectedCategory(2);
+    } else if (category === 'apple') {
+      setSelectedCategory(3);
+    } else if (category === 'tomato') {
+      setSelectedCategory(4);
+    } else if (category === 'mandarin') {
+      setSelectedCategory(5);
+    } else if (category === 'mango') {
+      setSelectedCategory(6);
+    } else if (category === 'strawberry') {
+      setSelectedCategory(7);
+    } else if (category === 'sweetpotato') {
+      setSelectedCategory(8);
+    } else if (category === 'onion') {
+      setSelectedCategory(9);
+    } else if (category === 'rice') {
+      setSelectedCategory(10);
+    } else if (category === 'blackrice') {
+      setSelectedCategory(11);
+    } else if (category === 'carrot') {
+      setSelectedCategory(12);
+    } else if (category === 'cabbage') {
+      setSelectedCategory(13);
+    } else if (category === 'grape') {
+      setSelectedCategory(14);
+    }
+  }, []);
 
-  // const [searchWord, setSearchWord] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState(categoryNum);
-  const [nowPage, setNowPage] = useState(0);
-  const [totalPage, setTotalPage] = useState(0);
-  const [searchData, setSearchData] = useState([]);
-  const [searchWord, setSearchWord] = useState('');
-  const [fixSearchWord, setFixSearchWord] = useState('');
-  const [searchValue, setSearchValue] = useState('');
-  const [isSearch, setIsSearch] = useState(false);
   const {
     isLoading: isGetProductList,
     refetch: getProductListRefetch,
@@ -122,12 +147,12 @@ export default function MainProductList() {
     setIsSearch(true);
     setNowPage(0);
     setSearchValue(searchWord);
-    setFixSearchWord(searchWord)
+    setFixSearchWord(searchWord);
     searchProduct({
       searchText: searchWord,
       pageNumber: 0,
     });
-    setSelectedCategory(0)
+    setSelectedCategory(0);
   };
 
   return (

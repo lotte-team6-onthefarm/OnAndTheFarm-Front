@@ -1,7 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getComment } from '../../../apis/sns/comment';
-import { getFeedDetail, putUpFeedShareCount } from '../../../apis/sns/content';
+import {
+  getFeedDetail,
+  putUpFeedPoint,
+  putUpFeedShareCount,
+} from '../../../apis/sns/content';
 import { HorizontalLine } from '../../../components/common/HorizontalLine.style';
 import FeedWriter from '../../../components/sns/feed/FeedWriter';
 import FeedComment from '../../../components/sns/feedDetail/FeedComment/FeedCommentInput';
@@ -75,6 +79,12 @@ export default function FeedDetail(props) {
       console.log('에러');
     },
   });
+  useEffect(() => {
+    const data = { feedNumber: feedNumber };
+    if (feedNumber !== null) {
+      feedPoint(data);
+    }
+  }, []);
 
   const {
     isLoading: isCommentLoading,
@@ -129,6 +139,12 @@ export default function FeedDetail(props) {
     onSuccess: res => {
       queryClient.invalidateQueries('FeedDetail');
     },
+    onError: () => {
+      console.log('에러');
+    },
+  });
+  const { mutate: feedPoint } = useMutation(putUpFeedPoint, {
+    onSuccess: res => {},
     onError: () => {
       console.log('에러');
     },

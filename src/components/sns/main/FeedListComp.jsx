@@ -42,7 +42,7 @@ export default function FeedListComp(props) {
     if (inView) {
       fetchNextPage();
     }
-  }, [inView, isFetchingNextPage, getFeedLoading,props.filterList]);
+  }, [inView, isFetchingNextPage, getFeedLoading, props.filterList]);
 
   return (
     <SnsMainWrapper>
@@ -64,7 +64,7 @@ export default function FeedListComp(props) {
       {isFetchingNextPage || isPreviousData ? (
         <Loading></Loading>
       ) : (
-        <div ref={ref} style={{ width: '1000px', border: 'solid' }}></div>
+        <div ref={ref}></div>
       )}
       <div ref={myRef}></div>
     </SnsMainWrapper>
