@@ -35,7 +35,7 @@ export default function AddMainDisplay() {
       alert('모듈을 선택해주세요');
       return false;
     } else if (dataTool === 0) {
-      alert('데이터 툴을 선택해주세요');
+      alert('데이터 피커를 선택해주세요');
       return false;
     } else if (account === 0) {
       alert('구좌를 선택해주세요');

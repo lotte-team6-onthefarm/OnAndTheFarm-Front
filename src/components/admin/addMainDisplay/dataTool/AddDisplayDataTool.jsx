@@ -13,7 +13,7 @@ export default function AddDisplayDataTool(props) {
 
   return (
     <WhiteWrapper height="450px">
-      <div style={{ fontSize: '18px' }}>데이터 툴</div>
+      <div style={{ fontSize: '18px' }}>데이터 피커</div>
       <div
         style={{
           marginTop: '10px',

@@ -3,6 +3,7 @@ import { ApiUser, JWTapiUser } from '../user/index';
 // 피드 조회
 
 const getFeedList = async (data, pageParam) => {
+  console.log(pageParam, '드루와앙');
   let response = {};
   if (data.url === '/search') {
     if (localStorage.getItem('token') !== null) {

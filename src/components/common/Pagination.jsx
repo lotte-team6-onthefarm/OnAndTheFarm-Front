@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  CounterButton,
-  CounterDiv,
-  CounterNumber,
   PaginationA,
   PaginationDiv,
   PaginationLi,
