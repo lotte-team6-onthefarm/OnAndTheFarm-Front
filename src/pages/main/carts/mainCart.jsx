@@ -66,9 +66,7 @@ export default function MainCart() {
   const { mutate: deleteCart, isLoading: isDeleteCartLoading } = useMutation(
     deleteCartList,
     {
-      onSuccess: res => {
-        alert('삭제되었습니다.');
-      },
+      onSuccess: res => {},
       onError: () => {
         console.log('에러');
       },

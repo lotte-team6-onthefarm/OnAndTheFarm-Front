@@ -131,9 +131,7 @@ export default function MainLikes() {
   const { mutate: deleteWish, isLoading: isDeleteWishLoading } = useMutation(
     deleteWishList,
     {
-      onSuccess: res => {
-        alert('삭제되었습니다.');
-      },
+      onSuccess: res => {},
       onError: () => {
         console.log('에러');
       },
