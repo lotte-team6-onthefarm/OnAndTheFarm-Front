@@ -1,7 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { postUploadComment } from '../../../../apis/sns/comment';
+import { preLoginUrl } from '../../../../recoil';
 import {
   CommentBlock,
   CommentBottom,
@@ -11,6 +14,8 @@ import {
 } from './FeedComment.styled';
 
 export default function FeedComment(props) {
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
+  const navigate = useNavigate();
   const [comment, setComment] = useState('');
   const queryClient = useQueryClient();
   const commentHadler = e => {
@@ -19,22 +24,37 @@ export default function FeedComment(props) {
 
   const { mutate: uploadComment } = useMutation(postUploadComment, {
     onSuccess: () => {
-      props.getCommentRefetch()
-      props.getFeedDetailRefetch()
-      setComment('')
+      props.getCommentRefetch();
+      props.getFeedDetailRefetch();
+      setComment('');
     },
     onError: () => {
       console.log('에러');
     },
   });
-  const onKeyPress = (e) => {
+  const onKeyPress = e => {
     if (e.key === 'Enter') {
       uploadComment({
         feedId: props.feedId,
         feedCommentContent: comment,
-      })
+      });
     }
-  }
+  };
+  const uploadBtn = () => {
+    // 로그인 페이지 보내주기
+    const userToken = localStorage.getItem('token');
+    if (userToken === null) {
+      // 로그인 안했을 때
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
+    uploadComment({
+      feedId: props.feedId,
+      feedCommentContent: comment,
+    });
+  };
   return (
     <FeedCommentInputWrapper>
       <section>
@@ -67,12 +87,7 @@ export default function FeedComment(props) {
                 ) : (
                   <button
                     className={'comment_button_active'}
-                    onClick={() => {
-                      uploadComment({
-                        feedId: props.feedId,
-                        feedCommentContent: comment,
-                      });
-                    }}
+                    onClick={uploadBtn}
                   >
                     입력
                   </button>

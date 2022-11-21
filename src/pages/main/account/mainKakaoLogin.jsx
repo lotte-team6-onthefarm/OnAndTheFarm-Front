@@ -43,8 +43,9 @@ export default function MainKakaoLogin() {
           if (preUrl === '') {
             document.location.href = '/';
           } else {
-            document.location.href = preUrl;
+            const url = preUrl;
             setPreUrl('');
+            document.location.href = url;
           }
         }, [1000]);
       },

@@ -39,7 +39,7 @@ export default function MainProductDetailPage(props) {
   const inputRef = useRef([]);
   const [quantity, setQuantity] = useState(props.number);
   const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
-
+  const userToken = localStorage.getItem('token');
   const {
     isLoading: isGetProductDetailLoading,
     // refetch: getCartistRefetch,
@@ -90,6 +90,12 @@ export default function MainProductDetailPage(props) {
   );
 
   const addCartClick = id => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+    }
     let cartList = [
       {
         productId: productDetail.productId,
@@ -99,6 +105,12 @@ export default function MainProductDetailPage(props) {
     addCart({ cartList: cartList });
   };
   const addLike = () => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+    }
     const data = {
       body: {
         productId: productDetail.productId,
@@ -108,6 +120,12 @@ export default function MainProductDetailPage(props) {
   };
 
   const cancleLike = () => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+    }
     const data = {
       productId: productDetail.productId,
     };

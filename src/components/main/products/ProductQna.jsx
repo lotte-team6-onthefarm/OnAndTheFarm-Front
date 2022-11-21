@@ -8,12 +8,18 @@ import Modal from '../../common/Modal';
 import MakeQna from '../qna/MakeQna';
 import Pagination from '../../common/Pagination';
 import { EmptyTable } from '../../seller/main/popularProducts/MainPopularProducts.style';
+import { useRecoilState } from 'recoil';
+import { preLoginUrl } from '../../../recoil';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProductQnaComp(props) {
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
   const productId = props.productDetailId;
   const [modal, setModal] = useState(false);
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
+
+  const navigate = useNavigate();
 
   const {
     isLoading: isGetQnaList,
@@ -40,6 +46,14 @@ export default function ProductQnaComp(props) {
   );
 
   const openModal = () => {
+    // 로그인 페이지 보내주기
+    const userToken = localStorage.getItem('token');
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
     setModal(!modal);
   };
   return (
