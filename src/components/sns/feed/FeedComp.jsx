@@ -4,6 +4,7 @@ import { BiBookmark, BiMessageAlt } from 'react-icons/bi';
 import { MdBookmark } from 'react-icons/md';
 import { useMutation } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import {
   putFeedLike,
   putFeedScrap,
@@ -11,6 +12,7 @@ import {
   putFeedUnScrap,
 } from '../../../apis/sns/content';
 import { postAddFollow, putCancelFollow } from '../../../apis/sns/profile';
+import { preLoginUrl } from '../../../recoil';
 import { followStatus } from '../../../utils/sns/snsFunction';
 import {
   FeedActionList,
@@ -22,6 +24,9 @@ import {
 } from './FeedComp.styled';
 
 export default function FeedComp(props) {
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
+  const userToken = localStorage.getItem('token');
+
   let style = {};
   if (props.parent === 'ProfileFeed') {
     style = {
@@ -96,6 +101,14 @@ export default function FeedComp(props) {
   });
 
   const feedLikeFunc = (status, data) => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      // 로그인 안했을 때
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
     if (status) {
       feedUnLike(data);
     } else {
@@ -103,6 +116,14 @@ export default function FeedComp(props) {
     }
   };
   const feedScrapFunc = (status, data) => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      // 로그인 안했을 때
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
     if (status) {
       feedUnScrap(data);
     } else {
@@ -132,16 +153,27 @@ export default function FeedComp(props) {
         <button
           onClick={
             !props.post.followStatus
-              ? () =>
+              ? () => {
+                  // 로그인
+                  if (userToken === null) {
+                    // 로그인 안했을 때
+                    setPreUrl(window.location.href);
+                    alert('로그인이 필요한 서비스 입니다.');
+                    navigate('/login');
+                    return;
+                  }
                   addFollow({
                     followerMemberId: props.post.memberId,
                     followerMemberRole: props.post.memberRole,
-                  })
-              : () =>
+                  });
+                }
+              : () => {
+                  // 로그인
                   cancelFollow({
                     followerMemberId: props.post.memberId,
                     followerMemberRole: props.post.memberRole,
-                  })
+                  });
+                }
           }
         >
           {followStatus(props.post.followStatus, props.post.isModifiable)}
@@ -158,8 +190,7 @@ export default function FeedComp(props) {
           <img src={props.post.feedImageSrc} alt=""></img>
         </FeedItemImg>
         <FeedActionList>
-          <Link
-            to
+          <div
             onClick={() =>
               feedLikeFunc(props.post.feedLikeStatus, {
                 feedId: props.post.feedId,
@@ -172,9 +203,8 @@ export default function FeedComp(props) {
               <AiOutlineHeart />
             )}
             <span>{props.post.feedLikeCount.toLocaleString()}</span>
-          </Link>
-          <Link
-            to
+          </div>
+          <div
             onClick={() =>
               feedScrapFunc(props.post.scrapStatus, {
                 feedId: props.post.feedId,
@@ -187,7 +217,7 @@ export default function FeedComp(props) {
               <BiBookmark />
             )}
             <span>{props.post.feedScrapCount.toLocaleString()}</span>
-          </Link>
+          </div>
           <Link to={`/sns/detail/${props.post.feedId}`}>
             <BiMessageAlt />
             <span>{props.post.feedCommentCount.toLocaleString()}</span>

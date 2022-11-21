@@ -45,7 +45,7 @@ const CarouselImgDiv = styled.div`
   height: 208px;
   min-width: 0px;
   flex-flow: column;
-  a {
+  span {
     position: absolute;
     inset: 0px;
     cursor: pointer;
