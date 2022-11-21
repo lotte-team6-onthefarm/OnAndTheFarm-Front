@@ -61,6 +61,7 @@ export default function MainProductList() {
   const [totalPage, setTotalPage] = useState(0);
   const [searchData, setSearchData] = useState([]);
   const [searchWord, setSearchWord] = useState('');
+  const [fixSearchWord, setFixSearchWord] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [isSearch, setIsSearch] = useState(false);
   const {
@@ -68,7 +69,7 @@ export default function MainProductList() {
     refetch: getProductListRefetch,
     data: productList,
   } = useQuery(
-    ['getProducts', selectedCategory, selectedFilter, nowPage],
+    ['getProducts', selectedCategory, selectedFilter, nowPage, isSearch],
     () =>
       getProducts({
         url: `${CATEGORY[selectedCategory].value}${filterList[selectedFilter].value}`,
@@ -121,10 +122,12 @@ export default function MainProductList() {
     setIsSearch(true);
     setNowPage(0);
     setSearchValue(searchWord);
+    setFixSearchWord(searchWord)
     searchProduct({
       searchText: searchWord,
       pageNumber: 0,
     });
+    setSelectedCategory(0)
   };
 
   return (
@@ -143,6 +146,8 @@ export default function MainProductList() {
                 setSelectedFilter(0);
                 setSelectedCategory(index);
                 setNowPage(0);
+                setIsSearch(false);
+                setSearchWord('');
               }}
             >
               {item.name}
@@ -166,7 +171,12 @@ export default function MainProductList() {
           ></InputSearch>
         </div>
         <CartListHeader>
-          <p className="subject">{CATEGORY[selectedCategory].name}</p>
+          {isSearch ? (
+            <p className="subject">{fixSearchWord}</p>
+          ) : (
+            <p className="subject">{CATEGORY[selectedCategory].name}</p>
+          )}
+
           <div style={{ display: 'flex' }}></div>
           <div>
             <select

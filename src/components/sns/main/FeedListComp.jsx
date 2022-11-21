@@ -37,13 +37,13 @@ export default function FeedListComp(props) {
     queryClient.removeQueries('getFeed');
     getFeedListRefetch();
   }, [props.filterList, props.searchWord]);
+
   useEffect(() => {
-    if (
-      (inView || myRef.current.offsetTop < document.body.offsetHeight - 650) &&
-      true
-    )
+    if (inView) {
       fetchNextPage();
-  }, [inView, isFetchingNextPage,props.filterList]);
+    }
+  }, [inView, isFetchingNextPage, getFeedLoading,props.filterList]);
+
   return (
     <SnsMainWrapper>
       {!getFeedLoading && (
@@ -64,7 +64,7 @@ export default function FeedListComp(props) {
       {isFetchingNextPage || isPreviousData ? (
         <Loading></Loading>
       ) : (
-        <div ref={ref}></div>
+        <div ref={ref} style={{ width: '1000px', border: 'solid' }}></div>
       )}
       <div ref={myRef}></div>
     </SnsMainWrapper>
