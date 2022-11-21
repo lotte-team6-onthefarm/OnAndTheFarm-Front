@@ -29,9 +29,11 @@ export default function MainSns(props) {
       {!isLoading ? (
         <MainSnsBlock>
           {datas.bannerATypeResponses.map((sns, idx) => (
-            <MainImageWrapper key={idx}>
-              <MainSnsImage src={sns.imgSrc} alt=""></MainSnsImage>
-            </MainImageWrapper>
+            <a href={sns.connectUrl} key={idx}>
+              <MainImageWrapper>
+                <MainSnsImage src={sns.imgSrc} alt=""></MainSnsImage>
+              </MainImageWrapper>
+            </a>
           ))}
         </MainSnsBlock>
       ) : (

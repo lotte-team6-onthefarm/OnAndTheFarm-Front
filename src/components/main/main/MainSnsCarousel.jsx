@@ -13,8 +13,10 @@ import { useQuery } from 'react-query';
 import { onErrorImg } from '../../../utils/commonFunction';
 import { getAllMainSNS } from '../../../apis/exhibition/mainpage';
 import Image from './Img';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function MainSnsCarousel(props) {
+  const navigate = useNavigate();
   const lazys = ['', '', '', '', ''];
   const { data: datas, isLoading } = useQuery(
     'getAllMainSNS',
@@ -37,6 +39,10 @@ export default function MainSnsCarousel(props) {
     slidesToScroll: 1,
   };
 
+  const feedNav = feedId => {
+    navigate(`/sns/detail/${feedId}`);
+  };
+
   return (
     <SnsCarouselDiv>
       <div className="accountTitle">{props.data.exhibitionAccountName}</div>
@@ -44,7 +50,11 @@ export default function MainSnsCarousel(props) {
         <MainCarouselSlider {...settings}>
           {datas.snsATypeResponses.map((sns, idx) => (
             <CarouselImgDiv key={idx}>
-              <a href="/sns/main">
+              <span
+                onClick={() => {
+                  feedNav(sns.feedId);
+                }}
+              >
                 <SnsDiv>
                   <Image src={sns.feedImageSrc} onError={onErrorImg} />
                   <RankDiv>
@@ -61,7 +71,7 @@ export default function MainSnsCarousel(props) {
                     </div>
                   </RankDiv>
                 </SnsDiv>
-              </a>
+              </span>
               <UserNameDiv>
                 <span>{sns.memberName}</span>
               </UserNameDiv>
