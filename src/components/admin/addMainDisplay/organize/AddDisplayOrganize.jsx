@@ -29,7 +29,7 @@ export default function AddDisplayOrganize(props) {
           <div className="mainTextContent">{props.category}</div>
         </ListTextWrapper>
         <ListTextWrapper>
-          <div className="organizeTextTitle">데이터 툴 ID</div>
+          <div className="organizeTextTitle">데이터 피커 ID</div>
           <div className="mainTextContent">{props.dataTool}</div>
         </ListTextWrapper>
         <ListTextWrapper>
