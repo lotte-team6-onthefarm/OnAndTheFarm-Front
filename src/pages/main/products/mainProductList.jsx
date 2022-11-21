@@ -17,6 +17,7 @@ import InputSearch from '../../../components/common/SearchInput';
 
 export default function MainProductList() {
   // const [searchWord, setSearchWord] = useState('');
+  let categoryNum = 0;
   const [selectedFilter, setSelectedFilter] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(categoryNum);
   const [nowPage, setNowPage] = useState(0);
@@ -53,7 +54,7 @@ export default function MainProductList() {
 
   const params = new URLSearchParams(window.location.search);
   const category = params.get('category');
-  let categoryNum = 0;
+  
   
   useEffect(() => {
     console.log(category)
