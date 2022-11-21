@@ -22,13 +22,13 @@ export default function ProductListComp(props) {
           <p>{props.name}</p>
         </CartItemDetail>
         <CartItemNumber>
-          {quantity}개
+          {quantity.toLocaleString()}개
         </CartItemNumber>
         <CartItemPrice>
-          <p>{props.price}</p>
+          <p>{props.price.toLocaleString()}</p>
         </CartItemPrice>
         <CartItemPrice>
-          <p>{Number(props.price)*Number(quantity)}</p>
+          <p>{(Number(props.price)*Number(quantity)).toLocaleString()}</p>
         </CartItemPrice>
       </CartItemContent>
     </CartItem>

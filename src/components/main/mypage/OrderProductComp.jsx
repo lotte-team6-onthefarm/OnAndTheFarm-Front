@@ -50,9 +50,9 @@ export default function OrderProductComp(props) {
         <CartItemDetail>
           <p>{props.name}</p>
         </CartItemDetail>
-        <CartItemNumber>{quantity}개</CartItemNumber>
+        <CartItemNumber>{quantity.toLocaleString()}개</CartItemNumber>
         <CartItemPrice>
-          <p>{props.price}</p>
+          <p>{props.price.toLocaleString()}</p>
         </CartItemPrice>
         <CartItemPrice>
           <p>{changeStatusName(props.status)}</p>

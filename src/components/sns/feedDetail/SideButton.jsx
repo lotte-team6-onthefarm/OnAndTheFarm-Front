@@ -7,8 +7,14 @@ import { HiOutlineShare } from 'react-icons/hi';
 import { SideButtonWrapper } from '../../../pages/sns/feedDetail/FeedDetail.styled';
 import { useMutation } from 'react-query';
 import { putUpFeedShareCount } from '../../../apis/sns/content';
+import { preLoginUrl } from '../../../recoil';
+import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 export default function SideButton(props) {
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
+  const userToken = localStorage.getItem('token');
+  const navigate = useNavigate();
   const icons = {
     heart: <AiOutlineHeart />,
     fillHeart: <AiFillHeart />,
@@ -39,7 +45,15 @@ export default function SideButton(props) {
   };
 
   const handle = () => {
-    copy()
+    copy();
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      // 로그인 안했을 때
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
 
     alert('링크가 복사되었습니다.');
     feedShare({
@@ -48,6 +62,15 @@ export default function SideButton(props) {
   };
 
   const buttonClick = () => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      // 로그인 안했을 때
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
+
     if (props.status !== undefined && props.status === false) {
       props.buttonClick({ feedId: props.feedId });
     } else if (props.status !== undefined && props.status === true) {
@@ -72,7 +95,7 @@ export default function SideButton(props) {
           )}
         </span>
       </span>
-      <span>{props.count}</span>
+      <span>{props.count.toLocaleString()}</span>
     </SideButtonWrapper>
   );
 }

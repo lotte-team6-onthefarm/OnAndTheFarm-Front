@@ -23,8 +23,8 @@ export default function ReviewInput(props) {
     {
       onSuccess: res => {
         alert('리뷰가 추가되었습니다.');
-        setReviewContent('')
-        setRating(0)
+        setReviewContent('');
+        setRating(0);
         queryClient.invalidateQueries('AddReviewList');
       },
       onError: () => {
@@ -42,21 +42,19 @@ export default function ReviewInput(props) {
     addReview(data);
   };
 
-  useEffect(() => {
-    console.log('taijsdtoiawehjsgiothasegkt;h asdkg hadsfkah askhrf ')
-  }, []);
-
   return (
     <ReviewAddDiv>
-      <input
-        style={{
-          width: '100%',
-          height: '100px',
-          marginRight: '20px',
-        }}
-        value={reviewContent}
+      <div style={{ display: 'block' }}>
+        <textarea
+            label="리뷰내용"
+            name=""
+            id="answer"
+            cols="50"
+            rows="6"
+            value={reviewContent}
         onChange={e => setReviewContent(e.target.value)}
-      ></input>
+          ></textarea>
+      </div>
       <ReviewAddButtonDiv>
         <div>
           <RatingInputComp setRating={setRating}></RatingInputComp>

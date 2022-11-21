@@ -28,13 +28,13 @@ export default function AccountDataGroup(props) {
     <div>
       <h3 style={{ marginBottom: '10px' }}>{props.idx + 1}</h3>
       <ProductInput
-        title="데이터 그룹 이름"
-        placeholder="데이터 그룹 이름 입력"
+        title="아이템 리스트 이름"
+        placeholder="아이템 리스트 이름 입력"
         setFunction={setItemsName}
       />
       <ProductInput
-        title="데이터 그룹 설명"
-        placeholder="데이터 그룹 설명 입력"
+        title="아이템 리스트 설명"
+        placeholder="아이템 리스트 설명 입력"
         setFunction={setItemsDetail}
       />
       <HorizontalLine color="#F2F2F2" />

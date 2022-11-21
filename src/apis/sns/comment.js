@@ -1,4 +1,4 @@
-import { JWTapiUser } from '../user/index';
+import { ApiUser, JWTapiUser } from '../user/index';
 
 // 댓글 등록 기능
 const postUploadComment = async data => {
@@ -20,7 +20,13 @@ const putDeleteComment = async data => {
 
 // 댓글 조회 기능
 const getComment = async data => {
-  const response = await JWTapiUser.get(`sns/comment/list?feedId=${data}`);
+  let response = {};
+  if (localStorage.getItem('token') !== null) {
+    response = await JWTapiUser.get(`sns/comment/list?feedId=${data}`);
+  } else {
+    response = await ApiUser.get(`sns/comment/list?feedId=${data}`);
+  }
+  
   return response.data.data;
 };
 

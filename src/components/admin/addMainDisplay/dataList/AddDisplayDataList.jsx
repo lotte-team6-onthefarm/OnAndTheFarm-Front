@@ -56,7 +56,7 @@ export default function AddDisplayDataList(props) {
             {item.map((i, idx) => {
               return (
                 <AccountDetailTextWrapper key={idx}>
-                  <div className="accountDetailTitle">데이터 ID</div>
+                  <div className="accountDetailTitle">아이템 ID</div>
                   <div className="accountItemContent">
                     {i.exhibitionItemNumber}
                   </div>
@@ -64,10 +64,10 @@ export default function AddDisplayDataList(props) {
                     className="accountDetailTitle"
                     style={{ marginLeft: '20px' }}
                   >
-                    데이터 순서
+                    아이템 순서
                   </div>
                   <input
-                    className="accountItemContent"
+                    className="accountItemContentInput"
                     placeholder={i.exhibitionItemPriority}
                     style={{
                       marginRight: item.length > 4 ? '10px' : '0px',

@@ -40,12 +40,19 @@ const ProductTopContentDiv = styled.div`
     margin: 9px 0px 0px;
     span {
       :nth-child(1) {
+        max-height: 100px;
         display: block;
         color: rgb(117, 117, 117);
         word-break: break-all;
         font-size: 20px;
         font-weight: 400;
-        line-height: 13px;
+        /* line-height: 13px; */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow-wrap: break-word;
       }
       :nth-child(2) {
         max-height: 500px;
@@ -116,6 +123,29 @@ const ProductTopContentDiv = styled.div`
   }
 `;
 
+const IconDiv = styled.div`
+  svg:nth-child(1) {
+    margin: 0 3px;
+    border: 2px solid
+      ${props => (props.productWishStatus ? '#FF6D59' : 'rgba(0,0,0,0)')};
+    color: ${props => (props.productWishStatus ? 'white' : 'black')};
+    border-radius: 100px;
+    background-color: ${props =>
+      props.productWishStatus ? '#FF6D59' : 'rgba(0,0,0,0)'};
+    cursor: pointer;
+  }
+  svg:nth-child(2) {
+    margin: 0 3px;
+    border: 2px solid
+      ${props => (props.productCartStatus ? '#40AA54' : 'rgba(0,0,0,0)')};
+    color: ${props => (props.productCartStatus ? 'white' : 'black')};
+    border-radius: 100px;
+    background-color: ${props =>
+      props.productCartStatus ? '#40AA54' : 'rgba(0,0,0,0)'};
+    cursor: pointer;
+  }
+`;
+
 const ProductTabDiv = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -164,6 +194,7 @@ export {
   ProductTopDiv,
   ProductTopImgDiv,
   ProductTopImg,
+  IconDiv,
   ProductTopContentDiv,
   ProductTabDiv,
   ProductDetailContentDiv,

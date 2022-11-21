@@ -21,6 +21,8 @@ import { useRecoilState } from 'recoil';
 import { sellerNavState } from '../../../../recoil';
 import { RiArrowDownSLine, RiBillLine } from 'react-icons/ri';
 import { useState } from 'react';
+import { putSellerlogout } from '../../../../apis/seller/account';
+import { useMutation } from 'react-query';
 
 export default function SellerNavbar() {
   const menus = [
@@ -72,10 +74,32 @@ export default function SellerNavbar() {
   }, [navigate]);
 
   const logoutBtn = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    document.location.href = '/seller';
+    logoutSeller();
   };
+
+  const { mutate: logoutSeller, isLoading: isLogoutSeller } = useMutation(
+    putSellerlogout,
+    {
+      onSuccess: res => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('role');
+        localStorage.removeItem('recoil-persist'); // 전역 member_id 삭제
+        document.location.href = '/seller';
+      },
+      onError: err => {
+        if (err.response.status === 406) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('refreshToken');
+          localStorage.removeItem('role');
+          localStorage.removeItem('recoil-persist'); // 전역 member_id 삭제
+          document.location.href = '/seller';
+        }
+        console.log('에러');
+      },
+    },
+  );
+
   return (
     <Head>
       <Link to="/seller">

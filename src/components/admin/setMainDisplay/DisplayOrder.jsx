@@ -16,7 +16,7 @@ export default function DisplayOrder(props) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const chaneOrder = () => {
+  const preview = () => {
     let temp = props.temporaryModuleList;
     temp = temp.sort(function (a, b) {
       return (
@@ -32,7 +32,13 @@ export default function DisplayOrder(props) {
         Number(b.exhibitionTemporaryPriority)
       );
     });
-    props.setTemporaryModuleList(tempList);
+    let tempOrder = tempList.map((item, i) => {
+      return {
+        ...item,
+        ['exhibitionTemporaryPriority']: i+1,
+      };  
+    });
+    props.setTemporaryModuleList(tempOrder);
     props.setFlag(!props.flag);
   };
 
@@ -83,7 +89,7 @@ export default function DisplayOrder(props) {
 
   useEffect(() => {
     setTempBlockList(props.temporaryModuleList);
-  }, [props.flag, props.temporaryModuleList]);
+  }, [props.flag, props.temporaryModuleList, props.moveFlag]);
 
   const { mutate: temporaryDelete, isLoading: isPutTemporaryDeleteLoading } =
     useMutation(putTemporaryDelete, {
@@ -110,7 +116,7 @@ export default function DisplayOrder(props) {
   return (
     <WhiteWrapper width="90%" minHeight="300px">
       <ListTextWrapper>
-        <div className="mainTextTitle">모듈 순서</div>
+        <div className="mainTextTitle">전시 순서</div>
       </ListTextWrapper>
       <ListTextWrapper>
         <div className="mainTextTitle">방법</div>
@@ -128,10 +134,10 @@ export default function DisplayOrder(props) {
                 className="accountDetailTitle"
                 style={{ marginLeft: '20px' }}
               >
-                모듈순서
+                전시순서
               </div>
               <input
-                className="accountOrderItemContent"
+                className="accountItemContentInput"
                 value={module.exhibitionTemporaryPriority}
                 onChange={event => testOnChange(event, idx)}
               />
@@ -147,7 +153,7 @@ export default function DisplayOrder(props) {
           justifyContent: 'space-evenly',
         }}
       >
-        <BlackButton style={{ margin: '30px 20px' }} onClick={chaneOrder}>
+        <BlackButton style={{ margin: '30px 20px' }} onClick={preview}>
           미리보기
         </BlackButton>
         <BlackButton style={{ margin: '30px 20px' }} onClick={saveTemp}>
@@ -157,7 +163,7 @@ export default function DisplayOrder(props) {
           style={{ margin: '30px 20px' }}
           onClick={() => navigate('/admin/display/add')}
         >
-          모듈추가
+          전시추가
         </BlackButton>
       </div>
     </WhiteWrapper>

@@ -16,10 +16,22 @@ import { useNavigate } from 'react-router-dom';
 import { deleteWishList, postAddWish } from '../../apis/user/product';
 import { postAddCart } from '../../apis/user/cart';
 import { IconBox, IconWrapper } from '../seller/common/Icon.style';
+import { upNumber } from '../../utils/commonFunction';
+import { preLoginUrl } from '../../recoil';
+import { useRecoilState } from 'recoil';
 
 export default function Product(props) {
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
+  const userToken = localStorage.getItem('token');
   const product = props.product;
   const addCartClick = id => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
     let cartList = [
       {
         productId: id,
@@ -29,6 +41,13 @@ export default function Product(props) {
     addCart({ cartList: cartList });
   };
   const addLike = () => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
     const data = {
       body: {
         productId: product.productId,
@@ -37,10 +56,15 @@ export default function Product(props) {
     addWish(data);
   };
   const cancleLike = () => {
+    // 로그인 페이지 보내주기
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
     const data = {
-      body: {
-        productId: product.productId,
-      },
+      productId: product.productId,
     };
     cancleWish(data);
   };
@@ -131,11 +155,11 @@ export default function Product(props) {
           <IconWrapper>
             <IconBox>
               <AiFillStar color="#40AA54" />
-              <strong>{product.reviewRate}</strong>
+              <strong>{upNumber(product.reviewRate)}</strong>
             </IconBox>
           </IconWrapper>
           <span>리뷰</span>
-          {product.productReviewCount}
+          {product.productReviewCount.toLocaleString()}
         </div>
         <div className="productInfoButton">
           <div>무료 배송</div>

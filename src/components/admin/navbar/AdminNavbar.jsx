@@ -10,6 +10,8 @@ import { useState } from 'react';
 import { Head, Image, ListWrapper, SubListWrapper } from './AdminNavbar.style';
 import { useRecoilState } from 'recoil';
 import { MdDesktopWindows, MdGridView, MdOutlineTune } from 'react-icons/md';
+import { putAdminlogout } from '../../../apis/admin/account';
+import { useMutation } from 'react-query';
 export default function AdminNavbar() {
   const menus = [
     {
@@ -63,10 +65,32 @@ export default function AdminNavbar() {
   const navigate = useNavigate();
 
   const logoutBtn = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    document.location.href = '/seller';
+    logoutAdmin();
   };
+
+  const { mutate: logoutAdmin, isLoading: isLogoutAdmin } = useMutation(
+    putAdminlogout,
+    {
+      onSuccess: res => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('role');
+        localStorage.removeItem('recoil-persist'); // 전역 member_id 삭제
+        document.location.href = '/seller';
+      },
+      onError: err => {
+        if (err.response.status === 406) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('refreshToken');
+          localStorage.removeItem('role');
+          localStorage.removeItem('recoil-persist'); // 전역 member_id 삭제
+          document.location.href = '/seller';
+        }
+        console.log('에러');
+      },
+    },
+  );
+
   return (
     <Head>
       <Link to="/admin">

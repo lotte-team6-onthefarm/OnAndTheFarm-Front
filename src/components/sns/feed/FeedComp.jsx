@@ -171,7 +171,7 @@ export default function FeedComp(props) {
             ) : (
               <AiOutlineHeart />
             )}
-            <span>{props.post.feedLikeCount}</span>
+            <span>{props.post.feedLikeCount.toLocaleString()}</span>
           </Link>
           <Link
             to
@@ -186,11 +186,11 @@ export default function FeedComp(props) {
             ) : (
               <BiBookmark />
             )}
-            <span>{props.post.feedScrapCount}</span>
+            <span>{props.post.feedScrapCount.toLocaleString()}</span>
           </Link>
           <Link to={`/sns/detail/${props.post.feedId}`}>
             <BiMessageAlt />
-            <span>{props.post.feedShareCount}</span>
+            <span>{props.post.feedCommentCount.toLocaleString()}</span>
           </Link>
         </FeedActionList>
         <FeedItemDescription>

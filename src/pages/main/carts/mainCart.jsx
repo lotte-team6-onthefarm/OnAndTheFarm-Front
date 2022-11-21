@@ -35,7 +35,7 @@ export default function MainCart() {
   } = useQuery(
     ['getCartList', nowPage],
     () =>
-    getCartList({
+      getCartList({
         page: nowPage,
       }),
     {
@@ -66,7 +66,9 @@ export default function MainCart() {
   const { mutate: deleteCart, isLoading: isDeleteCartLoading } = useMutation(
     deleteCartList,
     {
-      onSuccess: res => {},
+      onSuccess: res => {
+        alert('삭제되었습니다.');
+      },
       onError: () => {
         console.log('에러');
       },
@@ -105,7 +107,9 @@ export default function MainCart() {
 
   const allCheckedHandler = isChecked => {
     if (isChecked) {
-      setCheckedItems(new Set(cartList.cartResponseList.map((like, idx) => String(idx))));
+      setCheckedItems(
+        new Set(cartList.cartResponseList.map((like, idx) => String(idx))),
+      );
       setIsAllChecked(true);
     } else {
       checkedItems.clear();
@@ -136,7 +140,9 @@ export default function MainCart() {
   useEffect(() => {
     let tempPrice = 0;
     for (const item of checkedItems) {
-      tempPrice = tempPrice + cartList.cartResponseList[item].productPrice * selectedItems[item];
+      tempPrice =
+        tempPrice +
+        cartList.cartResponseList[item].productPrice * selectedItems[item];
     }
     setTotalPrice(tempPrice);
   }, [changeChecked]);
@@ -190,12 +196,12 @@ export default function MainCart() {
           )}
         </CartItems>
         {totalPage !== 0 && (
-        <Pagination
-          nowPage={nowPage + 1}
-          totalPage={totalPage}
-          setPage={setNowPage}
-        ></Pagination>
-      )}
+          <Pagination
+            nowPage={nowPage + 1}
+            totalPage={totalPage}
+            setPage={setNowPage}
+          ></Pagination>
+        )}
       </CartListDiv>
       <CartPriceDiv>
         <CartPriceHeader>결제예정금액</CartPriceHeader>

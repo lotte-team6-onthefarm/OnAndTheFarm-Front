@@ -22,6 +22,7 @@ export default function SetMainDisplay(props) {
   const queryClient = useQueryClient();
   const [temporaryModuleList, setTemporaryModuleList] = useState([]);
   const [flag, setFlag] = useState(true);
+  const [moveFlag, setMoveFlag] = useState(true);
 
   const fixMainPage = () => {
     let data = {
@@ -77,8 +78,11 @@ export default function SetMainDisplay(props) {
           <PageCol width="45%">
             <DisplayBlock
               temporaryModuleList={temporaryModuleList}
+              setTemporaryModuleList={setTemporaryModuleList}
               allModules={allModules}
               flag={flag}
+              moveFlag={moveFlag}
+              setMoveFlag={setMoveFlag}
             />
           </PageCol>
           <PageCol width="50%">
@@ -86,6 +90,8 @@ export default function SetMainDisplay(props) {
               temporaryModuleList={temporaryModuleList}
               setTemporaryModuleList={setTemporaryModuleList}
               setFlag={setFlag}
+              moveFlag={moveFlag}
+              setMoveFlag={setMoveFlag}
               flag={flag}
               setAddMain={props.setAddMain}
             />

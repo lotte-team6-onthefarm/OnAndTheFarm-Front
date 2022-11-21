@@ -42,7 +42,7 @@ export default function FeedListComp(props) {
     if (inView) {
       fetchNextPage();
     }
-  }, [inView, isFetchingNextPage, getFeedLoading]);
+  }, [inView, isFetchingNextPage, getFeedLoading,props.filterList]);
 
   return (
     <SnsMainWrapper>

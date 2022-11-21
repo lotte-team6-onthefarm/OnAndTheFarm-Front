@@ -1,4 +1,4 @@
-import { JWTapiSeller, ApiSeller } from '..';
+import { JWTapiSeller, ApiSeller, JWTapiLogoutSeller } from '..';
 
 // 셀러 회원가입
 const postSellerSignup = async data => {
@@ -9,6 +9,12 @@ const postSellerSignup = async data => {
 // 셀러 로그인
 const postSellerlogin = async data => {
   const response = await ApiSeller.post('members/login', data);
+  return response.data;
+};
+
+// 셀러 로그아웃
+const putSellerlogout = async data => {
+  const response = await JWTapiLogoutSeller.put('members/logout');
   return response.data;
 };
 
@@ -73,6 +79,7 @@ const getSellerCondition = async data => {
 export {
   postSellerSignup,
   postSellerlogin,
+  putSellerlogout,
   postSellerSearchId,
   postSellerSearchPw,
   postSellerPasswd,

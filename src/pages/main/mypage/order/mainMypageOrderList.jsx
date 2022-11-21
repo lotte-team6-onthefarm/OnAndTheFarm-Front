@@ -72,7 +72,7 @@ export default function MainMypageOrderList() {
                           <td width="5%">{idx + 1}</td>
                           <td width="10%">{getNoSecDate(data.orderDate)}</td>
                           <td width="10%">{data.ordersSerial}</td>
-                          <td width="10%">{data.orderTotalPrice}</td>
+                          <td width="10%">{data.orderTotalPrice.toLocaleString()}</td>
                           <td width="10%">
                             {changeStatusName(data.orderStatus)}
                           </td>

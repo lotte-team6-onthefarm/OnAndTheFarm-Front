@@ -25,3 +25,9 @@ export const snsNowRole = atom({
   default: 0,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const preLoginUrl = atom({
+  key: 'preLoginUrl',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});

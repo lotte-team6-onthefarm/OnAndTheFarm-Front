@@ -23,10 +23,10 @@ export default function OrderItemComp(props) {
           <p>{props.productName}</p>
           <p>{changeStatusName(props.orderProductStatus)}</p>
         </OrderItemDetail>
-        <p className="orderItemNumber">{props.orderProductQty}개</p>
+        <p className="orderItemNumber">{props.orderProductQty.toLocaleString()}개</p>
         <OrderItemNumber></OrderItemNumber>
         <OrderItemPrice>
-          <p>{props.orderProductPrice}원</p>
+          <p>{props.orderProductPrice.toLocaleString()}원</p>
         </OrderItemPrice>
       </OrderItemContent>
     </OrderItem>

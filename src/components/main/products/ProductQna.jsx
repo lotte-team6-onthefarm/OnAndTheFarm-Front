@@ -6,15 +6,20 @@ import QnaItemComp from '../qna/QnaItem';
 import { ProductQnaDiv, QnaListDiv } from './ProductQna.style';
 import Modal from '../../common/Modal';
 import MakeQna from '../qna/MakeQna';
-import NoneFeed from '../../sns/main/NoneFeed';
 import Pagination from '../../common/Pagination';
 import { EmptyTable } from '../../seller/main/popularProducts/MainPopularProducts.style';
+import { useRecoilState } from 'recoil';
+import { preLoginUrl } from '../../../recoil';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProductQnaComp(props) {
+  const [preUrl, setPreUrl] = useRecoilState(preLoginUrl);
   const productId = props.productDetailId;
   const [modal, setModal] = useState(false);
   const [nowPage, setNowPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
+
+  const navigate = useNavigate();
 
   const {
     isLoading: isGetQnaList,
@@ -23,8 +28,8 @@ export default function ProductQnaComp(props) {
   } = useQuery(
     ['getQnaList', nowPage],
     () =>
-    getQnaList({
-      productId: productId,
+      getQnaList({
+        productId: productId,
         page: nowPage,
       }),
     {
@@ -41,22 +46,33 @@ export default function ProductQnaComp(props) {
   );
 
   const openModal = () => {
+    // 로그인 페이지 보내주기
+    const userToken = localStorage.getItem('token');
+    if (userToken === null) {
+      setPreUrl(window.location.href);
+      alert('로그인이 필요한 서비스 입니다.');
+      navigate('/login');
+      return;
+    }
     setModal(!modal);
   };
-
   return (
     <ProductQnaDiv>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h4>문의사항</h4>
-        <Button
-          text="문의 작성"
-          color="#40AA54"
-          width="130px"
-          height="30px"
-          onClick={openModal}
-          margin="10px"
-        ></Button>
-      </div>
+      {!isGetQnaList && (
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <h4>
+            문의사항<span> {qnaList.totalElementNum.toLocaleString()}</span>{' '}
+          </h4>
+          <Button
+            text="문의 작성"
+            color="#40AA54"
+            width="130px"
+            height="30px"
+            onClick={openModal}
+            margin="10px"
+          ></Button>
+        </div>
+      )}
       <hr />
       {!isGetQnaList &&
         (qnaList.productQnAResponseList.length === 0 ? (

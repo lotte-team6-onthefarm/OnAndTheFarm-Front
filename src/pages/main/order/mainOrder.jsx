@@ -273,20 +273,20 @@ export default function MainOrder() {
         <PreOrderPriceHeader>결제금액</PreOrderPriceHeader>
         <PreOrderPriceRow>
           <p>상품금액</p>
-          <p>{totalPrice}원</p>
+          <p>{totalPrice.toLocaleString()}원</p>
         </PreOrderPriceRow>
         <PreOrderPriceTotal>
-          <span>{totalPrice}</span>원
+          <span>{totalPrice.toLocaleString()}</span>원
         </PreOrderPriceTotal>
         <OrderSelectBox>
           <div
             onClick={() => {
-              setPayment('카카오페이');
-              setPaymentEng('kakaopay');
+              setPayment('토스페이');
+              setPaymentEng('uplus.tlgdacomxpay');
             }}
-            className={payment === '카카오페이' ? 'orderIsActivate' : ''}
+            className={payment === '토스페이' ? 'orderIsActivate' : ''}
           >
-            카카오페이
+            토스페이
           </div>
           <div
             onClick={() => {

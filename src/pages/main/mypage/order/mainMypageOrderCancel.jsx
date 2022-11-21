@@ -78,7 +78,7 @@ export default function MainMypageOrderCancel() {
                             <img src={data.productImage} alt="" />
                           </td>
                           <td width="10%">{data.productName}</td>
-                          <td width="5%">{data.productQty}</td>
+                          <td width="5%">{data.productQty.toLocaleString()}</td>
                           <td width="5%">
                             {data.productPrice.toLocaleString()}원
                           </td>
