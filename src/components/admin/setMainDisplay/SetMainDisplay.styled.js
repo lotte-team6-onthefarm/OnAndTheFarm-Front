@@ -53,4 +53,22 @@ const ButtonDiv = styled.div`
   }
 `;
 
-export { AddMainDisplayWrapper, ListTextWrapper, ButtonDiv };
+const TimeButtonDiv = styled.div`
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  button {
+    cursor: pointer;
+    border: solid 1px gray;
+    border-radius: 4px;
+    width: 33%;
+    height: 40px;
+  }
+  .timeActiveButton {
+    color: white;
+    background-color: #3288e5;
+  }
+  margin-bottom: 20px;
+`;
+
+export { AddMainDisplayWrapper, ListTextWrapper, ButtonDiv, TimeButtonDiv };

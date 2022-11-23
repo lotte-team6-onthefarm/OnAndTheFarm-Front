@@ -30,25 +30,25 @@ export default function DisplayBlock(props) {
     };
   };
 
-  const moveTemp = (drop) => {
-    console.log(dragItem,'드래그한아이템')
-    console.log(drop,'바꿔야하는 아이템')
+  const moveTemp = drop => {
+    console.log(dragItem, '드래그한아이템');
+    console.log(drop, '바꿔야하는 아이템');
 
     // console.log('adkfjasiodfjaio');
     // const { card, index } = findTemp(id);
     let newTemps = temp;
-    const tempItem = newTemps[dragItem]
-    newTemps.splice(dragItem,1)
-    newTemps.splice(drop, 0, tempItem)
+    const tempItem = newTemps[dragItem];
+    newTemps.splice(dragItem, 1);
+    newTemps.splice(drop, 0, tempItem);
     let tempList = newTemps.map((item, i) => {
       return {
         ...item,
-        ['exhibitionTemporaryPriority']: i+1,
-      };  
+        ['exhibitionTemporaryPriority']: i + 1,
+      };
     });
 
-    props.setTemporaryModuleList(tempList)
-    props.setMoveFlag(!props.moveFlag)
+    props.setTemporaryModuleList(tempList);
+    props.setMoveFlag(!props.moveFlag);
     // newTemps = newTemps.splice(index, 1).splice(toIndex, 0, card);
     // setTemp(newTemps);
   };
