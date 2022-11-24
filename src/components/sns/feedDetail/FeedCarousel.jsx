@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import ProgressiveImage from 'react-progressive-graceful-image';
 import { MainCarouselSlider } from '../../main/main/MainCarousel.style';
-import { CarouselImg, CarouselImgDiv } from './FeedCarousel.styled';
+import { CarouselImg, CarouselImgDiv, ProgressiveImageDiv, SpinnerDiv } from './FeedCarousel.styled';
 
 export default function FeedCarousel(props) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,7 +42,7 @@ export default function FeedCarousel(props) {
       //   setCurrentIndex(nextSlide);
       // }}
     >
-      {props.images.map((image, idx) => {
+      {props.originImages.map((image, idx) => {
         return (
           <CarouselImgDiv
             height={props.height}
@@ -49,7 +50,23 @@ export default function FeedCarousel(props) {
             onMouseEnter={imageIn}
             onMouseLeave={imageOut}
           >
-            <CarouselImg src={image.feedImageSrc} />
+            <ProgressiveImage
+              src={image.feedImageSrc}
+              placeholder={props.images[idx].feedImageSrc}
+            >
+              {(src, loading) => (
+                <ProgressiveImageDiv>
+                  <CarouselImg
+                    style={{ filter: loading ? 'blur(3px)' : '' }}
+                    src={src}
+                    alt="an image"
+                  />
+                  {loading && <SpinnerDiv></SpinnerDiv>}
+                  
+                </ProgressiveImageDiv>
+              )}
+            </ProgressiveImage>
+
             {plusButtonDisplay &&
               props.feedImageProductList.map((plusButton, idxx) => {
                 if (plusButton.feedImageId === image.feedImageId) {
