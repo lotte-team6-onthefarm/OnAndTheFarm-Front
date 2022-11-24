@@ -35,8 +35,8 @@ export default function DisplayOrder(props) {
     let tempOrder = tempList.map((item, i) => {
       return {
         ...item,
-        ['exhibitionTemporaryPriority']: i+1,
-      };  
+        ['exhibitionTemporaryPriority']: i + 1,
+      };
     });
     props.setTemporaryModuleList(tempOrder);
     props.setFlag(!props.flag);
@@ -114,7 +114,7 @@ export default function DisplayOrder(props) {
     });
 
   return (
-    <WhiteWrapper width="90%" minHeight="300px">
+    <WhiteWrapper width="90%" height="720px">
       <ListTextWrapper>
         <div className="mainTextTitle">전시 순서</div>
       </ListTextWrapper>
@@ -122,7 +122,7 @@ export default function DisplayOrder(props) {
         <div className="mainTextTitle">방법</div>
         <div className="mainTextContent">모듈의 순서를 정하고 적용 클릭</div>
       </ListTextWrapper>
-      <div style={{ height: '400px', overflow: 'auto' }}>
+      <div style={{ height: '500px', overflow: 'auto' }}>
         {tempBlockList.map((module, idx) => {
           return (
             <AccountDetailTextWrapper key={idx}>
@@ -161,7 +161,9 @@ export default function DisplayOrder(props) {
         </BlackButton>
         <BlackButton
           style={{ margin: '30px 20px' }}
-          onClick={() => navigate('/admin/display/add')}
+          onClick={() =>
+            navigate('/admin/display/add', { state: props.timeButton })
+          }
         >
           전시추가
         </BlackButton>

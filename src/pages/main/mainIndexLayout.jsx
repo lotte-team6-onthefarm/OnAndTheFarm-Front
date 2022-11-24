@@ -20,6 +20,7 @@ import SnsIndexLayout from '../sns/snsIndexLayout';
 import SnsMainLayout from '../sns/main/Main';
 import FeedDetail from '../sns/feedDetail/FeedDetail';
 import MainNaverLogin from './account/mainNaverLogin';
+import Payment from './order/payment';
 
 export default function MainIndexLayout() {
   return (
@@ -39,6 +40,7 @@ export default function MainIndexLayout() {
           <Route exact path="/sns/:id/*" element={<SnsIndexLayout />} />
           <Route path="/sns/main" element={<SnsMainLayout />} />
           <Route path="/sns/detail/:id" element={<FeedDetail />} />
+          <Route path="/repayment" element={<Payment />} />
           <Route
             exact
             path="/login/success/kakao"
