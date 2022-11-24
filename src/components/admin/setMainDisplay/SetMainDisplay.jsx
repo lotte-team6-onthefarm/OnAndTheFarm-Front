@@ -21,7 +21,7 @@ export default function SetMainDisplay(props) {
   const [temporaryModuleList, setTemporaryModuleList] = useState([]);
   const [flag, setFlag] = useState(true);
   const [moveFlag, setMoveFlag] = useState(true);
-  const [timeButton, setTimeButton] = useState('AM6');
+  const [timeButton, setTimeButton] = useState('breakfast');
 
   const fixMainPage = () => {
     let data = {
@@ -39,14 +39,18 @@ export default function SetMainDisplay(props) {
     isLoading: isGetTemporaryAll,
     refetch: getTemporaryAllRefetch,
     data: temporaryList,
-  } = useQuery('getTemporaryAll', getTemporaryAll, {
-    onSuccess: res => {
-      setTemporaryModuleList(res);
+  } = useQuery(
+    ['getTemporaryAll', timeButton],
+    () => getTemporaryAll(timeButton),
+    {
+      onSuccess: res => {
+        setTemporaryModuleList(res);
+      },
+      onError: () => {
+        console.log('에러');
+      },
     },
-    onError: () => {
-      console.log('에러');
-    },
-  });
+  );
 
   const {
     isLoading: getAllModuleListLoading,
@@ -74,20 +78,20 @@ export default function SetMainDisplay(props) {
     <>
       <TimeButtonDiv>
         <button
-          className={timeButton === 'AM6' ? 'timeActiveButton' : ''}
-          onClick={() => setTimeButton('AM6')}
+          className={timeButton === 'breakfast' ? 'timeActiveButton' : ''}
+          onClick={() => setTimeButton('breakfast')}
         >
           AM6
         </button>
         <button
-          className={timeButton === 'PM12' ? 'timeActiveButton' : ''}
-          onClick={() => setTimeButton('PM12')}
+          className={timeButton === 'lunch' ? 'timeActiveButton' : ''}
+          onClick={() => setTimeButton('lunch')}
         >
           PM12
         </button>
         <button
-          className={timeButton === 'PM6' ? 'timeActiveButton' : ''}
-          onClick={() => setTimeButton('PM6')}
+          className={timeButton === 'dinner' ? 'timeActiveButton' : ''}
+          onClick={() => setTimeButton('dinner')}
         >
           PM6
         </button>
@@ -113,6 +117,7 @@ export default function SetMainDisplay(props) {
               setMoveFlag={setMoveFlag}
               flag={flag}
               setAddMain={props.setAddMain}
+              timeButton={timeButton}
             />
             <ButtonDiv>
               <BlueButton

@@ -11,12 +11,17 @@ import AddDisplayDatasList from './datasList/AddDisplayDatasList';
 import AddDisplayDataList from './dataList/AddDisplayDataList';
 import AddDisplayOrganize from './organize/AddDisplayOrganize';
 import { useMutation } from 'react-query';
-import { getTemporaryAll, postTemporaryNew } from '../../../apis/admin/temporary';
+import {
+  getTemporaryAll,
+  postTemporaryNew,
+} from '../../../apis/admin/temporary';
 import { putExhibitionItemPriority } from '../../../apis/admin/account';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { useEffect } from 'react';
 
 export default function AddMainDisplay() {
+  const { state } = useLocation();
   const [block, setBlock] = useState('');
   const [category, setCategory] = useState('상품');
   const [categoryId, setCategoryId] = useState(1);
@@ -27,7 +32,12 @@ export default function AddMainDisplay() {
   const [itemsDetail, setItemsDetail] = useState('');
   const [priority, setPriority] = useState(0);
   const [itemPriorityList, setItemPriorityList] = useState([]);
+  const [time, setTime] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setTime(state);
+  }, [state]);
 
   const validataionCheck = () => {
     // 유효성 체크
@@ -59,6 +69,7 @@ export default function AddMainDisplay() {
     exhibitionTemporaryAccountId: account,
     exhibitionTemporaryItemsId: items,
     exhibitionTemporaryPriority: priority,
+    time: time,
   };
 
   // 임시 테이블에 추가
@@ -98,9 +109,10 @@ export default function AddMainDisplay() {
     isLoading: isGetTemporaryAll,
     refetch: getTemporaryAllRefetch,
     data: temporaryList,
-  } = useQuery('getTemporaryAll', getTemporaryAll, {
+  } = useQuery('getTemporaryAll', () => getTemporaryAll(time), {
+    enabled: time !== '',
     onSuccess: res => {
-      setPriority(res.length+1)
+      setPriority(res.length + 1);
     },
     onError: () => {
       console.log('에러');

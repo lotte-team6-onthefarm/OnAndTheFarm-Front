@@ -161,7 +161,9 @@ export default function DisplayOrder(props) {
         </BlackButton>
         <BlackButton
           style={{ margin: '30px 20px' }}
-          onClick={() => navigate('/admin/display/add')}
+          onClick={() =>
+            navigate('/admin/display/add', { state: props.timeButton })
+          }
         >
           전시추가
         </BlackButton>

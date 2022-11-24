@@ -1,7 +1,7 @@
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useState } from 'react';
-import { getDlt } from '../../apis/admin/feignclient';
+import { getDlt, postSendEmail } from '../../apis/admin/feignclient';
 import { SellerTitle } from '../../components/seller/common/Title.style';
 import { WhiteWrapper } from '../../components/seller/common/Box.style';
 import SubTitle from '../../components/seller/common/SubTitle';
@@ -30,12 +30,16 @@ export default function DlqList() {
   } = useQuery(['getDltList', nowPage], () => getDlt({ page: nowPage }), {
     refetchOnWindowFcous: true,
     keepPreviousData: true,
-    onSuccess: res => {
-    },
+    onSuccess: res => {},
     onError: {},
   });
 
-  const title = `전체 리스트 (총 0개)`;
+  const { mutate: sendEmail } = useMutation('postSendEmail', postSendEmail, {
+    onSuccess: () => {},
+    onError: () => {},
+  });
+
+  const title = `전체 리스트`;
 
   return (
     <div style={{ width: '100%', margin: 'auto' }}>
@@ -55,8 +59,9 @@ export default function DlqList() {
                     <tr style={{ fontSize: '13px' }}>
                       <th width="5%">NO.</th>
                       <th width="15%">dlqPaymentId</th>
-                      <th width="40%">주문번호</th>
-                      <th width="40%">결제금액</th>
+                      <th width="30%">주문번호</th>
+                      <th width="20%">결제금액</th>
+                      <th width="30%">재결제 요청</th>
                     </tr>
                   </thead>
                   {moduleList.map((item, idx) => {
@@ -64,11 +69,21 @@ export default function DlqList() {
                       <tbody key={idx}>
                         <tr>
                           <td>{16 * nowPage + idx + 1}</td>
-                          <td className="title">
-                            {item.dlqPaymentId}
-                          </td>
+                          <td className="title">{item.dlqPaymentId}</td>
                           <td>{item.orderSerial}</td>
                           <td>{item.paymentDepositAmount}</td>
+                          <td>
+                            <button
+                              onClick={() => {
+                                sendEmail({
+                                  orderSerial: item.orderSerial,
+                                  price: item.paymentDepositAmount,
+                                });
+                              }}
+                            >
+                              이메일 전송
+                            </button>
+                          </td>
                         </tr>
                       </tbody>
                     );
