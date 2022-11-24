@@ -75,7 +75,7 @@ export default function AddFeed() {
     }
     return false;
   };
-  
+
   const actionImgCompress = async (fileSrc, data) => {
     const options = {
       maxSizeMB: 0.2,
@@ -87,11 +87,17 @@ export default function AddFeed() {
       // 압축 결과
       let compressedFile;
       // Feed Image 데이터 추가
+      // for (let i = 0; i < images.length; i++) {
+      //   compressedFile = await imageCompression(images[i], options);
+      //   console.log(images[i], 'image');
+      //   console.log(compressedFile, 'convet');
+      //   formData.append('images', compressedFile);
+      // }
+
       for (let i = 0; i < images.length; i++) {
         compressedFile = await imageCompression(images[i], options);
-        console.log(images[i], 'image');
-        console.log(compressedFile, 'convet');
         formData.append('images', compressedFile);
+        formData.append('originImages', images[i]);
       }
 
       // 상품 데이터 추가

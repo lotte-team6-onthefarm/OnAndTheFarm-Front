@@ -181,6 +181,7 @@ export default function FeedDetail(props) {
             <FeedImageWrapper>
               <FeedCarousel
                 images={feedDetail.feedImageList}
+                originImages={feedDetail.feedOriginImageList}
                 changeFeedImg={changeFeedImg}
                 feedImageProductList={feedDetail.feedImageProductList}
                 height="540px"
