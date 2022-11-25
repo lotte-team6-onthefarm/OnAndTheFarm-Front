@@ -58,7 +58,6 @@ export default function QnaEditInput(props) {
     qnaDelete({
       productQnaId: props.id,
     });
-    console.log('질문삭제');
   };
 
   return (

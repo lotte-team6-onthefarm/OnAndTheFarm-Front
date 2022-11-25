@@ -42,7 +42,6 @@ export default function UpdateProductImage(props) {
     }
     setImages(e.target.files);
   };
-  console.log(props.productMainImages, 'sad');
   // delete Image
   const deleteImg = () => {
     props.setImages('');

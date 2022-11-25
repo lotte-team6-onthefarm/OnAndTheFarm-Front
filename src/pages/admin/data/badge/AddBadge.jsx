@@ -52,7 +52,6 @@ export default function AddBadge() {
     try {
       // 압축 결과
       const compressedFile = await imageCompression(badgeImages[0], options);
-      console.log(compressedFile)
       formData.append('images', compressedFile);
       // 상품 데이터 추가
       formData.append(

@@ -41,7 +41,6 @@ export default function Products() {
       onSuccess: res => {},
     },
   );
-  console.log(data, '들어오는 데이터');
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView]);

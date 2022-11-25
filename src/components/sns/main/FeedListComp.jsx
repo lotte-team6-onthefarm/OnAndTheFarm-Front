@@ -28,7 +28,6 @@ export default function FeedListComp(props) {
       getNextPageParam: lastPage =>
         !lastPage.isLast ? lastPage.nextPage : undefined,
       onSuccess: res => {
-        console.log(res);
       },
     },
   );

@@ -130,7 +130,6 @@ export default function MainCart() {
       cartList.cartResponseList[item].cartQty = selectedItems[item];
       tempCartItems.push(cartList.cartResponseList[item]);
     }
-    console.log(tempCartItems);
     deleteWishClick();
     navigate(`/order`, { state: tempCartItems });
   };

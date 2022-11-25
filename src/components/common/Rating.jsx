@@ -6,7 +6,6 @@ export default function RatingInputComp(props) {
   const [rate, setRate] = useState(props.rate!==""?(props.rate===0?0:props.rate):5);
   const [hover, setHover] = useState(0);
   const changeRating = (index) => {
-    console.log(index)
     setRate(index)
     props.setRating(index)
   }

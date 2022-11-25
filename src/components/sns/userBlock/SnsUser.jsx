@@ -55,7 +55,6 @@ export default function SnsUser(props) {
   const { mutate: addFollow } = useMutation(postAddFollow, {
     onSuccess: () => {
       refetch();
-      console.log('성공');
     },
     onError: () => {
       console.log('에러');
@@ -64,7 +63,6 @@ export default function SnsUser(props) {
   const { mutate: cancelFollow } = useMutation(putCancelFollow, {
     onSuccess: () => {
       refetch();
-      console.log('성공');
     },
     onError: () => {
       console.log('에러');

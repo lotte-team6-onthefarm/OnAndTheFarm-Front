@@ -177,7 +177,6 @@ export default function UpdateProduct() {
       let compressedFile;
       // 상품 image 데이터 추가
       if (uploadMainImages !== serverMainImage) {
-        console.log(uploadMainImages, '로 들어간다이');
         // 메인 이미지가 바꼈으면 추가
         compressedFile = await imageCompression(uploadMainImages[0], options);
         formData.append('mainImage', compressedFile);

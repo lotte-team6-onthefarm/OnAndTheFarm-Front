@@ -46,11 +46,9 @@ const deleteWishList = async data => {
 
 // 상품 검색
 const getSearchProducts = async (searchText, pageNo) => {
-  console.log(searchText, pageNo, 'ssssssssssss');
   const response = await JWTapiUser.get(
     `product/search/${searchText}/${pageNo}`,
   );
-  console.log(response, '정답');
   return response.data.data;
 };
 

@@ -27,7 +27,6 @@ export default function SellerSearchIdPage() {
         navigate('/seller/login');
       },
       onError: res => {
-        console.log(res);
       },
     },
   );

@@ -74,9 +74,6 @@ export default function MainOrder() {
         productPrice: preOrderList[index].productPrice,
       });
     }
-    console.log(imp_uid);
-    console.log(merchant_uid);
-    console.log(paid_amount);
     const data = {
       orderRecipientName: recieverName,
       orderAddress: recieverAddress,
@@ -89,10 +86,8 @@ export default function MainOrder() {
       paid_amount: paid_amount,
     };
     if (feedNumber === null) {
-      console.log('그냥주문');
       makeOrder(data);
     } else {
-      console.log('포인트주문');
       makePointOrder(data);
     }
   };
@@ -197,7 +192,6 @@ export default function MainOrder() {
       status,
     } = response;
     if (success) {
-      console.log(imp_uid);
       setImp_uid(imp_uid);
       setMerchant_uid(merchant_uid);
       setPaid_amount(paid_amount);

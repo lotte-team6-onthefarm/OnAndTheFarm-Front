@@ -30,7 +30,6 @@ export default function MainMypageOrderCancel() {
       refetchOnWindowFocus: true,
       keepPreviousData: true,
       onSuccess: res => {
-        console.log(res);
         setNowPage(res.currentPageNum);
         setTotalPage(res.totalPageNum);
       },

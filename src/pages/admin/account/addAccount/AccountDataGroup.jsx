@@ -20,7 +20,6 @@ export default function AccountDataGroup(props) {
     inputData.exhibitionItemsName = itemsName;
     inputData.exhibitionItemsDetail = itemsDetail;
     inputData.exhibitionItemFormRequests = datas;
-    console.log(inputData, '들어가는 데이터');
     props.pushSubmitData(inputData);
     // dataGroups[idx]에 넣기
   };

@@ -22,7 +22,6 @@ export default function MainProduct(props) {
       onError: () => {},
     },
   );
-  console.log(props);
   return (
     <>
       {!productListLoading && (

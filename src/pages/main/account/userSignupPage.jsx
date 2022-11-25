@@ -32,7 +32,6 @@ export default function UserSignupPage() {
       userSex: userGender,
       userBirthday: userBirthday,
     };
-    console.log(data)
     if(nullCheck(data)){
       signupUser(data);
     } else {

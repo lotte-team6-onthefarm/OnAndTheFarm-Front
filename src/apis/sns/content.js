@@ -51,7 +51,6 @@ const getFeedDetail = async (id, number) => {
 
 // 피드 포인트 증가
 const putUpFeedPoint = async data => {
-  console.log(data)
   const response = await JWTapiUser.put('sns/feed/share/point', data);
   return response.data;
 };
