@@ -13,9 +13,6 @@ export default function AddImageUpload(props) {
     fileInput.current.click();
   };
 
-  const setPosition = () => {
-    console.log('test')
-  }
 
   return (
     <ImageUploadWrapper>

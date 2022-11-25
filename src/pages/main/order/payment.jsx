@@ -49,12 +49,9 @@ const Payment = pros => {
   const callback = response => {
     const { success, error_msg, imp_uid, merchant_uid, paid_amount } = response;
     if (success) {
-      console.log(success, '?');
-      console.log(imp_uid);
       alert('재결제가 완료되었습니다');
       navigate('/');
     } else {
-      console.log(success, 'ww');
       alert(`결제 실패 : ${error_msg}`);
     }
   };

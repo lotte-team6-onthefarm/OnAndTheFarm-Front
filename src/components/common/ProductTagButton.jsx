@@ -53,8 +53,6 @@ export default function ProductTagButton(props) {
     //   ? {...item, x: (logoPos[params.args[0]].x), y: (logoPos[params.args[0]].y)}
     //   : item
     // ))
-    // console.log(params.offset[0])
-    // console.log(params.offset[1])
     // setlogoPos({
     //   x: params.offset[0] + 100,
     //   y: params.offset[1],

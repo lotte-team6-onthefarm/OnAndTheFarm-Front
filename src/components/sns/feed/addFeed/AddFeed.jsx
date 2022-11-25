@@ -87,13 +87,6 @@ export default function AddFeed() {
       // 압축 결과
       let compressedFile;
       // Feed Image 데이터 추가
-      // for (let i = 0; i < images.length; i++) {
-      //   compressedFile = await imageCompression(images[i], options);
-      //   console.log(images[i], 'image');
-      //   console.log(compressedFile, 'convet');
-      //   formData.append('images', compressedFile);
-      // }
-
       for (let i = 0; i < images.length; i++) {
         compressedFile = await imageCompression(images[i], options);
         formData.append('images', compressedFile);
@@ -148,7 +141,6 @@ export default function AddFeed() {
     URL.revokeObjectURL(images);
     setPreImages([]); // 초기화
     for (let i = e.target.files.length - 1; i >= 0; i--) {
-      console.log(e.target.files[i].name, '파일 순서 : ', i);
       const url = URL.createObjectURL(e.target.files[i]);
       setPreImages(preImages => [url, ...preImages]);
     }

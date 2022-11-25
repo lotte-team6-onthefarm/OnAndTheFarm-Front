@@ -52,7 +52,6 @@ export default function AddModule() {
     try {
       // 압축 결과
       const compressedFile = await imageCompression(moduleImages[0], options);
-      console.log(compressedFile)
       formData.append('image', compressedFile);
       // 상품 데이터 추가
       formData.append(

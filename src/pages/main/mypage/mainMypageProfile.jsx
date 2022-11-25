@@ -142,10 +142,6 @@ export default function MainMypageProfile() {
     setProfileImages(e.target.files);
   };
 
-  const test = () => {
-    console.log(imageUrl);
-  };
-
   return (
     <div>
       {!isgetUserInfo && (

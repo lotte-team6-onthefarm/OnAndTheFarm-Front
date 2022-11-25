@@ -68,8 +68,6 @@ export default function SellerNavbar() {
     const token = localStorage.getItem('token');
     if (token === null) {
       navigate('/seller/login');
-    } else {
-      // console.log(token);
     }
   }, [navigate]);
 

@@ -39,33 +39,6 @@ export default function AddFeedCarousel(props) {
                   ? e.nativeEvent.offsetY
                   : e.nativeEvent.layerY,
               );
-              // if (props.images.length === 1) {
-              //   console.log(e.nativeEvent.layerX, 'xxxxx');
-              // } else if (
-              //   e.nativeEvent.offsetX + 550 * (idx + 1) >
-              //     e.nativeEvent.layerX &&
-              //   e.nativeEvent.layerX > e.nativeEvent.offsetX - 550 * (idx + 1)
-              // ) {
-              //   console.log(e.nativeEvent.layerX + 550 * (idx + 1), 'ifxxxxx');
-              // } else {
-              //   console.log(e.nativeEvent.offsetX, 'elsexxxxx');
-              // }
-              // if (
-              //   e.nativeEvent.offsetY + 5 > e.nativeEvent.layerY &&
-              //   e.nativeEvent.layerY > e.nativeEvent.offsetY - 5
-              // ) {
-              //   console.log(e.nativeEvent.offsetY, 'iftttttt');
-              // } else {
-              //   console.log(e.nativeEvent.layerY, 'elsettttt');
-              // }
-              // console.log(
-              //   e,
-              //   idx,
-              //   e.nativeEvent.offsetX,
-              //   e.nativeEvent.layerX,
-              //   e.nativeEvent.offsetY,
-              //   e.nativeEvent.layerY,
-              // );
               if(!isMove){
                 props.setModal(true);
               }

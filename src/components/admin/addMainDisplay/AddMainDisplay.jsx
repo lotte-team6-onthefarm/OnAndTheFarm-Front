@@ -115,7 +115,6 @@ export default function AddMainDisplay() {
       setPriority(res.length + 1);
     },
     onError: () => {
-      console.log('에러');
     },
   });
 

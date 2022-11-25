@@ -19,7 +19,6 @@ export default function SnsMainLayout() {
       setSearchValue(searchParams.get('search'));
       setUrl('/search');
       setFilterList(4);
-      console.log('검색')
     }
   }, []);
 
@@ -48,43 +47,6 @@ export default function SnsMainLayout() {
       setUrl('/search');
     }
   };
-  // const {
-  //   data: searchData,
-  //   refetch: refeesdfaseras,
-  //   fetchNextPage,
-  //   isLoading: getFeedLoading,
-  //   isFetchingNextPage,
-  //   isPreviousData,
-  // } = useInfiniteQuery(
-  //   ['getFeedByTag', searchWord],
-  //   ({ pageParam = 0 }) => getFeedByTag(searchWord, pageParam),
-  //   {
-  //     keepPreviousData: true,
-  //     getNextPageParam: lastPage =>
-  //       !lastPage.isLast ? lastPage.nextPage : undefined,
-  //     onSuccess: res => {
-  //       console.log(res,'resssss')
-  //       // setLoading(true);
-
-  //       // setTimeout(() => {
-  //       //   setLoading(false);
-  //       // }, 2000);
-  //       // queryClient.setQueryData(['getFeed', props.url], oldProfile => {
-  //       //   return { oldProfile, ...res.pages[props.page].posts };
-  //       // });
-  //       // console.log(res);
-  //       // if (props.page === 0) {
-  //       //   // 0페이지시 초기화후 데이터 넣기
-  //       //   setSnsList(res.pages[props.page].posts);
-  //       //   props.setPage(props.page + 1);
-  //       // }
-  //       // if (res.pages[props.page] !== undefined) {
-  //       //   setSnsList([...snsList, ...res.pages[props.page].posts]);
-  //       //   props.setPage(props.page + 1);
-  //       // }
-  //     },
-  //   },
-  // );
 
   const search = () => {
     setSearchValue(searchWord);

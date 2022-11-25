@@ -5,7 +5,6 @@ import { FeedTagWrapper } from './FeedTag.styled';
 export default function FeedTag(props) {
   const navigate = useNavigate();
   const clickTag = e => {
-    console.log(e.target.id);
     navigate(`/sns/main?search=${e.target.id}`);
   };
   return (

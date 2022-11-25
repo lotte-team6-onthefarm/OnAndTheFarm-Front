@@ -47,7 +47,6 @@ const getSellerProduct = async (data, status) => {
 
 // 셀러가 등록한 내 상품 조회 -> 내 토큰으로 확인하는 것
 const getSellerMyProduct = async (pageNo, status) => {
-  console.log(pageNo, status, '들어온다');
   const response = await JWTapiSeller.get(
     `product/list/selling-product/by-seller/${pageNo}`,
   );

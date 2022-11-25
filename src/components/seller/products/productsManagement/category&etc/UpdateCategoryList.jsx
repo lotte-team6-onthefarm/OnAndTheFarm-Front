@@ -11,7 +11,6 @@ export default function UpdateCategoryList(props) {
   const [categoryData, setCategoryData] = useState(0);
 
   useDidMountEffect(() => {
-    console.log(categoryData, '33333333유스디드마운트');
     setCategoryId(categoryData);
   }, [categoryData]);
 

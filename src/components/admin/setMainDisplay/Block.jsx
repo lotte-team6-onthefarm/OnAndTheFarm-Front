@@ -17,11 +17,6 @@ export default function Block(props) {
       props.setFlag(false);
     }
   };
-
-  const detail = () => {
-    console.log(props.block)
-  }
-
   return (
     <BlockDiv
       className="displayBlockImgDiv"
@@ -31,7 +26,6 @@ export default function Block(props) {
       onDrop={event => dragFunction(event, 'drop', props.id)}
       onDragEnter={event => dragFunction(event, 'enter', props.id)}
       onDragLeave={event => dragFunction(event, 'leave', props.id)}
-      onClick={detail}
     >
       <img
         src={

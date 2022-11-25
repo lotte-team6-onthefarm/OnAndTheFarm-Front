@@ -31,10 +31,6 @@ export default function DisplayBlock(props) {
   };
 
   const moveTemp = drop => {
-    console.log(dragItem, '드래그한아이템');
-    console.log(drop, '바꿔야하는 아이템');
-
-    // console.log('adkfjasiodfjaio');
     // const { card, index } = findTemp(id);
     let newTemps = temp;
     const tempItem = newTemps[dragItem];

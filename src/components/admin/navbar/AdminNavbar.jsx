@@ -86,7 +86,6 @@ export default function AdminNavbar() {
           localStorage.removeItem('recoil-persist'); // 전역 member_id 삭제
           document.location.href = '/seller';
         }
-        console.log('에러');
       },
     },
   );

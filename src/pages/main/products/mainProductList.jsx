@@ -57,7 +57,6 @@ export default function MainProductList() {
   
   
   useEffect(() => {
-    console.log(category)
     if (category === 'banana') {
       setSelectedCategory(1);
     } else if (category === 'persimmon') {

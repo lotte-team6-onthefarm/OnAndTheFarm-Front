@@ -71,7 +71,6 @@ export default function AddAccount() {
   };
 
   const accountNewBtn = () => {
-    console.log(submitData, dataGroupCount, '최종 보내주는 데이터');
 
     const isValidation = validataionCheck();
     if (isValidation) {
@@ -81,7 +80,6 @@ export default function AddAccount() {
 
   const pushSubmitData = inputData => {
     submitData.exhibitionItemsFormRequests.push(inputData);
-    console.log(submitData, '최종');
   };
 
   const visibleDataBtn = () => {

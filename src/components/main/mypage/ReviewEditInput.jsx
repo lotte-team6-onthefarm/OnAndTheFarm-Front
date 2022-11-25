@@ -54,7 +54,6 @@ export default function ReviewEditInput(props) {
     reviewDelete({
       reviewId: props.id,
     });
-    console.log('리뷰삭제');
   };
 
   return (

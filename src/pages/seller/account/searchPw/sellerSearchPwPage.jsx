@@ -32,7 +32,6 @@ export default function SellerSearchPwPage() {
         setIsId(true);
       },
       onError: res => {
-        console.log(res);
       },
     },
   );
@@ -45,7 +44,6 @@ export default function SellerSearchPwPage() {
         navigate('/seller/login');
       },
       onError: res => {
-        console.log(res);
       },
     },
   );

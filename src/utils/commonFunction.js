@@ -57,7 +57,6 @@ const getDateNoConnect = date => {
 
 const getDateConnect = date => {
   // 날짜포맷 변경 (YYYYMMDDHHMMSS-> YYYY-MM-DD HH:MM:SS)
-  // console.log(date);
   let year = date.substr(0, 4);
   let month = date.slice(4, 6);
   let day = date.slice(6, 8);
